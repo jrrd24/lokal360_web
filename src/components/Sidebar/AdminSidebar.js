@@ -95,7 +95,7 @@ const Drawer = styled(MuiDrawer, {
   }),   
 }));
 
-export default function DBSidebar({ component: MainComponent }) {
+export default function AdminSidebar({ component: MainComponent }) {
   //Selected Menu Item
   const [selectedMenuItem, setSelectedMenuItem] = React.useState("Dashboard");
 

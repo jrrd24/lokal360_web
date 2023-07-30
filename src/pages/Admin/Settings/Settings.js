@@ -1,10 +1,10 @@
 import React from 'react'
-import DBSidebar from '../../../components/SidebarAndAppbar/DBSidebar'
+import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
 import SettingsContent from './SettingsContent'
 
 function Settings() {
   return (
-    <DBSidebar component={SettingsContent}/>
+    <AdminSidebar component={SettingsContent}/>
   )
 }
 

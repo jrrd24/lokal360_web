@@ -1,11 +1,11 @@
 import React from 'react'
-import DBSidebar from '../../../components/SidebarAndAppbar/DBSidebar'
+import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
 import ShopsManagementContent from './ShopsManagementContent'
 
 
 function ShopsManagement() {
   return (
-    <DBSidebar component={ShopsManagementContent}/>
+    <AdminSidebar component={ShopsManagementContent}/>
   )
 }
 

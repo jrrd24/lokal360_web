@@ -1,10 +1,10 @@
 import React from 'react'
 import CategoryContent from './CategoryContent'
-import DBSidebar from '../../../components/SidebarAndAppbar/DBSidebar'
+import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
 
 function Category() {
   return (
-    <DBSidebar component={CategoryContent}/>
+    <AdminSidebar component={CategoryContent}/>
   )
 }
 

@@ -1,10 +1,10 @@
 import React from 'react'
-import DBSidebar from '../../../components/SidebarAndAppbar/DBSidebar'
+import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
 import UsersContent from './UsersContent'
 
 function Users() {
   return (
-    <DBSidebar component={UsersContent}/>
+    <AdminSidebar component={UsersContent}/>
   )
 }
 

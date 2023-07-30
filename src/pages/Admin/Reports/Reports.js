@@ -1,10 +1,10 @@
 import React from 'react'
 import ReportsContent from './ReportsContent'
-import DBSidebar from '../../../components/SidebarAndAppbar/DBSidebar'
+import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
 
 function Reports() {
   return (
-    <DBSidebar component={ReportsContent}/>
+    <AdminSidebar component={ReportsContent}/>
   )
 }
 

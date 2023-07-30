@@ -1,10 +1,10 @@
 import React from 'react'
 import AnalyticsContent from './AnalyticsContent'
-import DBSidebar from '../../../components/SidebarAndAppbar/DBSidebar'
+import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
 
 function Analytics() {
   return (
-    <DBSidebar component={AnalyticsContent}/>
+    <AdminSidebar component={AnalyticsContent}/>
   )
 }
 
