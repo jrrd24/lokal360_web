@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme, } from "@mui/material/styles";
+import { styled, useTheme, alpha } from "@mui/material/styles";
 import {
   Box,
   List,
@@ -11,7 +11,11 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  IconButton
+  IconButton,
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -20,16 +24,55 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import ReportIcon from "@mui/icons-material/Report";
-import CategoryIcon from "@mui/icons-material/Category";
-import StoreIcon from "@mui/icons-material/Store";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import SellIcon from "@mui/icons-material/Sell";
 import PeopleIcon from "@mui/icons-material/People";
 import SettingsIcon from "@mui/icons-material/Settings";
+import StorefrontIcon from "@mui/icons-material/Storefront";
+import PercentIcon from "@mui/icons-material/Percent";
 import CampaignIcon from "@mui/icons-material/Campaign";
+import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
 import { useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import MailIcon from "@mui/icons-material/Mail";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import MoreIcon from "@mui/icons-material/MoreVert";
 
 const drawerWidth = 240;
 
+//For Appbar
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
+
+//For Drawer
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -92,10 +135,109 @@ const Drawer = styled(MuiDrawer, {
   ...(!open && {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
-  }),   
+  }),
 }));
 
-export default function DBSidebar({ component: MainComponent }) {
+export default function DBSidebarShop({ component: MainComponent }) {
+  //For App
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const menuId = "primary-search-account-menu";
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    </Menu>
+  );
+
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="error">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton
+          size="large"
+          aria-label="show 17 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={17} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+
+  //For Drawer
   //Selected Menu Item
   const [selectedMenuItem, setSelectedMenuItem] = React.useState("Dashboard");
 
@@ -104,51 +246,59 @@ export default function DBSidebar({ component: MainComponent }) {
 
   //Sidebar Navigation On Click
   function handleDashboardClick(event) {
-    navigate("/admin/dashboard");
+    navigate("/shop/dashboard");
   }
   function handleAnalyticsClick(event) {
-    navigate("/admin/analytics");
+    navigate("/shop/analytics");
   }
-  function handleReportsClick(event) {
-    navigate("/admin/reports");
+  function handleProductsClick(event) {
+    navigate("/shop/products");
   }
-  function handleCategoriesClick(event) {
-    navigate("/admin/category");
+  function handleCustomersClick(event) {
+    navigate("/shop/customers");
   }
-  function handleShopsClick(event) {
-    navigate("/admin/shop_management");
+  function handleOrdersClick(event) {
+    navigate("/shop/orders");
+  }
+  function handleShopInfoClick(event) {
+    navigate("/shop/shop_information");
+  }
+  function handlePromosClick(event) {
+    navigate("/shop/promos");
   }
   function handleLokalAdsClick(event) {
-    navigate("/admin/lokal_ads");
+    navigate("/shop/lokal_ads");
   }
-  function handleUsersClick(event) {
-    navigate("/admin/users");
+  function handleVouchersClick(event) {
+    navigate("/shop/vouchers");
   }
   function handleSettingsClick(event) {
-    setSelectedMenuItem("Settings");
-    navigate("/admin/settings");
+    navigate("/shop/settings");
   }
-
   // Set the initial selectedMenuItem based on the current pathname
   React.useEffect(() => {
     const currentPathname = window.location.pathname;
     const menuItems = [
-      "/admin/dashboard",
-      "/admin/analytics",
-      "/admin/reports",
-      "/admin/category",
-      "/admin/shop_management",
-      "/admin/lokal_ads",
-      "/admin/users",
+      "/shop/dashboard",
+      "/shop/analytics",
+      "/shop/products",
+      "/shop/customers",
+      "/shop/orders",
+      "/shop/shop_information",
+      "/shop/promos",
+      "/shop/lokal_ads",
+      "/shop/vouchers",
     ];
     const menuItemTexts = [
       "Dashboard",
       "Analytics",
-      "Reports",
-      "Categories",
-      "Shops Management",
+      "Products",
+      "Customers",
+      "Orders",
+      "Shop Information",
+      "Promos",
       "Lokal Ads",
-      "Users",
+      "Vouchers",
     ];
     const selectedMenuItemIndex = menuItems.indexOf(currentPathname);
     if (selectedMenuItemIndex !== -1) {
@@ -167,7 +317,6 @@ export default function DBSidebar({ component: MainComponent }) {
   //Open and Close Drawer
   const handleDrawerOpen = () => {
     setOpen(true);
-    
   };
 
   const handleDrawerClose = () => {
@@ -177,8 +326,8 @@ export default function DBSidebar({ component: MainComponent }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
+      {/*Appbar (Header) */}
       <AppBar position="fixed" open={open}>
-        {/*Header */}
         <Toolbar sx={{ backgroundColor: "#FFFFFF" }}>
           {/*Hamburger Menu Button */}
           <IconButton
@@ -196,24 +345,82 @@ export default function DBSidebar({ component: MainComponent }) {
 
           {/*Branding Logo */}
           <img
-            src={require("../assets/lokal360_Logo.png")}
+            src={require("../../assets/lokal360_Logo.png")}
             alt="logo"
             style={{ width: 53, height: 45 }}
           />
-          {/*Page Name */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="div"
-            sx={{ color: "#6E5FDE", fontWeight: "medium" }}
+          {/*Search */}
+          <Box
+            sx={{
+              minWidth: "1vw",
+              maxWidth: "2000",
+              backgroundColor: "#fafafa",
+              border: 1,
+              borderColor: "#BBBBBB",
+              borderRadius: 2,
+              alignSelf: "center",
+              display: { xs: "none" ,sm: "block" },
+            }}
           >
-            Admin View
-          </Typography>
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Search Google Maps"
+              inputProps={{ "aria-label": "search google maps" }}
+            />
+            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </Box>
+
+          <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="#BBBBBB"
+            >
+              <Badge badgeContent={4} color="error">
+                <MailIcon color="primary"/>
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="primary"
+            >
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="primary"
+            >
+              <AccountCircle />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="primary"
+              
+            >
+              <MoreIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
 
       {/*Sidebar */}
-      
       <Drawer
         variant="permanent"
         open={open}
@@ -260,19 +467,29 @@ export default function DBSidebar({ component: MainComponent }) {
               onClick: handleAnalyticsClick,
             },
             {
-              text: "Reports",
-              icon: <ReportIcon />,
-              onClick: handleReportsClick,
+              text: "Products",
+              icon: <InventoryIcon />,
+              onClick: handleProductsClick,
             },
             {
-              text: "Categories",
-              icon: <CategoryIcon />,
-              onClick: handleCategoriesClick,
+              text: "Customers",
+              icon: <PeopleIcon />,
+              onClick: handleCustomersClick,
             },
             {
-              text: "Shops Management",
-              icon: <StoreIcon />,
-              onClick: handleShopsClick,
+              text: "Orders",
+              icon: <SellIcon />,
+              onClick: handleOrdersClick,
+            },
+            {
+              text: "Shop Information",
+              icon: <StorefrontIcon />,
+              onClick: handleShopInfoClick,
+            },
+            {
+              text: "Promos",
+              icon: <PercentIcon />,
+              onClick: handlePromosClick,
             },
             {
               text: "Lokal Ads",
@@ -280,9 +497,9 @@ export default function DBSidebar({ component: MainComponent }) {
               onClick: handleLokalAdsClick,
             },
             {
-              text: "Users",
-              icon: <PeopleIcon />,
-              onClick: handleUsersClick,
+              text: "Vouchers",
+              icon: <CardGiftcardIcon />,
+              onClick: handleVouchersClick,
             },
           ].map((item) => (
             <ListItem key={item.text} disablePadding sx={{ display: "block" }}>
