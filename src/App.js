@@ -14,8 +14,10 @@ import { Route, Routes } from "react-router-dom";
 import DashboardShop from "./pages/Shop/DashboardShop/DashboardShop";
 import AnalyticsShop from "./pages/Shop/AnalyticsShop/AnalyticsShop";
 import ProductsShop from "./pages/Shop/ProductsShop/ProductsShop";
+import CustomersShop from "./pages/Shop/CustomersShop/CustomersShop";
 import theme from "./Theme";
 import { ThemeProvider } from "@emotion/react";
+
 
 function App() {
   return (
@@ -38,7 +40,8 @@ function App() {
             <Route path="/shop/dashboard" element={<DashboardShop />} />
             <Route path="/shop/analytics" element={<AnalyticsShop />} />
             <Route path="/shop/products" element={<ProductsShop />} />
-
+            <Route path="/shop/customers" element={<CustomersShop />} />
+            
             {/*Display Error page if route does not exist */}
             <Route path="*" element={<RouterError />} />
           </Routes>

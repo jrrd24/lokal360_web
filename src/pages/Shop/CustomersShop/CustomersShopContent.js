@@ -1,13 +1,13 @@
 import React from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 
-function ProductsShopContent() {
+function CustomersShopContent() {
   return (
     <PageInfoComponent
-      PageName={"Products"}
-      Subtitle={"Add and Manage your Products"}
+      PageName={"Customers"}
+      Subtitle={"View and Manage your Shop's Customers"}
     />
   );
 }
 
-export default ProductsShopContent;
+export default CustomersShopContent;
