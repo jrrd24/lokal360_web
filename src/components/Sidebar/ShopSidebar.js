@@ -138,7 +138,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function DBSidebarShop({ component: MainComponent }) {
+export default function ShopSidebar({ component: MainComponent }) {
   //For App
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);

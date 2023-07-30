@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import React from 'react'
-import DBSidebarShop from '../../../components/Sidebar/DBSidebarShop'
+import DBSidebarShop from '../../../components/Sidebar/ShopSidebar'
 import AnalyticsShopContent from './AnalyticsShopContent'
 
 function AnalyticsShop() {
