@@ -18,7 +18,7 @@ function RouterError() {
       
       <Stack spacing={2}>
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Oops! sdadad
+          Oops! 
         </Typography>
         <Stack spacing={0}>
           <Typography variant="h6" sx={{ fontWeight: "medium" }}>
