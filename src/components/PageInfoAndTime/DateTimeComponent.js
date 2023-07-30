@@ -21,8 +21,8 @@ const DateTimeComponent = () => {
   // Function to get the formatted time string
   const getFormattedTime = () => {
     const currentDate = new Date();
-    let hours = addZero(currentDate.getHours());
-    let minutes = addZero(currentDate.getMinutes());
+    let hours = currentDate.getHours();
+    let minutes = currentDate.getMinutes();
     let seconds = addZero(currentDate.getSeconds());
     const ampm = hours >= 12 ? 'PM' : 'AM';
 

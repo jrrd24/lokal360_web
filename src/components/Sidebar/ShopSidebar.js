@@ -261,7 +261,7 @@ export default function ShopSidebar({ component: MainComponent }) {
     navigate("/shop/orders");
   }
   function handleShopInfoClick(event) {
-    navigate("/shop/shop_information");
+    navigate("/shop/shop_info");
   }
   function handlePromosClick(event) {
     navigate("/shop/promos");
@@ -284,7 +284,7 @@ export default function ShopSidebar({ component: MainComponent }) {
       "/shop/products",
       "/shop/customers",
       "/shop/orders",
-      "/shop/shop_information",
+      "/shop/shop_info",
       "/shop/promos",
       "/shop/lokal_ads",
       "/shop/vouchers",

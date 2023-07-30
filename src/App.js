@@ -17,6 +17,8 @@ import ProductsShop from "./pages/Shop/ProductsShop/ProductsShop";
 import CustomersShop from "./pages/Shop/CustomersShop/CustomersShop";
 import theme from "./Theme";
 import { ThemeProvider } from "@emotion/react";
+import OrdersShop from "./pages/Shop/OrdersShop/OrdersShop";
+import ShopInfo from "./pages/Shop/ShopInfo/ShopInfo";
 
 
 function App() {
@@ -41,6 +43,8 @@ function App() {
             <Route path="/shop/analytics" element={<AnalyticsShop />} />
             <Route path="/shop/products" element={<ProductsShop />} />
             <Route path="/shop/customers" element={<CustomersShop />} />
+            <Route path="/shop/orders" element={<OrdersShop />} />
+            <Route path='/shop/shop_info' element={<ShopInfo/>}/>
             
             {/*Display Error page if route does not exist */}
             <Route path="*" element={<RouterError />} />
