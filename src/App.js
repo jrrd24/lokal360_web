@@ -15,10 +15,14 @@ import DashboardShop from "./pages/Shop/DashboardShop/DashboardShop";
 import AnalyticsShop from "./pages/Shop/AnalyticsShop/AnalyticsShop";
 import ProductsShop from "./pages/Shop/ProductsShop/ProductsShop";
 import CustomersShop from "./pages/Shop/CustomersShop/CustomersShop";
-import theme from "./Theme";
-import { ThemeProvider } from "@emotion/react";
 import OrdersShop from "./pages/Shop/OrdersShop/OrdersShop";
 import ShopInfo from "./pages/Shop/ShopInfo/ShopInfo";
+import PromosShop from "./pages/Shop/PromosShop/PromosShop";
+import LokalAdsShop from "./pages/Shop/LokalAdsShop/LokalAdsShop";
+import VouchersShop from "./pages/Shop/VouchersShop/VouchersShop";
+import theme from "./Theme";
+import { ThemeProvider } from "@emotion/react";
+
 
 
 function App() {
@@ -27,7 +31,9 @@ function App() {
       <Container disableGutters maxWidth="100%">
         <div className="App">
           <Routes>
+            {/*Login */}
             <Route path="/" element={<Login />} />
+            {/*Admin */}
             <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin/analytics" element={<Analytics />} />
             <Route path="/admin/reports" element={<Reports />} />
@@ -39,13 +45,16 @@ function App() {
             <Route path="/admin/lokal_ads" element={<LokalAds />} />
             <Route path="/admin/users" element={<Users />} />
             <Route path="/admin/settings" element={<Settings />} />
+            {/*Shop */}
             <Route path="/shop/dashboard" element={<DashboardShop />} />
             <Route path="/shop/analytics" element={<AnalyticsShop />} />
             <Route path="/shop/products" element={<ProductsShop />} />
             <Route path="/shop/customers" element={<CustomersShop />} />
             <Route path="/shop/orders" element={<OrdersShop />} />
             <Route path='/shop/shop_info' element={<ShopInfo/>}/>
-            
+            <Route path='/shop/promos' element={<PromosShop/>}/>
+            <Route path='/shop/lokal_ads' element={<LokalAdsShop/>}/>
+            <Route path='/shop/vouchers' element={<VouchersShop/>}/>
             {/*Display Error page if route does not exist */}
             <Route path="*" element={<RouterError />} />
           </Routes>
