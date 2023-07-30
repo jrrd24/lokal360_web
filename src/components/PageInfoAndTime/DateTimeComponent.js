@@ -4,6 +4,11 @@ import Typography from '@mui/material/Typography';
 const DateTimeComponent = () => {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
+  function addZero(i) {
+    if (i < 10) {i = "0" + i}
+    return i;
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentDateTime(new Date());
@@ -16,15 +21,16 @@ const DateTimeComponent = () => {
   // Function to get the formatted time string
   const getFormattedTime = () => {
     const currentDate = new Date();
-    let hours = currentDate.getHours();
-    let minutes = currentDate.getMinutes();
+    let hours = addZero(currentDate.getHours());
+    let minutes = addZero(currentDate.getMinutes());
+    let seconds = addZero(currentDate.getSeconds());
     const ampm = hours >= 12 ? 'PM' : 'AM';
 
     // Convert to 12-hour format
     hours = hours % 12 || 12;
     minutes = minutes < 10 ? '0' + minutes : minutes;
 
-    return `${hours}:${minutes} ${ampm}`;
+    return `${hours}:${minutes}:${seconds} ${ampm}`;
   };
 
   // Function to get the formatted date string

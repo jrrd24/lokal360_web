@@ -13,6 +13,7 @@ import RouterError from "./pages/Error/RouterError";
 import { Route, Routes } from "react-router-dom";
 import DashboardShop from "./pages/Shop/DashboardShop/DashboardShop";
 import AnalyticsShop from "./pages/Shop/AnalyticsShop/AnalyticsShop";
+import ProductsShop from "./pages/Shop/ProductsShop/ProductsShop";
 import theme from "./Theme";
 import { ThemeProvider } from "@emotion/react";
 
@@ -36,6 +37,8 @@ function App() {
             <Route path="/admin/settings" element={<Settings />} />
             <Route path="/shop/dashboard" element={<DashboardShop />} />
             <Route path="/shop/analytics" element={<AnalyticsShop />} />
+            <Route path="/shop/products" element={<ProductsShop />} />
+
             {/*Display Error page if route does not exist */}
             <Route path="*" element={<RouterError />} />
           </Routes>
