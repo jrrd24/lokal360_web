@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Typography from '@mui/material/Typography';
+import React, { useState, useEffect } from "react";
+import Typography from "@mui/material/Typography";
 
 const DateTimeComponent = () => {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   function addZero(i) {
-    if (i < 10) {i = "0" + i}
+    if (i < 10) {
+      i = "0" + i;
+    }
     return i;
   }
 
@@ -24,31 +26,39 @@ const DateTimeComponent = () => {
     let hours = currentDate.getHours();
     let minutes = currentDate.getMinutes();
     let seconds = addZero(currentDate.getSeconds());
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const ampm = hours >= 12 ? "PM" : "AM";
 
     // Convert to 12-hour format
     hours = hours % 12 || 12;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
 
     return `${hours}:${minutes}:${seconds} ${ampm}`;
   };
 
   // Function to get the formatted date string
   const getFormattedDate = () => {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
     const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
     const currentDate = currentDateTime;
@@ -60,19 +70,22 @@ const DateTimeComponent = () => {
     return (
       <>
         <Typography variant="subtitle1">
-        <Typography variant="h5" component="span" sx={{ fontWeight: 'bold' }}>
-          {dayOfWeek}{', '}
+          <Typography variant="h5" component="span" sx={{ fontWeight: "bold" }}>
+            {dayOfWeek}
+            {", "}
+          </Typography>
+          {`${month} ${dayOfMonth}, ${year}`}
         </Typography>
-        {`${month} ${dayOfMonth}, ${year}`}
-      </Typography>
       </>
     );
   };
 
   return (
-    <div style={{textAlign:'right'}}>
+    <div style={{ textAlign: "right" }}>
       {getFormattedDate()}
-      <Typography variant="h5" sx={{fontWeight:'bold'}}>{getFormattedTime()}</Typography>
+      <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+        {getFormattedTime()}
+      </Typography>
     </div>
   );
 };

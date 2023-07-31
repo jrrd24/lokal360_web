@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, Stack, Hidden } from "@mui/material";
 import DateTimeComponent from "./DateTimeComponent";
+import PartnerTag from "../PartnerTag";
 
-function PageInfoComponent({ PageName, Subtitle }) {
+function PageInfoComponent({ PageName, Subtitle, isPartner }) {
+  // const [partnerFeature, setPartnerFeature] = useState("false");
+  // setPartnerFeature=isPartner;
+
   return (
     <Box>
       {/*Shop Info */}
@@ -17,12 +21,17 @@ function PageInfoComponent({ PageName, Subtitle }) {
         }}
       >
         <Stack spacing={-1}>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }} gutterBottom>
-            {PageName}
-          </Typography>
+          <Stack spacing={2} direction={"row"} alignContent={"center"} >
+            {/*Show Page Name */}
+            <Typography variant="h4" sx={{ fontWeight: "bold" }} gutterBottom>
+              {PageName}
+            </Typography>
+            {/*Show Partner Tag */}
+            <PartnerTag sx={{ display: 'none' }}/>
+          </Stack>
           <Typography variant="subtitle1">{Subtitle}</Typography>
         </Stack>
-        <Hidden only={['xs','sm']}>
+        <Hidden only={["xs", "sm"]}>
           <DateTimeComponent />
         </Hidden>
       </Box>
