@@ -1,14 +1,18 @@
-import React from 'react'
-import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
-import { Box } from '@mui/material'
-import LokalAdsContent from './LokalAdsContent'
+import React, { useEffect } from "react";
+import AdminSidebar from "../../../components/Sidebar/AdminSidebar";
+import { Box } from "@mui/material";
+import LokalAdsContent from "./LokalAdsContent";
 
 function LokalAds() {
-  return (
-    <Box>
-        <AdminSidebar component={LokalAdsContent}/>
-    </Box>
-  )
+  //Set Document Title
+  useEffect(() => {
+    document.title = "Lokal Ads | Lokal 360";
+    return () => {
+      document.title = "Lokal 360";
+    };
+  }, []);
+
+  return <AdminSidebar component={LokalAdsContent} />;
 }
 
-export default LokalAds
+export default LokalAds;

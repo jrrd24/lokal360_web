@@ -4,9 +4,8 @@ import DateTimeComponent from "./DateTimeComponent";
 import PartnerTag from "../PartnerTag";
 
 function PageInfoComponent({ PageName, Subtitle, isPartner }) {
-
   return (
-    <Box>
+    <Box sx={{ pb: 5 }}>
       {/*Shop Info */}
       <Box
         sx={{
@@ -19,7 +18,7 @@ function PageInfoComponent({ PageName, Subtitle, isPartner }) {
         }}
       >
         <Stack spacing={-1}>
-          <Stack spacing={2} direction={"row"} alignContent={"center"} >
+          <Stack spacing={2} direction={"row"} alignContent={"center"}>
             {/*Show Page Name */}
             <Typography variant="h4" sx={{ fontWeight: "bold" }} gutterBottom>
               {PageName}

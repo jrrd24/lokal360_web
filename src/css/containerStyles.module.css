@@ -1,0 +1,17 @@
+/*Page Section Container*/
+.sectionContainer {
+    border-radius: 10px;
+    background-color: #FFF;
+    box-shadow: 0px 4px 10px 0px rgba(110, 95, 222, 0.25);
+    transition: background-color 0.3s, opacity 0.3s;
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.sectionContainer:hover,
+.sectionContainer:focus,
+.sectionContainer:active {
+    background-color: #EFEFFB;
+}

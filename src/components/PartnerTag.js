@@ -58,6 +58,7 @@ function PartnerTag() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={{ userSelect: "none" }}
       >
         <Box sx={style} textAlign={"center"} alignContent={"center"}>
           <img
@@ -83,8 +84,8 @@ function PartnerTag() {
             Partner
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            This is a 360 partner feature, Only shops partner shops can access
-            this feature.
+            This is a 360 partner feature, Only partner shops can access this
+            feature.
           </Typography>
         </Box>
       </Modal>

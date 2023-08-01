@@ -81,7 +81,7 @@ const DateTimeComponent = () => {
   };
 
   return (
-    <div style={{ textAlign: "right" }}>
+    <div style={{ textAlign: "right", userSelect: "none" }}>
       {getFormattedDate()}
       <Typography variant="h5" sx={{ fontWeight: "bold" }}>
         {getFormattedTime()}

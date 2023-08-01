@@ -1,11 +1,17 @@
-import React from 'react'
-import CategoryContent from './CategoryContent'
-import AdminSidebar from '../../../components/Sidebar/AdminSidebar'
+import React, { useEffect } from "react";
+import CategoryContent from "./CategoryContent";
+import AdminSidebar from "../../../components/Sidebar/AdminSidebar";
 
 function Category() {
-  return (
-    <AdminSidebar component={CategoryContent}/>
-  )
+  //Set Document Title
+  useEffect(() => {
+    document.title = "Category | Lokal 360";
+    return () => {
+      document.title = "Lokal 360";
+    };
+  }, []);
+
+  return <AdminSidebar component={CategoryContent} />;
 }
 
-export default Category
+export default Category;

@@ -41,7 +41,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import BadgeIcon from "@mui/icons-material/Badge";
 
-const drawerWidth = 240;
+const drawerWidth = 260;
 
 //For Appbar
 const Search = styled("div")(({ theme }) => ({
@@ -311,7 +311,7 @@ export default function ShopSidebar({ component: MainComponent }) {
       "Lokal Ads",
       "Vouchers",
       "360 Partner",
-      "Emploee Management",
+      "Employee Management",
       "Settings",
     ];
     const selectedMenuItemIndex = menuItems.indexOf(currentPathname);
@@ -614,46 +614,6 @@ export default function ShopSidebar({ component: MainComponent }) {
             </ListItem>
           ))}
         </List>
-        {/* <List
-          sx={{
-            "& .MuiListItemButton-root:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-            "& .MuiListItemButton-root.Mui-selected": {
-              backgroundColor: "transparent",
-            },
-            "& .MuiListItemButton-root.Mui-selected:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-          }}
-        >
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-              onClick={() => {
-                handleSettingsClick();
-                setSelectedMenuItem("Settings");
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                  color:
-                    selectedMenuItem === "Settings" ? "#6E5FDE" : "#757575",
-                }}
-              >
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
-        </List> */}
       </Drawer>
 
       {/*MAIN */}
@@ -680,5 +640,5 @@ export default function ShopSidebar({ component: MainComponent }) {
 }
 
 const mainComponentStyle = {
-  width: "100%", // This will make the component cover the entire width
+  width: "100%",
 };
