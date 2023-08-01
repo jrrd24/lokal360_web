@@ -6,6 +6,7 @@ function VouchersShopContent() {
     <PageInfoComponent
       PageName={"Vouchers"}
       Subtitle={"View and Manage your Vouchers"}
+      isPartner={true}
     />
   );
 }

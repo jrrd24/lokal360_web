@@ -4,8 +4,6 @@ import DateTimeComponent from "./DateTimeComponent";
 import PartnerTag from "../PartnerTag";
 
 function PageInfoComponent({ PageName, Subtitle, isPartner }) {
-  // const [partnerFeature, setPartnerFeature] = useState("false");
-  // setPartnerFeature=isPartner;
 
   return (
     <Box>
@@ -27,7 +25,7 @@ function PageInfoComponent({ PageName, Subtitle, isPartner }) {
               {PageName}
             </Typography>
             {/*Show Partner Tag */}
-            <PartnerTag sx={{ display: 'none' }}/>
+            {isPartner && <PartnerTag />}
           </Stack>
           <Typography variant="subtitle1">{Subtitle}</Typography>
         </Stack>

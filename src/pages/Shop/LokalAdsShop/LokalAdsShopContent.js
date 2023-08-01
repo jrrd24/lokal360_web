@@ -6,6 +6,7 @@ function LokalAdsShopContent() {
     <PageInfoComponent
       PageName={"Lokal Ads"}
       Subtitle={"Manage your Sidewide and Shop Page Advertisments"}
+      isPartner={true}
     />
   );
 }
