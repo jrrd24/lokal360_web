@@ -1,11 +1,17 @@
-import React from 'react'
-import ShopSidebar from '../../../components/Sidebar/ShopSidebar'
-import LokalAdsShopContent from './LokalAdsShopContent'
+import React, { useEffect } from "react";
+import ShopSidebar from "../../../components/Sidebar/ShopSidebar";
+import LokalAdsShopContent from "./LokalAdsShopContent";
 
 function LokalAdsShop() {
-  return (
-    <ShopSidebar component={LokalAdsShopContent}/>
-  )
+  //Set Page Title
+  useEffect(() => {
+    document.title = "Lokal Ads | Lokal 360";
+    return () => {
+      document.title = "Lokal 360";
+    };
+  }, []);
+
+  return <ShopSidebar component={LokalAdsShopContent} />;
 }
 
-export default LokalAdsShop
+export default LokalAdsShop;

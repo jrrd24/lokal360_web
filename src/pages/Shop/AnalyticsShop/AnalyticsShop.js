@@ -1,14 +1,17 @@
-import { Box } from '@mui/material'
-import React from 'react'
-import DBSidebarShop from '../../../components/Sidebar/ShopSidebar'
-import AnalyticsShopContent from './AnalyticsShopContent'
+import React, { useEffect } from "react";
+import DBSidebarShop from "../../../components/Sidebar/ShopSidebar";
+import AnalyticsShopContent from "./AnalyticsShopContent";
 
 function AnalyticsShop() {
-  return (
-    <Box>
-        <DBSidebarShop component={AnalyticsShopContent}/>
-    </Box>
-  )
+  //Set Page Title
+  useEffect(() => {
+    document.title = "Analytics | Lokal 360";
+    return () => {
+      document.title = "Lokal 360";
+    };
+  }, []);
+
+  return <DBSidebarShop component={AnalyticsShopContent} />;
 }
 
-export default AnalyticsShop
+export default AnalyticsShop;

@@ -38,6 +38,8 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import HandshakeIcon from "@mui/icons-material/Handshake";
+import BadgeIcon from "@mui/icons-material/Badge";
 
 const drawerWidth = 240;
 
@@ -272,6 +274,12 @@ export default function ShopSidebar({ component: MainComponent }) {
   function handleVouchersClick(event) {
     navigate("/shop/vouchers");
   }
+  function handlePartnerClick(event) {
+    navigate("/shop/360_partner");
+  }
+  function handleEmployeeClick(event) {
+    navigate("/shop/employee_management");
+  }
   function handleSettingsClick(event) {
     navigate("/shop/settings");
   }
@@ -288,6 +296,9 @@ export default function ShopSidebar({ component: MainComponent }) {
       "/shop/promos",
       "/shop/lokal_ads",
       "/shop/vouchers",
+      "/shop/360_partner",
+      "/shop/employee_management",
+      "/shop/settings",
     ];
     const menuItemTexts = [
       "Dashboard",
@@ -299,6 +310,9 @@ export default function ShopSidebar({ component: MainComponent }) {
       "Promos",
       "Lokal Ads",
       "Vouchers",
+      "360 Partner",
+      "Emploee Management",
+      "Settings",
     ];
     const selectedMenuItemIndex = menuItems.indexOf(currentPathname);
     if (selectedMenuItemIndex !== -1) {
@@ -352,19 +366,18 @@ export default function ShopSidebar({ component: MainComponent }) {
           {/*Search */}
           <Box
             sx={{
-              minWidth: "1vw",
-              maxWidth: "2000",
+              width: 380,
               backgroundColor: "#fafafa",
               border: 1,
               borderColor: "#BBBBBB",
               borderRadius: 2,
               alignSelf: "center",
-              display: { xs: "none" ,sm: "block" },
+              display: { xs: "none", sm: "block" },
             }}
           >
             <InputBase
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="Search Google Maps"
+              sx={{ ml: 1, flex: 1, width: 300 }}
+              placeholder="Find Your Products"
               inputProps={{ "aria-label": "search google maps" }}
             />
             <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
@@ -380,7 +393,7 @@ export default function ShopSidebar({ component: MainComponent }) {
               color="#BBBBBB"
             >
               <Badge badgeContent={4} color="error">
-                <MailIcon color="primary"/>
+                <MailIcon color="primary" />
               </Badge>
             </IconButton>
             <IconButton
@@ -412,7 +425,6 @@ export default function ShopSidebar({ component: MainComponent }) {
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
               color="primary"
-              
             >
               <MoreIcon />
             </IconButton>
@@ -443,7 +455,7 @@ export default function ShopSidebar({ component: MainComponent }) {
         {/*sidebar menu items  */}
         <List
           sx={{
-            pb: 15,
+            pb: 5,
             "& .MuiListItemButton-root:hover": {
               backgroundColor: "#f0f0f0",
             },
@@ -540,6 +552,70 @@ export default function ShopSidebar({ component: MainComponent }) {
         {/*setting menu items  */}
         <List
           sx={{
+            pb: 5,
+            "& .MuiListItemButton-root:hover": {
+              backgroundColor: "#f0f0f0",
+            },
+            "& .MuiListItemButton-root.Mui-selected": {
+              backgroundColor: "transparent",
+            },
+            "& .MuiListItemButton-root.Mui-selected:hover": {
+              backgroundColor: "#f0f0f0",
+            },
+          }}
+        >
+          {[
+            {
+              text: "360 Partner",
+              icon: <HandshakeIcon />,
+              onClick: handlePartnerClick,
+            },
+            {
+              text: "Employee Management",
+              icon: <BadgeIcon />,
+              onClick: handleEmployeeClick,
+            },
+            {
+              text: "Settings",
+              icon: <SettingsIcon />,
+              onClick: handleSettingsClick,
+            },
+          ].map((item) => (
+            <ListItem key={item.text} disablePadding sx={{ display: "block" }}>
+              {/*Side Bar Buttons */}
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                }}
+                onClick={() => {
+                  item.onClick();
+                  setSelectedMenuItem(item.text);
+                }}
+              >
+                {/*Side Bar Icons */}
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                    color:
+                      selectedMenuItem === item.text ? "#6E5FDE" : "#757575",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.text}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        {/* <List
+          sx={{
             "& .MuiListItemButton-root:hover": {
               backgroundColor: "#f0f0f0",
             },
@@ -577,7 +653,7 @@ export default function ShopSidebar({ component: MainComponent }) {
               <ListItemText primary="Settings" sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
-        </List>
+        </List> */}
       </Drawer>
 
       {/*MAIN */}

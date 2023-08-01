@@ -14,10 +14,10 @@ function RouterError() {
         alt="404 Error"
         style={{ width: "22rem", height: "15rem" }}
       />
-      
+
       <Stack spacing={2}>
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Meow! 
+          Meow!
         </Typography>
         <Stack spacing={0}>
           <Typography variant="h6" sx={{ fontWeight: "medium" }}>

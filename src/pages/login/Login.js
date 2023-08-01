@@ -1,11 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import LoginForm from "./LoginForm";
 import LoginHeader from "./LoginHeader";
 import { Container } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 const Login = () => {
-  return (
+  //Set Page Title
+  useEffect(() => {
+    document.title = "Login | Lokal 360";
+    return () => {
+      document.title = "Lokal 360"; 
+    };
+  }, []);
+
+  return (  
     <Container
       disableGutters
       maxWidth="100%"

@@ -1,16 +1,17 @@
-import React from 'react'
-import { Box } from '@mui/material'
-import DashboardShopContent from './DashboardShopContent'
-import ShopSidebar from '../../../components/Sidebar/ShopSidebar'
-
-
+import React, { useEffect } from "react";
+import ShopSidebar from "../../../components/Sidebar/ShopSidebar";
+import DashboardShopContent from "./DashboardShopContent";
 
 function DashboardShop() {
-  return (
-    <Box>
-      <ShopSidebar component={DashboardShopContent} />
-    </Box>
-  )
+  //Set Document Title
+  useEffect(() => {
+    document.title = "Dashboard | Lokal 360";
+    return () => {
+      document.title = "Lokal 360";
+    };
+  }, []);
+
+  return <ShopSidebar component={DashboardShopContent} />;
 }
 
-export default DashboardShop
+export default DashboardShop;
