@@ -6,7 +6,8 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  maxWidth: 400,
+  minWidth: 350,
   bgcolor: "#FFF",
   border: "2px solid #6E5FDE",
   boxShadow: 0,
@@ -27,7 +28,6 @@ function PartnerTag() {
         onClick={handleOpen}
         sx={{
           backgroundColor: "#ffffff",
-          borderRadius: 10,
           height: 35,
           color: "#6E5FDE",
           borderColor: "#6E5FDE",
@@ -63,15 +63,15 @@ function PartnerTag() {
           <img
             src={require("../assets/lokal360_Logo.png")}
             alt="logo"
-            style={{ width: 100, height: 92}}
+            style={{ width: 100, height: 92 }}
           />
 
-          <Divider sx={{borderColor:"#FFF"}}/>
+          <Divider sx={{ borderColor: "#FFF" }} />
 
           <Typography
             id="modal-modal-title"
             variant="caption"
-            sx={{ fontWeight: "500", fontSize: 20, color: "#6E5FDE", mt:2 }}
+            sx={{ fontWeight: "500", fontSize: 20, color: "#6E5FDE", mt: 2 }}
           >
             <Typography
               variant="h4"
@@ -83,7 +83,8 @@ function PartnerTag() {
             Partner
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            This is a 360 partner feature, Only shops partner shops can access this feature.
+            This is a 360 partner feature, Only shops partner shops can access
+            this feature.
           </Typography>
         </Box>
       </Modal>
