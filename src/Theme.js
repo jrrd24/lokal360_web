@@ -38,6 +38,9 @@ const theme = createTheme({
       color: "#444",
       lineHeight: "20px",
     },
+    bigBadge:{
+      fontSize: 30
+    }
   },
 });
 

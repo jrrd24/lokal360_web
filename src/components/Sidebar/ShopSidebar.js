@@ -389,22 +389,23 @@ export default function ShopSidebar({ component: MainComponent }) {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show 4 new mails"
-              color="#BBBBBB"
+              aria-label="show 17 new notifications"
+              color="primary"
             >
               <Badge badgeContent={100} color="error" max={99}>
-                <MailIcon color="primary" />
+                <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
-              color="primary"
+              aria-label="show 4 new mails"
+              color="#BBBBBB"
             >
               <Badge badgeContent={0} color="error" max={99}>
-                <NotificationsIcon />
+                <MailIcon color="primary" />
               </Badge>
             </IconButton>
+
             <IconButton
               size="large"
               edge="end"
