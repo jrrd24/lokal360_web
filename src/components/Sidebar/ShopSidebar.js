@@ -349,7 +349,7 @@ export default function ShopSidebar({ component: MainComponent }) {
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-              color: "#757575",
+              color: `${theme.palette.buttonHover}`,
               marginRight: 5,
               ...(open && { display: "none" }),
             }}
@@ -392,7 +392,7 @@ export default function ShopSidebar({ component: MainComponent }) {
               aria-label="show 4 new mails"
               color="#BBBBBB"
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={100} color="error" max={99}>
                 <MailIcon color="primary" />
               </Badge>
             </IconButton>
@@ -401,7 +401,7 @@ export default function ShopSidebar({ component: MainComponent }) {
               aria-label="show 17 new notifications"
               color="primary"
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={0} color="error" max={99}>
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -534,7 +534,9 @@ export default function ShopSidebar({ component: MainComponent }) {
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
                     color:
-                      selectedMenuItem === item.text ? "#6E5FDE" : "#757575",
+                      selectedMenuItem === item.text
+                        ? `${theme.palette.primary.main}`
+                        : `${theme.palette.buttonHover}`,
                   }}
                 >
                   {item.icon}
@@ -601,7 +603,9 @@ export default function ShopSidebar({ component: MainComponent }) {
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
                     color:
-                      selectedMenuItem === item.text ? "#6E5FDE" : "#757575",
+                      selectedMenuItem === item.text
+                        ? `${theme.palette.primary.main}`
+                        : `${theme.palette.buttonHover}`,
                   }}
                 >
                   {item.icon}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 
@@ -10,7 +10,7 @@ function UsersContent() {
         Subtitle={"View and Manage System Users"}
       />
     </Box>
-  )
+  );
 }
 
-export default UsersContent
+export default UsersContent;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, useTheme, } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
   List,
@@ -11,7 +11,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  IconButton
+  IconButton,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -92,7 +92,7 @@ const Drawer = styled(MuiDrawer, {
   ...(!open && {
     ...closedMixin(theme),
     "& .MuiDrawer-paper": closedMixin(theme),
-  }),   
+  }),
 }));
 
 export default function AdminSidebar({ component: MainComponent }) {
@@ -167,7 +167,6 @@ export default function AdminSidebar({ component: MainComponent }) {
   //Open and Close Drawer
   const handleDrawerOpen = () => {
     setOpen(true);
-    
   };
 
   const handleDrawerClose = () => {
@@ -186,7 +185,7 @@ export default function AdminSidebar({ component: MainComponent }) {
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-              color: "#757575",
+              color: `${theme.palette.buttonHover}`,
               marginRight: 5,
               ...(open && { display: "none" }),
             }}
@@ -205,7 +204,10 @@ export default function AdminSidebar({ component: MainComponent }) {
             variant="h5"
             noWrap
             component="div"
-            sx={{ color: "#6E5FDE", fontWeight: "medium" }}
+            sx={{
+              color: `${theme.palette.primary.main}`,
+              fontWeight: "medium",
+            }}
           >
             Admin View
           </Typography>
@@ -213,7 +215,7 @@ export default function AdminSidebar({ component: MainComponent }) {
       </AppBar>
 
       {/*Sidebar */}
-      
+
       <Drawer
         variant="permanent"
         open={open}
@@ -305,7 +307,9 @@ export default function AdminSidebar({ component: MainComponent }) {
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
                     color:
-                      selectedMenuItem === item.text ? "#6E5FDE" : "#757575",
+                      selectedMenuItem === item.text
+                        ? `${theme.palette.primary.main}`
+                        : `${theme.palette.buttonHover}`,
                   }}
                 >
                   {item.icon}
@@ -352,7 +356,9 @@ export default function AdminSidebar({ component: MainComponent }) {
                   mr: open ? 3 : "auto",
                   justifyContent: "center",
                   color:
-                    selectedMenuItem === "Settings" ? "#6E5FDE" : "#757575",
+                    selectedMenuItem === "Settings"
+                      ? `${theme.palette.primary.main}`
+                      : `${theme.palette.buttonHover}`,
                 }}
               >
                 <SettingsIcon />

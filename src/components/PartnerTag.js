@@ -1,5 +1,6 @@
 import { Button, Typography, Modal, Box, Divider } from "@mui/material";
 import React from "react";
+import theme from "../Theme";
 
 const style = {
   position: "absolute",
@@ -8,8 +9,8 @@ const style = {
   transform: "translate(-50%, -50%)",
   maxWidth: 400,
   minWidth: 350,
-  bgcolor: "#FFF",
-  border: "2px solid #6E5FDE",
+  bgcolor: "background.paper",
+  border: `2px solid ${theme.palette.primary.main}`,
   boxShadow: 0,
   borderRadius: 5,
   p: 4,
@@ -27,16 +28,16 @@ function PartnerTag() {
         variant="contained"
         onClick={handleOpen}
         sx={{
-          backgroundColor: "#ffffff",
+          backgroundColor: `${theme.palette.background.paper}`,
           height: 35,
-          color: "#6E5FDE",
-          borderColor: "#6E5FDE",
+          color: `${theme.palette.primary.main}`,
+          borderColor: `${theme.palette.primary.main}`,
           border: 1,
           borderRadius: 5,
           px: 2,
           userSelect: "none",
           "&:hover": {
-            color: "#FFFFFF",
+            color: `${theme.palette.text.contrastText}`,
           },
         }}
       >
@@ -72,7 +73,8 @@ function PartnerTag() {
           <Typography
             id="modal-modal-title"
             variant="caption"
-            sx={{ fontWeight: "500", fontSize: 20, color: "#6E5FDE", mt: 2 }}
+            color="primary"
+            sx={{ fontWeight: "500", fontSize: 20, mt: 2 }}
           >
             <Typography
               variant="h4"
