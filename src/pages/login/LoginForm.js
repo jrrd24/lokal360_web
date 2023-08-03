@@ -18,7 +18,6 @@ import CustomAlert from "../../components/CustomAlert";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-
 //initialize api url
 const baseUrl = ApiBaseUrl;
 const url = `${baseUrl}/api/user/login`;
@@ -65,7 +64,7 @@ const LoginForm = () => {
         });
 
         console.log("Login successful");
-        navigate("/Admin/Dashboard");   
+        navigate("/Admin/Dashboard");
       })
       .catch((error) => {
         console.error("Login:", error);
@@ -129,9 +128,13 @@ const LoginForm = () => {
                   value: 8,
                   message: "Password Should Have at least 8 Characters",
                 },
+                pattern: {
+                  value: /^\S*$/,
+                  message: "Spaces are Not Allowed ",
+                },
                 maxLength: {
-                  value: 100,
-                  message: "Max Length of Password is 100 Characters",
+                  value: 30,
+                  message: "Max Length of Password is 30 Characters",
                 },
               }}
             />

@@ -9,7 +9,7 @@ function OrderCount({ component: Icon, color, count, status }) {
       className={`${styles.orderCount}`}
       sx={{
         height: 165,
-        width: 130,
+        minWidth: 125,
         backgroundColor: bgColor,
       }}
     >
@@ -20,7 +20,10 @@ function OrderCount({ component: Icon, color, count, status }) {
             <Typography variant="sectionTitle" sx={{ color: color }}>
               {count}
             </Typography>
-            <Typography variant="subtitle" sx={{ lineHeight: "1.2" }}>
+            <Typography
+              variant="subtitle"
+              sx={{ lineHeight: "1.2", width: 95 }}
+            >
               {status}
             </Typography>
           </Stack>

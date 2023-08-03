@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import {
   Box,
@@ -7,12 +7,9 @@ import {
   Stack,
   Typography,
   Badge,
-  Autocomplete,
-  TextField,
   Select,
 } from "@mui/material";
 import styles from "../../../css/Styles.module.css";
-import DummyText from "./DummyText";
 import maleAvatar from "../../../assets/avatars/128_1.png";
 import lokal360_Logo from "../../../assets/lokal360_Logo.png";
 import { styled } from "@mui/system";
@@ -33,23 +30,23 @@ import {
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    fontSize: "16px",
-    height: "25px",
+    fontSize: "14px",
+    height: "20px",
     textAlign: "center",
   },
 }));
 
 function DashboardShopContent() {
-  const [orderSelect, setOrderSelect] = React.useState("");
-  const [orderRange, setOrderRange] = React.useState("");
+  const [orderSelect, setOrderSelect] = React.useState("1");
+  const [orderRange, setOrderRange] = React.useState(<GetDate />);
   const [orderRangeEnd, setOrderRangeEnd] = React.useState("");
 
   const handleChange = (event) => {
     setOrderSelect(event.target.value);
-    if (event.target.value == 1) {
+    if (event.target.value === 1) {
       setOrderRange(<GetDate />);
       setOrderRangeEnd("");
-    } else if (event.target.value == 2) {
+    } else if (event.target.value === 2) {
       setOrderRange(<GetWeekFirstDay />);
       setOrderRangeEnd(<GetWeekLastDay />);
     }
@@ -69,6 +66,10 @@ function DashboardShopContent() {
           flexDirection: "row",
           gap: "32px",
           flexWrap: "wrap",
+          "@media (max-width: 600px)": {
+            alignItems: "center",
+            justifyContent: "center",
+          },
         }}
       >
         {/*User and Shop Info */}
@@ -79,6 +80,7 @@ function DashboardShopContent() {
             order: 1,
             "@media (max-width: 600px)": {
               order: 2,
+              minWidth: "320px",
             },
           }}
         >
@@ -138,48 +140,6 @@ function DashboardShopContent() {
               {/*User Job Tile */}
               <Typography variant="subtitle2">Store Owner</Typography>
             </Stack>
-
-            {/*Divider */}
-            <Box sx={{ width: "100%" }}>
-              <Divider />
-            </Box>
-
-            {/*Notifs/ Chats */}
-            <Stack spacing={2} textAlign={"initial"} sx={{ width: "90%" }}>
-              {/*Notifs Total */}
-              <Stack
-                spacing={4}
-                direction={"row"}
-                sx={{ alignItems: "center" }}
-              >
-                <Typography variant="sectionTitleSmall" component={"span"}>
-                  Notifications
-                </Typography>
-                <StyledBadge
-                  badgeContent={100}
-                  color="primary"
-                  max={99}
-                  showZero
-                />
-              </Stack>
-
-              {/*Chats Total */}
-              <Stack
-                spacing={4}
-                direction={"row"}
-                sx={{ alignItems: "center" }}
-              >
-                <Typography variant="sectionTitleSmall" component={"span"}>
-                  Chats
-                </Typography>
-                <StyledBadge
-                  badgeContent={0}
-                  color="primary"
-                  max={99}
-                  showZero
-                />
-              </Stack>
-            </Stack>
           </Stack>
         </Box>
 
@@ -187,38 +147,66 @@ function DashboardShopContent() {
         <Box
           className={`${styles.sectionContainer}`}
           sx={{
-            maxWidth: "800px",
+            maxWidth: "750px",
             order: 1,
             "@media (max-width: 600px)": {
               order: 1,
+              minWidth: "320px",
             },
           }}
         >
-          <Stack spacing={3}>
-            {/*Section Title */}
-            <Stack spacing={4} direction={"row"} sx={{ alignItems: "center" }}>
-              <Typography variant="sectionTitle" component={"span"}>
-                Orders Overview
-              </Typography>
-              <StyledBadge
-                badgeContent={11}
-                color="primary"
-                max={99}
-                showZero
-              />
+          <Stack spacing={1.5}>
+            {/*Section Header */}
+            <Stack
+              spacing={2}
+              direction={"row"}
+              sx={{
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "row",
+                gap: "16px",
+                flexWrap: "wrap",
+              }}
+            >
+              {/*Section Name and Active Orders */}
+              <Stack spacing={0} sx={{ padding: 1 }}>
+                <Typography variant="sectionTitle">Orders Overview</Typography>
+                <Stack
+                  spacing={3}
+                  direction={"row"}
+                  sx={{ alignItems: "center", justifyItems: "center" }}
+                >
+                  <Typography variant="subtitle" component={"span"}>
+                    Active Orders
+                  </Typography>
+
+                  {/*Active Orders Count */}
+                  <StyledBadge
+                    badgeContent={11}
+                    color="primary"
+                    max={99}
+                    showZero
+                  />
+                </Stack>
+              </Stack>
+
               {/*Combo Box */}
-              <Select
-                labelId="select-order-time"
-                id="select-order-time"
-                value={orderSelect}
-                onChange={handleChange}
-                sx={{ width: "140px" }}
-              >
-                <MenuItem value={1}>Today</MenuItem>
-                <MenuItem value={2}>This Week</MenuItem>
-                <MenuItem value={3}>This Month</MenuItem>
-                <MenuItem value={4}>This Year</MenuItem>
-              </Select>
+              <Stack direction={"row"} spacing={0}>
+                <Select
+                  labelId="select-order-time"
+                  id="select-order-time"
+                  value={orderSelect}
+                  onChange={handleChange}
+                  sx={{
+                    width: "130px",
+                  }}
+                >
+                  <MenuItem value={1}>Today</MenuItem>
+                  <MenuItem value={2}>This Week</MenuItem>
+                  <MenuItem value={3}>This Month</MenuItem>
+                  <MenuItem value={4}>This Year</MenuItem>
+                </Select>
+              </Stack>
             </Stack>
 
             <Box
@@ -227,6 +215,10 @@ function DashboardShopContent() {
                 flexDirection: "row",
                 gap: "16px",
                 flexWrap: "wrap",
+                "@media (max-width: 600px)": {
+                  alignItems: "center",
+                  justifyContent: "center",
+                },
               }}
             >
               <OrderCount
@@ -282,10 +274,11 @@ function DashboardShopContent() {
         <Box
           className={`${styles.sectionContainer}`}
           sx={{
-            maxWidth: "300px",
+            maxWidth: "340px",
             order: 3,
             "@media (max-width: 600px)": {
               order: 3,
+              minWidth: "320px",
             },
           }}
         >
