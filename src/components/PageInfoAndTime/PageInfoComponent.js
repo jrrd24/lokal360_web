@@ -12,9 +12,9 @@ function PageInfoComponent({ PageName, Subtitle, isPartner }) {
           textAlign: "start",
           backgroundColor: "transparent",
           display: "flex",
-          justifyContent: "space-between", // Align content to the start and end of the flex container
-          alignItems: "center", // Align the content vertically in the middle
-          gap: "16px", // Set the gap between the Stack and DateTimeComponent
+          justifyContent: "space-between", 
+          alignItems: "center", 
+          gap: "16px", 
         }}
       >
         <Stack spacing={-1}>

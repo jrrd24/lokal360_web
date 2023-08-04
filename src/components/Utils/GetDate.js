@@ -11,11 +11,10 @@ export function GetDate() {
   }
 
   let day = addZero(currentDate.getDate());
-  let month = addZero(currentDate.getMonth());
+  let month = addZero(currentDate.getMonth() + 1);
   let year = currentDate.getFullYear();
 
   let format = year + "-" + month + "-" + day;
-
   return format;
 }
 
@@ -34,7 +33,7 @@ export function GetWeekFirstDay() {
   }
 
   let day = addZero(firstDay.getDate());
-  let month = addZero(firstDay.getMonth());
+  let month = addZero(firstDay.getMonth() + 1);
   let year = firstDay.getFullYear();
 
   let format = year + "-" + month + "-" + day;
@@ -57,7 +56,7 @@ export function GetWeekLastDay() {
   }
 
   let day = addZero(lastDay.getDate());
-  let month = addZero(lastDay.getMonth());
+  let month = addZero(lastDay.getMonth() + 1);
   let year = lastDay.getFullYear();
 
   let format = year + "-" + month + "-" + day;
@@ -68,10 +67,58 @@ export function GetWeekLastDay() {
 export function GetMonthFirstDay() {
   const currentDate = new Date();
 
-  const firstDay = "";
-  {
-    /*TODO: Complete Code */
+  const firstDay = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+
+  function addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
   }
+
+  let day = addZero(firstDay.getDate());
+  let month = addZero(firstDay.getMonth() + 1);
+  let year = firstDay.getFullYear();
+
+  let format = year + "-" + month + "-" + day;
+
+  return format;
+}
+
+export function GetMonthLastDay() {
+  const currentDate = new Date();
+
+  const lastDay = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    0
+  );
+
+  function addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
+  let day = addZero(lastDay.getDate());
+  let month = addZero(lastDay.getMonth() + 2);
+  let year = lastDay.getFullYear();
+
+  let format = year + "-" + month + "-" + day;
+
+  return format;
+}
+
+export function GetYearFirstDay() {
+  const currentDate = new Date();
+
+  const firstDay = new Date(currentDate.getFullYear(), 1, 1);
+
   function addZero(i) {
     if (i < 10) {
       i = "0" + i;
@@ -85,5 +132,26 @@ export function GetMonthFirstDay() {
 
   let format = year + "-" + month + "-" + day;
 
+  return format;
+}
+
+export function GetYearLastDay() {
+  const currentDate = new Date();
+
+  const lastDay = new Date(currentDate.getFullYear(), 0, 0);
+
+  function addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
+  let day = addZero(lastDay.getDate());
+  let month = addZero(lastDay.getMonth() + 1);
+  let year = lastDay.getFullYear() + 1;
+
+  let format = year + "-" + month + "-" + day;
+  console.log(lastDay);
   return format;
 }

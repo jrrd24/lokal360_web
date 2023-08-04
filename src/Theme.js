@@ -31,16 +31,22 @@ const theme = createTheme({
       fontSize: "24px",
       fontWeight: 600,
       color: "#444",
+      letterSpacing: -0.3,
     },
     sectionTitleSmall: {
       fontSize: "20px",
       fontWeight: 600,
       color: "#444",
       lineHeight: "20px",
+      letterSpacing: -0.3,
     },
-    bigBadge:{
-      fontSize: 30
-    }
+    seeAll: {
+      fontSize: "16px",
+      color: "#44444499",
+    },
+    bigBadge: {
+      fontSize: 30,
+    },
   },
 });
 

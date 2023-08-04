@@ -61,8 +61,8 @@
     /* 100% */
 }
 
-/*Order Count Hover Effect*/
-.orderCount {
+/*Grow Hover Effect*/
+.grow {
     display: inline-block;
     vertical-align: middle;
     -webkit-transform: perspective(1px) translateZ(0);
@@ -74,9 +74,20 @@
     transition-property: transform;
 }
 
-.orderCount:hover,
-.orderCount:focus,
-.orderCount:active {
+.grow:hover,
+.grow:focus,
+.grow:active {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
+}
+
+.changeBG {
+    transition: background-color 0.3s, opacity 0.3s;
+    border-radius: 10;
+}
+
+.changeBG:hover,
+.changeBG:focus,
+.changeBG:active {
+    background-color: #EFEFFB;
 }

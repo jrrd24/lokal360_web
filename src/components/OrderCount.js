@@ -6,10 +6,10 @@ function OrderCount({ component: Icon, color, count, status }) {
   const bgColor = color + "1A";
   return (
     <Box
-      className={`${styles.orderCount}`}
+      className={`${styles.grow}`}
       sx={{
         height: 165,
-        minWidth: 125,
+        minWidth: 120,
         backgroundColor: bgColor,
       }}
     >
