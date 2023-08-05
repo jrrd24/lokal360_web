@@ -1,15 +1,14 @@
 import { Avatar, Box, Stack, Typography } from "@mui/material";
 import React from "react";
-import theme from "../Theme";
-import Styles from "../css/Styles.module.css";
-import TruncateString from "./Utils/TruncateString";
+import theme from "../../Theme";
+import Styles from "../../css/Styles.module.css";
+import TruncateString from "../Utils/TruncateString";
 import { IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { styled, alpha } from "@mui/material/styles";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { ChatBubble, ReportProblem } from "@mui/icons-material";
 
 const StyledMenu = styled((props) => (

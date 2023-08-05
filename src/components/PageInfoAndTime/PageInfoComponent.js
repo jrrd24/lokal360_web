@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, Stack, Hidden } from "@mui/material";
 import DateTimeComponent from "./DateTimeComponent";
-import PartnerTag from "../PartnerTag";
+import PartnerTag from "../ShopOnly/PartnerTag";
 
 function PageInfoComponent({ PageName, Subtitle, isPartner }) {
   return (
@@ -12,9 +12,9 @@ function PageInfoComponent({ PageName, Subtitle, isPartner }) {
           textAlign: "start",
           backgroundColor: "transparent",
           display: "flex",
-          justifyContent: "space-between", 
-          alignItems: "center", 
-          gap: "16px", 
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "16px",
         }}
       >
         <Stack spacing={-1}>

@@ -1,19 +1,23 @@
 import { Button, Typography, Modal, Box, Divider } from "@mui/material";
 import React from "react";
-import theme from "../Theme";
+import theme from "../../Theme";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  maxWidth: 400,
-  minWidth: 350,
-  bgcolor: "background.paper",
-  border: `2px solid ${theme.palette.primary.main}`,
-  boxShadow: 0,
-  borderRadius: 5,
-  p: 4,
+  modalStyle: { backgroundColor: "#6E5FDE66", userSelect: "none" },
+
+  contentStyle: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    maxWidth: 400,
+    minWidth: 350,
+    bgcolor: "background.paper",
+    border: `2px solid ${theme.palette.primary.main}`,
+    boxShadow: 0,
+    borderRadius: 5,
+    p: 4,
+  },
 };
 
 function PartnerTag() {
@@ -59,11 +63,15 @@ function PartnerTag() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{ userSelect: "none" }}
+        sx={style.modalStyle}
       >
-        <Box sx={style} textAlign={"center"} alignContent={"center"}>
+        <Box
+          sx={style.contentStyle}
+          textAlign={"center"}
+          alignContent={"center"}
+        >
           <img
-            src={require("../assets/lokal360_Logo.png")}
+            src={require("../../assets/lokal360_Logo.png")}
             alt="logo"
             style={{ width: 100, height: 92 }}
           />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import {
   Box,
@@ -7,15 +7,17 @@ import {
   Stack,
   Typography,
   Badge,
-  Select,
-  Link,
+  TableContainer,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
 } from "@mui/material";
 import styles from "../../../css/Styles.module.css";
 import maleAvatar from "../../../assets/avatars/128_1.png";
 import lokal360_Logo from "../../../assets/lokal360_Logo.png";
 import { styled } from "@mui/system";
-import OrderCount from "../../../components/OrderCount";
-import MenuItem from "@mui/material/MenuItem";
+import OrderCount from "../../../components/ShopOnly/OrderCount";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { BsBoxSeam } from "react-icons/bs";
 import { BiShoppingBag } from "react-icons/bi";
@@ -23,19 +25,15 @@ import MopedIcon from "@mui/icons-material/Moped";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
-import {
-  GetDate,
-  GetMonthFirstDay,
-  GetMonthLastDay,
-  GetWeekFirstDay,
-  GetWeekLastDay,
-  GetYearFirstDay,
-  GetYearLastDay,
-} from "../../../components/Utils/GetDate";
-import CustomerContainer from "../../../components/CustomerContainer";
+import { GetDate } from "../../../components/Utils/GetDate";
+import CustomerContainer from "../../../components/ShopOnly/CustomerContainer";
 import Styles from "../../../css/Styles.module.css";
 import userData from "./DummyCustomerData";
-import { DateRange } from "@mui/icons-material";
+import theme from "../../../Theme";
+import DateSelection from "../../../components/DateSelection";
+import ProductSalesGraph from "./ProductSalesGraph";
+import { Navigate } from "react-router-dom";
+import CustomLink from "../../../components/CustomLink";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -46,35 +44,35 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function DashboardShopContent() {
-  const [orderSelect, setOrderSelect] = React.useState("1");
-  const [orderRange, setOrderRange] = React.useState(<GetDate />);
-  const [orderRangeEnd, setOrderRangeEnd] = React.useState("");
+  {
+    /*For Date Range Query */
+  }
+  const [RangeOrder, setRangeOrder] = useState(<GetDate />);
+  const [RangeEndOrder, setRangeEndOrder] = useState("");
+  const [RangeGraph, setRangeGraph] = useState(<GetDate />);
+  const [RangeEndGraph, setRangeEndGraph] = useState("");
 
-  const handleChange = (event) => {
-    setOrderSelect(event.target.value);
-    if (event.target.value === 1) {
-      setOrderRange(<GetDate />);
-      setOrderRangeEnd("");
-    } else if (event.target.value === 2) {
-      setOrderRange(<GetWeekFirstDay />);
-      setOrderRangeEnd(<GetWeekLastDay />);
-    } else if (event.target.value === 3) {
-      setOrderRange(<GetMonthFirstDay />);
-      setOrderRangeEnd(<GetMonthLastDay />);
-    } else if (event.target.value === 4) {
-      setOrderRange(<GetYearFirstDay />);
-      setOrderRangeEnd(<GetYearLastDay />);
-    } else {
-      setOrderRange("");
-      setOrderRangeEnd("");
-    }
+  const handleRangeChange = (range) => {
+    setRangeOrder(range);
+  };
+
+  const handleRangeChangeGraph = (range) => {
+    setRangeGraph(range);
+  };
+
+  const handleRangeEndChange = (rangeEnd) => {
+    setRangeEndOrder(rangeEnd);
+  };
+
+  const handleRangeEndChangeGraph = (rangeEnd) => {
+    setRangeEndGraph(rangeEnd);
   };
 
   return (
     <Box sx={{ backgroundColor: "transparent" }}>
       <PageInfoComponent
         PageName={"Shop Dashboard"}
-        Subtitle={"Welcome, {Shop Owner Name}"}
+        Subtitle={"Good Morning {Shop Owner Name}"}
       />
 
       {/*Content */}
@@ -85,7 +83,6 @@ function DashboardShopContent() {
           flexDirection: "row",
           gap: "32px",
           flexWrap: "wrap",
-          P: 5,
           alignItems: "flex-start",
           justifyContent: "center",
         }}
@@ -234,55 +231,14 @@ function DashboardShopContent() {
                   className={`${Styles.grow}`}
                   sx={{ justifyContent: "center" }}
                 >
-                  <Link href="#" variant="seeAll" underline="none">
-                    {"See All"}
-                  </Link>
+                  <CustomLink to="/shop/orders">{"See All"}</CustomLink>
                 </Box>
 
                 {/*Date time */}
-                <Stack direction={"row"} spacing={2}>
-                  {/*Combo Box */}
-                  <Select
-                    labelId="select-order-time"
-                    id="select-order-time"
-                    value={orderSelect}
-                    onChange={handleChange}
-                    sx={{
-                      width: "130px",
-                    }}
-                  >
-                    <MenuItem value={1}>Today</MenuItem>
-                    <MenuItem value={2}>This Week</MenuItem>
-                    <MenuItem value={3}>This Month</MenuItem>
-                    <MenuItem value={4}>This Year</MenuItem>
-                    <MenuItem value={5}>All Time</MenuItem>
-                  </Select>
-
-                  {/*Display Date */}
-                  <Stack
-                    spacing={1}
-                    direction={"row"}
-                    sx={{
-                      minWidth: 140,
-                      backgroundColor: "#F2F2F2",
-                      p: 1,
-                      alignItems: "center",
-                      justifyItems: "center",
-                      border: "1px solid #444",
-                      borderRadius: 2,
-                    }}
-                  >
-                    <Box>
-                      <DateRange />
-                    </Box>
-                    <Box>
-                      <Typography variant="h7">
-                        {orderRange} {orderRangeEnd === "" ? "" : "to"}{" "}
-                      </Typography>
-                      <Typography variant="h7">{orderRangeEnd} </Typography>
-                    </Box>
-                  </Stack>
-                </Stack>
+                <DateSelection
+                  onRangeChange={handleRangeChange}
+                  onRangeEndChange={handleRangeEndChange}
+                />
               </Stack>
 
               {/*Main */}
@@ -385,9 +341,7 @@ function DashboardShopContent() {
                   Valuable Customers
                 </Typography>
                 <Box className={`${Styles.grow}`}>
-                  <Link href="#" variant="seeAll" underline="none">
-                    {"See All"}
-                  </Link>
+                  <CustomLink to="/shop/customers">{"See All"}</CustomLink>
                 </Box>
               </Stack>
 
@@ -415,6 +369,10 @@ function DashboardShopContent() {
             flexDirection: "row",
             gap: "32px",
             flexWrap: "wrap",
+
+            "@media (max-width: 1516px)": {
+              minWidth: "100%",
+            },
             "@media (max-width: 600px)": {
               alignItems: "center",
               justifyContent: "center",
@@ -427,7 +385,7 @@ function DashboardShopContent() {
               minWidth: "250px",
               order: 1,
 
-              "@media (max-width: 1516px)": {
+              "@media (max-width: 1535px)": {
                 display: "none",
               },
               "@media (max-width: 600px)": {
@@ -444,20 +402,19 @@ function DashboardShopContent() {
             sx={{
               width: "360px",
               order: 1,
-              "@media (max-width: 600px)": {
+              "@media (max-width: 1516px)": {
                 order: 1,
-                minWidth: "360px",
+                minWidth: "100%",
               },
             }}
           >
-            {/*Section Header */}
             <Stack
               spacing={1}
               direction={"column"}
               sx={{
                 "@media (max-width: 1516px)": {
-                  alignItems: "center",
                   justifyContent: "center",
+                  maxWidth: "100%",
                 },
               }}
             >
@@ -469,13 +426,33 @@ function DashboardShopContent() {
               >
                 <Typography variant="sectionTitle">Active Lokal Ads</Typography>
                 <Box className={`${Styles.grow}`}>
-                  <Link href="#" variant="seeAll" underline="none">
-                    {"See All"}
-                  </Link>
+                  <CustomLink to="/shop/lokal_ads">{"See All"}</CustomLink>
                 </Box>
               </Stack>
 
               {/*TODO: Add lokal ads here */}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  flexWrap: "wrap",
+
+                  minWidth: "320px",
+                  height: "155px",
+                  overflow: "auto",
+                }}
+              >
+                <Box
+                  sx={{ height: 145, width: 330, backgroundColor: "#ffbb03" }}
+                />
+                <Box
+                  sx={{ height: 145, width: 330, backgroundColor: "#ffd14d" }}
+                />
+                <Box
+                  sx={{ height: 145, width: 330, backgroundColor: "#6ef" }}
+                />
+              </Box>
             </Stack>
           </Box>
 
@@ -483,22 +460,21 @@ function DashboardShopContent() {
           <Box
             className={`${styles.sectionContainer}`}
             sx={{
-              width: "355px",
+              width: "360px",
               order: 1,
-              "@media (max-width: 600px)": {
+              "@media (max-width: 1516px)": {
                 order: 1,
-                minWidth: "360px",
+                minWidth: "100%",
               },
             }}
           >
-            {/*Section Header */}
             <Stack
               spacing={1}
               direction={"column"}
               sx={{
                 "@media (max-width: 1516px)": {
-                  alignItems: "center",
                   justifyContent: "center",
+                  maxWidth: "100%",
                 },
               }}
             >
@@ -510,13 +486,34 @@ function DashboardShopContent() {
               >
                 <Typography variant="sectionTitle">Active Vouchers</Typography>
                 <Box className={`${Styles.grow}`}>
-                  <Link href="#" variant="seeAll" underline="none">
-                    {"See All"}
-                  </Link>
+                  <CustomLink to="/shop/vouchers">{"See All"}</CustomLink>
                 </Box>
               </Stack>
 
               {/*TODO: Add vouchers here */}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  flexWrap: "wrap",
+
+                  minWidth: "320px",
+                  maxWidth: "100%",
+                  height: "150px",
+                  overflow: "auto",
+                }}
+              >
+                <Box
+                  sx={{ height: 145, width: 250, backgroundColor: "#ffbb03" }}
+                />
+                <Box
+                  sx={{ height: 145, width: 250, backgroundColor: "#ffd14d" }}
+                />
+                <Box
+                  sx={{ height: 145, width: 250, backgroundColor: "#6ef" }}
+                />
+              </Box>
             </Stack>
           </Box>
 
@@ -526,28 +523,201 @@ function DashboardShopContent() {
             sx={{
               maxWidth: "340px",
               order: 3,
-              "@media (max-width: 600px)": {
-                order: 3,
-                minWidth: "360px",
+
+              "@media (max-width: 1516px)": {
+                minWidth: "100%",
               },
             }}
           >
-            {/*Section Header */}
             <Stack spacing={1} direction={"column"}>
               {/*Section NaME */}
               <Stack
-                spacing={9}
+                spacing={10}
                 direction={"row"}
                 sx={{ alignItems: "baseline", justifyItems: "baseline" }}
               >
                 <Typography variant="sectionTitle">Product Status</Typography>
                 <Box className={`${Styles.grow}`}>
-                  <Link href="#" variant="seeAll" underline="none">
-                    {"See All"}
-                  </Link>
+                  <CustomLink to="/shop/products">{"See All"}</CustomLink>
                 </Box>
               </Stack>
-              {/*TODO: Add Product Status */}
+
+              {/*Status Table Container*/}
+              <TableContainer>
+                <Table size="small">
+                  <TableBody>
+                    {/*In Stock */}
+                    <TableRow className={`${styles.changeBG}`}>
+                      <TableCell>
+                        <Typography variant="body1"> In Stock</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          variant="sectionTitleSmall"
+                          sx={{ color: "#8CCC00" }}
+                        >
+                          13
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+
+                    {/*Low Stock */}
+                    <TableRow className={`${styles.changeBG}`}>
+                      <TableCell>
+                        <Typography variant="body1"> Low Stock</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          variant="sectionTitleSmall"
+                          sx={{ color: "#F7B801" }}
+                        >
+                          10
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+
+                    {/*Out Of Stock */}
+                    <TableRow className={`${styles.changeBG}`}>
+                      <TableCell>
+                        <Typography variant="body1"> Out of Stock</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          variant="sectionTitleSmall"
+                          sx={{ color: "#F35B04" }}
+                        >
+                          3
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+
+                    {/*Discontinued */}
+                    <TableRow className={`${styles.changeBG}`}>
+                      <TableCell>
+                        <Typography variant="body1"> Discontinued</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Typography
+                          variant="sectionTitleSmall"
+                          sx={{ color: "#444" }}
+                        >
+                          1
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Stack>
+          </Box>
+        </Box>
+
+        {/*Third Row*/}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "32px",
+            flexWrap: "wrap",
+
+            "@media (max-width: 1516px)": {
+              minWidth: "100%",
+            },
+            "@media (max-width: 600px)": {
+              alignItems: "center",
+              justifyContent: "center",
+            },
+          }}
+        >
+          {/*Fill in for User and Shop Info */}
+          <Box
+            sx={{
+              minWidth: "250px",
+              order: 1,
+
+              "@media (max-width: 1516px)": {
+                display: "none",
+              },
+            }}
+          />
+
+          {/*Product Sales Graph*/}
+          <Box
+            className={`${styles.sectionContainer}`}
+            sx={{
+              minWidth: "1120px",
+              order: 1,
+              "@media (max-width: 1516px)": {
+                order: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                minWidth: "100%",
+              },
+            }}
+          >
+            <Stack
+              spacing={3}
+              direction={"column"}
+              sx={{
+                "@media (max-width: 1516px)": {
+                  justifyContent: "center",
+                },
+              }}
+            >
+              {/*Section Header */}
+              <Stack
+                spacing={2}
+                direction={"row"}
+                sx={{
+                  alignItems: "center",
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "16px",
+                  flexWrap: "wrap",
+                }}
+              >
+                {/*Section Name */}
+                <Stack
+                  spacing={9}
+                  direction={"row"}
+                  sx={{ alignItems: "baseline", justifyItems: "baseline" }}
+                >
+                  <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
+                    Shop Activity&nbsp;-&nbsp;
+                    <Typography
+                      variant="inherit"
+                      component={"span"}
+                      sx={{
+                        color: `${theme.palette.text.sixty}`,
+                      }}
+                    >
+                      Product Sales Graph
+                    </Typography>
+                  </Typography>
+                  <Box className={`${Styles.grow}`} sx={{ minWidth: 70 }}>
+                    <CustomLink to="/shop/analytics">{"See All"}</CustomLink>
+                  </Box>
+                </Stack>
+
+                {/*Date time */}
+                <DateSelection
+                  onRangeChange={handleRangeChangeGraph}
+                  onRangeEndChange={handleRangeEndChangeGraph}
+                />
+              </Stack>
+              {/*Section Name */}
+
+              {/*Section Content */}
+              <Box
+                sx={{
+                  maxWidth: "99%",
+                  height: "350px",
+                }}
+              >
+                {/*TODO: Add Graph Here */}
+                {/*Graph */}
+                <ProductSalesGraph />
+              </Box>
             </Stack>
           </Box>
         </Box>

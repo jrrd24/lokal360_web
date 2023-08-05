@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
-import styles from "../css/Styles.module.css";
+import styles from "../../css/Styles.module.css";
 
 function OrderCount({ component: Icon, color, count, status }) {
   const bgColor = color + "1A";

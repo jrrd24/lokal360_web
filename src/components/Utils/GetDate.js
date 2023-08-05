@@ -152,6 +152,5 @@ export function GetYearLastDay() {
   let year = lastDay.getFullYear() + 1;
 
   let format = year + "-" + month + "-" + day;
-  console.log(lastDay);
   return format;
 }
