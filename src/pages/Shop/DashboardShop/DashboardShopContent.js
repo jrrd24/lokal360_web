@@ -34,6 +34,7 @@ import DateSelection from "../../../components/DateSelection";
 import ProductSalesGraph from "./ProductSalesGraph";
 import { Navigate } from "react-router-dom";
 import CustomLink from "../../../components/CustomLink";
+import TruncateString from "../../../components/Utils/TruncateString";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -44,9 +45,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function DashboardShopContent() {
-  {
-    /*For Date Range Query */
-  }
+  //For Date Range Query
+
   const [RangeOrder, setRangeOrder] = useState(<GetDate />);
   const [RangeEndOrder, setRangeEndOrder] = useState("");
   const [RangeGraph, setRangeGraph] = useState(<GetDate />);
@@ -69,7 +69,13 @@ function DashboardShopContent() {
   };
 
   return (
-    <Box sx={{ backgroundColor: "transparent" }}>
+    <Box
+      sx={{
+        backgroundColor: "transparent",
+        maxWidth: 2250,
+        alignItems: "center",
+      }}
+    >
       <PageInfoComponent
         PageName={"Shop Dashboard"}
         Subtitle={"Good Morning {Shop Owner Name}"}
@@ -87,44 +93,33 @@ function DashboardShopContent() {
           justifyContent: "center",
         }}
       >
-        {/*First Row*/}
+        {/*User and Shop Info */}
         <Box
+          className={`${styles.sectionContainer}`}
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "32px",
-            flexWrap: "wrap",
-            "@media (max-width: 600px)": {
+            minWidth: "1120px",
+            order: 1,
+            "@media (max-width: 1516px)": {
+              order: 1,
               alignItems: "center",
               justifyContent: "center",
+              minWidth: "100%",
             },
           }}
         >
-          {/*User and Shop Info */}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
-              minWidth: "250px",
-              order: 1,
-              "@media (max-width: 1516px)": {
-                order: 2,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "48%",
-              },
-              "@media (max-width: 1137px)": {
-                minWidth: "100%",
-              },
+              display: "flex",
+              flexDirection: "row",
+              gap: "32px",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingX: 5,
             }}
           >
-            <Stack
-              spacing={2}
-              sx={{
-                alignItems: "center",
-                justifyItems: "center",
-                textAlign: "center",
-              }}
-            >
+            {/* Shop Info*/}
+            <Stack spacing={2} direction={"row"} sx={{ alignItems: "center" }}>
               {/*Shop Logo */}
               <Avatar
                 className={`${styles.avatar}`}
@@ -132,50 +127,88 @@ function DashboardShopContent() {
                 src={lokal360_Logo}
               />
 
-              {/*Shop Name*/}
-              <Typography variant="sectionTitle">Bamboo Land</Typography>
+              <Stack spacing={0} direction={"column"}>
+                {/*Shop Name*/}
+                <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
+                  <TruncateString str={"Bamboo Land"} n={25} />
+                </Typography>
 
-              {/*Shop Info*/}
-              <Stack spacing={5} direction={"row"}>
-                {/*Products Count */}
-                <Stack spacing={0}>
+                {/*Shop Info*/}
+                <Stack spacing={3} direction={"row"}>
+                  {/*Products Count */}
+
                   <Typography variant="sectionTitleSmall" color={"primary"}>
-                    999
+                    999&nbsp;
+                    <Typography
+                      variant="subtitle1"
+                      color={"#444"}
+                      component={"span"}
+                    >
+                      Products
+                    </Typography>
                   </Typography>
-                  <Typography variant="subtitle1">Products</Typography>
-                </Stack>
 
-                {/*Followers Count */}
-                <Stack spacing={0}>
+                  {/*Followers Count */}
                   <Typography variant="sectionTitleSmall" color={"primary"}>
-                    999
+                    999&nbsp;
+                    <Typography
+                      variant="subtitle1"
+                      color={"#444"}
+                      component={"span"}
+                    >
+                      Followers
+                    </Typography>
                   </Typography>
-                  <Typography variant="subtitle1">Followers</Typography>
                 </Stack>
-              </Stack>
-
-              {/*Divider */}
-              <Box sx={{ width: "100%" }}>
-                <Divider />
-              </Box>
-
-              {/*User Avatar */}
-              <Avatar
-                className={`${styles.avatar}`}
-                sx={{ height: 75, width: 75 }}
-                src={maleAvatar}
-              />
-
-              {/*User Info */}
-              <Stack spacing={0}>
-                {/*User Name */}
-                <Typography variant="sectionTitleSmall">Pochi Ta</Typography>
-                {/*User Job Tile */}
-                <Typography variant="subtitle2">Store Owner</Typography>
               </Stack>
             </Stack>
-          </Box>
 
+            {/* User Info*/}
+            <Box sx={{ alignSelf: "flex-end" }}>
+              <Stack
+                spacing={2}
+                direction={"row"}
+                sx={{
+                  alignItems: "center",
+                  justifyItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                {/*User Avatar */}
+                <Avatar
+                  className={`${styles.avatar}`}
+                  sx={{ height: 75, width: 75 }}
+                  src={maleAvatar}
+                />
+
+                {/*User Info */}
+                <Stack spacing={0}>
+                  {/*User Name */}
+                  <Typography variant="sectionTitleSmall">Pochi Ta</Typography>
+                  {/*User Job Tile */}
+                  <Typography variant="subtitle2">Store Owner</Typography>
+                </Stack>
+              </Stack>
+            </Box>
+          </Box>
+        </Box>
+
+        {/*First Row*/}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "32px",
+            flexWrap: "wrap",
+            "@media (max-width: 1516px)": {
+              minWidth: "100%",
+            },
+            "@media (max-width: 600px)": {
+              alignItems: "center",
+              justifyContent: "center",
+            },
+          }}
+        >
           {/*Order Summary */}
           <Box
             className={`${styles.sectionContainer}`}
@@ -313,9 +346,6 @@ function DashboardShopContent() {
                 order: 3,
                 alignItems: "center",
                 justifyContent: "center",
-                minWidth: "48.5%",
-              },
-              "@media (max-width: 1137px)": {
                 minWidth: "100%",
               },
             }}
@@ -379,23 +409,6 @@ function DashboardShopContent() {
             },
           }}
         >
-          {/*Fill in for User and Shop Info */}
-          <Box
-            sx={{
-              minWidth: "250px",
-              order: 1,
-
-              "@media (max-width: 1535px)": {
-                display: "none",
-              },
-              "@media (max-width: 600px)": {
-                order: 2,
-                minWidth: "360px",
-                display: "none",
-              },
-            }}
-          />
-
           {/*Active Lokal Ads*/}
           <Box
             className={`${styles.sectionContainer}`}
@@ -629,18 +642,6 @@ function DashboardShopContent() {
             },
           }}
         >
-          {/*Fill in for User and Shop Info */}
-          <Box
-            sx={{
-              minWidth: "250px",
-              order: 1,
-
-              "@media (max-width: 1516px)": {
-                display: "none",
-              },
-            }}
-          />
-
           {/*Product Sales Graph*/}
           <Box
             className={`${styles.sectionContainer}`}

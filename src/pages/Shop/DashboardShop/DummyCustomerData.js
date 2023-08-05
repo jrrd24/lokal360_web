@@ -34,6 +34,13 @@ const userData = [
     orders: 15,
     total: 99999.99,
   },
+  {
+    id: 6,
+    img: require("../../../assets/avatars/128_14.png"),
+    name: "User 6",
+    orders: 15,
+    total: 99999.99,
+  },
 ];
 
 export default userData;
