@@ -73,7 +73,7 @@ function CustomerContainer({ img, name, orders, total }) {
     <Box
       sx={{
         minHeight: 60,
-        width: 300,
+        minWidth: 300,
         backgroundColor: `${theme.palette.background.paper}`,
         p: 1,
         justifyContent: "center",

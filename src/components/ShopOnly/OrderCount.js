@@ -9,7 +9,7 @@ function OrderCount({ component: Icon, color, count, status }) {
       className={`${styles.grow}`}
       sx={{
         height: 165,
-        minWidth: 120,
+        minWidth: 140,
         backgroundColor: bgColor,
       }}
     >
