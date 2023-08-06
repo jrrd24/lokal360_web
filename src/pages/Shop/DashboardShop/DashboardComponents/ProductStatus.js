@@ -14,12 +14,12 @@ import CustomLink from "../../../../components/CustomLink";
 
 function ProductStatus() {
   return (
-    <Stack spacing={1} direction={"column"}>
+    <Stack spacing={2}>
       {/*Section NaME */}
       <Stack
         spacing={10}
         direction={"row"}
-        sx={{ alignItems: "baseline", justifyItems: "baseline" }}
+        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
         <Typography variant="sectionTitle">Product Status</Typography>
         <Box className={`${styles.grow}`}>

@@ -37,15 +37,24 @@ function OrderSummary() {
         spacing={2}
         direction={"row"}
         sx={{
-          alignItems: "center",
           display: "flex",
           flexDirection: "row",
           gap: "16px",
           flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         {/*Section Name and Active Orders */}
-        <Stack spacing={0} sx={{ padding: 1 }}>
+        <Stack
+          spacing={0}
+          sx={{
+            order: 1,
+            "@media (max-width: 600px)": {
+              order: 1,
+            },
+          }}
+        >
           <Typography variant="sectionTitle">Orders Overview</Typography>
           <Stack
             spacing={3}
@@ -61,15 +70,35 @@ function OrderSummary() {
           </Stack>
         </Stack>
 
-        <Box className={`${Styles.grow}`} sx={{ justifyContent: "center" }}>
+        {/*See All */}
+        <Box
+          className={`${Styles.grow}`}
+          sx={{
+            justifyContent: "center",
+
+            order: 3,
+            "@media (max-width: 760px)": {
+              order: 2,
+            },
+          }}
+        >
           <CustomLink to="/shop/orders">{"See All"}</CustomLink>
         </Box>
 
         {/*Date time */}
-        <DateSelection
-          onRangeChange={handleRangeChange}
-          onRangeEndChange={handleRangeEndChange}
-        />
+        <Box
+          sx={{
+            order: 2,
+            "@media (max-width: 760px)": {
+              order: 3,
+            },
+          }}
+        >
+          <DateSelection
+            onRangeChange={handleRangeChange}
+            onRangeEndChange={handleRangeEndChange}
+          />
+        </Box>
       </Stack>
 
       {/*Main */}

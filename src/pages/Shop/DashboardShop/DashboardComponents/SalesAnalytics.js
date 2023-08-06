@@ -38,14 +38,11 @@ function SalesAnalytics() {
           flexDirection: "row",
           gap: "16px",
           flexWrap: "wrap",
+          justifyContent: "space-between",
         }}
       >
         {/*Section Name */}
-        <Stack
-          spacing={9}
-          direction={"row"}
-          sx={{ alignItems: "baseline", justifyItems: "baseline" }}
-        >
+        <Stack>
           <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
             Shop Activity&nbsp;-&nbsp;
             <Typography
@@ -58,16 +55,34 @@ function SalesAnalytics() {
               Product Sales Graph
             </Typography>
           </Typography>
-          <Box className={`${styles.grow}`} sx={{ minWidth: 70 }}>
-            <CustomLink to="/shop/analytics">{"See All"}</CustomLink>
-          </Box>
         </Stack>
+        <Box
+          className={`${styles.grow}`}
+          sx={{
+            minWidth: 70,
+            order: 3,
+            "@media (max-width: 1073px)": {
+              order: 2,
+            },
+          }}
+        >
+          <CustomLink to="/shop/analytics">{"See All"}</CustomLink>
+        </Box>
 
         {/*Date time */}
-        <DateSelection
-          onRangeChange={handleRangeChangeGraph}
-          onRangeEndChange={handleRangeEndChangeGraph}
-        />
+        <Box
+          sx={{
+            order: 2,
+            "@media (max-width: 1073px)": {
+              order: 3,
+            },
+          }}
+        >
+          <DateSelection
+            onRangeChange={handleRangeChangeGraph}
+            onRangeEndChange={handleRangeEndChangeGraph}
+          />
+        </Box>
       </Stack>
 
       {/*Section Content */}

@@ -19,7 +19,7 @@ function ActiveVouchers() {
       <Stack
         spacing={9}
         direction={"row"}
-        sx={{ alignItems: "baseline", justifyItems: "baseline" }}
+        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
         <Typography variant="sectionTitle">Active Vouchers</Typography>
         <Box className={`${styles.grow}`}>
@@ -34,7 +34,7 @@ function ActiveVouchers() {
           flexDirection: "column",
           gap: "8px",
           flexWrap: "wrap",
-
+          justifyContent: "flex-start",
           minWidth: "320px",
           maxWidth: "100%",
           height: "150px",

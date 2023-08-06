@@ -7,21 +7,12 @@ import CustomLink from "../../../../components/CustomLink";
 
 function ValuableCustomers() {
   return (
-    <Stack
-      spacing={1}
-      direction={"column"}
-      sx={{
-        "@media (max-width: 1516px)": {
-          alignItems: "center",
-          justifyContent: "center",
-        },
-      }}
-    >
-      {/*Section NaME */}
+    <Stack spacing={2}>
+      {/*Section name */}
       <Stack
         spacing={3}
         direction={"row"}
-        sx={{ alignItems: "baseline", justifyItems: "baseline" }}
+        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
         <Typography variant="sectionTitle">Valuable Customers</Typography>
         <Box className={`${Styles.grow}`}>
@@ -29,19 +20,31 @@ function ValuableCustomers() {
         </Box>
       </Stack>
 
-      {userData.length > 0 ? (
-        userData.map((userData) => (
-          <CustomerContainer
-            key={userData.id}
-            img={userData.img}
-            name={userData.name}
-            orders={userData.orders}
-            total={userData.total}
-          />
-        ))
-      ) : (
-        <Typography>No Record Found</Typography>
-      )}
+      {/*Content */}
+      <Stack
+        spacing={1}
+        direction={"column"}
+        sx={{
+          "@media (max-width: 1516px)": {
+            alignItems: "center",
+            justifyContent: "center",
+          },
+        }}
+      >
+        {userData.length > 0 ? (
+          userData.map((userData) => (
+            <CustomerContainer
+              key={userData.id}
+              img={userData.img}
+              name={userData.name}
+              orders={userData.orders}
+              total={userData.total}
+            />
+          ))
+        ) : (
+          <Typography>No Record Found</Typography>
+        )}
+      </Stack>
     </Stack>
   );
 }

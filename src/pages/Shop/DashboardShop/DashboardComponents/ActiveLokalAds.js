@@ -6,7 +6,7 @@ import CustomLink from "../../../../components/CustomLink";
 function ActiveLokalAds() {
   return (
     <Stack
-      spacing={1}
+      spacing={2}
       direction={"column"}
       sx={{
         "@media (max-width: 1516px)": {
@@ -19,7 +19,7 @@ function ActiveLokalAds() {
       <Stack
         spacing={9}
         direction={"row"}
-        sx={{ alignItems: "baseline", justifyItems: "baseline" }}
+        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
         <Typography variant="sectionTitle">Active Lokal Ads</Typography>
         <Box className={`${styles.grow}`}>
