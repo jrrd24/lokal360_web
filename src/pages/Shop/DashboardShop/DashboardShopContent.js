@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import { Box } from "@mui/material";
 import styles from "../../../css/Styles.module.css";
-import UserShopInfo from "./Components/UserShopInfo";
-import OrderSummary from "./Components/OrderSummary";
-import ValuableCustomers from "./Components/ValuableCustomers";
-import ActiveLokalAds from "./Components/ActiveLokalAds";
-import ActiveVouchers from "./Components/ActiveVouchers";
-import ProductStatus from "./Components/ProductStatus";
-import SalesAnalytics from "./Components/SalesAnalytics";
+import UserShopInfo from "./DashboardComponents/UserShopInfo";
+import OrderSummary from "./DashboardComponents/OrderSummary";
+import ValuableCustomers from "./DashboardComponents/ValuableCustomers";
+import ActiveLokalAds from "./DashboardComponents/ActiveLokalAds";
+import ActiveVouchers from "./DashboardComponents/ActiveVouchers";
+import ProductStatus from "./DashboardComponents/ProductStatus";
+import SalesAnalytics from "./DashboardComponents/SalesAnalytics";
 
 function DashboardShopContent() {
   //For Date Range Query
