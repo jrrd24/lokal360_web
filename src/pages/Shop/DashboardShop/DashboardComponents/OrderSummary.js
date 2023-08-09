@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography, Badge } from "@mui/material";
 import { styled } from "@mui/system";
-import { GetDate } from "../../../../components/Utils/GetDate";
+import { GetDate } from "../../../../utils/GetDate";
 import OrderCount from "../../../../components/ShopOnly/OrderCount";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { BsBoxSeam } from "react-icons/bs";
@@ -13,6 +13,7 @@ import { HiOutlineReceiptRefund } from "react-icons/hi";
 import Styles from "../../../../css/Styles.module.css";
 import DateSelection from "../../../../components/DateSelection";
 import CustomLink from "../../../../components/CustomLink";
+import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -88,15 +89,17 @@ function OrderSummary() {
         <Box
           sx={{
             order: 2,
+            display: "flex",
+            flexDirection: "row",
+            gap: "8px",
+            flexWrap: "wrap",
             "@media (max-width: 760px)": {
               order: 3,
             },
           }}
         >
-          <DateSelection
-            onRangeChange={handleRangeChange}
-            onRangeEndChange={handleRangeEndChange}
-          />
+          <DateSelection />
+          <DisplayDateSelection />
         </Box>
       </Box>
 

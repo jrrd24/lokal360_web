@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Box, Stack } from "@mui/material";
 import DateSelection from "../../../../components/DateSelection";
 import styles from "../../../../css/Styles.module.css";
-import { GetDate } from "../../../../components/Utils/GetDate";
+import { GetDate } from "../../../../utils/GetDate";
+import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 
 function StatisticsBoxes() {
   const [Range, setRange] = useState(<GetDate />);
@@ -114,19 +115,23 @@ function StatisticsBoxes() {
             HI IM BOX 6
           </Box>
         </Box>
-        {/*Date SelectContainer */}
+        {/*Date time */}
         <Box
           sx={{
             order: 2,
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+            flexWrap: "wrap",
             "@media (max-width: 1189px)": {
               order: 1,
+              flexDirection: "row",
+              gap: "16px",
             },
           }}
         >
-          <DateSelection
-            onRangeChange={handleRangeChange}
-            onRangeEndChange={handleRangeEndChange}
-          />
+          <DateSelection />
+          <DisplayDateSelection />
         </Box>
       </Stack>
     </Box>

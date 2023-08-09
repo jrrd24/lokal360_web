@@ -8,57 +8,36 @@ import {
   GetWeekLastDay,
   GetYearFirstDay,
   GetYearLastDay,
-} from "./Utils/GetDate";
+} from "../utils/GetDate";
 import { DateRange } from "@mui/icons-material";
 import theme from "../Theme";
+import { useDateContext } from "../contexts/DateContext";
 
-function DateSelection({
-  onRangeChange,
-  onRangeEndChange,
-  displayOnly,
-  select,
-}) {
-  const [orderSelect, setOrderSelect] = React.useState("1");
-  const [orderRange, setOrderRange] = React.useState(<GetDate />);
-  const [orderRangeEnd, setOrderRangeEnd] = React.useState("");
+function DateSelection({ onRangeChange, onRangeEndChange, displayOnly }) {
+
+  const { selectedRange, handleRangeChange } = useDateContext();
+
+  const options = [
+    { value: 1, label: "Today" },
+    { value: 2, label: "This Week" },
+    { value: 3, label: "This Month" },
+    { value: 4, label: "This Year" },
+    { value: 5, label: "All Time" },
+  ];
 
   const handleChange = (event) => {
-    setOrderSelect(event.target.value);
-    if (event.target.value === 1) {
-      setOrderRange(<GetDate />);
-      setOrderRangeEnd("");
-      onRangeChange(<GetDate />);
-      onRangeEndChange("");
-    } else if (event.target.value === 2) {
-      setOrderRange(<GetWeekFirstDay />);
-      setOrderRangeEnd(<GetWeekLastDay />);
-      onRangeChange(<GetWeekFirstDay />);
-      onRangeEndChange(<GetWeekLastDay />);
-    } else if (event.target.value === 3) {
-      setOrderRange(<GetMonthFirstDay />);
-      setOrderRangeEnd(<GetMonthLastDay />);
-      onRangeChange(<GetMonthFirstDay />);
-      onRangeEndChange(<GetMonthLastDay />);
-    } else if (event.target.value === 4) {
-      setOrderRange(<GetYearFirstDay />);
-      setOrderRangeEnd(<GetYearLastDay />);
-      onRangeChange(<GetYearFirstDay />);
-      onRangeEndChange(<GetYearLastDay />);
-    } else {
-      setOrderRange("");
-      setOrderRangeEnd("");
-      onRangeChange("");
-      onRangeEndChange("");
-    }
+    const selectedValue = event.target.value;
+    handleRangeChange(selectedValue);
   };
 
   return (
+
     <Stack direction={"row"} spacing={2}>
-      {/*Combo Box */}
+      {/* Combo Box */}
       <Select
-        labelId="select-order-time"
-        id="select-order-time"
-        value={orderSelect}
+        labelId="select--time"
+        id="select--time"
+        value={selectedRange}
         onChange={handleChange}
         sx={{
           width: "130px",
@@ -68,40 +47,12 @@ function DateSelection({
           display: displayOnly ? "none" : "",
         }}
       >
-        <MenuItem value={1}>Today</MenuItem>
-        <MenuItem value={2}>This Week</MenuItem>
-        <MenuItem value={3}>This Month</MenuItem>
-        <MenuItem value={4}>This Year</MenuItem>
-        <MenuItem value={5}>All Time</MenuItem>
+        {options.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
       </Select>
-
-      {/*Display Date */}
-      <Stack
-        spacing={1}
-        direction={"row"}
-        sx={{
-          minWidth: 140,
-          maxWidth: 160,
-          maxHeight: 66,
-          minHeight: 56,
-          backgroundColor: "#F2F2F2",
-          p: 1,
-          alignItems: "center",
-          justifyItems: "center",
-          border: "1px solid #444",
-          borderRadius: 2,
-        }}
-      >
-        <Box>
-          <DateRange />
-        </Box>
-        <Box>
-          <Typography variant="h7">
-            {orderRange} {orderRangeEnd === "" ? "" : "to"}{" "}
-          </Typography>
-          <Typography variant="h7">{orderRangeEnd} </Typography>
-        </Box>
-      </Stack>
     </Stack>
   );
 }

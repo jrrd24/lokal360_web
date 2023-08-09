@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Stack, Avatar, Typography } from "@mui/material";
-import TruncateString from "../../../../components/Utils/TruncateString";
+import TruncateString from "../../../../utils/TruncateString";
 import styles from "../../../../css/Styles.module.css";
 import maleAvatar from "../../../../assets/avatars/128_1.png";
 import lokal360_Logo from "../../../../assets/lokal360_Logo.png";

@@ -5,7 +5,8 @@ import theme from "../../../../Theme";
 import DateSelection from "../../../../components/DateSelection";
 import ProductSalesGraph from "../Graphs/ProductSalesGraph";
 import CustomLink from "../../../../components/CustomLink";
-import { GetDate } from "../../../../components/Utils/GetDate";
+import { GetDate } from "../../../../utils/GetDate";
+import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 
 function SalesAnalytics() {
   const [RangeGraph, setRangeGraph] = useState(<GetDate />);
@@ -77,18 +78,17 @@ function SalesAnalytics() {
         <Box
           sx={{
             order: 2,
-            "@media (max-width: 1073px)": {
+            display: "flex",
+            flexDirection: "row",
+            gap: "8px",
+            flexWrap: "wrap",
+            "@media (max-width: 760px)": {
               order: 3,
-            },
-            "@media (max-width: 700px)": {
-              order: 2,
             },
           }}
         >
-          <DateSelection
-            onRangeChange={handleRangeChangeGraph}
-            onRangeEndChange={handleRangeEndChangeGraph}
-          />
+          <DateSelection />
+          <DisplayDateSelection />
         </Box>
       </Stack>
 

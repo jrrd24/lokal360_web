@@ -2,7 +2,7 @@ import { Avatar, Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import theme from "../../Theme";
 import Styles from "../../css/Styles.module.css";
-import TruncateString from "../Utils/TruncateString";
+import TruncateString from "../../utils/TruncateString";
 import { IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
