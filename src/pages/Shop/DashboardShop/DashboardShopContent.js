@@ -20,6 +20,7 @@ function DashboardShopContent() {
         maxWidth: 2250,
         alignItems: "center",
         justifyContent: "center",
+        pb: 5,
       }}
     >
       <PageInfoComponent
@@ -27,7 +28,7 @@ function DashboardShopContent() {
         Subtitle={"Good Morning {Shop Owner Name}"}
       />
 
-      {/*Content */}
+      {/*Page Content */}
       <Box
         sx={{
           display: "flex",
@@ -38,30 +39,15 @@ function DashboardShopContent() {
           justifyContent: "center",
         }}
       >
-        {/*User and Shop Info */}
-        <Box
-          className={`${styles.sectionContainer}`}
-          sx={{
-            minWidth: "1120px",
-            order: 1,
-            "@media (max-width: 1516px)": {
-              order: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
-          <UserShopInfo />
-        </Box>
-
-        {/*First Row*/}
+        {/*Orders, Ads, Vouchers (Right Side)*/}
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: "column",
             gap: "32px",
             flexWrap: "wrap",
+            order: 1,
+
             "@media (max-width: 1516px)": {
               minWidth: "100%",
             },
@@ -76,44 +62,76 @@ function DashboardShopContent() {
             className={`${styles.sectionContainer}`}
             sx={{
               maxWidth: "750px",
-              order: 1,
               "@media (max-width: 1516px)": {
-                order: 1,
                 minWidth: "100%",
               },
             }}
           >
             <OrderSummary />
           </Box>
-
-          {/*Valuable Customers */}
+          {/*Vouchers and Lokal Ads */}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
-              maxWidth: "340px",
-              order: 3,
-              "@media (max-width: 1516px)": {
-                order: 3,
-                alignItems: "center",
-                justifyContent: "center",
+              display: "flex",
+              flexDirection: "row",
+              gap: "32px",
+              flexWrap: "wrap",
+              minWidth: "100%",
+              "@media (max-width: 1185px)": {
                 minWidth: "100%",
+                flexDirection: "column",
               },
             }}
           >
-            <ValuableCustomers />
+            {/*Active Lokal Ads*/}
+            <Box
+              className={`${styles.sectionContainer}`}
+              sx={{
+                width: "360px",
+
+                "@media (max-width: 1516px)": {
+                  minWidth: "48.5%",
+                },
+                "@media (max-width: 1185px)": {
+                  minWidth: "100%",
+                },
+              }}
+            >
+              <ActiveLokalAds />
+            </Box>
+
+            {/*Active Vouchers*/}
+            <Box
+              className={`${styles.sectionContainer}`}
+              sx={{
+                width: "360px",
+                order: 1,
+                "@media (max-width: 1516px)": {
+                  order: 1,
+                  minWidth: "48.5%",
+                },
+                "@media (max-width: 1185px)": {
+                  minWidth: "100%",
+                },
+              }}
+            >
+              <ActiveVouchers />
+            </Box>
           </Box>
         </Box>
 
-        {/*Second Row*/}
+        {/*Customer, Prod (Left Side)*/}
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: "column",
             gap: "32px",
             flexWrap: "wrap",
+            order: 2,
 
             "@media (max-width: 1516px)": {
               minWidth: "100%",
+              flexDirection: "row",
             },
             "@media (max-width: 600px)": {
               alignItems: "center",
@@ -121,44 +139,30 @@ function DashboardShopContent() {
             },
           }}
         >
-          {/*Active Lokal Ads*/}
+          {/*Valuable Customers */}
           <Box
             className={`${styles.sectionContainer}`}
             sx={{
-              width: "360px",
-              order: 1,
+              maxWidth: "340px",
               "@media (max-width: 1516px)": {
-                order: 1,
+                minWidth: "48.5%",
+              },
+              "@media (max-width: 1185px)": {
                 minWidth: "100%",
               },
             }}
           >
-            <ActiveLokalAds />
+            <ValuableCustomers />
           </Box>
-
-          {/*Active Vouchers*/}
-          <Box
-            className={`${styles.sectionContainer}`}
-            sx={{
-              width: "360px",
-              order: 1,
-              "@media (max-width: 1516px)": {
-                order: 1,
-                minWidth: "100%",
-              },
-            }}
-          >
-            <ActiveVouchers />
-          </Box>
-
           {/*Product Status */}
           <Box
             className={`${styles.sectionContainer}`}
             sx={{
               maxWidth: "340px",
-              order: 3,
-
               "@media (max-width: 1516px)": {
+                minWidth: "48.5%",
+              },
+              "@media (max-width: 1185px)": {
                 minWidth: "100%",
               },
             }}
@@ -167,13 +171,14 @@ function DashboardShopContent() {
           </Box>
         </Box>
 
-        {/*Third Row*/}
+        {/*Graph*/}
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             gap: "32px",
             flexWrap: "wrap",
+            order: 3,
 
             "@media (max-width: 1516px)": {
               minWidth: "100%",
@@ -200,6 +205,22 @@ function DashboardShopContent() {
           >
             <SalesAnalytics />
           </Box>
+        </Box>
+
+        {/*User and Shop Info */}
+        <Box
+          className={`${styles.sectionContainer}`}
+          sx={{
+            minWidth: "1120px",
+            order: 4,
+            "@media (max-width: 1516px)": {
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: "100%",
+            },
+          }}
+        >
+          <UserShopInfo />
         </Box>
       </Box>
     </Box>

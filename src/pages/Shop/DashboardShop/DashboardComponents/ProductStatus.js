@@ -14,10 +14,9 @@ import CustomLink from "../../../../components/CustomLink";
 
 function ProductStatus() {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ maxWidth: "100%" }}>
       {/*Section NaME */}
       <Stack
-        spacing={10}
         direction={"row"}
         sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >

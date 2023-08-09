@@ -16,6 +16,9 @@ function UserShopInfo() {
         alignItems: "center",
         justifyContent: "space-between",
         paddingX: 5,
+        "@media (max-width: 550px)": {
+          paddingX: 1,
+        },
       }}
     >
       {/* Shop Info*/}
@@ -34,7 +37,20 @@ function UserShopInfo() {
           </Typography>
 
           {/*Shop Info*/}
-          <Stack spacing={3} direction={"row"}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "8px",
+              flexWrap: "wrap",
+              alignItems: "flex-start",
+              justifyContent: "center",
+              "@media (max-width: 550px)": {
+                flexDirection: "column",
+                gap: "0px",
+              },
+            }}
+          >
             {/*Products Count */}
 
             <Typography variant="sectionTitleSmall" color={"primary"}>
@@ -51,7 +67,7 @@ function UserShopInfo() {
                 Followers
               </Typography>
             </Typography>
-          </Stack>
+          </Box>
         </Stack>
       </Stack>
 

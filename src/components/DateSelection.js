@@ -10,8 +10,14 @@ import {
   GetYearLastDay,
 } from "./Utils/GetDate";
 import { DateRange } from "@mui/icons-material";
+import theme from "../Theme";
 
-function DateSelection({ onRangeChange, onRangeEndChange }) {
+function DateSelection({
+  onRangeChange,
+  onRangeEndChange,
+  displayOnly,
+  select,
+}) {
   const [orderSelect, setOrderSelect] = React.useState("1");
   const [orderRange, setOrderRange] = React.useState(<GetDate />);
   const [orderRangeEnd, setOrderRangeEnd] = React.useState("");
@@ -56,6 +62,10 @@ function DateSelection({ onRangeChange, onRangeEndChange }) {
         onChange={handleChange}
         sx={{
           width: "130px",
+          maxHeight: 66,
+          minHeight: 56,
+          backgroundColor: `${theme.palette.background.paper}`,
+          display: displayOnly ? "none" : "",
         }}
       >
         <MenuItem value={1}>Today</MenuItem>
@@ -71,6 +81,9 @@ function DateSelection({ onRangeChange, onRangeEndChange }) {
         direction={"row"}
         sx={{
           minWidth: 140,
+          maxWidth: 160,
+          maxHeight: 66,
+          minHeight: 56,
           backgroundColor: "#F2F2F2",
           p: 1,
           alignItems: "center",

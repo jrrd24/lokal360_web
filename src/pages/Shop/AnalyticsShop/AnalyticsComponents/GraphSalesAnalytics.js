@@ -7,7 +7,7 @@ import ProductSalesGraph from "../Graphs/ProductSalesGraph";
 import CustomLink from "../../../../components/CustomLink";
 import { GetDate } from "../../../../components/Utils/GetDate";
 
-function SalesAnalytics() {
+function GraphSalesAnalytics() {
   const [RangeGraph, setRangeGraph] = useState(<GetDate />);
   const [RangeEndGraph, setRangeEndGraph] = useState("");
 
@@ -23,7 +23,6 @@ function SalesAnalytics() {
       spacing={3}
       direction={"column"}
       sx={{
-        maxWidth: "100%",
         "@media (max-width: 1516px)": {
           justifyContent: "center",
         },
@@ -61,7 +60,10 @@ function SalesAnalytics() {
           className={`${styles.grow}`}
           sx={{
             minWidth: 70,
-            order: 3,
+            order: 2,
+            "@media (max-width: 1516px)": {
+              order: 3,
+            },
             "@media (max-width: 1073px)": {
               order: 2,
             },
@@ -76,7 +78,10 @@ function SalesAnalytics() {
         {/*Date time */}
         <Box
           sx={{
-            order: 2,
+            order: 3,
+            "@media (max-width: 1516px)": {
+              order: 2,
+            },
             "@media (max-width: 1073px)": {
               order: 3,
             },
@@ -88,6 +93,7 @@ function SalesAnalytics() {
           <DateSelection
             onRangeChange={handleRangeChangeGraph}
             onRangeEndChange={handleRangeEndChangeGraph}
+            displayOnly={true}
           />
         </Box>
       </Stack>
@@ -107,4 +113,4 @@ function SalesAnalytics() {
   );
 }
 
-export default SalesAnalytics;
+export default GraphSalesAnalytics;

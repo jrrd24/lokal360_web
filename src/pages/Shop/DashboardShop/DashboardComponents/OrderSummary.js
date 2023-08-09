@@ -22,20 +22,18 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 function OrderSummary() {
-  const [RangeOrder, setRangeOrder] = useState(<GetDate />);
-  const [RangeEndOrder, setRangeEndOrder] = useState("");
+  const [Range, setRange] = useState(<GetDate />);
+  const [RangeEnd, setRangeEnd] = useState("");
   const handleRangeChange = (range) => {
-    setRangeOrder(range);
+    setRange(range);
   };
   const handleRangeEndChange = (rangeEnd) => {
-    setRangeEndOrder(rangeEnd);
+    setRangeEnd(rangeEnd);
   };
   return (
     <Stack spacing={3}>
       {/*Section Header */}
-      <Stack
-        spacing={2}
-        direction={"row"}
+      <Box
         sx={{
           display: "flex",
           flexDirection: "row",
@@ -43,6 +41,7 @@ function OrderSummary() {
           flexWrap: "wrap",
           alignItems: "center",
           justifyContent: "space-between",
+          maxWidth: "100%",
         }}
       >
         {/*Section Name and Active Orders */}
@@ -99,7 +98,7 @@ function OrderSummary() {
             onRangeEndChange={handleRangeEndChange}
           />
         </Box>
-      </Stack>
+      </Box>
 
       {/*Main */}
       <Box

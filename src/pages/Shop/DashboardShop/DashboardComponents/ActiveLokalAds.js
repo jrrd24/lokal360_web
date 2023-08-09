@@ -17,7 +17,6 @@ function ActiveLokalAds() {
     >
       {/*Section Name */}
       <Stack
-        spacing={9}
         direction={"row"}
         sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
@@ -35,7 +34,7 @@ function ActiveLokalAds() {
           gap: "8px",
           flexWrap: "wrap",
 
-          minWidth: "320px",
+          minWidth: "00px",
           height: "155px",
           overflow: "auto",
         }}
