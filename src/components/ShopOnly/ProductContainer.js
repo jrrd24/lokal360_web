@@ -54,7 +54,11 @@ function ProductContainer({ img, name, sold }) {
             variant="body1"
             sx={{ color: "#44444499", textAlign: "start" }}
           >
-            Total Sold: ₱ {sold}
+            Total Sold:
+            <Typography component={"span"} sx={{ fontWeight: 700 }}>
+              {" "}
+              {sold}
+            </Typography>{" "}
           </Typography>
         </Stack>
 
