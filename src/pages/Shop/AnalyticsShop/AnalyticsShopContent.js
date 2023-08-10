@@ -78,7 +78,7 @@ function AnalyticsShopContent() {
             <Box
               className={`${styles.sectionContainer}`}
               sx={{
-                maxWidth: "750px",
+                minWidth: "750px",
                 order: 1,
                 "@media (max-width: 1516px)": {
                   order: 1,
@@ -95,7 +95,7 @@ function AnalyticsShopContent() {
             <Box
               className={`${styles.sectionContainer}`}
               sx={{
-                maxWidth: "750px",
+                minWidth: "750px",
                 order: 1,
                 "@media (max-width: 1516px)": {
                   order: 1,
@@ -112,7 +112,7 @@ function AnalyticsShopContent() {
             <Box
               className={`${styles.sectionContainer}`}
               sx={{
-                maxWidth: "750px",
+                minWidth: "750px",
                 order: 1,
                 "@media (max-width: 1516px)": {
                   order: 1,

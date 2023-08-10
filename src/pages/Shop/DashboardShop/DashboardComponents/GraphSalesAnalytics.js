@@ -1,24 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 import theme from "../../../../Theme";
 import DateSelection from "../../../../components/DateSelection";
-import ProductSalesGraph from "../Graphs/ProductSalesGraph";
 import CustomLink from "../../../../components/CustomLink";
-import { GetDate } from "../../../../utils/GetDate";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
+import CustomLineChart from "../../../../components/CustomLineChart";
 
-function SalesAnalytics() {
-  const [RangeGraph, setRangeGraph] = useState(<GetDate />);
-  const [RangeEndGraph, setRangeEndGraph] = useState("");
+const data = [
+  {
+    name: "Monday",
+    Total_Sales: 4000,
+    Products_Sold: 2400,
+  },
+  {
+    name: "Tuesday",
+    Total_Sales: 3000,
+    Products_Sold: 1398,
+  },
+  {
+    name: "Wednesday",
+    Total_Sales: 2000,
+    Products_Sold: 9800,
+  },
+  {
+    name: "Thursday",
+    Total_Sales: 2780,
+    Products_Sold: 3908,
+  },
+  {
+    name: "Friday",
+    Total_Sales: 1890,
+    Products_Sold: 4800,
+  },
+  {
+    name: "Saturday",
+    Total_Sales: 2390,
+    Products_Sold: 3800,
+  },
+  {
+    name: "Sunday",
+    Total_Sales: 3490,
+    Products_Sold: 4300,
+  },
+];
 
-  const handleRangeChangeGraph = (range) => {
-    setRangeGraph(range);
-  };
+const lines = [
+  { dataKey: "Total_Sales", stroke: "#6E5FDE" },
+  { dataKey: "Products_Sold", stroke: "#F18701" },
+];
 
-  const handleRangeEndChangeGraph = (rangeEnd) => {
-    setRangeEndGraph(rangeEnd);
-  };
+function GraphSalesAnalytics() {
   return (
     <Stack
       spacing={3}
@@ -99,12 +131,11 @@ function SalesAnalytics() {
           height: "350px",
         }}
       >
-        {/*TODO: Add Graph Here */}
         {/*Graph */}
-        <ProductSalesGraph />
+        <CustomLineChart data={data} lines={lines} />
       </Box>
     </Stack>
   );
 }
 
-export default SalesAnalytics;
+export default GraphSalesAnalytics;

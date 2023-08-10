@@ -8,11 +8,11 @@ import ValuableCustomers from "./DashboardComponents/ValuableCustomers";
 import ActiveLokalAds from "./DashboardComponents/ActiveLokalAds";
 import ActiveVouchers from "./DashboardComponents/ActiveVouchers";
 import ProductStatus from "./DashboardComponents/ProductStatus";
-import SalesAnalytics from "./DashboardComponents/SalesAnalytics";
+import GraphSalesAnalytics from "./DashboardComponents/GraphSalesAnalytics";
+
+
 
 function DashboardShopContent() {
-  //For Date Range Query
-
   return (
     <Box
       sx={{
@@ -203,7 +203,7 @@ function DashboardShopContent() {
               },
             }}
           >
-            <SalesAnalytics />
+            <GraphSalesAnalytics />
           </Box>
         </Box>
 

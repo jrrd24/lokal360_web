@@ -15,19 +15,19 @@ const DateContext = createContext();
 // Context to Manage and share date-related state
 // and functions across components
 // eliminating the need for prop drilling
+
+// Create a custom hook that returns the DateContext using useContext
 export const useDateContext = () => {
   return useContext(DateContext);
 };
 
+// DateProvider component that wraps its children with DateContext
 export const DateProvider = ({ children }) => {
   const [selectedRange, setSelectedRange] = useState(1);
   const [range, setRange] = useState(<GetDate />);
   const [rangeEnd, setRangeEnd] = useState(null);
 
-  useEffect(() => {
-    console.log("Range updated:", range);
-  }, [range]);
-
+  // Function to handle changes in the selected range
   const handleRangeChange = (selectedValue) => {
     setSelectedRange(selectedValue);
 
@@ -45,10 +45,11 @@ export const DateProvider = ({ children }) => {
       setRangeEnd(<GetYearLastDay />);
     } else {
       setRange(null);
-      setRangeEnd(<GetDate />);
+      setRangeEnd(null);
     }
   };
 
+  // Create an object containing the context values
   const contextValue = {
     selectedRange,
     range,
@@ -56,6 +57,7 @@ export const DateProvider = ({ children }) => {
     handleRangeChange,
   };
 
+  // Provide the context values to its children using DateContext.Provider
   return (
     <DateContext.Provider value={contextValue}>{children}</DateContext.Provider>
   );

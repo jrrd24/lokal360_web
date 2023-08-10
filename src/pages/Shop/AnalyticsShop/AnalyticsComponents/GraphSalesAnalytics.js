@@ -1,24 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import styles from "../../../../css/Styles.module.css";
 import theme from "../../../../Theme";
-import DateSelection from "../../../../components/DateSelection";
-import ProductSalesGraph from "../Graphs/ProductSalesGraph";
-import CustomLink from "../../../../components/CustomLink";
-import { GetDate } from "../../../../utils/GetDate";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
+import CustomLineChart from "../../../../components/CustomLineChart";
+
+const data = [
+  {
+    name: "Monday",
+    Total_Sales: 4000,
+    Products_Sold: 2400,
+  },
+  {
+    name: "Tuesday",
+    Total_Sales: 3000,
+    Products_Sold: 1398,
+  },
+  {
+    name: "Wednesday",
+    Total_Sales: 2000,
+    Products_Sold: 9800,
+  },
+  {
+    name: "Thursday",
+    Total_Sales: 2780,
+    Products_Sold: 3908,
+  },
+  {
+    name: "Friday",
+    Total_Sales: 1890,
+    Products_Sold: 4800,
+  },
+  {
+    name: "Saturday",
+    Total_Sales: 2390,
+    Products_Sold: 3800,
+  },
+  {
+    name: "Sunday",
+    Total_Sales: 3490,
+    Products_Sold: 4300,
+  },
+];
+
+const lines = [
+  { dataKey: "Total_Sales", stroke: "#6E5FDE" },
+  { dataKey: "Products_Sold", stroke: "#F18701" },
+];
 
 function GraphSalesAnalytics() {
-  const [RangeGraph, setRangeGraph] = useState(<GetDate />);
-  const [RangeEndGraph, setRangeEndGraph] = useState("");
-
-  const handleRangeChangeGraph = (range) => {
-    setRangeGraph(range);
-  };
-
-  const handleRangeEndChangeGraph = (rangeEnd) => {
-    setRangeEndGraph(rangeEnd);
-  };
   return (
     <Stack
       spacing={3}
@@ -57,42 +86,15 @@ function GraphSalesAnalytics() {
             </Typography>
           </Typography>
         </Stack>
-        <Box
-          className={`${styles.grow}`}
-          sx={{
-            minWidth: 70,
-            order: 2,
-            "@media (max-width: 1516px)": {
-              order: 3,
-            },
-            "@media (max-width: 1073px)": {
-              order: 2,
-            },
-            "@media (max-width: 700px)": {
-              order: 3,
-            },
-          }}
-        >
-          <CustomLink to="/shop/analytics">{"See All"}</CustomLink>
-        </Box>
 
         {/*Date time */}
         <Box
           sx={{
-            order: 3,
+            order: 2,
             display: "flex",
             flexDirection: "row",
             gap: "8px",
             flexWrap: "wrap",
-            "@media (max-width: 1516px)": {
-              order: 2,
-            },
-            "@media (max-width: 1073px)": {
-              order: 3,
-            },
-            "@media (max-width: 700px)": {
-              order: 2,
-            },
           }}
         >
           <DisplayDateSelection />
@@ -108,7 +110,7 @@ function GraphSalesAnalytics() {
       >
         {/*TODO: Add Graph Here */}
         {/*Graph */}
-        <ProductSalesGraph />
+        <CustomLineChart data={data} lines={lines} />
       </Box>
     </Stack>
   );
