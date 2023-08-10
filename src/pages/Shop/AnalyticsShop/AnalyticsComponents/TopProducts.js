@@ -14,7 +14,7 @@ function TopProducts() {
         direction={"row"}
         sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
-        <Typography variant="sectionTitle">Valuable Customers</Typography>
+        <Typography variant="sectionTitle">Top Products</Typography>
         <Box className={`${Styles.grow}`}>
           <CustomLink to="/shop/customers">{"See All"}</CustomLink>
         </Box>

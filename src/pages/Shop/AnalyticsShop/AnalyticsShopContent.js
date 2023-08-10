@@ -5,6 +5,7 @@ import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoCompo
 import StatisticsBoxes from "./AnalyticsComponents/StatisticsBoxes";
 import GraphSalesAnalytics from "./AnalyticsComponents/GraphSalesAnalytics";
 import TopProducts from "./AnalyticsComponents/TopProducts";
+import SoldPerCategory from "./AnalyticsComponents/SoldPerCategory";
 
 function AnalyticsShopContent() {
   return (
@@ -142,7 +143,7 @@ function AnalyticsShopContent() {
               },
             }}
           >
-            {/*Valuable Customers */}
+            {/*Top Products */}
             <Box
               className={`${styles.sectionContainer}`}
               sx={{
@@ -162,7 +163,7 @@ function AnalyticsShopContent() {
               <TopProducts />
             </Box>
 
-            {/*Valuable Customers */}
+            {/*Products Sold Per Category */}
             <Box
               className={`${styles.sectionContainer}`}
               sx={{
@@ -179,7 +180,7 @@ function AnalyticsShopContent() {
                 },
               }}
             >
-              <TopProducts />
+              <SoldPerCategory />
             </Box>
           </Box>
         </Box>
