@@ -54,7 +54,7 @@ function SoldPerCategory() {
           className={`${Styles.grow}`}
           sx={{ minWidth: 60, textAlign: "right" }}
         >
-          <CustomLink to="/shop/customers">{"See All"}</CustomLink>
+          <CustomLink to="/shop/products/shop_category">{"See All"}</CustomLink>
         </Box>
       </Stack>
 

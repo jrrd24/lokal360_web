@@ -26,6 +26,7 @@ import PartnerShop from "./pages/Shop/PartnerShop/PartnerShop";
 import EmployeeManagement from "./pages/Shop/EmployeeManagement/EmployeeManagement";
 import SettingsShop from "./pages/Shop/SettingsShop/SettingsShop";
 import { DateProvider } from "./contexts/DateContext";
+import ShopCategory from "./pages/Shop/ShopCategory/ShopCategory";
 
 function App() {
   return (
@@ -52,6 +53,10 @@ function App() {
               <Route path="/shop/dashboard" element={<DashboardShop />} />
               <Route path="/shop/analytics" element={<AnalyticsShop />} />
               <Route path="/shop/products" element={<ProductsShop />} />
+              <Route
+                path="/shop/products/shop_category"
+                element={<ShopCategory />}
+              />
               <Route path="/shop/customers" element={<CustomersShop />} />
               <Route path="/shop/orders" element={<OrdersShop />} />
               <Route path="/shop/shop_info" element={<ShopInfo />} />

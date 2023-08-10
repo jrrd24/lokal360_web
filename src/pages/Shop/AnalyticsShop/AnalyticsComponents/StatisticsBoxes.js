@@ -4,6 +4,7 @@ import DateSelection from "../../../../components/DateSelection";
 import styles from "../../../../css/Styles.module.css";
 import { GetDate } from "../../../../utils/GetDate";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
+import StatisticBox from "../../../../components/StatisticBox";
 
 function StatisticsBoxes() {
   const [Range, setRange] = useState(<GetDate />);
@@ -73,47 +74,17 @@ function StatisticsBoxes() {
             },
           }}
         >
-          <Box
-            className={`${styles.sectionContainer}`}
-            sx={{ width: 250, minHeight: 110, p: 1 }}
-          >
-            HI IM BOX
-          </Box>
-
-          <Box
-            className={`${styles.sectionContainer}`}
-            sx={{ width: 250, minHeight: 110, p: 1 }}
-          >
-            HI IM BOX 2
-          </Box>
-
-          <Box
-            className={`${styles.sectionContainer}`}
-            sx={{ width: 250, minHeight: 110, p: 1 }}
-          >
-            HI IM BOX 3
-          </Box>
-
-          <Box
-            className={`${styles.sectionContainer}`}
-            sx={{ width: 250, minHeight: 110, p: 1 }}
-          >
-            HI IM BOX 4
-          </Box>
-
-          <Box
-            className={`${styles.sectionContainer}`}
-            sx={{ width: 250, minHeight: 110, p: 1 }}
-          >
-            HI IM BOX 5
-          </Box>
-
-          <Box
-            className={`${styles.sectionContainer}`}
-            sx={{ width: 250, minHeight: 110, p: 1 }}
-          >
-            HI IM BOX 6
-          </Box>
+          <StatisticBox
+            name={"Sales"}
+            amt={25995}
+            prevAmt={21378}
+            isMoney={true}
+          />
+          <StatisticBox name={"Checkouts"} amt={422} prevAmt={390} />
+          <StatisticBox name={"In Cart"} amt={265} prevAmt={255} />
+          <StatisticBox name={"Cancelled"} amt={17} prevAmt={18} />
+          <StatisticBox name={"Page Visitors"} amt={4280} prevAmt={4000} />
+          <StatisticBox name={"Followers"} amt={795} prevAmt={721} />
         </Box>
         {/*Date time */}
         <Box

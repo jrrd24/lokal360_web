@@ -6,6 +6,8 @@ import StatisticsBoxes from "./AnalyticsComponents/StatisticsBoxes";
 import GraphSalesAnalytics from "./AnalyticsComponents/GraphSalesAnalytics";
 import TopProducts from "./AnalyticsComponents/TopProducts";
 import SoldPerCategory from "./AnalyticsComponents/SoldPerCategory";
+import GraphProductStatus from "./AnalyticsComponents/GraphProductStatus";
+import GraphShopTraffic from "./AnalyticsComponents/GraphShopTraffic";
 
 function AnalyticsShopContent() {
   return (
@@ -106,7 +108,7 @@ function AnalyticsShopContent() {
                 },
               }}
             >
-              <GraphSalesAnalytics />
+              <GraphProductStatus />
             </Box>
 
             {/*Product Sales Graph*/}
@@ -123,7 +125,7 @@ function AnalyticsShopContent() {
                 },
               }}
             >
-              <GraphSalesAnalytics />
+              <GraphShopTraffic />
             </Box>
           </Box>
 

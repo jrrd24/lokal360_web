@@ -56,7 +56,7 @@ function TopProducts() {
       >
         <Typography variant="sectionTitle">Top Products</Typography>
         <Box className={`${Styles.grow}`}>
-          <CustomLink to="/shop/customers">{"See All"}</CustomLink>
+          <CustomLink to="/shop/products">{"See All"}</CustomLink>
         </Box>
       </Stack>
 

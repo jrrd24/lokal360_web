@@ -5,7 +5,8 @@ import {
   List,
   Toolbar,
   CssBaseline,
-  Typography,
+  Tab,
+  Tabs,
   Divider,
   ListItem,
   ListItemButton,
@@ -17,6 +18,8 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import style from "../../css/Styles.module.css";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -141,6 +144,9 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function ShopSidebar({ component: MainComponent }) {
+  //For Page Transitions
+  const [inProp, setInProp] = React.useState(false);
+
   //For App
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -283,6 +289,10 @@ export default function ShopSidebar({ component: MainComponent }) {
   function handleSettingsClick(event) {
     navigate("/shop/settings");
   }
+  function handleShopCategoriesClick(event) {
+    setSelectedMenuItem("Shop Category");
+    navigate("/shop/products/shop_category");
+  }
   // Set the initial selectedMenuItem based on the current pathname
   React.useEffect(() => {
     const currentPathname = window.location.pathname;
@@ -299,6 +309,7 @@ export default function ShopSidebar({ component: MainComponent }) {
       "/shop/360_partner",
       "/shop/employee_management",
       "/shop/settings",
+      "/shop/products/shop_category",
     ];
     const menuItemTexts = [
       "Dashboard",
@@ -313,6 +324,7 @@ export default function ShopSidebar({ component: MainComponent }) {
       "360 Partner",
       "Employee Management",
       "Settings",
+      "Shop Category",
     ];
     const selectedMenuItemIndex = menuItems.indexOf(currentPathname);
     if (selectedMenuItemIndex !== -1) {
@@ -322,6 +334,11 @@ export default function ShopSidebar({ component: MainComponent }) {
     const isSettingsPage = currentPathname === "/admin/settings";
     if (isSettingsPage) {
       setSelectedMenuItem("Settings");
+    }
+
+    if (currentPathname === "/shop/products/shop_category") {
+      setSelectedMenuItem("Shop Category");
+      setValue("two"); // Set the tab value to "two" for Shop Categories
     }
   }, []);
 
@@ -335,6 +352,18 @@ export default function ShopSidebar({ component: MainComponent }) {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  //For Tabs
+  const [value, setValue] = React.useState("one");
+
+  const handleChange = (event, newValue, setValue) => {
+    setValue(newValue);
+    if (newValue === "one") {
+      handleProductsClick();
+    } else if (newValue === "two") {
+      handleShopCategoriesClick();
+    }
   };
 
   return (
@@ -622,11 +651,11 @@ export default function ShopSidebar({ component: MainComponent }) {
       </Drawer>
 
       {/*MAIN */}
+
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
           backgroundColor: "#F8F7FD",
           minHeight: "100vh",
           display: { xs: open ? "none" : "block", sm: "block" },
@@ -634,8 +663,35 @@ export default function ShopSidebar({ component: MainComponent }) {
       >
         <DrawerHeader />
 
+        {/*Tabs */}
+        <Tabs
+          value={value}
+          onChange={(event, newValue) =>
+            handleChange(event, newValue, setValue)
+          }
+          sx={{
+            backgroundColor: `${theme.palette.background.paper}`,
+            display:
+              selectedMenuItem === "Products" ||
+              selectedMenuItem === "Shop Category"
+                ? "block"
+                : "none",
+            height: "20px",
+          }}
+        >
+          <Tab value="one" label="Products" />
+          <Tab value="two" label="Shop Categories" />
+        </Tabs>
+
         {MainComponent && (
-          <Box sx={mainComponentStyle}>
+          <Box
+            sx={
+              (mainComponentStyle,
+              {
+                p: 3,
+              })
+            }
+          >
             <MainComponent />
           </Box>
         )}
