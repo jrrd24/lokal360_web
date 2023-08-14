@@ -4,11 +4,9 @@ import Styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import ProductContainer from "../../../../components/ShopOnly/ProductContainer";
 import productData from "../../../../data/productData";
+import MapData from "../../../../utils/MapData";
 
 function TopProducts({ hideShowAll }) {
-  // Sort the data in descending order based on the 'sold' property
-  const sortedData = productData.slice().sort((a, b) => b.sold - a.sold);
-  const topSixProducts = sortedData.slice(0, 6);
   return (
     <Stack spacing={2}>
       {/*Section name */}
@@ -37,18 +35,14 @@ function TopProducts({ hideShowAll }) {
           },
         }}
       >
-        {topSixProducts.length > 0 ? (
-          topSixProducts.map((data) => (
-            <ProductContainer
-              key={data.id}
-              img={data.product_image}
-              name={data.name}
-              sold={data.sold}
-            />
-          ))
-        ) : (
-          <Typography>No Record Found</Typography>
-        )}
+        {/*Mapping user data*/}
+        <MapData
+          inputData={productData}
+          component={ProductContainer}
+          sortByField={"sold"}
+          showUpTo={6}
+          idName={"productID"}
+        />
       </Stack>
     </Stack>
   );

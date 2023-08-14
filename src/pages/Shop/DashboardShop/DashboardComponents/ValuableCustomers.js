@@ -38,6 +38,7 @@ function ValuableCustomers() {
           component={CustomerContainer}
           sortByField={"orders"}
           showUpTo={6}
+          idName={"shopperID"}
         />
       </Stack>
     </Stack>

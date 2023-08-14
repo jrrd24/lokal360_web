@@ -56,8 +56,15 @@ const StyledMenu = styled((props) => (
 }));
 
 function CustomerContainer({ data }) {
-  // Destructuring data prop
-  const { img, name, orders, total } = data;
+  // Destructuring data prop and adding default values
+  // for error handiling in case of undefined params
+  const {
+    img = "",
+    name = "Unknown Customer",
+    orders = 0,
+    total = 0.0,
+  } = data || {};
+
   // Formatting total amount
   const formattedTotal = total?.toLocaleString(undefined, {
     minimumFractionDigits: 2,
@@ -147,7 +154,6 @@ function CustomerContainer({ data }) {
   );
 }
 
-// Prop types for the CustomerContainer component
 CustomerContainer.propTypes = {
   img: PropTypes.string,
   name: PropTypes.string,

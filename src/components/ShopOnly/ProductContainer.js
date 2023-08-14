@@ -2,11 +2,20 @@ import { Avatar, Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import theme from "../../Theme";
 import Styles from "../../css/Styles.module.css";
+import PropTypes from "prop-types";
 import TruncateString from "../../utils/TruncateString";
 import { IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
-function ProductContainer({ img, name, sold }) {
+function ProductContainer({ data }) {
+  // Destructuring data prop and adding default values
+  // for error handiling in case of undefined params
+  const {
+    product_image = "",
+    name = "Unknown Product",
+    total_sold = 0,
+  } = data || {};
+
   return (
     <Box
       sx={{
@@ -26,7 +35,7 @@ function ProductContainer({ img, name, sold }) {
       >
         {/*User Image */}
         <Avatar
-          src={img}
+          src={product_image}
           alt="P"
           sx={{
             backgroundColor: "#FFF",
@@ -58,7 +67,7 @@ function ProductContainer({ img, name, sold }) {
             Total Sold:
             <Typography component={"span"} sx={{ fontWeight: 700 }}>
               {" "}
-              {sold}
+              {total_sold}
             </Typography>{" "}
           </Typography>
         </Stack>
@@ -73,5 +82,11 @@ function ProductContainer({ img, name, sold }) {
     </Box>
   );
 }
+
+ProductContainer.propTypes = {
+  product_image: PropTypes.string,
+  name: PropTypes.string,
+  total_sold: PropTypes.number,
+};
 
 export default ProductContainer;
