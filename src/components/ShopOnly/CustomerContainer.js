@@ -3,6 +3,7 @@ import React from "react";
 import theme from "../../Theme";
 import Styles from "../../css/Styles.module.css";
 import TruncateString from "../../utils/TruncateString";
+import PropTypes from "prop-types";
 import { IconButton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { styled, alpha } from "@mui/material/styles";
@@ -10,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ChatBubble, ReportProblem } from "@mui/icons-material";
 
+// Styling for the custom menu
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -53,12 +55,16 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-function CustomerContainer({ img, name, orders, total }) {
-  const formattedTotal = total.toLocaleString(undefined, {
+function CustomerContainer({ data }) {
+  // Destructuring data prop
+  const { img, name, orders, total } = data;
+  // Formatting total amount
+  const formattedTotal = total?.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
 
+  // State and event handlers for the menu
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -140,5 +146,13 @@ function CustomerContainer({ img, name, orders, total }) {
     </Box>
   );
 }
+
+// Prop types for the CustomerContainer component
+CustomerContainer.propTypes = {
+  img: PropTypes.string,
+  name: PropTypes.string,
+  orders: PropTypes.number,
+  total: PropTypes.number,
+};
 
 export default CustomerContainer;

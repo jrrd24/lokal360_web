@@ -35,7 +35,7 @@ const data = [
   },
 ];
 
-function SoldPerCategory() {
+function SoldPerCategory({ hideShowAll }) {
   return (
     <Stack spacing={2}>
       {/*Section header */}
@@ -52,7 +52,11 @@ function SoldPerCategory() {
         {/*See All */}
         <Box
           className={`${Styles.grow}`}
-          sx={{ minWidth: 60, textAlign: "right" }}
+          sx={{
+            minWidth: 60,
+            textAlign: "right",
+            display: hideShowAll ? "none" : "block",
+          }}
         >
           <CustomLink to="/shop/products/shop_category">{"See All"}</CustomLink>
         </Box>
