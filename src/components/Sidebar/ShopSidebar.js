@@ -17,9 +17,8 @@ import {
   Badge,
   MenuItem,
   Menu,
+  Typography,
 } from "@mui/material";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import style from "../../css/Styles.module.css";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -679,8 +678,28 @@ export default function ShopSidebar({ component: MainComponent }) {
             height: "20px",
           }}
         >
-          <Tab value="one" label="Products" />
-          <Tab value="two" label="Shop Categories" />
+          <Tab
+            value="one"
+            label={
+              <Typography
+                variant="sectionTitleSmall"
+                sx={{ color: "inherit", fontSize: 18 }}
+              >
+                Products
+              </Typography>
+            }
+          />
+          <Tab
+            value="two"
+            label={
+              <Typography
+                variant="sectionTitleSmall"
+                sx={{ color: "inherit", fontSize: 18 }}
+              >
+                Shop Categories
+              </Typography>
+            }
+          />
         </Tabs>
 
         {MainComponent && (
@@ -689,6 +708,10 @@ export default function ShopSidebar({ component: MainComponent }) {
               (mainComponentStyle,
               {
                 p: 3,
+                "@media (max-width: 600px)": {
+                  p: 0,
+                  py: 3,
+                },
               })
             }
           >

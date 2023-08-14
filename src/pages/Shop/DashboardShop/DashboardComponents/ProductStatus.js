@@ -12,7 +12,7 @@ import {
 import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 
-function ProductStatus() {
+function ProductStatus({ hideShowAll }) {
   return (
     <Stack spacing={2} sx={{ maxWidth: "100%" }}>
       {/*Section NaME */}
@@ -21,7 +21,10 @@ function ProductStatus() {
         sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
         <Typography variant="sectionTitle">Product Status</Typography>
-        <Box className={`${styles.grow}`}>
+        <Box
+          className={`${styles.grow}`}
+          sx={{ display: hideShowAll ? "none" : "block" }}
+        >
           <CustomLink to="/shop/products">{"See All"}</CustomLink>
         </Box>
       </Stack>

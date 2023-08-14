@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.0",
     "@mui/material": "^5.14.0",
+    "@mui/x-data-grid": "^6.11.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -19,7 +20,10 @@
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.1",
     "recharts": "^2.7.2",
-    "web-vitals": "^2.1.4"
+    "url-loader": "^4.1.1",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

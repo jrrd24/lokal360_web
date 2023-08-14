@@ -5,7 +5,7 @@ import ShopCategoryContent from "./ShopCategoryContent";
 function ShopCategory() {
   //Set Page Title
   useEffect(() => {
-    document.title = "Products | Lokal 360";
+    document.title = "Shop Category | Lokal 360";
     return () => {
       document.title = "Lokal 360";
     };

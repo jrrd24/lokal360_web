@@ -27,6 +27,7 @@ function ProductContainer({ img, name, sold }) {
         {/*User Image */}
         <Avatar
           src={img}
+          alt="P"
           sx={{
             backgroundColor: "#FFF",
             width: 50,

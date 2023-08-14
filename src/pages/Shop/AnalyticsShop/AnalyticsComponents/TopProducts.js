@@ -43,7 +43,7 @@ const data = [
   },
 ];
 
-function TopProducts() {
+function TopProducts({ hideShowAll }) {
   // Sort the data in descending order based on the 'sold' property
   const sortedData = data.slice().sort((a, b) => b.sold - a.sold);
   return (
@@ -55,7 +55,10 @@ function TopProducts() {
         sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
         <Typography variant="sectionTitle">Top Products</Typography>
-        <Box className={`${Styles.grow}`}>
+        <Box
+          className={`${Styles.grow}`}
+          sx={{ display: hideShowAll ? "none" : "block" }}
+        >
           <CustomLink to="/shop/products">{"See All"}</CustomLink>
         </Box>
       </Stack>

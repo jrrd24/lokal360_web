@@ -5,7 +5,14 @@ import PartnerTag from "../ShopOnly/PartnerTag";
 
 function PageInfoComponent({ PageName, Subtitle, isPartner }) {
   return (
-    <Box sx={{ pb: 5 }}>
+    <Box
+      sx={{
+        pb: 5,
+        "@media (max-width: 600px)": {
+          px: 3,
+        },
+      }}
+    >
       {/*Shop Info */}
       <Box
         sx={{

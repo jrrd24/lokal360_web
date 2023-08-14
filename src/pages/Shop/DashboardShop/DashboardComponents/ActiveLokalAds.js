@@ -3,6 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 
+
 function ActiveLokalAds() {
   return (
     <Stack
@@ -34,7 +35,7 @@ function ActiveLokalAds() {
           gap: "8px",
           flexWrap: "wrap",
 
-          minWidth: "00px",
+          maxWidth: "100%",
           height: "155px",
           overflow: "auto",
         }}

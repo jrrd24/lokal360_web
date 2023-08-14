@@ -27,6 +27,9 @@ const theme = createTheme({
     },
     divider: "#9D9D9D",
     buttonHover: "#757575",
+    success: { main: "#8CCC00" },
+    warning: { main: "#F7B801" },
+    danger: { main: "#F35B04" },
   },
 
   typography: {
@@ -42,13 +45,23 @@ const theme = createTheme({
       color: "#444",
       lineHeight: "20px",
       letterSpacing: -0.3,
+      textTransform: "none",
     },
     seeAll: {
       fontSize: "16px",
       color: "#44444499",
+      textTransform: "none",
     },
     bigBadge: {
       fontSize: 30,
+    },
+    status: {
+      fontSize: "16px",
+      fontWeight: 600,
+      color: "#444",
+      lineHeight: "16px",
+      letterSpacing: -0.3,
+      textTransform: "none",
     },
   },
 });
