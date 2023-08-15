@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Box, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import theme from "../../../../Theme";
 import { ArrowCircleRight, Delete } from "@mui/icons-material";
@@ -38,7 +38,7 @@ const columns = [
       statusComponent = (
         <Box>
           <IconButton>
-            <Delete sx={{ color: `${theme.palette.danger.delete}` }} />
+            <Delete sx={{ color: `${theme.palette.danger.main}` }} />
           </IconButton>
           <IconButton>
             <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />

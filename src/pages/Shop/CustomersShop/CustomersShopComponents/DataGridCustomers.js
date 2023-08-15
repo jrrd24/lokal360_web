@@ -1,22 +1,21 @@
-import * as React from "react";
-import { Avatar, IconButton } from "@mui/material";
+import React from "react";
+import { Avatar, IconButton, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { ProductInventoryStatus } from "../../../../components/ShopOnly/StatusAndTags/ProductInventoryStatus";
 import theme from "../../../../Theme";
 import { ArrowCircleRight } from "@mui/icons-material";
-import productData from "../../../../data/productData";
-
-// Define Datagrid Columns
+import userData from "../../../../data/userData";
+import CustomerStatus from "../../../../components/ShopOnly/StatusAndTags/CustomerStatus";
+// Define data grid columns
 const columns = [
   {
-    field: "productID",
+    field: "shopperID",
     headerName: "ID",
+    hideable: false,
     type: "number",
     width: 60,
-    hideable: false,
   },
   {
-    field: "product_image",
+    field: "img",
     headerName: "Image",
     width: 100,
     renderCell: (params) => {
@@ -40,54 +39,53 @@ const columns = [
     },
   },
   {
-    field: "name",
+    field: "username",
     headerName: "Name",
-    width: 200,
+    width: 160,
   },
   {
-    field: "total_sold",
-    headerName: "Total Sold",
+    field: "orders",
+    headerName: "No. of Purchases",
     type: "number",
-    width: 80,
+    width: 120,
+  },
+  {
+    field: "total",
+    headerName: "Total Spent",
+    type: "number",
+    width: 120,
+    renderCell: (params) => {
+      const totalSpent = params.value;
+      let statusComponent;
+      statusComponent = <Typography>₱ {totalSpent}</Typography>;
+      return statusComponent;
+    },
   },
   {
     field: "status",
     headerName: "Status",
-    width: 150,
+    width: 120,
     renderCell: (params) => {
       const status = params.value;
       let statusComponent;
       if (
-        status === "In Stock" ||
-        status === "Low Stock" ||
-        status === "Out Of Stock"
+        status === "Follower" ||
+        status === "Reported" ||
+        status === "Banned"
       ) {
-        statusComponent = <ProductInventoryStatus status={status} />;
-      } else if (status === "Low Stock") {
-        statusComponent = <ProductInventoryStatus status={status} />;
-      } else if (status === "Out Of Stock") {
-        statusComponent = <ProductInventoryStatus status={status} />;
+        statusComponent = <CustomerStatus status={status} />;
       } else {
-        statusComponent = <ProductInventoryStatus status={"Discontinued"} />;
+        statusComponent = <CustomerStatus status={"N/A"} />;
       }
 
       return statusComponent;
     },
   },
   {
-    field: "number_of_variations",
-    headerName: "No. of Variations",
-    type: "number",
-    width: 130,
-  },
-  {
-    field: "promo_type",
-    headerName: "Promo Applied",
-    width: 170,
-  },
-  {
     headerName: "Action",
     width: 60,
+    align: "center",
+    headerAlign: "center",
     sortable: false,
     filterable: false,
     hideable: false,
@@ -103,14 +101,14 @@ const columns = [
   },
 ];
 
-export default function DataGridProducts() {
+function DataGridCustomers() {
   return (
     <DataGrid
       //sx line is needed for overflow (bug in mui data grid v6)
       sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
-      rows={productData}
+      rows={userData}
       columns={columns}
-      getRowId={(row) => row.productID}
+      getRowId={(row) => row.shopperID}
       initialState={{
         pagination: {
           paginationModel: {
@@ -123,3 +121,5 @@ export default function DataGridProducts() {
     />
   );
 }
+
+export default DataGridCustomers;

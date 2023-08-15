@@ -39,7 +39,7 @@ function TopProducts({ hideShowAll }) {
         <MapData
           inputData={productData}
           component={ProductContainer}
-          sortByField={"sold"}
+          sortByField={"total_sold"}
           showUpTo={6}
           idName={"productID"}
         />

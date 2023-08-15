@@ -60,7 +60,7 @@ function CustomerContainer({ data }) {
   // for error handiling in case of undefined params
   const {
     img = "",
-    name = "Unknown Customer",
+    username = "Unknown Customer",
     orders = 0,
     total = 0.0,
   } = data || {};
@@ -105,7 +105,7 @@ function CustomerContainer({ data }) {
         >
           {/* User Name*/}
           <Typography variant="sectionTitleSmall">
-            <TruncateString str={name} n={15} />
+            <TruncateString str={username} n={15} />
           </Typography>
 
           {/* Order Count and Total Spent*/}
@@ -156,7 +156,7 @@ function CustomerContainer({ data }) {
 
 CustomerContainer.propTypes = {
   img: PropTypes.string,
-  name: PropTypes.string,
+  username: PropTypes.string,
   orders: PropTypes.number,
   total: PropTypes.number,
 };
