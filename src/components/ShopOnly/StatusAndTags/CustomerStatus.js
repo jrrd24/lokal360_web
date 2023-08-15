@@ -24,6 +24,7 @@ function CustomerStatus({ status }) {
         minWidth: 100,
         p: 0.5,
         backgroundColor: color,
+        borderRadius: 5,
       }}
     >
       <Typography variant="status" color="#fff">

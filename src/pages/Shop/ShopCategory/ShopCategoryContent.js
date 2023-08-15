@@ -7,7 +7,15 @@ import styles from "../../../css/Styles.module.css";
 
 function ShopCategoryContent() {
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundColor: "transparent",
+        maxWidth: 2250,
+        alignItems: "center",
+        justifyContent: "center",
+        pb: 5,
+      }}
+    >
       <PageInfoComponent
         PageName={"Shop Categories"}
         Subtitle={"Add and Manage your Custom Shop Categories"}

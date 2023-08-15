@@ -5,7 +5,15 @@ import styles from "../../../css/Styles.module.css";
 import MyCustomers from "./CustomersShopComponents/MyCustomers";
 function CustomersShopContent() {
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundColor: "transparent",
+        maxWidth: 2250,
+        alignItems: "center",
+        justifyContent: "center",
+        pb: 5,
+      }}
+    >
       <PageInfoComponent
         PageName={"Customers"}
         Subtitle={"View and Manage your Shop's Customers"}

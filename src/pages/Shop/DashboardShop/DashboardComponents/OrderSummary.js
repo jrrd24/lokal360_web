@@ -22,7 +22,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     textAlign: "center",
   },
 }));
-function OrderSummary() {
+function OrderSummary({ hideShowAll }) {
   const [Range, setRange] = useState(<GetDate />);
   const [RangeEnd, setRangeEnd] = useState("");
   const handleRangeChange = (range) => {
@@ -75,7 +75,7 @@ function OrderSummary() {
           className={`${Styles.grow}`}
           sx={{
             justifyContent: "center",
-
+            display: hideShowAll ? "none" : "block",
             order: 3,
             "@media (max-width: 760px)": {
               order: 2,

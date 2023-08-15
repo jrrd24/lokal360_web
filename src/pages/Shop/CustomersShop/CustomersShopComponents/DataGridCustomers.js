@@ -5,6 +5,7 @@ import theme from "../../../../Theme";
 import { ArrowCircleRight } from "@mui/icons-material";
 import userData from "../../../../data/userData";
 import CustomerStatus from "../../../../components/ShopOnly/StatusAndTags/CustomerStatus";
+
 // Define data grid columns
 const columns = [
   {
@@ -56,8 +57,9 @@ const columns = [
     width: 120,
     renderCell: (params) => {
       const totalSpent = params.value;
+      const formattedPrice = totalSpent.toFixed(2);
       let statusComponent;
-      statusComponent = <Typography>₱ {totalSpent}</Typography>;
+      statusComponent = <Typography>₱ {formattedPrice}</Typography>;
       return statusComponent;
     },
   },

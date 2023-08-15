@@ -11,11 +11,14 @@ function OrderCount({ component: Icon, color, count, status }) {
         height: 165,
         minWidth: 140,
         backgroundColor: bgColor,
+        borderRadius: 2,
       }}
     >
       {Icon && (
         <Box p={2}>
           <Stack spacing={1} sx={{ alignItems: "center" }}>
+            {/**Has two size and color since not all icons from mui.
+             * Some icons are from react icons */}
             <Icon size="40" color={color} sx={{ fontSize: 40, color: color }} />
             <Typography variant="sectionTitle" sx={{ color: color }}>
               {count}
