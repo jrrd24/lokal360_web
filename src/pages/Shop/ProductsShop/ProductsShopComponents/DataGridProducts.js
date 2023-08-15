@@ -8,7 +8,13 @@ import productData from "../../../../data/productData";
 
 // Define Datagrid Columns
 const columns = [
-  { field: "productID", headerName: "ID", type: "number", width: 60 },
+  {
+    field: "productID",
+    headerName: "ID",
+    type: "number",
+    width: 60,
+    hideable: false,
+  },
   {
     field: "product_image",
     headerName: "Image",
@@ -78,6 +84,9 @@ const columns = [
   {
     headerName: "Action",
     width: 60,
+    sortable: false,
+    filterable: false,
+    hideable: false,
     renderCell: (params) => {
       let statusComponent;
       statusComponent = (
@@ -91,14 +100,13 @@ const columns = [
 ];
 
 export default function DataGridProducts() {
-  const getProductId = (productData) => productData.productID;
   return (
     <DataGrid
       //sx line is needed for overflow (bug in mui data grid v6)
       sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
       rows={productData}
       columns={columns}
-      getRowId={getProductId}
+      getRowId={(row) => row.productID}
       initialState={{
         pagination: {
           paginationModel: {
@@ -106,6 +114,7 @@ export default function DataGridProducts() {
           },
         },
       }}
+      disableRowSelectionOnClick
       pageSizeOptions={[5, 10, 15]}
     />
   );

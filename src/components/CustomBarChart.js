@@ -25,17 +25,17 @@ const getColorForIndex = (index) => {
 };
 
 const CustomBarChart = ({ data }) => {
-  // Sort the data in descending order based on the 'amtSold' property
-  const sortedData = data.slice().sort((a, b) => b.amtSold - a.amtSold);
+  // Sort the data in descending order based on the 'amt_sold' property
+  const sortedData = data.slice().sort((a, b) => b.amt_sold - a.amt_sold);
   const sumAmtSold = sortedData.reduce(
-    (sum, orderedData) => sum + orderedData.amtSold,
+    (sum, orderedData) => sum + orderedData.amt_sold,
     0
   );
 
   return (
     <Box sx={{ width: "100%", textAlign: "left" }}>
       {sortedData.map((orderedData, index) => {
-        const percentage = ((orderedData.amtSold / sumAmtSold) * 100).toFixed(
+        const percentage = ((orderedData.amt_sold / sumAmtSold) * 100).toFixed(
           2
         );
 
@@ -60,7 +60,7 @@ const CustomBarChart = ({ data }) => {
               >
                 Total Sales:{" "}
                 <Typography component={"span"} sx={{ fontWeight: 700 }}>
-                  {orderedData.amtSold} &nbsp; | &nbsp;{percentage}%
+                  {orderedData.amt_sold} &nbsp; | &nbsp;{percentage}%
                 </Typography>
               </Typography>
             </Stack>

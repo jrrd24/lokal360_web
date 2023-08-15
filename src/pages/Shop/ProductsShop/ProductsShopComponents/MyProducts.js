@@ -34,6 +34,10 @@ function MyProducts() {
           <ButtonAdd label={"New Products"} onClickAction={null} />
           {/*TODO: Add onClick for Button */}
         </Box>
+        <Typography variant="seeAll" sx={{ textAlign: "left" }}>
+          To search for a Product, click the menu beside "Name" then select
+          filter and type Product Name in Value
+        </Typography>
 
         <DataGridProducts />
       </Stack>

@@ -53,9 +53,9 @@ function ShopCategoryContent() {
             <Box
               className={`${styles.sectionContainer}`}
               sx={{
-                minWidth: "750px",
+                minWidth: "600px",
                 order: 1,
-                "@media (max-width: 1516px)": {
+                "@media (max-width: 912px)": {
                   order: 1,
                   alignItems: "center",
                   justifyContent: "center",

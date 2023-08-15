@@ -3,37 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import Styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import CustomBarChart from "../../../../components/CustomBarChart";
-
-const data = [
-  {
-    name: "Category A",
-    amtSold: 164,
-  },
-  {
-    name: "Category B",
-    amtSold: 10,
-  },
-  {
-    name: "Category C",
-    amtSold: 82,
-  },
-  {
-    name: "Category D",
-    amtSold: 20,
-  },
-  {
-    name: "Category E",
-    amtSold: 45,
-  },
-  {
-    name: "Category F",
-    amtSold: 2,
-  },
-  {
-    name: "Category G",
-    amtSold: 99,
-  },
-];
+import shopCategoryData from "../../../../data/shopCategoryData";
 
 function SoldPerCategory({ hideShowAll }) {
   return (
@@ -73,7 +43,7 @@ function SoldPerCategory({ hideShowAll }) {
           },
         }}
       >
-        <CustomBarChart data={data} />
+        <CustomBarChart data={shopCategoryData} />
       </Stack>
     </Stack>
   );

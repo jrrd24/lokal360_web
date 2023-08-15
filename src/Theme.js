@@ -29,7 +29,7 @@ const theme = createTheme({
     buttonHover: "#757575",
     success: { main: "#8CCC00" },
     warning: { main: "#F7B801" },
-    danger: { main: "#F35B04" },
+    danger: { main: "#F35B04", delete: "#AB3130" },
   },
 
   typography: {

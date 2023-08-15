@@ -7,7 +7,7 @@ function MyShopCategories() {
   return (
     <Box
       sx={{
-        maxWidth: "750px",
+        maxWidth: "600px",
         "@media (max-width: 1516px)": {
           justifyContent: "center",
           maxWidth: "100%",
@@ -30,10 +30,15 @@ function MyShopCategories() {
             },
           }}
         >
-          <Typography variant="sectionTitle">My Products</Typography>
-          <ButtonAdd label={"New Products"} onClickAction={null} />
+          <Typography variant="sectionTitle">My Categories</Typography>
+          <ButtonAdd label={"New Category"} onClickAction={null} />
+
           {/*TODO: Add onClick for Button */}
         </Box>
+        <Typography variant="seeAll" sx={{ textAlign: "left" }}>
+          To search for a Category, click the menu beside "Name" then select
+          filter and type Category Name in Value
+        </Typography>
 
         <DataGridCategories />
       </Stack>

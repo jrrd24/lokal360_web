@@ -41,7 +41,6 @@ function ProductsShopContent() {
             flexDirection: "row",
             gap: "32px",
             flexWrap: "wrap",
-            order: 2,
           }}
         >
           {/*Featured Products/ My Products (Left Side)*/}
@@ -51,8 +50,9 @@ function ProductsShopContent() {
               flexDirection: "column",
               gap: "32px",
               flexWrap: "wrap",
-              order: 3,
+              order: 1,
               "@media (max-width: 1516px)": {
+                order: 2,
                 alignItems: "center",
                 justifyContent: "center",
                 minWidth: "100%",
@@ -81,9 +81,9 @@ function ProductsShopContent() {
               className={`${styles.sectionContainer}`}
               sx={{
                 minWidth: "750px",
-                order: 1,
+                order: 2,
                 "@media (max-width: 1516px)": {
-                  order: 1,
+                  order: 2,
                   alignItems: "center",
                   justifyContent: "center",
                   minWidth: "100%",
@@ -101,8 +101,9 @@ function ProductsShopContent() {
               flexDirection: "column",
               gap: "32px",
               flexWrap: "wrap",
-              order: 4,
+              order: 2,
               "@media (max-width: 1516px)": {
+                order: 1,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "center",
@@ -115,9 +116,9 @@ function ProductsShopContent() {
               className={`${styles.sectionContainer}`}
               sx={{
                 maxWidth: "340px",
-                order: 3,
+                order: 1,
                 "@media (max-width: 1516px)": {
-                  order: 3,
+                  order: 2,
                   alignItems: "center",
                   justifyContent: "center",
                   minWidth: "48%",
@@ -135,9 +136,9 @@ function ProductsShopContent() {
               className={`${styles.sectionContainer}`}
               sx={{
                 maxWidth: "340px",
-                order: 3,
+                order: 2,
                 "@media (max-width: 1516px)": {
-                  order: 3,
+                  order: 1,
                   alignItems: "center",
                   justifyContent: "center",
                   minWidth: "48%",

@@ -1,89 +1,49 @@
 import * as React from "react";
-import { Avatar, IconButton } from "@mui/material";
+import { Avatar, Box, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { ProductInventoryStatus } from "../../../../components/ShopOnly/StatusAndTags/ProductInventoryStatus";
 import theme from "../../../../Theme";
-import { ArrowCircleRight } from "@mui/icons-material";
-import productData from "../../../../data/productData";
+import { ArrowCircleRight, Delete } from "@mui/icons-material";
+import shopCategoryData from "../../../../data/shopCategoryData";
 
 // Define data grid columns
 const columns = [
-  { field: "productID", headerName: "ID", type: "number", width: 60 },
   {
-    field: "product_image",
-    headerName: "Image",
-    width: 100,
-    renderCell: (params) => {
-      const img = params.value;
-      let statusComponent;
-      statusComponent = (
-        <Avatar
-          src={img}
-          sx={{
-            backgroundColor: "#FFF",
-            width: 45,
-            height: 45,
-            border: "solid",
-            borderColor: "transparent",
-            borderRadius: 2,
-          }}
-        />
-      );
-
-      return statusComponent;
-    },
+    field: "shopCategoryID",
+    headerName: "ID",
+    hideable: false,
+    type: "number",
+    width: 60,
   },
   {
     field: "name",
     headerName: "Name",
-    width: 120,
+    width: 200,
   },
   {
-    field: "total_sold",
-    headerName: "Total Sold",
+    field: "number_of_products",
+    headerName: "Number of Products",
     type: "number",
-    width: 80,
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 150,
-    renderCell: (params) => {
-      const status = params.value;
-      let statusComponent;
-      if (status === "In Stock") {
-        statusComponent = <ProductInventoryStatus status={status} />;
-      } else if (status === "Low Stock") {
-        statusComponent = <ProductInventoryStatus status={status} />;
-      } else if (status === "Out Of Stock") {
-        statusComponent = <ProductInventoryStatus status={status} />;
-      } else {
-        statusComponent = <ProductInventoryStatus status={"Discontinued"} />;
-      }
-
-      return statusComponent;
-    },
-  },
-  {
-    field: "number_of_variations",
-    headerName: "No. of Variations",
-    type: "number",
-    width: 130,
-  },
-  {
-    field: "promo_type",
-    headerName: "Promo Applied",
-    width: 170,
+    width: 160,
   },
   {
     headerName: "Action",
-    width: 60,
+    width: 175,
+    align: "center",
+    headerAlign: "center",
+    sortable: false,
+    filterable: false,
+    hideable: false,
     renderCell: (params) => {
       let statusComponent;
       statusComponent = (
-        <IconButton>
-          <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
-        </IconButton>
+        <Box>
+          <IconButton>
+            <Delete sx={{ color: `${theme.palette.danger.delete}` }} />
+          </IconButton>
+          <IconButton>
+            <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
+          </IconButton>
+        </Box>
       );
       return statusComponent;
     },
@@ -91,14 +51,13 @@ const columns = [
 ];
 
 export default function DataGridCategories() {
-  const getProductID = (productData) => productData.productID;
   return (
     <DataGrid
       //sx line is needed for overflow (bug in mui data grid v6)
       sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
-      rows={productData}
+      rows={shopCategoryData}
       columns={columns}
-      getRowId={getProductID}
+      getRowId={(row) => row.shopCategoryID}
       initialState={{
         pagination: {
           paginationModel: {
@@ -106,6 +65,7 @@ export default function DataGridCategories() {
           },
         },
       }}
+      disableRowSelectionOnClick
       pageSizeOptions={[5, 10, 15]}
     />
   );
