@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
+import theme from "../../../../Theme";
 
 function ProductStatus({ hideShowAll }) {
   return (
@@ -41,7 +42,7 @@ function ProductStatus({ hideShowAll }) {
               <TableCell>
                 <Typography
                   variant="sectionTitleSmall"
-                  sx={{ color: "#8CCC00" }}
+                  sx={{ color: `${theme.palette.success.main}` }}
                 >
                   13
                 </Typography>
@@ -56,7 +57,7 @@ function ProductStatus({ hideShowAll }) {
               <TableCell>
                 <Typography
                   variant="sectionTitleSmall"
-                  sx={{ color: "#F7B801" }}
+                  sx={{ color: `${theme.palette.warning.main}` }}
                 >
                   10
                 </Typography>
@@ -71,7 +72,7 @@ function ProductStatus({ hideShowAll }) {
               <TableCell>
                 <Typography
                   variant="sectionTitleSmall"
-                  sx={{ color: "#F35B04" }}
+                  sx={{ color: `${theme.palette.danger.main}` }}
                 >
                   3
                 </Typography>

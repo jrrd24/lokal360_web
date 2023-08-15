@@ -38,7 +38,7 @@ const columns = [
       statusComponent = (
         <Box>
           <IconButton>
-            <Delete sx={{ color: `${theme.palette.danger.main}` }} />
+            <Delete sx={{ color: `${theme.palette.danger.delete}` }} />
           </IconButton>
           <IconButton>
             <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />

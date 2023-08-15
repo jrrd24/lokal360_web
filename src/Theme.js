@@ -27,9 +27,9 @@ const theme = createTheme({
     },
     divider: "#9D9D9D",
     buttonHover: "#757575",
-    success: { main: "#8CCC00" },
-    warning: { main: "#F7B801" },
-    danger: { main: "#AB3130" },
+    success: { main: "#198754" },
+    warning: { main: "#ffc107" },
+    danger: { main: "#dc3545", delete: "#AB3130" },
   },
 
   typography: {

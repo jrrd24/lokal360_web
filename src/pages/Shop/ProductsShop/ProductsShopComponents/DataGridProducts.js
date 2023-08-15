@@ -63,10 +63,6 @@ const columns = [
         status === "Out Of Stock"
       ) {
         statusComponent = <ProductInventoryStatus status={status} />;
-      } else if (status === "Low Stock") {
-        statusComponent = <ProductInventoryStatus status={status} />;
-      } else if (status === "Out Of Stock") {
-        statusComponent = <ProductInventoryStatus status={status} />;
       } else {
         statusComponent = <ProductInventoryStatus status={"Discontinued"} />;
       }
