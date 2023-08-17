@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, Button } from "@mui/material";
 import theme from "../../../../Theme";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 import CustomLineChart from "../../../../components/CustomLineChart";
@@ -110,7 +110,8 @@ function GraphProductStatus() {
       </Stack>
 
       {/*Section Content */}
-      <Box
+      <Stack
+        spacing={2}
         sx={{
           maxWidth: "99%",
           height: "350px",
@@ -118,8 +119,12 @@ function GraphProductStatus() {
       >
         {/*TODO: Add Graph Here */}
         {/*Graph */}
-        <CustomLineChart data={data} lines={lines} />
-      </Box>
+        <CustomLineChart
+          data={data}
+          lines={lines}
+          downloadFileName={"Product_Status_Graph.png"}
+        />
+      </Stack>
     </Stack>
   );
 }

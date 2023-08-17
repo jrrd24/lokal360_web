@@ -132,7 +132,11 @@ function GraphSalesAnalytics() {
         }}
       >
         {/*Graph */}
-        <CustomLineChart data={data} lines={lines} />
+        <CustomLineChart
+          data={data}
+          lines={lines}
+          downloadFileName={"Product_Sales_Graph.png"}
+        />
       </Box>
     </Stack>
   );

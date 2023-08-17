@@ -110,7 +110,11 @@ function GraphShopTraffic() {
       >
         {/*TODO: Add Graph Here */}
         {/*Graph */}
-        <CustomLineChart data={data} lines={lines} />
+        <CustomLineChart
+          data={data}
+          lines={lines}
+          downloadFileName={"Shop_Traffic_Graph.png"}
+        />
       </Box>
     </Stack>
   );
