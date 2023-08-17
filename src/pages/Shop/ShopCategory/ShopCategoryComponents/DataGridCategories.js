@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, IconButton } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import theme from "../../../../Theme";
 import { ArrowCircleRight, Delete } from "@mui/icons-material";
 import shopCategoryData from "../../../../data/shopCategoryData";
@@ -33,6 +33,7 @@ const columns = [
     sortable: false,
     filterable: false,
     hideable: false,
+    disableExport: true,
     renderCell: (params) => {
       let statusComponent;
       statusComponent = (
@@ -57,6 +58,7 @@ export default function DataGridCategories() {
       sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
       rows={shopCategoryData}
       columns={columns}
+      slots={{ toolbar: GridToolbar }}
       getRowId={(row) => row.shopCategoryID}
       initialState={{
         pagination: {

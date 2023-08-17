@@ -1,6 +1,6 @@
 import React from "react";
 import { Avatar, IconButton, Typography } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import theme from "../../../../Theme";
 import { ArrowCircleRight } from "@mui/icons-material";
 import userData from "../../../../data/userData";
@@ -19,6 +19,7 @@ const columns = [
     field: "img",
     headerName: "Image",
     width: 100,
+    disableExport: true,
     renderCell: (params) => {
       const img = params.value;
       let statusComponent;
@@ -91,6 +92,7 @@ const columns = [
     sortable: false,
     filterable: false,
     hideable: false,
+    disableExport: true,
     renderCell: (params) => {
       let statusComponent;
       statusComponent = (
@@ -110,6 +112,7 @@ function DataGridCustomers() {
       sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
       rows={userData}
       columns={columns}
+      slots={{ toolbar: GridToolbar }}
       getRowId={(row) => row.shopperID}
       initialState={{
         pagination: {

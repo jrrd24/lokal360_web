@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import theme from "../../../../Theme";
 import {
   ArrowCircleRight,
@@ -14,6 +14,7 @@ import OrderStatus from "../../../../components/ShopOnly/StatusAndTags/OrderStat
 import { BsBoxSeam } from "react-icons/bs";
 import { BiShoppingBag } from "react-icons/bi";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
+
 // Define data grid columns
 const columns = [
   {
@@ -33,13 +34,7 @@ const columns = [
     headerName: "Products Bought",
     width: 180,
     renderCell: (params) => {
-      const products = params.value;
-
-      const productLines = products.map((product, index) => (
-        <Box key={index}>{product}</Box>
-      ));
-
-      return <Box>{productLines}</Box>;
+      return <Box>{params.value}</Box>;
     },
   },
   {
@@ -108,6 +103,7 @@ const columns = [
     sortable: false,
     filterable: false,
     hideable: false,
+    disableExport: true,
     renderCell: (params) => {
       let statusComponent;
       statusComponent = (
@@ -120,13 +116,22 @@ const columns = [
   },
 ];
 
+//Use to make sure products are rendered as 1 string for csv export
+const preProcessedData = orderData.map((order) => {
+  return {
+    ...order,
+    products: order.products.join(", "),
+  };
+});
+
 function DataGridOrders() {
   return (
     <DataGrid
       //sx line is needed for overflow (bug in mui data grid v6)
       sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
-      rows={orderData}
+      rows={preProcessedData}
       columns={columns}
+      slots={{ toolbar: GridToolbar }}
       getRowId={(row) => row.orderID}
       initialState={{
         pagination: {

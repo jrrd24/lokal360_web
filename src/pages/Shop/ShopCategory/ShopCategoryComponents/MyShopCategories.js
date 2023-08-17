@@ -36,8 +36,9 @@ function MyShopCategories() {
           {/*TODO: Add onClick for Button */}
         </Box>
         <Typography variant="seeAll" sx={{ textAlign: "left" }}>
-          To search for a Category, click the menu beside "Name" then select
-          filter and type Category Name in Value
+          To search for a Category, Click <b>Filters</b>, then{" "}
+          <b>Select a Column</b>, then type what you are looking for in{" "}
+          <b>Value</b>
         </Typography>
 
         <DataGridCategories />

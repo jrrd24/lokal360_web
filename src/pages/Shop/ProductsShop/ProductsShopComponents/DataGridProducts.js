@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Avatar, IconButton } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { ProductInventoryStatus } from "../../../../components/ShopOnly/StatusAndTags/ProductInventoryStatus";
 import theme from "../../../../Theme";
 import { ArrowCircleRight } from "@mui/icons-material";
@@ -19,6 +19,7 @@ const columns = [
     field: "product_image",
     headerName: "Image",
     width: 100,
+    disableExport: true,
     renderCell: (params) => {
       const img = params.value;
       let statusComponent;
@@ -87,6 +88,7 @@ const columns = [
     sortable: false,
     filterable: false,
     hideable: false,
+    disableExport: true,
     renderCell: (params) => {
       let statusComponent;
       statusComponent = (
@@ -106,8 +108,12 @@ export default function DataGridProducts() {
       sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
       rows={productData}
       columns={columns}
+      slots={{ toolbar: GridToolbar }}
       getRowId={(row) => row.productID}
       initialState={{
+        sorting: {
+          sortModel: [{ field: "status", sort: "desc" }],
+        },
         pagination: {
           paginationModel: {
             pageSize: 10,
