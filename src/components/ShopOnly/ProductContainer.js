@@ -4,6 +4,7 @@ import theme from "../../Theme";
 import Styles from "../../css/Styles.module.css";
 import PropTypes from "prop-types";
 import TruncateString from "../../utils/TruncateString";
+import NumberFormat from "../../utils/NumberFormat";
 import { IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 
@@ -67,7 +68,7 @@ function ProductContainer({ data }) {
             Total Sold:
             <Typography component={"span"} sx={{ fontWeight: 700 }}>
               {" "}
-              {total_sold}
+              <NumberFormat value={total_sold} />
             </Typography>{" "}
           </Typography>
         </Stack>

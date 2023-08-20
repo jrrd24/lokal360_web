@@ -4,6 +4,7 @@ import TruncateString from "../../../../utils/TruncateString";
 import styles from "../../../../css/Styles.module.css";
 import maleAvatar from "../../../../assets/avatars/128_1.png";
 import lokal360_Logo from "../../../../assets/lokal360_Logo.png";
+import NumberFormat from "../../../../utils/NumberFormat";
 
 function UserShopInfo() {
   return (
@@ -54,7 +55,8 @@ function UserShopInfo() {
             {/*Products Count */}
 
             <Typography variant="sectionTitleSmall" color={"primary"}>
-              999&nbsp;
+              <NumberFormat value={999} />
+              &nbsp;
               <Typography variant="subtitle1" color={"#444"} component={"span"}>
                 Products
               </Typography>
@@ -62,7 +64,8 @@ function UserShopInfo() {
 
             {/*Followers Count */}
             <Typography variant="sectionTitleSmall" color={"primary"}>
-              999&nbsp;
+              <NumberFormat value={999} />
+              &nbsp;
               <Typography variant="subtitle1" color={"#444"} component={"span"}>
                 Followers
               </Typography>

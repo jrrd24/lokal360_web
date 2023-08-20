@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import styles from "../css/Styles.module.css";
 import { useDateContext } from "../contexts/DateContext";
+import NumberFormat from "../utils/NumberFormat";
 
 function StatisticBox({ name, amt, prevAmt, isMoney }) {
   const [versus, setVersus] = useState("--");
@@ -16,17 +17,6 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
     const newPercentage = (((amt - prevAmt) / prevAmt) * 100).toFixed(2);
     setPercentage(newPercentage);
   }, [amt, prevAmt]);
-
-  // For Money Format
-  const formattedTotal = amt.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-
-  // For Number Format
-  const formattedNum = amt.toLocaleString(undefined, {
-    maximumFractionDigits: 2,
-  });
 
   //Set Versus
   useEffect(() => {
@@ -89,7 +79,7 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
               fontSize: 24,
             }}
           >
-            {isMoney ? "₱" : ""} {isMoney ? formattedTotal : formattedNum}
+            <NumberFormat value={amt} isPeso={isMoney} />
           </Typography>
         </Stack>
 

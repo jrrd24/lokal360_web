@@ -5,6 +5,7 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 import TruncateString from "../utils/TruncateString";
+import NumberFormat from "../utils/NumberFormat";
 import Styles from "../css/Styles.module.css";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -60,7 +61,8 @@ const CustomBarChart = ({ data }) => {
               >
                 Total Sales:{" "}
                 <Typography component={"span"} sx={{ fontWeight: 700 }}>
-                  {orderedData.amt_sold} &nbsp; | &nbsp;{percentage}%
+                  <NumberFormat value={orderedData.amt_sold} /> &nbsp; | &nbsp;
+                  {percentage}%
                 </Typography>
               </Typography>
             </Stack>

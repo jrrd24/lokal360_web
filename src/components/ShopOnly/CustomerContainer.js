@@ -10,6 +10,7 @@ import { styled, alpha } from "@mui/material/styles";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ChatBubble, ReportProblem } from "@mui/icons-material";
+import NumberFormat from "../../utils/NumberFormat";
 
 // Styling for the custom menu
 const StyledMenu = styled((props) => (
@@ -65,12 +66,6 @@ function CustomerContainer({ data }) {
     total = 0.0,
   } = data || {};
 
-  // Formatting total amount
-  const formattedTotal = total?.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-
   // State and event handlers for the menu
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -111,9 +106,13 @@ function CustomerContainer({ data }) {
           {/* Order Count and Total Spent*/}
           <Typography
             variant="body1"
-            sx={{ color: "#44444499", textAlign: "start" }}
+            sx={{
+              color: "#44444499",
+              textAlign: "start",
+            }}
           >
-            {orders} Orders &nbsp;•&nbsp; ₱ {formattedTotal}
+            {orders} Orders &nbsp;•&nbsp;{" "}
+            <NumberFormat value={total} isPeso={true} />
           </Typography>
         </Stack>
 

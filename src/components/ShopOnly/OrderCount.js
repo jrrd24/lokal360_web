@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import styles from "../../css/Styles.module.css";
+import NumberFormat from "../../utils/NumberFormat";
 
 function OrderCount({ component: Icon, color, count, status }) {
   const bgColor = color + "1A";
@@ -21,7 +22,7 @@ function OrderCount({ component: Icon, color, count, status }) {
              * Some icons are from react icons */}
             <Icon size="40" color={color} sx={{ fontSize: 40, color: color }} />
             <Typography variant="sectionTitle" sx={{ color: color }}>
-              {count}
+              <NumberFormat value={count} />
             </Typography>
             <Typography
               variant="subtitle"

@@ -23,14 +23,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 function OrderSummary({ hideShowAll }) {
-  const [Range, setRange] = useState(<GetDate />);
-  const [RangeEnd, setRangeEnd] = useState("");
-  const handleRangeChange = (range) => {
-    setRange(range);
-  };
-  const handleRangeEndChange = (rangeEnd) => {
-    setRangeEnd(rangeEnd);
-  };
   return (
     <Stack spacing={3}>
       {/*Section Header */}
@@ -119,46 +111,46 @@ function OrderSummary({ hideShowAll }) {
         <OrderCount
           component={VerifiedIcon}
           color="#F35B04"
-          count="1"
+          count={1}
           status="Pending Approval"
         />
         <OrderCount
           component={BsBoxSeam}
           color="#F18701"
-          count="3"
+          count={3}
           status="Preparing"
         />
         <OrderCount
           component={BiShoppingBag}
           color="#F7B801"
-          count="1"
+          count={1}
           status="Ready For Pick-Up"
         />
         <OrderCount
           component={MopedIcon}
           color="#7678ED"
-          count="3"
+          count={3}
           status="On Delivery"
         />
 
         <OrderCount
           component={HourglassEmptyIcon}
           color="#7A9163"
-          count="3"
+          count={3}
           status="Complete"
         />
 
         <OrderCount
           component={CancelIcon}
           color="#AB3130"
-          count="0"
+          count={0}
           status="Cancelled"
         />
 
         <OrderCount
           component={HiOutlineReceiptRefund}
           color="#231F20"
-          count="0"
+          count={0}
           status="For Refund"
         />
       </Box>

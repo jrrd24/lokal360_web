@@ -12,6 +12,7 @@ import {
 import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import theme from "../../../../Theme";
+import NumberFormat from "../../../../utils/NumberFormat";
 
 function ProductStatus({ hideShowAll }) {
   return (
@@ -44,7 +45,7 @@ function ProductStatus({ hideShowAll }) {
                   variant="sectionTitleSmall"
                   sx={{ color: `${theme.palette.success.main}` }}
                 >
-                  13
+                  <NumberFormat value={13} />
                 </Typography>
               </TableCell>
             </TableRow>
@@ -59,7 +60,7 @@ function ProductStatus({ hideShowAll }) {
                   variant="sectionTitleSmall"
                   sx={{ color: `${theme.palette.warning.main}` }}
                 >
-                  10
+                  <NumberFormat value={10} />
                 </Typography>
               </TableCell>
             </TableRow>
@@ -74,7 +75,7 @@ function ProductStatus({ hideShowAll }) {
                   variant="sectionTitleSmall"
                   sx={{ color: `${theme.palette.danger.main}` }}
                 >
-                  3
+                  <NumberFormat value={3} />
                 </Typography>
               </TableCell>
             </TableRow>
@@ -86,7 +87,7 @@ function ProductStatus({ hideShowAll }) {
               </TableCell>
               <TableCell>
                 <Typography variant="sectionTitleSmall" sx={{ color: "#444" }}>
-                  1
+                  <NumberFormat value={1} />
                 </Typography>
               </TableCell>
             </TableRow>
