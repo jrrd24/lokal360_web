@@ -55,7 +55,7 @@ function UserShopInfo() {
             {/*Products Count */}
 
             <Typography variant="sectionTitleSmall" color={"primary"}>
-              <NumberFormat value={999} />
+              <NumberFormat value={1000} isShortened={true} />
               &nbsp;
               <Typography variant="subtitle1" color={"#444"} component={"span"}>
                 Products
@@ -64,7 +64,7 @@ function UserShopInfo() {
 
             {/*Followers Count */}
             <Typography variant="sectionTitleSmall" color={"primary"}>
-              <NumberFormat value={999} />
+              <NumberFormat value={2712} isShortened={true} />
               &nbsp;
               <Typography variant="subtitle1" color={"#444"} component={"span"}>
                 Followers

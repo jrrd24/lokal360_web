@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Stack, Typography, Badge } from "@mui/material";
 import { styled } from "@mui/system";
-import { GetDate } from "../../../../utils/GetDate";
 import OrderCount from "../../../../components/ShopOnly/OrderCount";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { BsBoxSeam } from "react-icons/bs";
@@ -136,14 +135,14 @@ function OrderSummary({ hideShowAll }) {
         <OrderCount
           component={HourglassEmptyIcon}
           color="#7A9163"
-          count={3}
+          count={1523}
           status="Complete"
         />
 
         <OrderCount
           component={CancelIcon}
           color="#AB3130"
-          count={0}
+          count={3}
           status="Cancelled"
         />
 

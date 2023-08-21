@@ -1,8 +1,12 @@
+import React from "react";
 import { Edit } from "@mui/icons-material";
 import { Box, Button, Typography, Stack } from "@mui/material";
-import React from "react";
-
+import NumberFormat from "../../../../utils/NumberFormat";
+import theme from "../../../../Theme";
+import styles from "../../../../css/Styles.module.css";
+import shopLogo from "../../../../assets/lokal360_Logo.png";
 function DisplayShopInfo() {
+  const logo = shopLogo;
   return (
     <Box
       sx={{
@@ -21,6 +25,7 @@ function DisplayShopInfo() {
     >
       {/*Shop Logo */}
       <Box
+        className={`${styles.grow}`}
         sx={{
           width: "20%",
           "@media (max-width: 912px)": {
@@ -29,7 +34,7 @@ function DisplayShopInfo() {
         }}
       >
         <img
-          src={require("../../../../assets/lokal360_Logo.png")}
+          src={require(logo)}
           alt="Shop logo"
           style={{
             backgroundColor: "#FFF",
@@ -98,16 +103,57 @@ function DisplayShopInfo() {
               flexWrap: "wrap",
               width: "100%",
               justifyContent: "space-between",
+              textAlign: "center",
+              alignItems: "center",
+              "@media (max-width: 600px)": {
+                justifyContent: "center",
+              },
             }}
           >
             {/*Total Sales*/}
-            <Stack>hi</Stack>
+            <Stack>
+              <Typography variant="sectionTitleSmall" color={"primary"}>
+                <NumberFormat value={25995} isPeso={true} />
+                &nbsp;
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color={`${theme.palette.text.primary}`}
+                component={"span"}
+              >
+                Total Sales
+              </Typography>
+            </Stack>
 
             {/*Products*/}
-            <Stack>hiiiiii</Stack>
+            <Stack>
+              <Typography variant="sectionTitleSmall" color={"primary"}>
+                <NumberFormat value={1000} isShortened={true} />
+                &nbsp;
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color={`${theme.palette.text.primary}`}
+                component={"span"}
+              >
+                Products
+              </Typography>
+            </Stack>
 
             {/*Followers*/}
-            <Stack>hiiiiii</Stack>
+            <Stack>
+              <Typography variant="sectionTitleSmall" color={"primary"}>
+                <NumberFormat value={2679} isShortened={true} />
+                &nbsp;
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                color={`${theme.palette.text.primary}`}
+                component={"span"}
+              >
+                Followers
+              </Typography>
+            </Stack>
           </Box>
         </Stack>
       </Stack>

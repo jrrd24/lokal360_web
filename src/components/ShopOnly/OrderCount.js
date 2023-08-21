@@ -22,7 +22,7 @@ function OrderCount({ component: Icon, color, count, status }) {
              * Some icons are from react icons */}
             <Icon size="40" color={color} sx={{ fontSize: 40, color: color }} />
             <Typography variant="sectionTitle" sx={{ color: color }}>
-              <NumberFormat value={count} />
+              <NumberFormat value={count} isShortened={true} />
             </Typography>
             <Typography
               variant="subtitle"
