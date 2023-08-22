@@ -1,4 +1,16 @@
-import React from "react";
+/* 
+ * GET DATE
+ *    USE:   Get date is used for getting the current day, week, month, or year
+ *    It has 6 functions:
+ ?      GET DATE = current date
+ ?      GET WEEK FIRST DAY
+ ?      GET WEEK LAST DAY
+ ?      GET MONTH FIRST DAY
+ ?      GET MONTH LAST DAY
+ ?      GET YEAR FIRST DAY
+ ?      GET YEAR LAST DAY
+ *    NOTE: all functions are only used in "src/contexts/DateContext.js"
+*/
 
 export function GetDate() {
   const currentDate = new Date();

@@ -4,160 +4,179 @@ import { Box, Button, Typography, Stack } from "@mui/material";
 import NumberFormat from "../../../../utils/NumberFormat";
 import theme from "../../../../Theme";
 import styles from "../../../../css/Styles.module.css";
-import shopLogo from "../../../../assets/lokal360_Logo.png";
-function DisplayShopInfo() {
-  const logo = shopLogo;
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        gap: "32px",
-        flexWrap: "wrap",
-        width: "100%",
-        justifyContent: "space-between",
-        alignItems: "center",
-        "@media (max-width: 912px)": {
-          p: 3,
-          gap: "8px",
-        },
-      }}
-    >
-      {/*Shop Logo */}
-      <Box
-        className={`${styles.grow}`}
-        sx={{
-          width: "20%",
-          "@media (max-width: 912px)": {
-            width: "100%",
-          },
-        }}
-      >
-        <img
-          src={require(logo)}
-          alt="Shop logo"
-          style={{
-            backgroundColor: "#FFF",
-            borderRadius: 10,
-            height: 150,
-            width: 150,
-          }}
-        />
-      </Box>
+import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
+import { useMediaQuery } from "@mui/material";
 
-      {/*Shop Info and Button */}
-      <Stack
-        spacing={2}
+function DisplayShopInfo() {
+  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Box
         sx={{
-          width: "70%",
+          display: "flex",
+          flexDirection: "row",
+          gap: "32px",
+          flexWrap: "wrap",
+          width: "100%",
+          justifyContent: "space-between",
+          alignItems: "center",
           "@media (max-width: 912px)": {
-            width: "100%",
+            p: 3,
+            gap: "8px",
           },
         }}
       >
-        {/*Button */}
+        {/*Shop Logo */}
         <Box
+          className={`${styles.grow}`}
           sx={{
-            width: "100%",
-            textAlign: "right",
+            width: "20%",
             "@media (max-width: 912px)": {
-              textAlign: "center",
+              width: "100%",
             },
           }}
         >
-          <Button
-            variant="contained"
-            startIcon={<Edit />}
-            onClick={null}
-            sx={{}}
-          >
-            <Typography
-              variant="sectionTitleSmall"
-              sx={{ color: "inherit", fontSize: 16 }}
-            >
-              Edit
-            </Typography>
-          </Button>
+          <img
+            src={require("../../../../assets/lokal360_Logo.png")}
+            alt="Shop logo"
+            style={{
+              backgroundColor: "#FFF",
+              borderRadius: 10,
+              height: 150,
+              width: 150,
+            }}
+          />
         </Box>
 
-        {/*Shop Info */}
+        {/*Shop Info and Button */}
         <Stack
           spacing={2}
           sx={{
-            width: "100%",
-            textAlign: "left",
+            width: "70%",
             "@media (max-width: 912px)": {
-              textAlign: "center",
+              width: "100%",
             },
           }}
         >
-          {/*Shop Name*/}
-          <Typography variant="sectionTitle">Bamboo Land</Typography>
-
-          {/*Total Sales/ Products/ Followers*/}
+          {/*Button */}
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "32px",
-              flexWrap: "wrap",
               width: "100%",
-              justifyContent: "space-between",
-              textAlign: "center",
-              alignItems: "center",
-              "@media (max-width: 600px)": {
-                justifyContent: "center",
+              textAlign: "right",
+              "@media (max-width: 912px)": {
+                textAlign: "center",
               },
             }}
           >
-            {/*Total Sales*/}
-            <Stack>
-              <Typography variant="sectionTitleSmall" color={"primary"}>
-                <NumberFormat value={25995} isPeso={true} />
-                &nbsp;
-              </Typography>
+            <Button
+              variant="contained"
+              startIcon={<Edit />}
+              onClick={handleClickOpen}
+              sx={{}}
+            >
               <Typography
-                variant="subtitle1"
-                color={`${theme.palette.text.primary}`}
-                component={"span"}
+                variant="sectionTitleSmall"
+                sx={{ color: "inherit", fontSize: 16 }}
               >
-                Total Sales
+                Edit
               </Typography>
-            </Stack>
-
-            {/*Products*/}
-            <Stack>
-              <Typography variant="sectionTitleSmall" color={"primary"}>
-                <NumberFormat value={1000} isShortened={true} />
-                &nbsp;
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color={`${theme.palette.text.primary}`}
-                component={"span"}
-              >
-                Products
-              </Typography>
-            </Stack>
-
-            {/*Followers*/}
-            <Stack>
-              <Typography variant="sectionTitleSmall" color={"primary"}>
-                <NumberFormat value={2679} isShortened={true} />
-                &nbsp;
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color={`${theme.palette.text.primary}`}
-                component={"span"}
-              >
-                Followers
-              </Typography>
-            </Stack>
+            </Button>
           </Box>
+
+          {/*Shop Info */}
+          <Stack
+            spacing={2}
+            sx={{
+              width: "100%",
+              textAlign: "left",
+              "@media (max-width: 912px)": {
+                textAlign: "center",
+              },
+            }}
+          >
+            {/*Shop Name*/}
+            <Typography variant="sectionTitle">Bamboo Land</Typography>
+
+            {/*Total Sales/ Products/ Followers*/}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "32px",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-between",
+                textAlign: "center",
+                alignItems: "center",
+                "@media (max-width: 600px)": {
+                  justifyContent: "center",
+                },
+              }}
+            >
+              {/*Total Sales*/}
+              <Stack>
+                <Typography variant="sectionTitleSmall" color={"primary"}>
+                  <NumberFormat value={25995} isPeso={true} />
+                  &nbsp;
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color={`${theme.palette.text.primary}`}
+                  component={"span"}
+                >
+                  Total Sales
+                </Typography>
+              </Stack>
+
+              {/*Products*/}
+              <Stack>
+                <Typography variant="sectionTitleSmall" color={"primary"}>
+                  <NumberFormat value={1000} isShortened={true} />
+                  &nbsp;
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color={`${theme.palette.text.primary}`}
+                  component={"span"}
+                >
+                  Products
+                </Typography>
+              </Stack>
+
+              {/*Followers*/}
+              <Stack>
+                <Typography variant="sectionTitleSmall" color={"primary"}>
+                  <NumberFormat value={2679} isShortened={true} />
+                  &nbsp;
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  color={`${theme.palette.text.primary}`}
+                  component={"span"}
+                >
+                  Followers
+                </Typography>
+              </Stack>
+            </Box>
+          </Stack>
         </Stack>
-      </Stack>
-    </Box>
+      </Box>
+
+      <EditShopInfoDialog
+        open={open}
+        handleClose={handleClose}
+        isSmScreen={isSmScreen}
+      />
+    </div>
   );
 }
 

@@ -1,3 +1,14 @@
+/*  
+ * NUMBER FORMAT
+ *    USE:   Number format is used to format a number to either the default format
+ *           (1,000,000), peso format (₱ 1,000,000.00), or shortened format (1.0M)
+ ?    PROPS: value = the number
+ ?           isPeso = (boolean) if true the number will be converted to peso format
+ ?           isShortened = (boolean) if true the number will be converted to shortened format
+ *    NOTE:  if "isPeso" and "isShortened" are null, the number will be in the default format
+ *    SAMPLE:  <NumberFormat value={total} isPeso={true} />
+*/
+
 function NumberFormat({ value, isPeso, isShortened }) {
   const formattedValuePeso = value?.toLocaleString(undefined, {
     minimumFractionDigits: 2,

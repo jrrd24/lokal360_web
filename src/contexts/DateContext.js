@@ -14,7 +14,7 @@ const DateContext = createContext();
 // Purpose of this Context:
 // Context to Manage and share date-related state
 // and functions across components
-// eliminating the need for prop drilling
+// It makes the selected date the same accross all pages
 
 // Create a custom hook that returns the DateContext using useContext
 export const useDateContext = () => {

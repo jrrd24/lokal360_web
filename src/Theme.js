@@ -1,5 +1,4 @@
 import { createTheme } from "@mui/material";
-
 const theme = createTheme({
   palette: {
     mode: "light",
@@ -46,6 +45,11 @@ const theme = createTheme({
       lineHeight: "20px",
       letterSpacing: -0.3,
       textTransform: "none",
+    },
+    sectionSubtitle: {
+      fontSize: "16px",
+      fontWeight: 600,
+      color: "#444444CC",
     },
     seeAll: {
       fontSize: "16px",

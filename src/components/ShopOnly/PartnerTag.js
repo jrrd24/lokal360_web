@@ -6,7 +6,6 @@ const style = {
   modalStyle: {
     backgroundColor: "#6E5FDE66",
     userSelect: "none",
-    backdropFilter: "blur(2px)",
   },
 
   contentStyle: {
