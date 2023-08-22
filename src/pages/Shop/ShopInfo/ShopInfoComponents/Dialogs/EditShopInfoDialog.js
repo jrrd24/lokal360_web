@@ -1,11 +1,15 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Typography,
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
+import ButtonSave from "../../../../../components/Buttons/ButtonSave";
+import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
+import theme from "../../../../../Theme";
 
 function EditShopInfoDialog({ open, handleClose, isSmScreen }) {
   return (
@@ -20,85 +24,38 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen }) {
           backgroundColor: "#6E5FDE66",
         }}
       >
-        <DialogTitle sx={{ position: "sticky" }}>
-          Edit Shop Information
+        {/* Dialog Title/ Buttons */}
+        <DialogTitle height={80} sx={{ position: "sticky" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* Dialog Title*/}
+            <Typography variant="sectionTitle">
+              Edit Shop Information
+            </Typography>
+
+            {/*  Buttons */}
+            <DialogActions sx={{ gap: "16px" }}>
+              <ButtonSave
+                handleOpen={null}
+                sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+              />
+              <ButtonCloseDialog handleClose={handleClose} />
+            </DialogActions>
+          </Box>
         </DialogTitle>
-        <DialogContent>
-          <DialogContentText height={500}>
-            You can set my maximum width and whether to adapt or not. You can
-            set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not. You can set my maximum width and whether to adapt or not. You
-            can set my maximum width and whether to adapt or not. You can set my
-            maximum width and whether to adapt or not. You can set my maximum
-            width and whether to adapt or not. You can set my maximum width and
-            whether to adapt or not. You can set my maximum width and whether to
-            adapt or not. You can set my maximum width and whether to adapt or
-            not.
-          </DialogContentText>
+
+        {/* Dialog Content */}
+        <DialogContent
+          sx={{
+            height: 500,
+            backgroundColor: `${theme.palette.background.default}`,
+          }}
+        >
           <Box
             noValidate
             component="form"
@@ -110,9 +67,28 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen }) {
             }}
           ></Box>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
+
+        {/* Show Save Button at Bottom for small screens */}
+        <Box
+          sx={{
+            display: {
+              xs: "block",
+              sm: "block",
+              md: "none",
+              lg: "none",
+              xl: "none",
+            },
+          }}
+        >
+          <DialogActions
+            sx={{
+              py: 2,
+              display: "flex",
+            }}
+          >
+            <ButtonSave handleOpen={null} />
+          </DialogActions>
+        </Box>
       </Dialog>
     </div>
   );

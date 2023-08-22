@@ -22,7 +22,7 @@ const theme = createTheme({
     },
     background: {
       paper: "#ffffff",
-      default: "#fafafa",
+      default: "#F8F7FD",
     },
     divider: "#9D9D9D",
     buttonHover: "#757575",

@@ -1,17 +1,17 @@
 import React from "react";
-import { Edit } from "@mui/icons-material";
-import { Box, Button, Typography, Stack } from "@mui/material";
+import { Box, Typography, Stack } from "@mui/material";
 import NumberFormat from "../../../../utils/NumberFormat";
 import theme from "../../../../Theme";
 import styles from "../../../../css/Styles.module.css";
 import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
 import { useMediaQuery } from "@mui/material";
+import ButtonEdit from "../../../../components/Buttons/ButtonEdit";
 
 function DisplayShopInfo() {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
+  const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
@@ -77,19 +77,7 @@ function DisplayShopInfo() {
               },
             }}
           >
-            <Button
-              variant="contained"
-              startIcon={<Edit />}
-              onClick={handleClickOpen}
-              sx={{}}
-            >
-              <Typography
-                variant="sectionTitleSmall"
-                sx={{ color: "inherit", fontSize: 16 }}
-              >
-                Edit
-              </Typography>
-            </Button>
+            <ButtonEdit handleOpen={handleOpen} />
           </Box>
 
           {/*Shop Info */}
