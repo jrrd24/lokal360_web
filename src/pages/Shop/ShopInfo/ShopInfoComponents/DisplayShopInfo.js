@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import NumberFormat from "../../../../utils/NumberFormat";
 import theme from "../../../../Theme";
@@ -6,10 +6,12 @@ import styles from "../../../../css/Styles.module.css";
 import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
 import { useMediaQuery } from "@mui/material";
 import ButtonEdit from "../../../../components/Buttons/ButtonEdit";
+import CustomAlert from "../../../../components/CustomAlert";
 
 function DisplayShopInfo() {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
+  // Handle Open Dialogseverity
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -18,8 +20,21 @@ function DisplayShopInfo() {
     setOpen(false);
   };
 
+  // Handle Alert Click
+  const [openAlert, setOpenAlert] = useState(false);
+  const [severity, setSeverity] = useState("error");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const handleSave = (severity, alertMsg) => {
+    setOpen(false);
+    setSeverity("success");
+    setAlertMsg("Shop Information Successfully Updated!");
+    setOpenAlert(true);
+  };
+
   return (
     <div>
+      {/*Display Page */}
       <Box
         sx={{
           display: "flex",
@@ -159,10 +174,20 @@ function DisplayShopInfo() {
         </Stack>
       </Box>
 
+      {/*Display Edit shop Dialog box */}
       <EditShopInfoDialog
         open={open}
         handleClose={handleClose}
         isSmScreen={isSmScreen}
+        handleSave={handleSave}
+      />
+
+      {/*Display Alert */}
+      <CustomAlert
+        open={openAlert}
+        setOpen={setOpenAlert}
+        severity={severity}
+        alertMsg={alertMsg}
       />
     </div>
   );
