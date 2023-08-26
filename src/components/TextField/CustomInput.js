@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
-import { TextField, IconButton, MenuItem } from "@mui/material";
+import {
+  TextField,
+  IconButton,
+  MenuItem,
+  Box,
+  InputAdornment,
+} from "@mui/material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 
@@ -16,9 +22,8 @@ const CustomInput = ({
   select,
   selectMenuItems,
   variant,
-  readOnly,
   value,
-  onChange,
+  component: icon,
 }) => {
   const [viewPass, setViewPass] = useState(true);
   const [activeVariant, setActiveVariant] = useState("outlined");
@@ -50,9 +55,8 @@ const CustomInput = ({
           multiline={multiline}
           maxRows={multiline ? 4 : undefined}
           select={select}
-          size="medium"
+          size={"medium"}
           InputProps={{
-            readOnly: readOnly,
             ...(secureTextEntry && {
               endAdornment: (
                 <IconButton onClick={handleTogglePassword} edge="end">
@@ -60,6 +64,18 @@ const CustomInput = ({
                 </IconButton>
               ),
             }),
+            ...(icon
+              ? {
+                  startAdornment: (
+                    <Box sx={{ pt: "4px" }}>
+                      <InputAdornment position="start">
+                        {React.createElement(icon, { sx: { fontSize: 20 } })}
+                      </InputAdornment>
+                    </Box>
+                  ),
+                  readOnly: false,
+                }
+              : {}),
           }}
           error={!!fieldState.error}
           helperText={fieldState.error ? fieldState.error.message : ""}

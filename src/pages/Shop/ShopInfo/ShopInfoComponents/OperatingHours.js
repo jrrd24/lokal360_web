@@ -36,8 +36,7 @@ function OperatingHours() {
             component={PunchClock}
           />
 
-          {/*Shop Type */}
-
+          {/*Closing Time */}
           <DisplayInfo
             name="closingTime"
             label="Closing Time"

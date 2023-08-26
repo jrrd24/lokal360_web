@@ -37,7 +37,7 @@ function ValuableCustomers() {
           inputData={userData}
           component={CustomerContainer}
           sortByField={"orders"}
-          showUpTo={6}
+          showUpTo={5}
           idName={"shopperID"}
         />
       </Stack>

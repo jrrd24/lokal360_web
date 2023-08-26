@@ -36,7 +36,7 @@ function App() {
           <div className="App">
             <Routes>
               {/*Login */}
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<DashboardShop />} />
               {/*Admin */}
               <Route path="/admin/dashboard" element={<Dashboard />} />
               <Route path="/admin/analytics" element={<Analytics />} />
@@ -50,7 +50,7 @@ function App() {
               <Route path="/admin/users" element={<Users />} />
               <Route path="/admin/settings" element={<Settings />} />
               {/*Shop */}
-              <Route path="/shop/dashboard" element={<DashboardShop />} />
+              <Route path="/shop/login" element={<Login />} />
               <Route path="/shop/analytics" element={<AnalyticsShop />} />
               <Route path="/shop/products" element={<ProductsShop />} />
               <Route

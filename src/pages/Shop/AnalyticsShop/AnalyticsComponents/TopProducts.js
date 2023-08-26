@@ -40,7 +40,7 @@ function TopProducts({ hideShowAll }) {
           inputData={productData}
           component={ProductContainer}
           sortByField={"total_sold"}
-          showUpTo={6}
+          showUpTo={5}
           idName={"productID"}
         />
       </Stack>

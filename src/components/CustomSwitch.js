@@ -12,6 +12,7 @@ const CustomSwitch = ({ name, control, label, defaultValue }) => {
         <FormControlLabel
           control={
             <Switch
+              name={name}
               checked={field.value}
               onChange={(e) => field.onChange(e.target.checked)}
             />

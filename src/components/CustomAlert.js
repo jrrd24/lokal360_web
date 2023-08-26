@@ -34,12 +34,31 @@ const CustomAlert = ({ open, setOpen, severity, alertMsg }) => {
     setOpen(false);
   };
 
+  const smallScreenStyle = {
+    vertical: "bottom",
+    horizontal: "center",
+  };
+
+  const regularScreenStyle = {
+    vertical: "top",
+    horizontal: "center",
+  };
+
   return (
     <Snackbar
       open={open}
       autoHideDuration={4000}
       onClose={handleClose}
-      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      anchorOrigin={
+        window.innerWidth <= 600
+          ? {
+              ...smallScreenStyle,
+              "@media (min-width:600px)": {
+                display: "none", // Hide for small screens, as the regular style will be used
+              },
+            }
+          : regularScreenStyle
+      }
     >
       <Alert
         onClose={handleClose}

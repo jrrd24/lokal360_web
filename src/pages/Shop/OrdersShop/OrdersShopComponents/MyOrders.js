@@ -29,7 +29,7 @@ function MyOrders() {
             },
           }}
         >
-          <Typography variant="sectionTitle">My Orders</Typography>
+          <Typography variant="sectionTitle">Shop Orders</Typography>
 
           {/*TODO: Add onClick for Button */}
         </Box>

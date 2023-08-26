@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Stack,
-  Typography,
-  Switch,
-  FormGroup,
-  FormControlLabel,
-} from "@mui/material";
+import { Stack, Typography, FormGroup } from "@mui/material";
 import CustomInput from "../../../../../components/TextField/CustomInput";
 import CustomSwitch from "../../../../../components/CustomSwitch";
 

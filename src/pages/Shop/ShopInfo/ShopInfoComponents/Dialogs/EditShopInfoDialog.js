@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Typography,
   Box,
@@ -14,6 +14,9 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import theme from "../../../../../Theme";
 import { useForm } from "react-hook-form";
 import BasicShopInfoD from "./BasicShopInfoD";
+import ShopAddressD from "./ShopAddressD";
+import ContactInfoD from "./ContactInfoD";
+import OperatingHoursD from "./OperatingHoursD";
 
 function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
   // For React Hook Form
@@ -21,10 +24,12 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
     control,
     handleSubmit,
     formState: { errors },
+    trigger,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data); // Form data
+    handleSave();
   };
 
   return (
@@ -58,8 +63,6 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
               <DialogActions sx={{ gap: "16px" }}>
                 <ButtonSave
                   type="submit"
-                  //TODO: Change null to handleSave after adding axios
-                  onClick={null}
                   sx={{ display: { xs: "none", sm: "none", md: "block" } }}
                 />
                 <ButtonCloseDialog handleClose={handleClose} />
@@ -71,6 +74,9 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
           <DialogContent
             sx={{
               height: 500,
+              "@media (max-width: 600px)": {
+                height: "100%",
+              },
               backgroundColor: `${theme.palette.background.default}`,
               display: "flex",
               justifyContent: "center",
@@ -84,12 +90,35 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
               </Box>
 
               <Divider />
+
+              {/*Shop Address */}
+              <Box sx={{ py: 5 }}>
+                <ShopAddressD />
+              </Box>
+
+              <Divider />
+
+              {/*Contact Information */}
+              <Box sx={{ py: 5 }}>
+                <ContactInfoD control={control} trigger={trigger} />
+              </Box>
+
+              <Divider />
+
+              {/*Operating Hours */}
+              <Box sx={{ py: 5 }}>
+                <OperatingHoursD control={control} />
+              </Box>
             </Stack>
           </DialogContent>
 
           {/* Show Save Button at Bottom for small screens */}
           <Box
             sx={{
+              position: "sticky",
+              bottom: 0,
+              backgroundColor: `${theme.palette.background.paper}`,
+              zIndex: 1,
               display: {
                 xs: "block",
                 sm: "block",

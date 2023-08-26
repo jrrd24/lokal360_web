@@ -51,8 +51,8 @@ function BasicShopInfo() {
             width="48%"
           />
         </Stack>
-        {/*Shop Description */}
 
+        {/*Shop Description */}
         <DisplayInfo
           name="shopDescription"
           label="Shop Description"
