@@ -1,6 +1,6 @@
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import CustomColorPicker from "../../../../components/CustomColorPicker";
+import { Box, Button, Stack, Typography } from "@mui/material";
+import DisplayColor from "../../../../components/DisplayColor";
 import PartnerTag from "../../../../components/ShopOnly/PartnerTag";
 
 function SelectColor() {
@@ -13,7 +13,7 @@ function SelectColor() {
       </Stack>
 
       <Box sx={{ width: "100%" }}>
-        <CustomColorPicker displayOnly />
+        <DisplayColor color={null} />
       </Box>
     </Stack>
   );

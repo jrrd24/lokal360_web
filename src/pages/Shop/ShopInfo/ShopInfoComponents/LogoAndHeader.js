@@ -2,7 +2,7 @@ import React from "react";
 import { Box, FormLabel, Stack, Typography } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 
-function LogoAndHeader() {
+function LogoAndHeader({ control }) {
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -40,7 +40,7 @@ function LogoAndHeader() {
         <Box className={`${styles.grow}`}>
           <img
             src={require("../../../../assets/placeholder.png")}
-            alt="Shop logo"
+            alt="Shop Header"
             style={{
               backgroundColor: "#FFF",
               borderRadius: 10,

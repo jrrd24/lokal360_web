@@ -253,7 +253,7 @@ export default function ShopSidebar({ component: MainComponent }) {
 
   //Sidebar Navigation On Click
   function handleDashboardClick(event) {
-    navigate("/shop/dashboard");
+    navigate("/");
   }
   function handleAnalyticsClick(event) {
     navigate("/shop/analytics");
@@ -296,7 +296,7 @@ export default function ShopSidebar({ component: MainComponent }) {
   React.useEffect(() => {
     const currentPathname = window.location.pathname;
     const menuItems = [
-      "/shop/dashboard",
+      "/",
       "/shop/analytics",
       "/shop/products",
       "/shop/customers",

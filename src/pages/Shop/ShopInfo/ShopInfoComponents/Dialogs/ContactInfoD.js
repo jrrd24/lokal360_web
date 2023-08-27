@@ -40,6 +40,13 @@ function ContactInfoD({ control, sx, trigger }) {
           label="Shop Website"
           value={"facebook.com/bambooLand_2023"}
           width="48%"
+          rules={{
+            pattern: {
+              value:
+                /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi,
+              message: "Invalid Link",
+            },
+          }}
           component={Language}
         />
       </Stack>

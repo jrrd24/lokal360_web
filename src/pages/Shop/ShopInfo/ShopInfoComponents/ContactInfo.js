@@ -23,6 +23,11 @@ function ContactInfo() {
           label="Phone Number"
           defaultValue={"0966 123 4567"}
           width="48%"
+          sx={{
+            "@media (max-width: 600px)": {
+              width: "100%",
+            },
+          }}
           component={Phone}
         />
 
@@ -33,6 +38,11 @@ function ContactInfo() {
           defaultValue={"facebook.com/bambooLand_2023"}
           width="48%"
           component={Language}
+          sx={{
+            "@media (max-width: 600px)": {
+              width: "100%",
+            },
+          }}
         />
       </Stack>
     </Stack>

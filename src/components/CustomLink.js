@@ -5,7 +5,7 @@ import theme from "../Theme";
 
 const CustomLink = (props) => {
   // Extract the "to" prop from the incoming props
-  const { to, ...rest } = props;
+  const { to, onClick, ...rest } = props;
 
   // Render the MUI Link component with the React Router Link as the "component" prop
   return (
@@ -14,6 +14,7 @@ const CustomLink = (props) => {
       to={to}
       variant="seeAll"
       underline="none"
+      onClick={onClick}
       {...rest}
     />
   );

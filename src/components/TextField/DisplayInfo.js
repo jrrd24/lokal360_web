@@ -7,6 +7,7 @@ function DisplayInfo({
   defaultValue,
   width,
   multiline,
+  sx,
   component: Icon,
 }) {
   return (
@@ -38,6 +39,7 @@ function DisplayInfo({
         "& .MuiFilledInput-input": {
           paddingTop: multiline ? "8px" : "30px",
         },
+        ...sx,
       }}
       InputLabelProps={{
         style: { fontSize: "22px", fontWeight: 600 },

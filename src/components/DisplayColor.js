@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SliderPicker } from "react-color";
 import theme from "../Theme";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, TextField } from "@mui/material";
 
-function CustomColorPicker({ displayOnly }) {
-  const [background, setBackground] = useState(theme.palette.primary.main);
+function DisplayColor({ color }) {
+  const defaultColor = `${theme.palette.primary.main}`;
+  const [background, setBackground] = useState(color || defaultColor);
 
-  const handleChangeComplete = (color) => {
-    setBackground(color.hex);
-  };
+  useEffect(() => {
+    setBackground(color || defaultColor);
+  }, [color, defaultColor]);
 
   return (
     <Box>
@@ -31,16 +32,15 @@ function CustomColorPicker({ displayOnly }) {
           {background}
         </Typography>
       </Box>
-      {displayOnly ? (
-        ""
-      ) : (
-        <SliderPicker
-          color={background}
-          onChangeComplete={handleChangeComplete}
-        />
-      )}
+
+      <TextField
+        label="Hex Color"
+        value={background}
+        disabled={true}
+        sx={{ my: "16px", width: "100%" }}
+      />
     </Box>
   );
 }
 
-export default CustomColorPicker;
+export default DisplayColor;

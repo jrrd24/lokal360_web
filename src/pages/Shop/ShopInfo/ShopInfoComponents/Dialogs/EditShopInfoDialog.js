@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Box,
@@ -17,19 +17,24 @@ import BasicShopInfoD from "./BasicShopInfoD";
 import ShopAddressD from "./ShopAddressD";
 import ContactInfoD from "./ContactInfoD";
 import OperatingHoursD from "./OperatingHoursD";
+import LogoAndHeaderD from "./LogoAndHeaderD";
+import SelectColorD from "./SelectColorD";
+import SimpleColorPicker from "../../../../../components/SimpleColorPicker";
 
 function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
   // For React Hook Form
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     trigger,
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data); // Form data
     handleSave();
+    reset();
   };
 
   return (
@@ -63,6 +68,7 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
               <DialogActions sx={{ gap: "16px" }}>
                 <ButtonSave
                   type="submit"
+                  isDirty={isDirty}
                   sx={{ display: { xs: "none", sm: "none", md: "block" } }}
                 />
                 <ButtonCloseDialog handleClose={handleClose} />
@@ -73,10 +79,7 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
           {/* Dialog Content */}
           <DialogContent
             sx={{
-              height: 500,
-              "@media (max-width: 600px)": {
-                height: "100%",
-              },
+              height: "80vh",
               backgroundColor: `${theme.palette.background.default}`,
               display: "flex",
               justifyContent: "center",
@@ -109,6 +112,20 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
               <Box sx={{ py: 5 }}>
                 <OperatingHoursD control={control} />
               </Box>
+
+              <Divider />
+
+              {/*Logo and Header */}
+              <Box sx={{ py: 5 }}>
+                <LogoAndHeaderD control={control} />
+              </Box>
+
+              <Divider />
+
+              {/*Select Color */}
+              <Box sx={{ py: 5 }}>
+                <SelectColorD control={control} />
+              </Box>
             </Stack>
           </DialogContent>
 
@@ -134,7 +151,7 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
                 display: "flex",
               }}
             >
-              <ButtonSave type="submit" handleOpen={null} />
+              <ButtonSave type="submit" isDirty={isDirty} />
             </DialogActions>
           </Box>
         </form>
