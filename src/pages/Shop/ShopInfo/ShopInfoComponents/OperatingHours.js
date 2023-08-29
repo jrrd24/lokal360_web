@@ -1,9 +1,24 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import DisplayInfo from "../../../../components/TextField/DisplayInfo";
-import { CalendarMonth, LockClock, PunchClock } from "@mui/icons-material";
+import { CalendarMonth } from "@mui/icons-material";
+import dayjs from "dayjs";
+import {
+  ReadOnlyTimePicker,
+} from "../../../../components/CustomTimePicker";
 
-function OperatingHours() {
+function OperatingHours({ days = [], timeOpen, timeClose }) {
+  // ? Displays Everyday if every day is true
+  // ? Displays All days set to true (For Days Open)
+  const openDays = days.filter((day) => day.value);
+  let DaysOpen;
+  if (openDays.length === 7) {
+    DaysOpen = "Everyday";
+  } else {
+    const openDayNames = openDays.map((day) => day.name);
+    DaysOpen = openDayNames.join(", ");
+  }
+
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -20,7 +35,7 @@ function OperatingHours() {
         <DisplayInfo
           name="daysOpen"
           label="Days Open"
-          defaultValue={"Everyday"}
+          defaultValue={DaysOpen}
           width="100%"
           component={CalendarMonth}
         />
@@ -28,21 +43,19 @@ function OperatingHours() {
         {/*Open and Closing Time */}
         <Stack direction={"row"} spacing={3}>
           {/*Opening Time*/}
-          <DisplayInfo
+          <ReadOnlyTimePicker
             name="openingTime"
             label="Opening Time"
-            defaultValue={"7:00 AM"}
+            value={dayjs(timeOpen)}
             width="48%"
-            component={PunchClock}
           />
 
-          {/*Closing Time */}
-          <DisplayInfo
+          {/*Closing Time*/}
+          <ReadOnlyTimePicker
             name="closingTime"
             label="Closing Time"
-            defaultValue={"5:00 PM"}
+            value={dayjs(timeClose)}
             width="48%"
-            component={LockClock}
           />
         </Stack>
       </Stack>

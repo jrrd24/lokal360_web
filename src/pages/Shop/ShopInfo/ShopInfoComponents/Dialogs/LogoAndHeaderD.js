@@ -3,7 +3,7 @@ import { Stack, Typography, Box } from "@mui/material";
 import styles from "../../../../../css/Styles.module.css";
 import CustomLink from "../../../../../components/CustomLink";
 
-function LogoAndHeaderD() {
+function LogoAndHeaderD({ control, logo, header }) {
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -28,7 +28,7 @@ function LogoAndHeaderD() {
         <Box>
           <img
             className={`${styles.grow}`}
-            src={require("../../../../../assets/lokal360_Logo.png")}
+            src={logo}
             alt="Shop logo"
             loading="eager"
             style={{
@@ -57,8 +57,8 @@ function LogoAndHeaderD() {
         <Box>
           <img
             className={`${styles.grow}`}
-            src={require("../../../../../assets/placeholder.png")}
-            alt="Shop logo"
+            src={header}
+            alt="Shop Header"
             style={{
               backgroundColor: "#FFF",
               borderRadius: 10,

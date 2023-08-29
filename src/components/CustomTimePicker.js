@@ -1,6 +1,5 @@
 import React from "react";
 import { Controller } from "react-hook-form";
-
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -13,8 +12,6 @@ function CustomTimePicker({ name, control, value, label, width }) {
       control={control}
       defaultValue={value}
       render={({ field }) => (
-        //TODO: Fix Width
-
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <TimePicker
             label={label}
@@ -28,4 +25,18 @@ function CustomTimePicker({ name, control, value, label, width }) {
   );
 }
 
-export default CustomTimePicker;
+function ReadOnlyTimePicker({ value, label, width }) {
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <TimePicker
+        label={label}
+        value={value || "- -"}
+        showDateInput={false}
+        readOnly
+        sx={{ width: width }}
+      />
+    </LocalizationProvider>
+  );
+}
+
+export { CustomTimePicker, ReadOnlyTimePicker };

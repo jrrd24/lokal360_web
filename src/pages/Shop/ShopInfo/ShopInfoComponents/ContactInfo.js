@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import DisplayInfo from "../../../../components/TextField/DisplayInfo";
 import { Language, Phone } from "@mui/icons-material";
+import { ReadOnlyPhoneNumberPicker } from "../../../../components/CustomPhoneNumberPicker";
 
-function ContactInfo() {
+function ContactInfo({ phoneNum, website }) {
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -18,10 +19,9 @@ function ContactInfo() {
       <Stack direction={"row"} spacing={3}>
         {/*Phone Number*/}
 
-        <DisplayInfo
-          name="phoneNumber"
+        <ReadOnlyPhoneNumberPicker
           label="Phone Number"
-          defaultValue={"0966 123 4567"}
+          value={phoneNum}
           width="48%"
           sx={{
             "@media (max-width: 600px)": {
@@ -35,7 +35,7 @@ function ContactInfo() {
         <DisplayInfo
           name="shopWebsite"
           label="Shop Website"
-          defaultValue={"facebook.com/bambooLand_2023"}
+          defaultValue={website}
           width="48%"
           component={Language}
           sx={{

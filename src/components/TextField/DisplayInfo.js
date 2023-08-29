@@ -12,10 +12,11 @@ function DisplayInfo({
 }) {
   return (
     <TextField
+      key={name}
       name={name}
       label={label}
-      variant="filled"
-      defaultValue={defaultValue}
+      variant="outlined"
+      value={defaultValue || "- -"}
       multiline={multiline}
       maxRows={multiline ? 4 : undefined}
       InputProps={
@@ -41,9 +42,7 @@ function DisplayInfo({
         },
         ...sx,
       }}
-      InputLabelProps={{
-        style: { fontSize: "22px", fontWeight: 600 },
-      }}
+      InputLabelProps={{}}
     />
   );
 }

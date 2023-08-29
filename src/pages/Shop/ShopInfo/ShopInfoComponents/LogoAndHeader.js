@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, FormLabel, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 
-function LogoAndHeader({ control }) {
+function LogoAndHeader({ logo, header }) {
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -18,7 +18,7 @@ function LogoAndHeader({ control }) {
         <Typography variant="sectionSubtitle">Logo</Typography>
         <Box className={`${styles.grow}`}>
           <img
-            src={require("../../../../assets/lokal360_Logo.png")}
+            src={logo}
             alt="Shop logo"
             loading="eager"
             style={{
@@ -39,7 +39,7 @@ function LogoAndHeader({ control }) {
         <Typography variant="sectionSubtitle">Header</Typography>
         <Box className={`${styles.grow}`}>
           <img
-            src={require("../../../../assets/placeholder.png")}
+            src={header}
             alt="Shop Header"
             style={{
               backgroundColor: "#FFF",

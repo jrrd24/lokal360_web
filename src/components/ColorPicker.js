@@ -36,7 +36,7 @@ function SimpleColorPicker({ control, color }) {
 
   const handleHexColorChange = (newHexColor) => {
     if (isValidHexColor(newHexColor)) {
-      setTextFieldValue(newHexColor.slice(0, 7)); // Limit to max length
+      setTextFieldValue(newHexColor.slice(0, 7));
       setBackground(newHexColor);
       if (control) {
         setValue("hexColor", newHexColor);
@@ -52,8 +52,9 @@ function SimpleColorPicker({ control, color }) {
     }
   };
 
+  // Copy text to clipboard
   const handleCopyToClipboard = () => {
-    navigator.clipboard.writeText(textFieldValue); // Copy text to clipboard
+    navigator.clipboard.writeText(textFieldValue);
   };
 
   return (
@@ -81,6 +82,9 @@ function SimpleColorPicker({ control, color }) {
           color={"white"} // Change text color for invalid hex
         >
           {background}
+          <Typography variant="subtitle1" fontSize={14} pt={1}>
+            Click Here to copy Color Hex
+          </Typography>
         </Typography>
       </Button>
 
@@ -93,6 +97,7 @@ function SimpleColorPicker({ control, color }) {
             value: hexColorRegex,
             message: "Invalid Hex, Sample Hex Color: #FFFFFF",
           },
+          required: "Hex Color is Required. Copy the Default Value from Button",
         }}
         render={({ field, fieldState }) => (
           <TextField
@@ -124,4 +129,44 @@ function SimpleColorPicker({ control, color }) {
   );
 }
 
-export default SimpleColorPicker;
+function DisplayColor({ color }) {
+  const defaultColor = `${theme.palette.primary.main}`;
+  const [background, setBackground] = useState(color || defaultColor);
+
+  useEffect(() => {
+    setBackground(color || defaultColor);
+  }, [color, defaultColor]);
+
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: background,
+          width: "100%",
+          height: "100px",
+          marginBottom: "10px",
+          borderRadius: 3,
+        }}
+      >
+        <Typography
+          variant="sectionTitleSmall"
+          color={theme.palette.text.contrastText}
+        >
+          {background}
+        </Typography>
+      </Box>
+
+      <TextField
+        label="Hex Color"
+        value={background}
+        disabled={true}
+        sx={{ my: "16px", width: "100%" }}
+      />
+    </Box>
+  );
+}
+
+export { SimpleColorPicker, DisplayColor };

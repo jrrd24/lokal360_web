@@ -25,7 +25,8 @@ function CustomPhoneNumberPicker({
             value={field.value}
             onChange={(value) => {
               const formattedValue = value.replace(/\s/g, ""); // Remove spaces
-              field.onChange(formattedValue);
+              const newValue = formattedValue.slice(0, 13); // Limit to 13 digits
+              field.onChange(newValue);
               trigger(name); // Manually trigger validation
             }}
             onlyCountries={["PH"]}
@@ -39,4 +40,17 @@ function CustomPhoneNumberPicker({
   );
 }
 
-export default CustomPhoneNumberPicker;
+function ReadOnlyPhoneNumberPicker({ value, label, width }) {
+  return (
+    <div style={{ width: width }}>
+      <MuiTelInput
+        label={label}
+        value={value}
+        onlyCountries={["PH"]}
+        disabled
+      />
+    </div>
+  );
+}
+
+export { CustomPhoneNumberPicker, ReadOnlyPhoneNumberPicker };

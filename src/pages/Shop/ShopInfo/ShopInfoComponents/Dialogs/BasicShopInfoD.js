@@ -43,14 +43,16 @@ const productsCategory = [
   },
 ];
 
-function BasicShopInfoD({ sx, control }) {
-  const [shopName] = useState("Bamboo Land");
-  const [productCategory] = useState("Bamboo");
-  const [shopType] = useState("Bamboo Crafts");
-  const [shopDescription] = useState(
-    "  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-  );
-
+function BasicShopInfoD({
+  sx,
+  control,
+  shopName,
+  category,
+  type,
+  description,
+  deliver,
+  pickup,
+}) {
   return (
     <Stack spacing={3} sx={{ sx }}>
       {/*Section Name */}
@@ -88,7 +90,7 @@ function BasicShopInfoD({ sx, control }) {
             control={control}
             name="productsCategory"
             label="Products Category"
-            value={productCategory}
+            value={category}
             width="48%"
             select
             selectMenuItems={productsCategory}
@@ -103,7 +105,7 @@ function BasicShopInfoD({ sx, control }) {
             control={control}
             name="shopType"
             label="Shop Type"
-            value={shopType}
+            value={type}
             width="48%"
             rules={{
               required: "Shop Type Is Required",
@@ -120,7 +122,7 @@ function BasicShopInfoD({ sx, control }) {
           control={control}
           name="shopDescription"
           label="Shop Description"
-          value={shopDescription}
+          value={description}
           width="100%"
           multiline
           rules={{
@@ -143,13 +145,13 @@ function BasicShopInfoD({ sx, control }) {
             name="delivery"
             control={control}
             label="Delivery"
-            defaultValue={false}
+            defaultValue={deliver}
           />
           <CustomSwitch
             name="pickUp"
             control={control}
             label="Pick-Up"
-            defaultValue={true}
+            defaultValue={pickup}
           />
         </FormGroup>
       </Stack>

@@ -2,9 +2,9 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 import CustomInput from "../../../../../components/TextField/CustomInput";
 import { Language } from "@mui/icons-material";
-import CustomPhoneNumberPicker from "../../../../../components/CustomPhoneNumberPicker";
+import { CustomPhoneNumberPicker } from "../../../../../components/CustomPhoneNumberPicker";
 
-function ContactInfoD({ control, sx, trigger }) {
+function ContactInfoD({ control, sx, trigger, phoneNum, website }) {
   return (
     <Stack spacing={3} sx={{ sx }}>
       {/*Section Name */}
@@ -22,7 +22,7 @@ function ContactInfoD({ control, sx, trigger }) {
           control={control}
           name="phoneNumber"
           label="Phone Number"
-          defaultValue={"+639661234567"}
+          defaultValue={phoneNum || "+63"}
           width="48%"
           trigger={trigger}
           rules={{
@@ -38,7 +38,7 @@ function ContactInfoD({ control, sx, trigger }) {
           control={control}
           name="shopWebsite"
           label="Shop Website"
-          value={"facebook.com/bambooLand_2023"}
+          value={website}
           width="48%"
           rules={{
             pattern: {

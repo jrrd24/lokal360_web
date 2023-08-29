@@ -2,11 +2,23 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 import CustomInput from "../../../../../components/TextField/CustomInput";
 import { CalendarMonth } from "@mui/icons-material";
-import CustomTimePicker from "../../../../../components/CustomTimePicker";
+import { CustomTimePicker } from "../../../../../components/CustomTimePicker";
 import dayjs from "dayjs";
 import DaysOpenSelector from "../../../../../components/DaysOpenSelectior";
 
-function OperatingHoursD({ control, sx }) {
+function OperatingHoursD({
+  control,
+  sx,
+  mon,
+  tues,
+  wed,
+  thurs,
+  fri,
+  sat,
+  sun,
+  timeOpen,
+  timeClose,
+}) {
   return (
     <Stack spacing={3} sx={{ sx }}>
       {/*Section Name */}
@@ -25,13 +37,13 @@ function OperatingHoursD({ control, sx }) {
           control={control}
           label="Days Open"
           days={{
-            Monday: false,
-            Tuesday: true,
-            Wednesday: false,
-            Thursday: true,
-            Friday: true,
-            Saturday: false,
-            Sunday: false,
+            Monday: mon,
+            Tuesday: tues,
+            Wednesday: wed,
+            Thursday: thurs,
+            Friday: fri,
+            Saturday: sat,
+            Sunday: sun,
           }}
           width="100%"
         />
@@ -43,7 +55,7 @@ function OperatingHoursD({ control, sx }) {
             control={control}
             name="openingTime"
             label="Opening Time"
-            value={dayjs("2023-08-25T07:00")}
+            value={dayjs(timeOpen)}
             width="48%"
           />
 
@@ -52,7 +64,7 @@ function OperatingHoursD({ control, sx }) {
             control={control}
             name="closingTime"
             label="Closing Time"
-            value={dayjs("2023-08-25T20:00")}
+            value={dayjs(timeClose)}
             width="48%"
           />
         </Stack>

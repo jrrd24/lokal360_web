@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import DisplayColor from "../../../../components/DisplayColor";
+import { DisplayColor } from "../../../../components/ColorPicker";
 import PartnerTag from "../../../../components/ShopOnly/PartnerTag";
 
-function SelectColor() {
+function SelectColor({ color }) {
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -13,7 +13,7 @@ function SelectColor() {
       </Stack>
 
       <Box sx={{ width: "100%" }}>
-        <DisplayColor color={null} />
+        <DisplayColor color={color} />
       </Box>
     </Stack>
   );

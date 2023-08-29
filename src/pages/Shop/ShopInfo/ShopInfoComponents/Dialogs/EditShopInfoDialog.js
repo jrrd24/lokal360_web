@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Typography,
   Box,
@@ -19,9 +19,56 @@ import ContactInfoD from "./ContactInfoD";
 import OperatingHoursD from "./OperatingHoursD";
 import LogoAndHeaderD from "./LogoAndHeaderD";
 import SelectColorD from "./SelectColorD";
-import SimpleColorPicker from "../../../../../components/SimpleColorPicker";
 
-function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
+function EditShopInfoDialog({
+  open,
+  handleClose,
+  isSmScreen,
+  handleSave,
+  shopData,
+}) {
+  //destructure shopData
+  const {
+    shopID,
+    shopOwnerID,
+    name,
+    type,
+    description,
+    categoryID,
+    shipping_deliver_enabled,
+    shipping_pickup_enabled,
+    address_city,
+    address_country,
+    address_district,
+    address_iso_country_code,
+    address_postal_code,
+    address_region,
+    address_street,
+    address_street_no,
+    phone_number,
+    website_link,
+    is_open_mon,
+    is_open_tues,
+    is_open_wed,
+    is_open_thurs,
+    is_open_fri,
+    is_open_sat,
+    is_open_sun,
+    time_close,
+    time_open,
+    logo_img_link,
+    header_img_link,
+    custom_color_hex,
+    custom_low_stock_lvl,
+    sells_raw_mats,
+    total_sales,
+    no_of_products,
+    no_of_followers,
+    is_360_partner,
+    createdAt,
+    modifiedAt,
+  } = shopData;
+
   // For React Hook Form
   const {
     control,
@@ -89,7 +136,15 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Basic Shop Info */}
               <Box sx={{ py: 5 }}>
-                <BasicShopInfoD control={control} />
+                <BasicShopInfoD
+                  control={control}
+                  shopName={name}
+                  category={categoryID}
+                  type={type}
+                  description={description}
+                  deliver={shipping_deliver_enabled}
+                  pickup={shipping_pickup_enabled}
+                />
               </Box>
 
               <Divider />
@@ -103,28 +158,48 @@ function EditShopInfoDialog({ open, handleClose, isSmScreen, handleSave }) {
 
               {/*Contact Information */}
               <Box sx={{ py: 5 }}>
-                <ContactInfoD control={control} trigger={trigger} />
+                <ContactInfoD
+                  control={control}
+                  trigger={trigger}
+                  phoneNum={phone_number}
+                  website={website_link}
+                />
               </Box>
 
               <Divider />
 
               {/*Operating Hours */}
               <Box sx={{ py: 5 }}>
-                <OperatingHoursD control={control} />
+                <OperatingHoursD
+                  control={control}
+                  mon={is_open_mon}
+                  tues={is_open_tues}
+                  wed={is_open_wed}
+                  thurs={is_open_thurs}
+                  fri={is_open_fri}
+                  sat={is_open_sat}
+                  sun={is_open_sun}
+                  timeOpen={time_open}
+                  timeClose={time_close}
+                />
               </Box>
 
               <Divider />
 
               {/*Logo and Header */}
               <Box sx={{ py: 5 }}>
-                <LogoAndHeaderD control={control} />
+                <LogoAndHeaderD
+                  control={control}
+                  logo={logo_img_link}
+                  header={header_img_link}
+                />
               </Box>
 
               <Divider />
 
               {/*Select Color */}
               <Box sx={{ py: 5 }}>
-                <SelectColorD control={control} />
+                <SelectColorD control={control} color={custom_color_hex} isPartner={is_360_partner} />
               </Box>
             </Stack>
           </DialogContent>

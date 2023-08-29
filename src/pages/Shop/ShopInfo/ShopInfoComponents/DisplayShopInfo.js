@@ -7,8 +7,17 @@ import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
 import { useMediaQuery } from "@mui/material";
 import ButtonEdit from "../../../../components/Buttons/ButtonEdit";
 import CustomAlert from "../../../../components/CustomAlert";
+import { NightShelter } from "@mui/icons-material";
 
-function DisplayShopInfo() {
+function DisplayShopInfo({
+  shopName,
+  totalSales,
+  noOfProducts,
+  noOfFollowers,
+  logo,
+  shopData,
+  shopID,
+}) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   // Handle Open Dialogseverity
@@ -61,7 +70,7 @@ function DisplayShopInfo() {
           }}
         >
           <img
-            src={require("../../../../assets/lokal360_Logo.png")}
+            src={logo}
             alt="Shop logo"
             style={{
               backgroundColor: "#FFF",
@@ -92,7 +101,8 @@ function DisplayShopInfo() {
               },
             }}
           >
-            <ButtonEdit handleOpen={handleOpen} />
+            {/*Button is disabled if shopID is not found */}
+            <ButtonEdit handleOpen={handleOpen} disabled={!shopID} />
           </Box>
 
           {/*Shop Info */}
@@ -107,7 +117,7 @@ function DisplayShopInfo() {
             }}
           >
             {/*Shop Name*/}
-            <Typography variant="sectionTitle">Bamboo Land</Typography>
+            <Typography variant="sectionTitle">{shopName || "N/A"}</Typography>
 
             {/*Total Sales/ Products/ Followers*/}
             <Box
@@ -128,7 +138,7 @@ function DisplayShopInfo() {
               {/*Total Sales*/}
               <Stack>
                 <Typography variant="sectionTitleSmall" color={"primary"}>
-                  <NumberFormat value={25995} isPeso={true} />
+                  <NumberFormat value={totalSales || 0} isPeso={true} />
                   &nbsp;
                 </Typography>
                 <Typography
@@ -143,7 +153,7 @@ function DisplayShopInfo() {
               {/*Products*/}
               <Stack>
                 <Typography variant="sectionTitleSmall" color={"primary"}>
-                  <NumberFormat value={1000} isShortened={true} />
+                  <NumberFormat value={noOfProducts || 0} isShortened={true} />
                   &nbsp;
                 </Typography>
                 <Typography
@@ -158,7 +168,7 @@ function DisplayShopInfo() {
               {/*Followers*/}
               <Stack>
                 <Typography variant="sectionTitleSmall" color={"primary"}>
-                  <NumberFormat value={2679} isShortened={true} />
+                  <NumberFormat value={noOfFollowers || 0} isShortened={true} />
                   &nbsp;
                 </Typography>
                 <Typography
@@ -180,6 +190,7 @@ function DisplayShopInfo() {
         handleClose={handleClose}
         isSmScreen={isSmScreen}
         handleSave={handleSave}
+        shopData={shopData}
       />
 
       {/*Display Alert */}

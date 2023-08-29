@@ -9,7 +9,14 @@ import {
 } from "@mui/material";
 import DisplayInfo from "../../../../components/TextField/DisplayInfo";
 
-function BasicShopInfo() {
+function BasicShopInfo({
+  shopName,
+  category,
+  type,
+  description,
+  deliver,
+  pickup,
+}) {
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -28,7 +35,7 @@ function BasicShopInfo() {
         <DisplayInfo
           name="shopName"
           label="Shop Name"
-          defaultValue={"Bamboo Land"}
+          defaultValue={shopName}
           width="100%"
         />
 
@@ -38,7 +45,7 @@ function BasicShopInfo() {
           <DisplayInfo
             name="productsCategory"
             label="Products Category"
-            defaultValue={"Bamboo"}
+            defaultValue={category}
             width="48%"
           />
 
@@ -47,7 +54,7 @@ function BasicShopInfo() {
           <DisplayInfo
             name="shopType"
             label="Shop Type"
-            defaultValue={"Bamboo Crafts"}
+            defaultValue={type}
             width="48%"
           />
         </Stack>
@@ -56,9 +63,7 @@ function BasicShopInfo() {
         <DisplayInfo
           name="shopDescription"
           label="Shop Description"
-          defaultValue={
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-          }
+          defaultValue={description}
           width="100%"
           multiline
         />
@@ -72,13 +77,13 @@ function BasicShopInfo() {
           </FormLabel>
           <FormControlLabel
             disabled
-            control={<Switch />}
+            control={<Switch checked={deliver || false} />}
             label="Delivery"
             name="delivery"
           />
           <FormControlLabel
             disabled
-            control={<Switch defaultChecked />}
+            control={<Switch checked={pickup || false} />}
             label="Pick-Up"
             name="pickUp"
           />
