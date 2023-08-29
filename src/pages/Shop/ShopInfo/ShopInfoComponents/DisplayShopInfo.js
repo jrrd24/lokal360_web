@@ -7,7 +7,7 @@ import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
 import { useMediaQuery } from "@mui/material";
 import ButtonEdit from "../../../../components/Buttons/ButtonEdit";
 import CustomAlert from "../../../../components/CustomAlert";
-import { NightShelter } from "@mui/icons-material";
+
 
 function DisplayShopInfo({
   shopName,
@@ -20,7 +20,7 @@ function DisplayShopInfo({
 }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-  // Handle Open Dialogseverity
+  // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);

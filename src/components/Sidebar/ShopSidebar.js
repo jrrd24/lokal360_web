@@ -655,7 +655,7 @@ export default function ShopSidebar({ component: MainComponent }) {
         component="main"
         sx={{
           flexGrow: 1,
-          backgroundColor: "#F8F7FD",
+          backgroundColor: `${theme.palette.background.main}`,
           minHeight: "100vh",
           display: { xs: open ? "none" : "block", sm: "block" },
         }}

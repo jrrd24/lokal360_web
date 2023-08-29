@@ -92,13 +92,20 @@ function EditShopInfoDialog({
         maxWidth={"md"}
         open={open}
         onClose={handleClose}
+        hideBackdrop={true}
         sx={{
-          backgroundColor: "#6E5FDE66",
+          backgroundColor: "#ECECEC80",
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Dialog Title/ Buttons */}
-          <DialogTitle height={80} sx={{ position: "sticky" }}>
+          <DialogTitle
+            height={70}
+            sx={{
+              position: "sticky",
+              borderBottom: `1px solid ${theme.palette.text.forty}`,
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
@@ -127,7 +134,7 @@ function EditShopInfoDialog({
           <DialogContent
             sx={{
               height: "80vh",
-              backgroundColor: `${theme.palette.background.default}`,
+              backgroundColor: `${theme.palette.background.paper}`,
               display: "flex",
               justifyContent: "center",
             }}
@@ -199,7 +206,11 @@ function EditShopInfoDialog({
 
               {/*Select Color */}
               <Box sx={{ py: 5 }}>
-                <SelectColorD control={control} color={custom_color_hex} isPartner={is_360_partner} />
+                <SelectColorD
+                  control={control}
+                  color={custom_color_hex}
+                  isPartner={is_360_partner}
+                />
               </Box>
             </Stack>
           </DialogContent>

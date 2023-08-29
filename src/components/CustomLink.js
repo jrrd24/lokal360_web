@@ -4,7 +4,8 @@ import Link from "@mui/material/Link";
 import theme from "../Theme";
 
 const CustomLink = (props) => {
-  const { to, onClick, ...rest } = props;
+  
+  const { to, ...rest } = props;
 
   return (
     <Link
@@ -12,7 +13,6 @@ const CustomLink = (props) => {
       to={to}
       variant="seeAll"
       underline="none"
-      onClick={onClick}
       {...rest}
     />
   );

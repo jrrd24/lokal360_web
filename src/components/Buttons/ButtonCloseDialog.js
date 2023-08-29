@@ -10,6 +10,8 @@ function ButtonCloseDialog({ handleClose }) {
       sx={{
         backgroundColor: `${theme.palette.background.paper}`,
         border: "solid",
+        height: 30,
+        width: 30,
         color: `${theme.palette.danger.main}`,
       }}
     >
