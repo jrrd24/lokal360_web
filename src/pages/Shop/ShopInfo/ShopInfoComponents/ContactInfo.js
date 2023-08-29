@@ -1,8 +1,8 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import DisplayInfo from "../../../../components/TextField/DisplayInfo";
+import { ReadOnlyCustomInput } from "../../../../components/FormComponents/CustomInput";
 import { Language, Phone } from "@mui/icons-material";
-import { ReadOnlyPhoneNumberPicker } from "../../../../components/CustomPhoneNumberPicker";
+import { ReadOnlyPhoneNumberPicker } from "../../../../components/FormComponents/CustomPhoneNumberPicker";
 
 function ContactInfo({ phoneNum, website }) {
   return (
@@ -32,7 +32,7 @@ function ContactInfo({ phoneNum, website }) {
         />
 
         {/*Shop Website */}
-        <DisplayInfo
+        <ReadOnlyCustomInput
           name="shopWebsite"
           label="Shop Website"
           defaultValue={website}

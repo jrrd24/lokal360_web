@@ -1,8 +1,8 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import CustomInput from "../../../../../components/TextField/CustomInput";
+import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import { Language } from "@mui/icons-material";
-import { CustomPhoneNumberPicker } from "../../../../../components/CustomPhoneNumberPicker";
+import { CustomPhoneNumberPicker } from "../../../../../components/FormComponents/CustomPhoneNumberPicker";
 
 function ContactInfoD({ control, sx, trigger, phoneNum, website }) {
   return (

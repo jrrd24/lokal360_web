@@ -1,20 +1,9 @@
 import React from "react";
-import { Stack, Select, MenuItem, Typography, Box } from "@mui/material";
-import {
-  GetDate,
-  GetMonthFirstDay,
-  GetMonthLastDay,
-  GetWeekFirstDay,
-  GetWeekLastDay,
-  GetYearFirstDay,
-  GetYearLastDay,
-} from "../utils/GetDate";
-import { DateRange } from "@mui/icons-material";
+import { Stack, Select, MenuItem } from "@mui/material";
 import theme from "../Theme";
 import { useDateContext } from "../contexts/DateContext";
 
-function DateSelection({ onRangeChange, onRangeEndChange, displayOnly }) {
-
+function DateSelection({ displayOnly }) {
   const { selectedRange, handleRangeChange } = useDateContext();
 
   const options = [
@@ -31,7 +20,6 @@ function DateSelection({ onRangeChange, onRangeEndChange, displayOnly }) {
   };
 
   return (
-
     <Stack direction={"row"} spacing={2}>
       {/* Combo Box */}
       <Select

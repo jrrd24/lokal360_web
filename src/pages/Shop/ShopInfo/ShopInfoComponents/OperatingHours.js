@@ -1,11 +1,9 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import DisplayInfo from "../../../../components/TextField/DisplayInfo";
+import { ReadOnlyCustomInput } from "../../../../components/FormComponents/CustomInput";
 import { CalendarMonth } from "@mui/icons-material";
 import dayjs from "dayjs";
-import {
-  ReadOnlyTimePicker,
-} from "../../../../components/CustomTimePicker";
+import { ReadOnlyTimePicker } from "../../../../components/FormComponents/CustomTimePicker";
 
 function OperatingHours({ days = [], timeOpen, timeClose }) {
   // ? Displays Everyday if every day is true
@@ -32,7 +30,7 @@ function OperatingHours({ days = [], timeOpen, timeClose }) {
       {/*TextBoxes */}
       <Stack spacing={3}>
         {/*Days Opem */}
-        <DisplayInfo
+        <ReadOnlyCustomInput
           name="daysOpen"
           label="Days Open"
           defaultValue={DaysOpen}

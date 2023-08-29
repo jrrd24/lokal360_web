@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import CustomInput from "../../components/TextField/CustomInput";
+import { CustomInput } from "../../components/FormComponents/CustomInput";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { ApiBaseUrl } from "../../api/Api.js";

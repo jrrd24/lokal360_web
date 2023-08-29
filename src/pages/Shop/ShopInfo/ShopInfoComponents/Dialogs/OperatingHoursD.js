@@ -1,10 +1,10 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import CustomInput from "../../../../../components/TextField/CustomInput";
+import CustomInput from "../../../../../components/FormComponents/CustomInput";
 import { CalendarMonth } from "@mui/icons-material";
-import { CustomTimePicker } from "../../../../../components/CustomTimePicker";
+import { CustomTimePicker } from "../../../../../components/FormComponents/CustomTimePicker";
 import dayjs from "dayjs";
-import DaysOpenSelector from "../../../../../components/DaysOpenSelectior";
+import DaysOpenSelector from "../../../../../components/FormComponents/DaysOpenSelectior";
 
 function OperatingHoursD({
   control,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Stack, Typography, FormGroup } from "@mui/material";
-import CustomInput from "../../../../../components/TextField/CustomInput";
-import CustomSwitch from "../../../../../components/CustomSwitch";
+import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
+import CustomSwitch from "../../../../../components/FormComponents/CustomSwitch";
 
 //Products Category
 const productsCategory = [

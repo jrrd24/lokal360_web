@@ -7,7 +7,7 @@ import {
   FormControlLabel,
   FormLabel,
 } from "@mui/material";
-import DisplayInfo from "../../../../components/TextField/DisplayInfo";
+import { ReadOnlyCustomInput } from "../../../../components/FormComponents/CustomInput";
 
 function BasicShopInfo({
   shopName,
@@ -32,7 +32,7 @@ function BasicShopInfo({
       {/*TextBoxes */}
       <Stack spacing={3}>
         {/*Shop Name */}
-        <DisplayInfo
+        <ReadOnlyCustomInput
           name="shopName"
           label="Shop Name"
           defaultValue={shopName}
@@ -42,7 +42,7 @@ function BasicShopInfo({
         {/*Product Category and Shop Type */}
         <Stack direction={"row"} spacing={3}>
           {/*Product Category*/}
-          <DisplayInfo
+          <ReadOnlyCustomInput
             name="productsCategory"
             label="Products Category"
             defaultValue={category}
@@ -51,7 +51,7 @@ function BasicShopInfo({
 
           {/*Shop Type */}
 
-          <DisplayInfo
+          <ReadOnlyCustomInput
             name="shopType"
             label="Shop Type"
             defaultValue={type}
@@ -60,7 +60,7 @@ function BasicShopInfo({
         </Stack>
 
         {/*Shop Description */}
-        <DisplayInfo
+        <ReadOnlyCustomInput
           name="shopDescription"
           label="Shop Description"
           defaultValue={description}
