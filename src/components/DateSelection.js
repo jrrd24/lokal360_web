@@ -24,6 +24,7 @@ function DateSelection({ displayOnly }) {
       {/* Combo Box */}
       <Select
         labelId="select--time"
+        name="selectTime"
         id="select--time"
         value={selectedRange}
         onChange={handleChange}

@@ -96,6 +96,7 @@ const columns = [
     width: 120,
   },
   {
+    field: "",
     headerName: "Action",
     width: 60,
     align: "center",

@@ -8,7 +8,7 @@ function MyShopCategories() {
     <Box
       sx={{
         maxWidth: "600px",
-        "@media (max-width: 1516px)": {
+        "@media (max-width: 720px)": {
           justifyContent: "center",
           maxWidth: "100%",
         },

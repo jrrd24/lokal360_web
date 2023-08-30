@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Box,
@@ -15,23 +15,27 @@ import { useForm } from "react-hook-form";
 import ButtonCloseDialog from "../Buttons/ButtonCloseDialog";
 import theme from "../../Theme";
 import { Image } from "@mui/icons-material";
+import ButtonSave from "../Buttons/ButtonSave";
+import CustomImage from "../FormComponents/CustomImage";
 
 function UploadImageDialog({
   open,
   handleClose,
-  handleSaveImg,
+  alt,
   name,
   label,
   isSmScreen,
 }) {
   const [uploadError, setUploadError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isImageDirty, setIsImageDirty] = useState(false);
+
   // For React Hook Form
   const {
     control,
     handleSubmit,
     formState: { errors, isDirty },
-    trigger,
+    setValue,
     reset,
     register,
   } = useForm();
@@ -43,6 +47,7 @@ function UploadImageDialog({
   const handleImageChange = (e) => {
     setUploadError(false);
     setSelectedImage(null);
+    setIsImageDirty(false);
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
       // 2MB in bytes
@@ -55,7 +60,22 @@ function UploadImageDialog({
   const handleCloseDialog = () => {
     setSelectedImage(null);
     setUploadError(false);
+    setIsImageDirty(false);
     handleClose();
+  };
+
+  useEffect(() => {
+    if (selectedImage !== null) {
+      setIsImageDirty(true);
+    } else {
+      setIsImageDirty(false);
+    }
+  }, [selectedImage]);
+
+  const onSubmitImage = (data) => {
+    data[name] = selectedImage;
+    console.log(data); // Form data
+    reset();
   };
 
   return (
@@ -70,135 +90,141 @@ function UploadImageDialog({
         backgroundColor: "#ECECEC80",
       }}
     >
-      {/* Dialog Title/ Buttons */}
-      <DialogTitle
-        minHeight={70}
-        sx={{
-          position: "sticky",
-          borderBottom: `1px solid ${theme.palette.text.forty}`,
-        }}
-      >
-        <Box
+      <form onSubmit={handleSubmit(onSubmitImage)}>
+        {/* Dialog Title/ Buttons */}
+        <DialogTitle
+          minHeight={70}
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            position: "sticky",
+            borderBottom: `1px solid ${theme.palette.text.forty}`,
           }}
         >
-          {/* Dialog Title*/}
-          <Typography variant="sectionTitle">
-            {label || "Upload Image"}
-          </Typography>
-
-          {/*  Close Button */}
-          <DialogActions sx={{ gap: "16px" }}>
-            <ButtonCloseDialog handleClose={handleCloseDialog} />
-          </DialogActions>
-        </Box>
-      </DialogTitle>
-      <DialogContent
-        sx={{
-          height: "60vh",
-          backgroundColor: `${theme.palette.background.paper}`,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Box sx={{ pt: 5, width: "100%" }}>
-          <Button
-            variant="outlined"
-            component="label"
+          <Box
             sx={{
               display: "flex",
-              justifyContent: "center",
               alignItems: "center",
-              backgroundColor: bgColor,
-              width: "100%",
-              height: "100px",
-              marginBottom: "10px",
-              cursor: "pointer",
-              color: textColor,
-              border: "solid",
-              borderStyle: "dashed",
-              borderWidth: 2,
-              borderColor: textColor,
-              transition: "background-color 0.3s",
-              "&:hover": {
-                backgroundColor: textColor,
-                color: bgColor,
-              },
+              justifyContent: "space-between",
             }}
           >
-            <input
-              type="file"
-              hidden
-              accept="image/*"
-              {...register("image")}
-              onChange={handleImageChange}
-            />
-            <Image />
-            <Typography
-              variant="sectionTitleSmall"
-              color="inherit" // Change text color for invalid hex
-            >
-              Upload Image
+            {/* Dialog Title*/}
+            <Typography variant="sectionTitle">
+              {label || "Upload Image"}
             </Typography>
-          </Button>
 
-          {/*Display error message */}
-          <Typography>
-            {uploadError ? (
+            {/*  Close Button */}
+            <DialogActions sx={{ gap: "16px" }}>
+              <ButtonCloseDialog handleClose={handleCloseDialog} />
+            </DialogActions>
+          </Box>
+        </DialogTitle>
+
+        {/* Dialog Content*/}
+        <DialogContent
+          sx={{
+            height: "60vh",
+            backgroundColor: `${theme.palette.background.paper}`,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <Box sx={{ py: 5, width: "100%" }}>
+            <Button
+              variant="outlined"
+              component="label"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: bgColor,
+                width: "100%",
+                height: "100px",
+                marginBottom: "10px",
+                cursor: "pointer",
+                color: textColor,
+                border: "solid",
+                borderStyle: "dashed",
+                borderWidth: 2,
+                borderColor: textColor,
+                transition: "background-color 0.3s",
+                "&:hover": {
+                  backgroundColor: textColor,
+                  color: bgColor,
+                },
+              }}
+            >
+              <input
+                type="file"
+                hidden
+                accept="image/*"
+                {...register("image")}
+                onChange={handleImageChange}
+              />
+              <Image />
+              <Typography
+                variant="sectionTitleSmall"
+                color="inherit" // Change text color for invalid hex
+              >
+                Upload Image
+              </Typography>
+            </Button>
+            {/*Display error message */}
+            {uploadError && (
               <Alert severity="warning">
                 <AlertTitle>Upload Warning:</AlertTitle>
                 No Image Uploaded or <strong>2mb Maximum File Size </strong>is
                 Exceeded
               </Alert>
-            ) : (
-              ""
             )}
-          </Typography>
-
-          {/*Display Uploaded Image */}
-          <Stack
-            spacing={1}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              pt: 3,
-            }}
-          >
-            <Typography
-              variant="sectionTitleSmall"
-              color="inherit"
+            {/*Display Uploaded Image */}
+            <Stack
+              spacing={1}
               sx={{
                 display: "flex",
-                alignItems: "start",
+                alignItems: "center",
+                justifyContent: "center",
+                py: 5,
               }}
             >
-              {uploadError || selectedImage === null ? "" : "    Image Preview"}
-            </Typography>
-
-            {selectedImage && (
-              <Box
+              <Typography
+                variant="sectionTitleSmall"
+                color="inherit"
                 sx={{
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  maxHeight: 300,
-                  maxWidth: "100%",
+                  alignItems: "start",
                 }}
               >
-                <img
-                  src={selectedImage}
-                  alt="Selected"
-                  style={{ maxHeight: 250, width: "100%" }}
-                />
-              </Box>
-            )}
-          </Stack>
-        </Box>
-      </DialogContent>
+                {uploadError || selectedImage === null
+                  ? ""
+                  : "    Image Preview"}
+              </Typography>
+
+              {selectedImage && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    maxHeight: 300,
+                    maxWidth: "100%",
+                  }}
+                >
+                  <CustomImage
+                    control={control}
+                    name={name}
+                    selectedImage={selectedImage}
+                    alt={alt}
+                  />
+                </Box>
+              )}
+            </Stack>
+            <ButtonSave
+              type="submit"
+              isDirty={isImageDirty}
+              btnSx={{ width: "100%", height: 50, mb: 5 }}
+            />
+          </Box>
+        </DialogContent>
+      </form>
     </Dialog>
   );
 }

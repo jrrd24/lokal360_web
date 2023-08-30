@@ -6,7 +6,7 @@ import { ReadOnlyPhoneNumberPicker } from "../../../../components/FormComponents
 
 function ContactInfo({ phoneNum, website }) {
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} width={"100%"}>
       {/*Section Name */}
       <Stack
         direction={"row"}

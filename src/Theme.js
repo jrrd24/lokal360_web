@@ -21,7 +21,7 @@ const theme = createTheme({
       forty: "#44444466",
     },
     background: {
-      paper: "#ffffff",
+      paper: "#FFFFFF",
       default: "#F8F7FD",
     },
     divider: "#9D9D9D",
@@ -66,6 +66,115 @@ const theme = createTheme({
       lineHeight: "16px",
       letterSpacing: -0.3,
       textTransform: "none",
+    },
+  },
+
+  components: {
+    //? all box component sx
+    box: {
+      //? for Parent Box (Container) of every Page
+      //* sx={{...theme.components.box.pageContainer}}
+      pageContainer: {
+        backgroundColor: "transparent",
+        maxWidth: 2250,
+        alignItems: "center",
+        justifyContent: "center",
+        pb: 5,
+      },
+
+      //? for the Box wrapper of the page's Main Content
+      //* sx={{...theme.components.box.mainContent}}
+      mainContent: {
+        display: "flex",
+        flexDirection: "row",
+        gap: "32px",
+        flexWrap: "wrap",
+        alignItems: "flex-start",
+        justifyContent: "center",
+      },
+
+      //? for Box wrappers inside the Main Content
+      //? sample usage: (left and right side boxes)
+      //? contentRow & contentColumn (flex direction)
+      //* sx={{...theme.components.box.contentRow}}
+      //* sx={{...theme.components.box.contentColumn}}
+      contentRow: {
+        display: "flex",
+        flexDirection: "row",
+        gap: "32px",
+        flexWrap: "wrap",
+      },
+      contentColumn: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "32px",
+        flexWrap: "wrap",
+      },
+
+      //? for Boxes that wrap sections of the Main Contnet
+      //? this includes the hover effects
+      //* sx={{...theme.components.box.sectionContainer}}
+      sectionContainer: {
+        borderRadius: "10px",
+        backgroundColor: (theme) => theme.palette.background.paper,
+        boxShadow: "0px 2px 5px 0px rgba(110, 95, 222, 0.25)",
+        transition: "background-color 0.3s, opacity 0.3s",
+        display: "flex",
+        flexDirection: "row",
+        gap: "32px",
+        flexWrap: "wrap",
+        padding: "20px",
+
+        transform: "perspective(1px) translateZ(0)",
+        transitionDuration: "0.3s",
+        transitionProperty: "box-shadow",
+
+        "&:hover, &:focus, &:active": {
+          boxShadow: "0px 2px 5px 3px rgba(110, 95, 222, 0.25)",
+        },
+      },
+
+      //? for Boxes that wrap section name
+      //? withButton
+      //* sx={{...theme.components.box.sectionName.withButton}}
+      sectionName: {
+        withButton: {
+          display: "flex",
+          flexDirection: "row",
+          gap: "16px",
+          flexWrap: "wrap",
+          alignItems: "baseline",
+          justifyContent: "flex-start",
+          "@media (max-width: 500px)": {
+            gap: "8px",
+          },
+        },
+      },
+
+      //? for Boxes that wrap graphs
+      //* sx={{...theme.components.box.graphContainer}}
+      graphContainer: {
+        minWidth: "750px",
+        "@media (max-width: 1516px)": {
+          alignItems: "center",
+          justifyContent: "center",
+          minWidth: "100%",
+        },
+
+        backgroundColor: (theme) => theme.palette.background.paper,
+        boxShadow: "0px 2px 5px 0px rgba(110, 95, 222, 0.25)",
+        transition: "background-color 0.3s, opacity 0.3s",
+        gap: "32px",
+        flexWrap: "wrap",
+        padding: "20px",
+        transform: "perspective(1px) translateZ(0)",
+        transitionDuration: "0.3s",
+        transitionProperty: "box-shadow",
+
+        "&:hover, &:focus, &:active": {
+          boxShadow: "0px 2px 5px 3px rgba(110, 95, 222, 0.25)",
+        },
+      },
     },
   },
 });

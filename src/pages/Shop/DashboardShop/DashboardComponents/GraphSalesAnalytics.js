@@ -56,7 +56,7 @@ function GraphSalesAnalytics() {
       spacing={3}
       direction={"column"}
       sx={{
-        maxWidth: "100%",
+        width: "100%",
         "@media (max-width: 1516px)": {
           justifyContent: "center",
         },

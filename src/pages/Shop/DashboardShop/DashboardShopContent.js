@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import { Box } from "@mui/material";
-import styles from "../../../css/Styles.module.css";
 import UserShopInfo from "./DashboardComponents/UserShopInfo";
 import OrderSummary from "./DashboardComponents/OrderSummary";
 import ValuableCustomers from "./DashboardComponents/ValuableCustomers";
@@ -9,45 +8,22 @@ import ActiveLokalAds from "./DashboardComponents/ActiveLokalAds";
 import ActiveVouchers from "./DashboardComponents/ActiveVouchers";
 import ProductStatus from "./DashboardComponents/ProductStatus";
 import GraphSalesAnalytics from "./DashboardComponents/GraphSalesAnalytics";
-
-
+import theme from "../../../Theme";
 
 function DashboardShopContent() {
   return (
-    <Box
-      sx={{
-        backgroundColor: "transparent",
-        maxWidth: 2250,
-        alignItems: "center",
-        justifyContent: "center",
-        pb: 5,
-      }}
-    >
+    <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
         PageName={"Shop Dashboard"}
         Subtitle={"Good Morning {Shop Owner Name}"}
       />
 
       {/*Page Content */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "32px",
-          flexWrap: "wrap",
-          alignItems: "flex-start",
-          justifyContent: "center",
-        }}
-      >
+      <Box sx={{ ...theme.components.box.mainContent }}>
         {/*Orders, Ads, Vouchers (Right Side)*/}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "32px",
-            flexWrap: "wrap",
-            order: 1,
-
+            ...theme.components.box.contentColumn,
             "@media (max-width: 1516px)": {
               minWidth: "100%",
             },
@@ -59,8 +35,8 @@ function DashboardShopContent() {
         >
           {/*Order Summary */}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
+              ...theme.components.box.sectionContainer,
               maxWidth: "750px",
               "@media (max-width: 1516px)": {
                 minWidth: "100%",
@@ -72,10 +48,7 @@ function DashboardShopContent() {
           {/*Vouchers and Lokal Ads */}
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "32px",
-              flexWrap: "wrap",
+              ...theme.components.box.contentRow,
               minWidth: "100%",
               "@media (max-width: 1185px)": {
                 minWidth: "100%",
@@ -85,10 +58,9 @@ function DashboardShopContent() {
           >
             {/*Active Lokal Ads*/}
             <Box
-              className={`${styles.sectionContainer}`}
               sx={{
+                ...theme.components.box.sectionContainer,
                 width: "360px",
-
                 "@media (max-width: 1516px)": {
                   minWidth: "48.5%",
                 },
@@ -102,12 +74,10 @@ function DashboardShopContent() {
 
             {/*Active Vouchers*/}
             <Box
-              className={`${styles.sectionContainer}`}
               sx={{
+                ...theme.components.box.sectionContainer,
                 width: "360px",
-                order: 1,
                 "@media (max-width: 1516px)": {
-                  order: 1,
                   minWidth: "48.5%",
                 },
                 "@media (max-width: 1185px)": {
@@ -123,12 +93,7 @@ function DashboardShopContent() {
         {/*Customer, Prod (Left Side)*/}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "32px",
-            flexWrap: "wrap",
-            order: 2,
-
+            ...theme.components.box.contentColumn,
             "@media (max-width: 1516px)": {
               minWidth: "100%",
               flexDirection: "row",
@@ -141,8 +106,8 @@ function DashboardShopContent() {
         >
           {/*Valuable Customers */}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
+              ...theme.components.box.sectionContainer,
               maxWidth: "340px",
               "@media (max-width: 1516px)": {
                 minWidth: "48.5%",
@@ -154,10 +119,11 @@ function DashboardShopContent() {
           >
             <ValuableCustomers />
           </Box>
+
           {/*Product Status */}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
+              ...theme.components.box.sectionContainer,
               maxWidth: "340px",
               "@media (max-width: 1516px)": {
                 minWidth: "48.5%",
@@ -174,12 +140,7 @@ function DashboardShopContent() {
         {/*Graph*/}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "32px",
-            flexWrap: "wrap",
-            order: 3,
-
+            ...theme.components.box.contentRow,
             "@media (max-width: 1516px)": {
               minWidth: "100%",
             },
@@ -191,12 +152,10 @@ function DashboardShopContent() {
         >
           {/*Product Sales Graph*/}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
+              ...theme.components.box.sectionContainer,
               minWidth: "1120px",
-              order: 1,
               "@media (max-width: 1516px)": {
-                order: 1,
                 alignItems: "center",
                 justifyContent: "center",
                 minWidth: "100%",
@@ -209,10 +168,10 @@ function DashboardShopContent() {
 
         {/*User and Shop Info */}
         <Box
-          className={`${styles.sectionContainer}`}
           sx={{
+            ...theme.components.box.sectionContainer,
             minWidth: "1120px",
-            order: 4,
+
             "@media (max-width: 1516px)": {
               alignItems: "center",
               justifyContent: "center",

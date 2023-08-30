@@ -9,9 +9,9 @@ function ActiveVouchers() {
       spacing={1}
       direction={"column"}
       sx={{
+        width: "100%",
         "@media (max-width: 1516px)": {
           justifyContent: "center",
-          maxWidth: "100%",
         },
       }}
     >

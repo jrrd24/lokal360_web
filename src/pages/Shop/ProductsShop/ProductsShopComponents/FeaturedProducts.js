@@ -1,32 +1,16 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
+import theme from "../../../../Theme";
 
 function FeaturedProducts() {
   return (
-    <Stack
-      spacing={2}
-      direction={"column"}
-      sx={{
-        "@media (max-width: 1516px)": {
-          justifyContent: "center",
-          maxWidth: "100%",
-        },
-      }}
-    >
+    <Stack spacing={2} direction={"column"} sx={{ width: "100%" }}>
       {/*Section Name */}
       <Box
         direction={"row"}
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "16px",
-          flexWrap: "wrap",
-          alignItems: "baseline",
-          justifyContent: "flex-start",
-          "@media (max-width: 500px)": {
-            gap: "0px",
-          },
+          ...theme.components.box.sectionName.withButton,
         }}
       >
         <Typography variant="sectionTitle">Featured Products</Typography>
@@ -41,10 +25,13 @@ function FeaturedProducts() {
           flexDirection: "column",
           gap: "8px",
           flexWrap: "wrap",
-          justifyContent: "flex-start",
-          maxWidth: "100%",
-          height: "275px",
+          alignItems: "flex-start",
+          width: "100%",
           overflow: "auto",
+          height: 275,
+          "@media (max-width: 709px)": {
+            justifyContent: "flex-start",
+          },
         }}
       >
         <Box sx={{ height: 265, width: 180, backgroundColor: "#ffbb03" }} />

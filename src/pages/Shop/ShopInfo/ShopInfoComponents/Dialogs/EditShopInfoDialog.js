@@ -133,7 +133,7 @@ function EditShopInfoDialog({
           {/* Dialog Content */}
           <DialogContent
             sx={{
-              height: "80vh",
+              height: "75vh",
               backgroundColor: `${theme.palette.background.paper}`,
               display: "flex",
               justifyContent: "center",

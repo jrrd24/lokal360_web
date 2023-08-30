@@ -5,15 +5,14 @@ import styles from "../../../../css/Styles.module.css";
 import maleAvatar from "../../../../assets/avatars/128_1.png";
 import lokal360_Logo from "../../../../assets/lokal360_Logo.png";
 import NumberFormat from "../../../../utils/NumberFormat";
+import theme from "../../../../Theme";
 
 function UserShopInfo() {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "row",
-        gap: "32px",
-        flexWrap: "wrap",
+        ...theme.components.box.contentRow,
+        width: "100%",
         alignItems: "center",
         justifyContent: "space-between",
         paddingX: 5,

@@ -3,16 +3,15 @@ import { Box, Stack, Typography } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 
-
 function ActiveLokalAds() {
   return (
     <Stack
       spacing={2}
       direction={"column"}
       sx={{
+        width: "100%",
         "@media (max-width: 1516px)": {
           justifyContent: "center",
-          maxWidth: "100%",
         },
       }}
     >

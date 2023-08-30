@@ -2,7 +2,7 @@ import React from "react";
 import { Save } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 
-function ButtonSave({ onClick, sx, type, isDirty }) {
+function ButtonSave({ onClick, sx, type, isDirty, btnSx }) {
   return (
     <Box sx={{ ...sx }}>
       <Button
@@ -10,7 +10,8 @@ function ButtonSave({ onClick, sx, type, isDirty }) {
         variant="contained"
         startIcon={<Save />}
         onClick={onClick}
-        disabled={!isDirty} 
+        disabled={!isDirty}
+        sx={{ ...btnSx }}
       >
         <Typography
           variant="sectionTitleSmall"

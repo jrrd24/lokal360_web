@@ -5,7 +5,7 @@ import { Box, Stack, Typography } from "@mui/material";
 
 function ShopAddress() {
   return (
-    <Box>
+    <Box sx={{ width: "100%" }}>
       {/*Section Name */}
       <Stack
         direction={"row"}

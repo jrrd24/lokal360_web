@@ -404,6 +404,7 @@ export default function ShopSidebar({ component: MainComponent }) {
             }}
           >
             <InputBase
+              name="searchBar"
               sx={{ ml: 1, flex: 1, width: 300 }}
               placeholder="Find Your Products"
               inputProps={{ "aria-label": "search google maps" }}
@@ -650,7 +651,6 @@ export default function ShopSidebar({ component: MainComponent }) {
       </Drawer>
 
       {/*MAIN */}
-
       <Box
         component="main"
         sx={{

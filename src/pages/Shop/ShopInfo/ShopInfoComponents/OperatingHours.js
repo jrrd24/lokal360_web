@@ -18,7 +18,7 @@ function OperatingHours({ days = [], timeOpen, timeClose }) {
   }
 
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} width={"100%"}>
       {/*Section Name */}
       <Stack
         direction={"row"}

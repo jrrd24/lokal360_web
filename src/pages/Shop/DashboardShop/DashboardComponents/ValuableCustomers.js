@@ -8,7 +8,7 @@ import userData from "../../../../data/userData";
 
 function ValuableCustomers() {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section name */}
       <Stack
         spacing={3}

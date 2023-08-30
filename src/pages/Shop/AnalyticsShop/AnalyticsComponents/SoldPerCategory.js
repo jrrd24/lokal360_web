@@ -7,7 +7,7 @@ import shopCategoryData from "../../../../data/shopCategoryData";
 
 function SoldPerCategory({ hideShowAll }) {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section header */}
       <Stack
         spacing={3}

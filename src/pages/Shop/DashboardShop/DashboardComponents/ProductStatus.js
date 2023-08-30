@@ -16,7 +16,7 @@ import NumberFormat from "../../../../utils/NumberFormat";
 
 function ProductStatus({ hideShowAll }) {
   return (
-    <Stack spacing={2} sx={{ maxWidth: "100%" }}>
+    <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section NaME */}
       <Stack
         direction={"row"}

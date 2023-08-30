@@ -1,30 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Stack } from "@mui/material";
 import DateSelection from "../../../../components/DateSelection";
-import styles from "../../../../css/Styles.module.css";
-import { GetDate } from "../../../../utils/GetDate";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 import StatisticBox from "../../../../components/StatisticBox";
+import theme from "../../../../Theme";
 
 function StatisticsBoxes() {
-  const [Range, setRange] = useState(<GetDate />);
-  const [RangeEnd, setRangeEnd] = useState("");
-  const handleRangeChange = (range) => {
-    setRange(range);
-  };
-  const handleRangeEndChange = (rangeEnd) => {
-    setRangeEnd(rangeEnd);
-  };
   return (
     <Box
       sx={{
         maxWidth: "1120px",
-        display: "flex",
-        flexDirection: "row",
-        gap: "32px",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "center",
+        ...theme.components.box.mainContent,
         "@media (max-width: 1516px)": {
           alignItems: "center",
           justifyContent: "center",
@@ -37,12 +23,7 @@ function StatisticsBoxes() {
         direction={"row"}
         sx={{
           "@media (max-width: 1189px)": {
-            display: "flex",
-            flexDirection: "row",
-            gap: "32px",
-            flexWrap: "wrap",
-            alignItems: "center",
-            justifyContent: "center",
+            ...theme.components.box.mainContent,
           },
           "@media (max-width: 913px)": {
             gap: "0px",

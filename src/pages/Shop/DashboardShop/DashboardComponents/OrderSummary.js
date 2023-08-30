@@ -23,7 +23,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 function OrderSummary({ hideShowAll }) {
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} sx={{ width: "100%" }}>
       {/*Section Header */}
       <Box
         sx={{

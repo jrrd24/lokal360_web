@@ -3,74 +3,44 @@ import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoCompo
 import { Box } from "@mui/material";
 import styles from "../../../css/Styles.module.css";
 import MyCustomers from "./CustomersShopComponents/MyCustomers";
+import theme from "../../../Theme";
+
 function CustomersShopContent() {
   return (
-    <Box
-      sx={{
-        backgroundColor: "transparent",
-        maxWidth: 2250,
-        alignItems: "center",
-        justifyContent: "center",
-        pb: 5,
-      }}
-    >
+    <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
         PageName={"Customers"}
         Subtitle={"View and Manage your Shop's Customers"}
       />
 
-      {/*Page Content */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "32px",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/*Main Content*/}
+      {/*Main Content*/}
+      <Box sx={{ ...theme.components.box.mainContent }}>
+        {/*(Left Side)*/}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "32px",
-            flexWrap: "wrap",
-            order: 2,
+            ...theme.components.box.contentColumn,
+            "@media (max-width: 1516px)": {
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: "100%",
+            },
           }}
         >
-          {/*(Left Side)*/}
+          {/*My Customers*/}
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "32px",
-              flexWrap: "wrap",
-              order: 3,
-              "@media (max-width: 1516px)": {
+              ...theme.components.box.sectionContainer,
+              minWidth: "600px",
+              order: 1,
+              "@media (max-width: 912px)": {
+                order: 1,
                 alignItems: "center",
                 justifyContent: "center",
                 minWidth: "100%",
               },
             }}
           >
-            {/*My Customers*/}
-            <Box
-              className={`${styles.sectionContainer}`}
-              sx={{
-                minWidth: "600px",
-                order: 1,
-                "@media (max-width: 912px)": {
-                  order: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "100%",
-                },
-              }}
-            >
-              <MyCustomers />
-            </Box>
+            <MyCustomers />
           </Box>
         </Box>
       </Box>

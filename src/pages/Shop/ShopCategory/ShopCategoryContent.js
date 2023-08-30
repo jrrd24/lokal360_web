@@ -3,113 +3,76 @@ import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoCompo
 import SoldPerCategory from "../AnalyticsShop/AnalyticsComponents/SoldPerCategory";
 import MyShopCategories from "./ShopCategoryComponents/MyShopCategories";
 import { Box } from "@mui/material";
-import styles from "../../../css/Styles.module.css";
+import theme from "../../../Theme";
 
 function ShopCategoryContent() {
   return (
-    <Box
-      sx={{
-        backgroundColor: "transparent",
-        maxWidth: 2250,
-        alignItems: "center",
-        justifyContent: "center",
-        pb: 5,
-      }}
-    >
+    //Page Container
+    <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
         PageName={"Shop Categories"}
         Subtitle={"Add and Manage your Custom Shop Categories"}
       />
 
-      {/*Page Content */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "32px",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/*Main Content*/}
+      {/*Main Content*/}
+      <Box sx={{ ...theme.components.box.mainContent }}>
+        {/*(Left Side)*/}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "32px",
-            flexWrap: "wrap",
-            order: 2,
+            ...theme.components.box.contentRow,
+            "@media (max-width: 1516px)": {
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: "100%",
+            },
           }}
         >
-          {/*(Left Side)*/}
+          {/*My Categories*/}
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "32px",
-              flexWrap: "wrap",
+              ...theme.components.box.sectionContainer,
+              minWidth: "600px",
+              "@media (max-width: 912px)": {
+                alignItems: "center",
+                justifyContent: "center",
+                minWidth: "100%",
+              },
+            }}
+          >
+            <MyShopCategories />
+          </Box>
+        </Box>
+
+        {/*(Right Side)*/}
+        <Box
+          sx={{
+            ...theme.components.box.contentRow,
+            "@media (max-width: 1516px)": {
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              minWidth: "100%",
+            },
+          }}
+        >
+          {/*Products Sold Per Category */}
+          <Box
+            sx={{
+              ...theme.components.box.sectionContainer,
+              maxWidth: "340px",
               order: 3,
               "@media (max-width: 1516px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
-            {/*My Categories*/}
-            <Box
-              className={`${styles.sectionContainer}`}
-              sx={{
-                minWidth: "600px",
-                order: 1,
-                "@media (max-width: 912px)": {
-                  order: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "100%",
-                },
-              }}
-            >
-              <MyShopCategories />
-            </Box>
-          </Box>
-
-          {/*(Right Side)*/}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "32px",
-              flexWrap: "wrap",
-              order: 4,
-              "@media (max-width: 1516px)": {
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
-            {/*Products Sold Per Category */}
-            <Box
-              className={`${styles.sectionContainer}`}
-              sx={{
-                maxWidth: "340px",
                 order: 3,
-                "@media (max-width: 1516px)": {
-                  order: 3,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "48%",
-                },
-                "@media (max-width: 913px)": {
-                  minWidth: "100%",
-                },
-              }}
-            >
-              <SoldPerCategory hideShowAll={true} />
-            </Box>
+                alignItems: "center",
+                justifyContent: "center",
+                minWidth: 807,
+              },
+              "@media (max-width: 913px)": {
+                minWidth: "100%",
+              },
+            }}
+          >
+            <SoldPerCategory hideShowAll={true} />
           </Box>
         </Box>
       </Box>

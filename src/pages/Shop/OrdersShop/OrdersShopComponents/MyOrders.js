@@ -4,15 +4,7 @@ import DataGridOrders from "./DataGridOrders";
 
 function MyOrders() {
   return (
-    <Box
-      sx={{
-        maxWidth: "1120px",
-        "@media (max-width: 1516px)": {
-          justifyContent: "center",
-          maxWidth: "100%",
-        },
-      }}
-    >
+    <Box sx={{ width: "100%" }}>
       <Stack spacing={2} direction={"column"}>
         {/*Section Name */}
         <Box

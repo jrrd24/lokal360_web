@@ -29,6 +29,7 @@ function LogoAndHeaderD({ control, logo, header }) {
           <Box>
             <img
               className={`${styles.grow}`}
+              name={"ShopLogo"}
               src={logo}
               alt="Shop logo"
               loading="eager"
@@ -62,6 +63,7 @@ function LogoAndHeaderD({ control, logo, header }) {
           <Box>
             <img
               className={`${styles.grow}`}
+              name={"ShopHeader"}
               src={header}
               alt="Shop Header"
               style={{

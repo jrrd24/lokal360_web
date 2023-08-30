@@ -8,7 +8,7 @@ import MapData from "../../../../utils/MapData";
 
 function TopProducts({ hideShowAll }) {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section name */}
       <Stack
         spacing={3}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
-import styles from "../../../css/Styles.module.css";
 import BasicShopInfo from "./ShopInfoComponents/BasicShopInfo";
 import DisplayShopInfo from "./ShopInfoComponents/DisplayShopInfo";
 import ShopAddress from "./ShopInfoComponents/ShopAddress";
@@ -9,6 +8,7 @@ import ContactInfo from "./ShopInfoComponents/ContactInfo";
 import OperatingHours from "./ShopInfoComponents/OperatingHours";
 import LogoAndHeader from "./ShopInfoComponents/LogoAndHeader";
 import SelectColor from "./ShopInfoComponents/SelectColor";
+import theme from "../../../Theme";
 //import dummy data
 import shopData from "../../../data/shopData";
 
@@ -73,15 +73,7 @@ function ShopInfoContent() {
   ];
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "transparent",
-        maxWidth: 2250,
-        alignItems: "center",
-        justifyContent: "center",
-        pb: 5,
-      }}
-    >
+    <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
         PageName={"Shop Information"}
         Subtitle={"View and Manage your Basic Shop Information"}
@@ -90,21 +82,13 @@ function ShopInfoContent() {
       {/*Page Content */}
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "32px",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
+          ...theme.components.box.mainContent,
         }}
       >
         {/*Main Content*/}
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "32px",
-            flexWrap: "wrap",
+            ...theme.components.box.contentColumn,
             "@media (max-width: 1516px)": {
               alignItems: "center",
               justifyContent: "center",
@@ -116,7 +100,6 @@ function ShopInfoContent() {
           <Box
             sx={{
               minWidth: "600px",
-
               "@media (max-width: 912px)": {
                 alignItems: "center",
                 justifyContent: "center",
@@ -137,10 +120,9 @@ function ShopInfoContent() {
 
           {/*Basic Shop Info*/}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
               minWidth: "600px",
-
+              ...theme.components.box.sectionContainer,
               "@media (max-width: 912px)": {
                 alignItems: "center",
                 justifyContent: "center",
@@ -160,10 +142,9 @@ function ShopInfoContent() {
 
           {/*Address Info*/}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
               minWidth: "600px",
-
+              ...theme.components.box.sectionContainer,
               "@media (max-width: 912px)": {
                 alignItems: "center",
                 justifyContent: "center",
@@ -176,10 +157,9 @@ function ShopInfoContent() {
 
           {/*Contact Info*/}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
               minWidth: "600px",
-
+              ...theme.components.box.sectionContainer,
               "@media (max-width: 912px)": {
                 alignItems: "center",
                 justifyContent: "center",
@@ -192,10 +172,9 @@ function ShopInfoContent() {
 
           {/*Operating hours*/}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
               minWidth: "600px",
-
+              ...theme.components.box.sectionContainer,
               "@media (max-width: 912px)": {
                 alignItems: "center",
                 justifyContent: "center",
@@ -212,10 +191,9 @@ function ShopInfoContent() {
 
           {/*Logo and Header*/}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
               minWidth: "600px",
-
+              ...theme.components.box.sectionContainer,
               "@media (max-width: 912px)": {
                 alignItems: "center",
                 justifyContent: "center",
@@ -228,10 +206,9 @@ function ShopInfoContent() {
 
           {/*Color*/}
           <Box
-            className={`${styles.sectionContainer}`}
             sx={{
               minWidth: "600px",
-
+              ...theme.components.box.sectionContainer,
               "@media (max-width: 912px)": {
                 alignItems: "center",
                 justifyContent: "center",

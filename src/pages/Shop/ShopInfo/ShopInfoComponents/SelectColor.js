@@ -5,7 +5,7 @@ import PartnerTag from "../../../../components/ShopOnly/PartnerTag";
 
 function SelectColor({ color }) {
   return (
-    <Stack spacing={3}>
+    <Stack spacing={3} width={"100%"}>
       {/*Section Name */}
       <Stack spacing={2} direction={"row"} sx={{ alignItems: "center" }}>
         <Typography variant="sectionTitleSmall">Select Color</Typography>
