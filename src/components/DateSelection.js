@@ -1,3 +1,6 @@
+//! Depreciated Component (Replaced bu DateRangePicker)
+// TODO: Delete this component
+
 import React from "react";
 import { Stack, Select, MenuItem } from "@mui/material";
 import theme from "../Theme";

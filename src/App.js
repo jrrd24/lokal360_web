@@ -27,55 +27,59 @@ import EmployeeManagement from "./pages/Shop/EmployeeManagement/EmployeeManageme
 import SettingsShop from "./pages/Shop/SettingsShop/SettingsShop";
 import { DateProvider } from "./contexts/DateContext";
 import ShopCategory from "./pages/Shop/ShopCategory/ShopCategory";
+import { DateRangeProvider } from "./contexts/DateRangeContext";
 
+//TODO: Remove Date Provider after fixing statistics boxes
 function App() {
   return (
-    <DateProvider>
-      <ThemeProvider theme={theme}>
-        <Container disableGutters maxWidth="100%">
-          <div className="App">
-            <Routes>
-              {/*Login */}
-              <Route path="/" element={<DashboardShop />} />
-              {/*Admin */}
-              <Route path="/admin/dashboard" element={<Dashboard />} />
-              <Route path="/admin/analytics" element={<Analytics />} />
-              <Route path="/admin/reports" element={<Reports />} />
-              <Route path="/admin/category" element={<Category />} />
-              <Route
-                path="/admin/shop_management"
-                element={<ShopsManagement />}
-              />
-              <Route path="/admin/lokal_ads" element={<LokalAds />} />
-              <Route path="/admin/users" element={<Users />} />
-              <Route path="/admin/settings" element={<Settings />} />
-              {/*Shop */}
-              <Route path="/shop/login" element={<Login />} />
-              <Route path="/shop/analytics" element={<AnalyticsShop />} />
-              <Route path="/shop/products" element={<ProductsShop />} />
-              <Route
-                path="/shop/products/shop_category"
-                element={<ShopCategory />}
-              />
-              <Route path="/shop/customers" element={<CustomersShop />} />
-              <Route path="/shop/orders" element={<OrdersShop />} />
-              <Route path="/shop/shop_info" element={<ShopInfo />} />
-              <Route path="/shop/promos" element={<PromosShop />} />
-              <Route path="/shop/lokal_ads" element={<LokalAdsShop />} />
-              <Route path="/shop/vouchers" element={<VouchersShop />} />
-              <Route path="/shop/360_partner" element={<PartnerShop />} />
-              <Route path="/shop/settings" element={<SettingsShop />} />
-              <Route
-                path="/shop/employee_management"
-                element={<EmployeeManagement />}
-              />
-              {/*Display Error page if route does not exist */}
-              <Route path="*" element={<RouterError />} />
-            </Routes>
-          </div>
-        </Container>
-      </ThemeProvider>
-    </DateProvider>
+    <DateRangeProvider>
+      <DateProvider>
+        <ThemeProvider theme={theme}>
+          <Container disableGutters maxWidth="100%">
+            <div className="App">
+              <Routes>
+                {/*Login */}
+                <Route path="/" element={<DashboardShop />} />
+                {/*Admin */}
+                <Route path="/admin/dashboard" element={<Dashboard />} />
+                <Route path="/admin/analytics" element={<Analytics />} />
+                <Route path="/admin/reports" element={<Reports />} />
+                <Route path="/admin/category" element={<Category />} />
+                <Route
+                  path="/admin/shop_management"
+                  element={<ShopsManagement />}
+                />
+                <Route path="/admin/lokal_ads" element={<LokalAds />} />
+                <Route path="/admin/users" element={<Users />} />
+                <Route path="/admin/settings" element={<Settings />} />
+                {/*Shop */}
+                <Route path="/shop/login" element={<Login />} />
+                <Route path="/shop/analytics" element={<AnalyticsShop />} />
+                <Route path="/shop/products" element={<ProductsShop />} />
+                <Route
+                  path="/shop/products/shop_category"
+                  element={<ShopCategory />}
+                />
+                <Route path="/shop/customers" element={<CustomersShop />} />
+                <Route path="/shop/orders" element={<OrdersShop />} />
+                <Route path="/shop/shop_info" element={<ShopInfo />} />
+                <Route path="/shop/promos" element={<PromosShop />} />
+                <Route path="/shop/lokal_ads" element={<LokalAdsShop />} />
+                <Route path="/shop/vouchers" element={<VouchersShop />} />
+                <Route path="/shop/360_partner" element={<PartnerShop />} />
+                <Route path="/shop/settings" element={<SettingsShop />} />
+                <Route
+                  path="/shop/employee_management"
+                  element={<EmployeeManagement />}
+                />
+                {/*Display Error page if route does not exist */}
+                <Route path="*" element={<RouterError />} />
+              </Routes>
+            </div>
+          </Container>
+        </ThemeProvider>
+      </DateProvider>
+    </DateRangeProvider>
   );
 }
 

@@ -1,7 +1,5 @@
 import React from "react";
 import { Box, Stack } from "@mui/material";
-import DateSelection from "../../../../components/DateSelection";
-import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 import StatisticBox from "../../../../components/StatisticBox";
 import theme from "../../../../Theme";
 
@@ -47,7 +45,7 @@ function StatisticsBoxes() {
               justifyContent: "center",
             },
             "@media (max-width: 913px)": {
-              px: 1,
+              px: 2,
               height: "150px",
               overflow: "auto",
               flexDirection: "column",
@@ -66,24 +64,6 @@ function StatisticsBoxes() {
           <StatisticBox name={"Cancelled"} amt={17} prevAmt={18} />
           <StatisticBox name={"Page Visitors"} amt={4280} prevAmt={4000} />
           <StatisticBox name={"Followers"} amt={795} prevAmt={721} />
-        </Box>
-        {/*Date time */}
-        <Box
-          sx={{
-            order: 2,
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-            flexWrap: "wrap",
-            "@media (max-width: 1189px)": {
-              order: 1,
-              flexDirection: "row",
-              gap: "16px",
-            },
-          }}
-        >
-          <DateSelection />
-          <DisplayDateSelection />
         </Box>
       </Stack>
     </Box>

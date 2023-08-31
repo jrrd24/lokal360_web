@@ -8,6 +8,7 @@ import SoldPerCategory from "./AnalyticsComponents/SoldPerCategory";
 import GraphProductStatus from "./AnalyticsComponents/GraphProductStatus";
 import GraphShopTraffic from "./AnalyticsComponents/GraphShopTraffic";
 import theme from "../../../Theme";
+import DateRangePicker from "../../../components/Pickers/DateRangePicker";
 
 function AnalyticsShopContent() {
   return (
@@ -80,6 +81,23 @@ function AnalyticsShopContent() {
               },
             }}
           >
+            {/*Date time */}
+            <Box
+              sx={{
+                order: 2,
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+                flexWrap: "wrap",
+                "@media (max-width: 1189px)": {
+                  order: 2,
+                  flexDirection: "row",
+                  gap: "16px",
+                },
+              }}
+            >
+              <DateRangePicker />
+            </Box>
             {/*Top Products */}
             <Box
               sx={{

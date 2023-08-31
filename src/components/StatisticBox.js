@@ -12,6 +12,7 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
     (((amt - prevAmt) / prevAmt) * 100).toFixed(2)
   );
 
+  //TODO: Fix Selected Range and delete anything related to DateContext
   // Recalculate the percentage whenever amt and prevAmt change
   useEffect(() => {
     const newPercentage = (((amt - prevAmt) / prevAmt) * 100).toFixed(2);

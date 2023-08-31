@@ -146,10 +146,6 @@ function UploadImageDialog({
                 borderWidth: 2,
                 borderColor: textColor,
                 transition: "background-color 0.3s",
-                "&:hover": {
-                  backgroundColor: textColor,
-                  color: bgColor,
-                },
               }}
             >
               <input

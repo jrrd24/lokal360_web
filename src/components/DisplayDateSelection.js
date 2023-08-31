@@ -1,10 +1,28 @@
 import React from "react";
 import { Stack, Typography, Box } from "@mui/material";
 import { DateRange } from "@mui/icons-material";
-import { useDateContext } from "../contexts/DateContext";
+import { useDateRange } from "../contexts/DateRangeContext";
+
+function formatSQLDate(date) {
+  if (!date) return "";
+
+  // Convert to local time in Philippines Timezone (PHT)
+  const options = {
+    timeZone: "Asia/Manila",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  };
+  const localDate = date.toLocaleString("en-US", options);
+
+  return localDate;
+}
 
 function DisplayDateSelection() {
-  const { range, rangeEnd } = useDateContext();
+  const { dateRange } = useDateRange();
+
+  const startDate = formatSQLDate(dateRange.startDate);
+  const endDate = formatSQLDate(dateRange.endDate);
 
   return (
     <Stack
@@ -28,9 +46,9 @@ function DisplayDateSelection() {
       </Box>
       <Box>
         <Typography variant="h7">
-          {range} {rangeEnd === null ? "" : "to"}{" "}
+          {startDate} {endDate === "" ? "" : "to"}{" "}
         </Typography>
-        <Typography variant="h7">{rangeEnd} </Typography>
+        <Typography variant="h7">{endDate} </Typography>
       </Box>
     </Stack>
   );

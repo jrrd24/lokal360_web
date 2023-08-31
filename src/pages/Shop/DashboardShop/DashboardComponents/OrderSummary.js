@@ -10,7 +10,6 @@ import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
 import Styles from "../../../../css/Styles.module.css";
-import DateSelection from "../../../../components/DateSelection";
 import CustomLink from "../../../../components/CustomLink";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 
@@ -89,7 +88,6 @@ function OrderSummary({ hideShowAll }) {
             },
           }}
         >
-          <DateSelection />
           <DisplayDateSelection />
         </Box>
       </Box>

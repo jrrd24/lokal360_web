@@ -1,3 +1,6 @@
+//! Depreciated Context (Replaced bu Date Range Context)
+// TODO: Delete this context
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import {
   GetDate,

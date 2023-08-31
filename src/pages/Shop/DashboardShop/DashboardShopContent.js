@@ -7,8 +7,9 @@ import ValuableCustomers from "./DashboardComponents/ValuableCustomers";
 import ActiveLokalAds from "./DashboardComponents/ActiveLokalAds";
 import ActiveVouchers from "./DashboardComponents/ActiveVouchers";
 import ProductStatus from "./DashboardComponents/ProductStatus";
-import GraphSalesAnalytics from "./DashboardComponents/GraphSalesAnalytics";
+import GraphSalesAnalytics from "../AnalyticsShop/AnalyticsComponents/GraphSalesAnalytics";
 import theme from "../../../Theme";
+import DateRangePicker from "../../../components/Pickers/DateRangePicker";
 
 function DashboardShopContent() {
   return (
@@ -88,6 +89,10 @@ function DashboardShopContent() {
               <ActiveVouchers />
             </Box>
           </Box>
+
+          <Box sx={{ ...theme.components.box.graphContainer }}>
+            <GraphSalesAnalytics />
+          </Box>
         </Box>
 
         {/*Customer, Prod (Left Side)*/}
@@ -104,6 +109,27 @@ function DashboardShopContent() {
             },
           }}
         >
+          {/*Date Range Picker */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              maxWidth: "340px",
+              "@media (max-width: 1516px)": {
+                minWidth: "100%",
+                ...theme.components.box.sectionContainer,
+                order: 3,
+              },
+              "@media (max-width: 1185px)": {
+                minWidth: "100%",
+                order: 1,
+              },
+            }}
+          >
+            <DateRangePicker />
+          </Box>
+
           {/*Valuable Customers */}
           <Box
             sx={{
@@ -111,9 +137,11 @@ function DashboardShopContent() {
               maxWidth: "340px",
               "@media (max-width: 1516px)": {
                 minWidth: "48.5%",
+                order: 1,
               },
               "@media (max-width: 1185px)": {
                 minWidth: "100%",
+                order: 2,
               },
             }}
           >
@@ -127,42 +155,15 @@ function DashboardShopContent() {
               maxWidth: "340px",
               "@media (max-width: 1516px)": {
                 minWidth: "48.5%",
+                order: 2,
               },
               "@media (max-width: 1185px)": {
                 minWidth: "100%",
+                order: 3,
               },
             }}
           >
             <ProductStatus />
-          </Box>
-        </Box>
-
-        {/*Graph*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentRow,
-            "@media (max-width: 1516px)": {
-              minWidth: "100%",
-            },
-            "@media (max-width: 600px)": {
-              alignItems: "center",
-              justifyContent: "center",
-            },
-          }}
-        >
-          {/*Product Sales Graph*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "1120px",
-              "@media (max-width: 1516px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
-            <GraphSalesAnalytics />
           </Box>
         </Box>
 
