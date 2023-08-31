@@ -7,12 +7,7 @@ function FeaturedProducts() {
   return (
     <Stack spacing={2} direction={"column"} sx={{ width: "100%" }}>
       {/*Section Name */}
-      <Box
-        direction={"row"}
-        sx={{
-          ...theme.components.box.sectionName.withButton,
-        }}
-      >
+      <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
         <Typography variant="sectionTitle">Featured Products</Typography>
         <ButtonAdd label={"Add / Edit Featured"} onClickAction={null} />
         {/*TODO: Add onClick for Button */}

@@ -17,10 +17,7 @@ function MyProducts() {
     >
       <Stack spacing={2} direction={"column"}>
         {/*Section Name */}
-        <Box
-          direction={"row"}
-          sx={{ ...theme.components.box.sectionName.withButton }}
-        >
+        <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
           <Typography variant="sectionTitle">My Products</Typography>
           <ButtonAdd label={"New Products"} onClickAction={null} />
           {/*TODO: Add onClick for Button */}

@@ -35,7 +35,9 @@ function OrderStatus({ status, component: Icon }) {
         margin: 1,
         marginColor: "#fff",
         borderRadius: 1,
+        display: "flex",
         alignItems: "center",
+
         p: 0.5,
       }}
     >

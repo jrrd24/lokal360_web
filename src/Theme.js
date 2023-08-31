@@ -29,6 +29,9 @@ const theme = createTheme({
     success: { main: "#198754" },
     warning: { main: "#ffc107" },
     danger: { main: "#dc3545", delete: "#AB3130" },
+
+    //? Colors for promo type
+    promo: { peso: "#F7B801", percent: "#F18701", freeShipping: "#6E5FDE" },
   },
 
   typography: {
@@ -136,18 +139,16 @@ const theme = createTheme({
 
       //? for Boxes that wrap section name
       //? withButton
-      //* sx={{...theme.components.box.sectionName.withButton}}
+      //* sx={{...theme.components.box.sectionName}}
       sectionName: {
-        withButton: {
-          display: "flex",
-          flexDirection: "row",
-          gap: "16px",
-          flexWrap: "wrap",
-          alignItems: "baseline",
-          justifyContent: "flex-start",
-          "@media (max-width: 500px)": {
-            gap: "8px",
-          },
+        display: "flex",
+        flexDirection: "row",
+        gap: "16px",
+        flexWrap: "wrap",
+        alignItems: "baseline",
+        justifyContent: "flex-start",
+        "@media (max-width: 500px)": {
+          gap: "8px",
         },
       },
 
@@ -174,6 +175,17 @@ const theme = createTheme({
         "&:hover, &:focus, &:active": {
           boxShadow: "0px 2px 5px 3px rgba(110, 95, 222, 0.25)",
         },
+      },
+
+      //? for Boxes that wrap icons inside dataGrid
+      //* sx={{...theme.components.box.iconContainer}}
+      iconContainer: {
+        borderRadius: 10,
+        height: 35,
+        width: 35,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       },
     },
   },

@@ -95,10 +95,7 @@ function GraphSalesAnalytics() {
           sx={{
             minWidth: 70,
             order: 3,
-            "@media (max-width: 1073px)": {
-              order: 2,
-            },
-            "@media (max-width: 700px)": {
+            "@media (max-width: 655px)": {
               order: 3,
             },
           }}
@@ -114,12 +111,14 @@ function GraphSalesAnalytics() {
             flexDirection: "row",
             gap: "8px",
             flexWrap: "wrap",
-            "@media (max-width: 760px)": {
+            "@media (max-width: 827px)": {
               order: 3,
+            },
+            "@media (max-width: 655px)": {
+              order: 2,
             },
           }}
         >
-          <DateSelection />
           <DisplayDateSelection />
         </Box>
       </Stack>

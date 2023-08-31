@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Stack } from "@mui/material";
-import styles from "../css/Styles.module.css";
+import theme from "../Theme";
 import { useDateContext } from "../contexts/DateContext";
 import NumberFormat from "../utils/NumberFormat";
 
@@ -56,10 +56,16 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
 
   return (
     <Box
-      className={`${styles.sectionContainer}`}
-      sx={{ width: 250, minHeight: 110, px: 2, py: 1, textAlign: "left" }}
+      sx={{
+        ...theme.components.box.sectionContainer,
+        width: 250,
+        minHeight: 110,
+        px: 2,
+        py: 1,
+        textAlign: "left",
+      }}
     >
-      <Stack spacing={1}>
+      <Stack spacing={1} width={"100%"}>
         <Stack spacing={-0.5}>
           <Typography
             variant="body1"

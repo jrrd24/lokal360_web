@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import DataGridCustomers from "./DataGridCustomers";
+import theme from "../../../../Theme";
+
 function MyCustomers() {
   return (
     <Box
@@ -17,12 +19,7 @@ function MyCustomers() {
         <Box
           direction={"row"}
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "16px",
-            flexWrap: "wrap",
-            alignItems: "baseline",
-            justifyContent: "flex-start",
+            ...theme.components.box.sectionName,
             "@media (max-width: 415px)": {
               gap: "6px",
             },
