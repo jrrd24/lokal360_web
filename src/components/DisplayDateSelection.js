@@ -46,9 +46,11 @@ function DisplayDateSelection() {
       </Box>
       <Box>
         <Typography variant="h7">
-          {startDate} {endDate === "" ? "" : "to"}{" "}
+          {startDate} {endDate === "" ? "" : endDate === startDate ? "" : "to"}{" "}
         </Typography>
-        <Typography variant="h7">{endDate} </Typography>
+        <Typography variant="h7">
+          {endDate === startDate ? "" : endDate}{" "}
+        </Typography>
       </Box>
     </Stack>
   );

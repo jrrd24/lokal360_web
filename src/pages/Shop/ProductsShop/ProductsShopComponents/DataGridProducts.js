@@ -1,10 +1,11 @@
 import * as React from "react";
 import { Avatar, IconButton } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { ProductInventoryStatus } from "../../../../components/ShopOnly/StatusAndTags/ProductInventoryStatus";
 import theme from "../../../../Theme";
 import { ArrowCircleRight } from "@mui/icons-material";
 import productData from "../../../../data/productData";
+import CustomDataGrid from "../../../../components/CustomDataGrid";
+import { Link } from "react-router-dom";
 
 // Define Datagrid Columns
 const columns = [
@@ -92,10 +93,13 @@ const columns = [
     disableExport: true,
     renderCell: (params) => {
       let statusComponent;
+      const productID = params.row.productID;
       statusComponent = (
-        <IconButton>
-          <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
-        </IconButton>
+        <Link to={`/shop/products/product_page?productId=${productID}`}>
+          <IconButton>
+            <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
+          </IconButton>
+        </Link>
       );
       return statusComponent;
     },
@@ -104,25 +108,12 @@ const columns = [
 
 export default function DataGridProducts() {
   return (
-    <DataGrid
-      //sx line is needed for overflow (bug in mui data grid v6)
-      sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
-      rows={productData}
+    <CustomDataGrid
+      data={productData}
       columns={columns}
-      slots={{ toolbar: GridToolbar }}
-      getRowId={(row) => row.productID}
-      initialState={{
-        sorting: {
-          sortModel: [{ field: "status", sort: "desc" }],
-        },
-        pagination: {
-          paginationModel: {
-            pageSize: 10,
-          },
-        },
-      }}
-      disableRowSelectionOnClick
-      pageSizeOptions={[5, 10, 15]}
+      rowID={"productID"}
+      sortField={"status"}
+      sortBy={"desc"}
     />
   );
 }

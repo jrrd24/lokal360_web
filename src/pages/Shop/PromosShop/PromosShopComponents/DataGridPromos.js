@@ -1,10 +1,10 @@
 import React from "react";
 import { IconButton, Typography, Box, Stack } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import promoData from "../../../../data/promoData";
 import theme from "../../../../Theme";
-import { ArrowCircleRight, LocalShipping, Percent } from "@mui/icons-material";
+import { Edit, LocalShipping, Percent } from "@mui/icons-material";
 import { FaPesoSign } from "react-icons/fa6";
+import CustomDataGrid from "../../../../components/CustomDataGrid";
 
 function DataGridPromos() {
   // Precompute values for each row
@@ -133,30 +133,19 @@ function DataGridPromos() {
         let statusComponent;
         statusComponent = (
           <IconButton>
-            <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
+            <Edit sx={{ color: `${theme.palette.primary.main}` }} />
           </IconButton>
         );
         return statusComponent;
       },
     },
   ];
+
   return (
-    <DataGrid
-      //sx line is needed for overflow (bug in mui data grid v6)
-      sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
-      rows={computedPromoData}
+    <CustomDataGrid
+      data={computedPromoData}
       columns={columns}
-      slots={{ toolbar: GridToolbar }}
-      getRowId={(row) => row.promoID}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 10,
-          },
-        },
-      }}
-      disableRowSelectionOnClick
-      pageSizeOptions={[5, 10, 15]}
+      rowID={"promoID"}
     />
   );
 }

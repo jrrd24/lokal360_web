@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Stack } from "@mui/material";
+import theme from "../../../Theme";
 
 function OrderStatus({ status, component: Icon }) {
   const [color, setColor] = useState("");
   const bgColor = color + "1A";
   useEffect(() => {
     if (status === "Pending Approval") {
-      setColor("#F35B04");
+      setColor(`${theme.palette.status.pending}`);
     } else if (status === "Preparing") {
-      setColor("#F18701");
+      setColor(`${theme.palette.status.preparing}`);
     } else if (status === "Ready For Pick-Up") {
-      setColor("#F7B801");
+      setColor(`${theme.palette.status.pickUp}`);
     } else if (status === "On Delivery") {
-      setColor("#7678ED");
+      setColor(`${theme.palette.status.delivery}`);
     } else if (status === "Complete") {
-      setColor("#7A9163");
+      setColor(`${theme.palette.status.complete}`);
     } else if (status === "Cancelled") {
-      setColor("#AB3130");
+      setColor(`${theme.palette.status.cancel}`);
     } else if (status === "For Refund") {
-      setColor("#231F20");
+      setColor(`${theme.palette.status.refund}`);
     } else {
       setColor("text");
     }

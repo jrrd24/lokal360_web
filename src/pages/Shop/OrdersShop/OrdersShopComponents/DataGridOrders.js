@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import theme from "../../../../Theme";
 import {
   ArrowCircleRight,
@@ -14,6 +13,8 @@ import OrderStatus from "../../../../components/ShopOnly/StatusAndTags/OrderStat
 import { BsBoxSeam } from "react-icons/bs";
 import { BiShoppingBag } from "react-icons/bi";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
+import { Link } from "react-router-dom";
+import CustomDataGrid from "../../../../components/CustomDataGrid";
 
 // Define data grid columns
 const columns = [
@@ -23,16 +24,19 @@ const columns = [
     hideable: false,
     type: "number",
     width: 80,
+    filterable: true,
   },
   {
     field: "name",
     headerName: "Customer Name",
     width: 160,
+    filterable: true,
   },
   {
     field: "products",
     headerName: "Products Bought",
     width: 180,
+    filterable: true,
     renderCell: (params) => {
       return <Box>{params.value}</Box>;
     },
@@ -42,6 +46,7 @@ const columns = [
     headerName: "Total Price",
     type: "number",
     width: 140,
+    filterable: false,
     renderCell: (params) => {
       const totalPrice = params.value;
       const formattedPrice = totalPrice.toFixed(2);
@@ -54,6 +59,7 @@ const columns = [
     field: "status",
     headerName: "Status",
     width: 200,
+    filterable: true,
     //TODO: Fix order (Pending Approval to For Refund) Also: make default sort
     renderCell: (params) => {
       const status = params.value;
@@ -88,11 +94,13 @@ const columns = [
   {
     field: "shipping_method",
     headerName: "Shipping Method",
+    filterable: true,
     width: 120,
   },
   {
     field: "createdAt",
     headerName: "Date Created",
+    filterable: true,
     width: 120,
   },
   {
@@ -107,10 +115,13 @@ const columns = [
     disableExport: true,
     renderCell: (params) => {
       let statusComponent;
+      let orderID = params.row.orderID;
       statusComponent = (
-        <IconButton>
-          <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
-        </IconButton>
+        <Link to={`/shop/orders/order_page?orderId=${orderID}`}>
+          <IconButton>
+            <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
+          </IconButton>
+        </Link>
       );
       return statusComponent;
     },
@@ -127,23 +138,11 @@ const preProcessedData = orderData.map((order) => {
 
 function DataGridOrders() {
   return (
-    <DataGrid
-      //sx line is needed for overflow (bug in mui data grid v6)
-      sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
-      rows={preProcessedData}
+    <CustomDataGrid
+      data={preProcessedData}
       columns={columns}
-      slots={{ toolbar: GridToolbar }}
-      getRowId={(row) => row.orderID}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 10,
-          },
-        },
-      }}
-      getRowHeight={() => "auto"}
-      disableRowSelectionOnClick
-      pageSizeOptions={[5, 10, 15]}
+      rowID={"orderID"}
+      autoHeight
     />
   );
 }

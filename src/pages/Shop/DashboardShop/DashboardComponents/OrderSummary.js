@@ -12,6 +12,7 @@ import { HiOutlineReceiptRefund } from "react-icons/hi";
 import Styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
+import theme from "../../../../Theme";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -107,46 +108,46 @@ function OrderSummary({ hideShowAll }) {
       >
         <OrderCount
           component={VerifiedIcon}
-          color="#F35B04"
+          color={`${theme.palette.status.pending}`}
           count={1}
           status="Pending Approval"
         />
         <OrderCount
           component={BsBoxSeam}
-          color="#F18701"
+          color={`${theme.palette.status.preparing}`}
           count={3}
           status="Preparing"
         />
         <OrderCount
           component={BiShoppingBag}
-          color="#F7B801"
+          color={`${theme.palette.status.pickUp}`}
           count={1}
           status="Ready For Pick-Up"
         />
         <OrderCount
           component={MopedIcon}
-          color="#7678ED"
+          color={`${theme.palette.status.delivery}`}
           count={3}
           status="On Delivery"
         />
 
         <OrderCount
           component={HourglassEmptyIcon}
-          color="#7A9163"
+          color={`${theme.palette.status.complete}`}
           count={1523}
           status="Complete"
         />
 
         <OrderCount
           component={CancelIcon}
-          color="#AB3130"
+          color={`${theme.palette.status.cancel}`}
           count={3}
           status="Cancelled"
         />
 
         <OrderCount
           component={HiOutlineReceiptRefund}
-          color="#231F20"
+          color={`${theme.palette.status.refund}`}
           count={0}
           status="For Refund"
         />

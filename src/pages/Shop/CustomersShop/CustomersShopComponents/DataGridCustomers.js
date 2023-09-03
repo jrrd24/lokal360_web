@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Avatar, IconButton, Typography, Box } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { MoreVert } from "@mui/icons-material";
 import userData from "../../../../data/userData";
 import CustomerStatus from "../../../../components/ShopOnly/StatusAndTags/CustomerStatus";
@@ -8,6 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { styled, alpha } from "@mui/material/styles";
 import { ChatBubble, ReportProblem } from "@mui/icons-material";
+import CustomDataGrid from "../../../../components/CustomDataGrid";
 
 // Styling for the custom menu
 const StyledMenu = styled((props) => (
@@ -194,23 +194,7 @@ function DataGridCustomers() {
   ];
 
   return (
-    <DataGrid
-      //sx line is needed for overflow (bug in mui data grid v6)
-      sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
-      rows={userData}
-      columns={columns}
-      slots={{ toolbar: GridToolbar }}
-      getRowId={(row) => row.shopperID}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 10,
-          },
-        },
-      }}
-      disableRowSelectionOnClick
-      pageSizeOptions={[5, 10, 15]}
-    />
+    <CustomDataGrid data={userData} columns={columns} rowID={"shopperID"} />
   );
 }
 

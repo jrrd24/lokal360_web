@@ -15,7 +15,7 @@ function OrdersShopContent() {
 
       {/*Main Content*/}
       <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*Featured Products/ My Products (Left Side)*/}
+        {/*Orders Overview / Shop Orders*/}
         <Box
           sx={{
             ...theme.components.box.contentColumn,
@@ -28,7 +28,7 @@ function OrdersShopContent() {
             },
           }}
         >
-          {/*Featured Products*/}
+          {/*Orders Overview*/}
           <Box
             sx={{
               ...theme.components.box.sectionContainer,
@@ -45,7 +45,7 @@ function OrdersShopContent() {
             <OrderSummary hideShowAll={true} />
           </Box>
 
-          {/*My Orders*/}
+          {/*Shop Orders*/}
           <Box
             sx={{
               ...theme.components.box.sectionContainer,

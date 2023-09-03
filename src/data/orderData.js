@@ -1,7 +1,7 @@
 const orderData = [
   {
     orderID: 1,
-    name: "Customer 1",
+    name: "Samantha Miller",
     products: ["1x Product A", "1x Product B", "1x Product C"],
     total_price: 275.0,
     status: "Pending Approval",
@@ -10,7 +10,7 @@ const orderData = [
   },
   {
     orderID: 2,
-    name: "Customer 2",
+    name: "Benjamin Martinez",
     products: ["1x Product A", "1x Product B"],
     total_price: 195.5,
     status: "Preparing",
@@ -19,7 +19,7 @@ const orderData = [
   },
   {
     orderID: 3,
-    name: "Customer 3",
+    name: "Olivia Johnson",
     products: ["1x Product A"],
     total_price: 120.0,
     status: "Ready For Pick-Up",
@@ -28,7 +28,7 @@ const orderData = [
   },
   {
     orderID: 4,
-    name: "Customer 4",
+    name: "Elijah Williams",
     products: ["1x Product A"],
     total_price: 75.0,
     status: "On Delivery",
@@ -37,7 +37,7 @@ const orderData = [
   },
   {
     orderID: 5,
-    name: "Customer 5",
+    name: "Ava Thompson",
     products: ["1x Product A"],
     total_price: 86.25,
     status: "Complete",
@@ -46,7 +46,7 @@ const orderData = [
   },
   {
     orderID: 6,
-    name: "Customer 6",
+    name: "Jackson Anderson",
     products: ["1x Product B"],
     total_price: 115.0,
     status: "Cancelled",
@@ -55,7 +55,7 @@ const orderData = [
   },
   {
     orderID: 7,
-    name: "Customer 7",
+    name: "Sophia Davis",
     products: ["1x Product C"],
     total_price: 100.0,
     status: "Complete",
@@ -64,7 +64,7 @@ const orderData = [
   },
   {
     orderID: 8,
-    name: "Customer 8",
+    name: "Liam Wilson",
     products: ["1x Product C"],
     total_price: 110.0,
     status: "Complete",
@@ -73,7 +73,7 @@ const orderData = [
   },
   {
     orderID: 9,
-    name: "Customer 9",
+    name: "Emma Brown",
     products: ["1x Product D"],
     total_price: 110.0,
     status: "On Delivery",
@@ -82,7 +82,7 @@ const orderData = [
   },
   {
     orderID: 10,
-    name: "Customer 10",
+    name: "Noah Robinson",
     products: ["1x Product D"],
     total_price: 110.0,
     status: "For Refund",
@@ -91,7 +91,7 @@ const orderData = [
   },
   {
     orderID: 11,
-    name: "Customer 11",
+    name: "Noah Robinson",
     products: ["1x Product B, 2x Product B"],
     total_price: 160.0,
     status: "Preparing",
@@ -100,7 +100,7 @@ const orderData = [
   },
   {
     orderID: 12,
-    name: "Customer 11",
+    name: "Ava Thompson",
     products: ["1x Product B, 2x Product B, 1x Product C"],
     total_price: 267.5,
     status: "Complete",
