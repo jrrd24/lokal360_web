@@ -79,6 +79,29 @@ const theme = createTheme({
       letterSpacing: -0.3,
       textTransform: "none",
     },
+
+    //for Vouchers
+    voucherTitle: {
+      fontSize: "26px",
+      fontWeight: 600,
+      letterSpacing: -0.3,
+    },
+    voucherTitleSmall: {
+      fontSize: "20px",
+      fontWeight: 600,
+      lineHeight: "20px",
+      letterSpacing: -0.3,
+      textTransform: "none",
+    },
+    minSpend: {
+      fontSize: "14px",
+      textTransform: "none",
+    },
+    shopName: {
+      fontSize: "14px",
+      fontWeight: 600,
+      textTransform: "none",
+    },
   },
 
   components: {

@@ -5,17 +5,29 @@
  ?    PROPS: value = the number
  ?           isPeso = (boolean) if true the number will be converted to peso format
  ?           isShortened = (boolean) if true the number will be converted to shortened format
+ ?           noDecimal = (boolean) if true peso number would be displayed without decimal
  *    NOTE:  if "isPeso" and "isShortened" are null, the number will be in the default format
  *    SAMPLE:  <NumberFormat value={total} isPeso={true} />
 */
 
-function NumberFormat({ value, isPeso, isShortened }) {
-  const formattedValuePeso = value?.toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-  const formattedValue = value?.toLocaleString(undefined, {});
+function NumberFormat({ value, isPeso, isShortened, noDecimal }) {
+  //Default Format
+  //Returns: 999,999
+  const formattedValue = value?.toLocaleString(0, {});
+
+  //Peso Format
+  //Returns: ₱999,999.00
+  const pesoOptions = noDecimal
+    ? {}
+    : {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      };
+  const formattedValuePeso = value?.toLocaleString(0, pesoOptions);
   const peso = `₱ ${formattedValuePeso}`;
+
+  //Shortened Format
+  //Returns: 999k
   const shortenedNumber = (value) => {
     if (value >= 1e9) {
       return `${(value / 1e9).toFixed(1)}B`;
