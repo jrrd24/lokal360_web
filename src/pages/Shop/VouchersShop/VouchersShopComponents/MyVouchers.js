@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import DataGridVouchers from "./DataGridVouchers";
 import theme from "../../../../Theme";
+import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 
 function MyVouchers() {
   return (
@@ -26,8 +27,7 @@ function MyVouchers() {
           }}
         >
           <Typography variant="sectionTitle">My Vouchers</Typography>
-
-          {/*TODO: Add onClick for Button */}
+          <ButtonAdd label={"New Voucher"} onClickAction={null} />
         </Box>
         <Typography variant="seeAll" sx={{ textAlign: "left" }}>
           To search for a Voucher, Click <b>Filters</b>, then{" "}

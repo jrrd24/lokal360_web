@@ -3,14 +3,18 @@ import { ButtonBase, Grid, Stack, Typography } from "@mui/material";
 import theme from "../../Theme";
 import FormatDate from "../../utils/FormatDate";
 import NumberFormat from "../../utils/NumberFormat";
-function VoucherContainer({
-  type,
-  logo,
-  shopName,
-  value,
-  minSpend,
-  validUntil,
-}) {
+import PropTypes from "prop-types";
+
+function VoucherContainer({ data }) {
+  const {
+    type = data.promo_type,
+    logo = data.logo_img_link,
+    shopName = data.name,
+    value = data.discount_amount,
+    minSpend = data.min_spend,
+    validUntil = data.end_date,
+  } = data;
+
   const [color, setColor] = useState(`${theme.palette.status.delivery}`);
   const [formattedValue, setFormattedValue] = useState("");
 
@@ -25,7 +29,7 @@ function VoucherContainer({
       setColor(`${theme.palette.status.pending}`);
       setFormattedValue(value * 100);
     }
-  }, [type]);
+  }, [type, value]);
 
   return (
     <ButtonBase
@@ -112,5 +116,14 @@ function VoucherContainer({
     </ButtonBase>
   );
 }
+
+VoucherContainer.propTypes = {
+  type: PropTypes.string,
+  logo: PropTypes.string,
+  shopName: PropTypes.string,
+  value: PropTypes.number,
+  minSpend: PropTypes.number,
+  validUntil: PropTypes.string,
+};
 
 export default VoucherContainer;

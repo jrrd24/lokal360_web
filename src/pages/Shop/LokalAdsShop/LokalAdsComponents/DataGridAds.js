@@ -11,9 +11,8 @@ import lokalAdsData from "../../../../data/lokalAdsData";
 const columns = [
   {
     field: "lokalAdsID",
-    headerName: "Ad ID",
+    headerName: "ID",
     hideable: false,
-    type: "number",
     width: 80,
     filterable: true,
   },
@@ -114,6 +113,7 @@ function DataGridAds() {
       columns={columns}
       rowID={"lokalAdsID"}
       autoHeight
+      disableDensity
     />
   );
 }

@@ -11,8 +11,7 @@ const columns = [
     field: "shopCategoryID",
     headerName: "ID",
     hideable: false,
-    type: "number",
-    width: 60,
+    width: 80,
   },
   {
     field: "name",
@@ -28,7 +27,7 @@ const columns = [
   {
     field: "",
     headerName: "Action",
-    width: 175,
+    width: 155,
     align: "center",
     headerAlign: "center",
     sortable: false,

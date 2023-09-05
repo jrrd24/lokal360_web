@@ -12,8 +12,7 @@ const columns = [
   {
     field: "productID",
     headerName: "ID",
-    type: "number",
-    width: 60,
+    width: 80,
     hideable: false,
   },
   {

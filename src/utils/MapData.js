@@ -26,15 +26,38 @@ function MapData({
   sortByField,
   showUpTo,
   idName,
+  horizontal,
 }) {
   const sortedData = inputData
     .slice()
     .sort((a, b) => b[sortByField] - a[sortByField]);
   const showLimit = sortedData.slice(0, showUpTo);
   return (
-    <div>
+    <div
+      style={
+        horizontal
+          ? {
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              maxWidth: "100%",
+              height: 170,
+              overflow: "auto",
+            }
+          : null
+      }
+    >
       {showLimit.length > 0 ? (
-        showLimit.map((data) => <Component key={data[idName]} data={data} />)
+        showLimit.map((data) => (
+          <div
+            key={data[idName]}
+          >
+            <Component data={data} />
+          </div>
+        ))
       ) : (
         <Typography>No Record Found</Typography>
       )}

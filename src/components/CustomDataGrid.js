@@ -8,6 +8,8 @@ function CustomDataGrid({
   sortField,
   sortBy,
   autoHeight,
+  disableDensity,
+  disableExport,
 }) {
   return (
     <DataGrid
@@ -16,9 +18,14 @@ function CustomDataGrid({
       rows={data}
       columns={columns}
       slots={{ toolbar: GridToolbar }}
+      //Hide Density from toolbar
+      disableDensitySelector={disableDensity}
       slotProps={{
         toolbar: {
           showQuickFilter: true,
+          //Hide Export from toolbar
+          csvOptions: { disableToolbarButton: disableExport },
+          printOptions: { disableToolbarButton: disableExport },
         },
       }}
       getRowId={(row) => row[rowID]}

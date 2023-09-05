@@ -30,14 +30,13 @@ function DataGridPromos() {
       field: "promoID",
       headerName: "ID",
       hideable: false,
-      type: "number",
-      width: 60,
+      width: 80,
     },
 
     {
       field: "promo_type",
       headerName: "Promo Type",
-      width: 250,
+      width: 240,
       renderCell: (params) => {
         const promoType = params.value;
         let statusComponent;

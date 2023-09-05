@@ -70,13 +70,12 @@ function DataGridCustomers() {
       field: "shopperID",
       headerName: "ID",
       hideable: false,
-      type: "number",
-      width: 60,
+      width: 80,
     },
     {
       field: "img",
       headerName: "Image",
-      width: 100,
+      width: 80,
       disableExport: true,
       renderCell: (params) => {
         const img = params.value;

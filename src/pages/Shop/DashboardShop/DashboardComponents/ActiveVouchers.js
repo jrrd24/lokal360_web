@@ -2,6 +2,9 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
+import VoucherContainer from "../../../../components/ShopOnly/VoucherContainer";
+import MapData from "../../../../utils/MapData";
+import voucherData from "../../../../data/voucherData";
 
 function ActiveVouchers() {
   return (
@@ -27,21 +30,15 @@ function ActiveVouchers() {
       </Stack>
 
       {/*TODO: Add vouchers here */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-          flexWrap: "wrap",
-          justifyContent: "flex-start",
-          maxWidth: "100%",
-          height: "155px",
-          overflow: "auto",
-        }}
-      >
-        <Box sx={{ height: 145, width: 250, backgroundColor: "#ffbb03" }} />
-        <Box sx={{ height: 145, width: 250, backgroundColor: "#ffd14d" }} />
-        <Box sx={{ height: 145, width: 250, backgroundColor: "#6ef" }} />
+      <Box>
+        <MapData
+          inputData={voucherData}
+          component={VoucherContainer}
+          sortByField={"start_date"}
+          showUpTo={3}
+          idName={"voucherID"}
+          horizontal
+        />
       </Box>
     </Stack>
   );

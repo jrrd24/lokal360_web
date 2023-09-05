@@ -20,9 +20,8 @@ import CustomDataGrid from "../../../../components/CustomDataGrid";
 const columns = [
   {
     field: "orderID",
-    headerName: "Order ID",
+    headerName: "ID",
     hideable: false,
-    type: "number",
     width: 80,
     filterable: true,
   },
@@ -143,6 +142,7 @@ function DataGridOrders() {
       columns={columns}
       rowID={"orderID"}
       autoHeight
+      disableDensity
     />
   );
 }
