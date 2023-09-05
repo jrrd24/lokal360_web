@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import theme from "../Theme";
-import { useDateContext } from "../contexts/DateContext";
+import { useDateRange } from "../contexts/DateRangeContext";
 import NumberFormat from "../utils/NumberFormat";
 
 function StatisticBox({ name, amt, prevAmt, isMoney }) {
   const [versus, setVersus] = useState("--");
   const [compareStatus, setCompareStatus] = useState("none");
-  const { selectedRange } = useDateContext();
+  const { dateRange } = useDateRange(); // Access the context values
+  const startDate = dateRange.startDate;
+  const endDate = dateRange.endDate;
   const [percentage, setPercentage] = useState(
     (((amt - prevAmt) / prevAmt) * 100).toFixed(2)
   );
 
-  //TODO: Fix Selected Range and delete anything related to DateContext
   // Recalculate the percentage whenever amt and prevAmt change
   useEffect(() => {
     const newPercentage = (((amt - prevAmt) / prevAmt) * 100).toFixed(2);
@@ -20,31 +21,32 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
   }, [amt, prevAmt]);
 
   //Set Versus
-  useEffect(() => {
-    if (selectedRange === 1) {
+  const calculateVersus = useCallback(() => {
+    const today = new Date();
+
+    // Check if the selected range corresponds to today
+    if (
+      startDate.toDateString() === today.toDateString() &&
+      endDate.toDateString() === today.toDateString()
+    ) {
       setVersus("Yesterday");
-    } else if (selectedRange === 2) {
-      setVersus("Last Week");
-    } else if (selectedRange === 3) {
-      setVersus("Last Month");
-    } else if (selectedRange === 4) {
-      setVersus("Last Year");
-    } else {
-      setVersus("--");
-      setPercentage(0);
     }
-  }, [selectedRange]);
+    // For other cases, display "Custom Range"
+    else {
+      const numDaysSelected =
+        Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
+      setVersus(`Last ${numDaysSelected} Days`);
+    }
+  }, [startDate, endDate]);
 
-  //Set Versus
+  //Set Percentage
   useEffect(() => {
-    if (selectedRange === 5) {
-      setPercentage(0);
-    } else {
-      setPercentage((((amt - prevAmt) / prevAmt) * 100).toFixed(2));
-    }
-  }, [selectedRange]);
+    setPercentage((((amt - prevAmt) / prevAmt) * 100).toFixed(2));
+    // Calculate Versus based on startDate and endDate
+    calculateVersus();
+  }, [amt, prevAmt, startDate, endDate, calculateVersus]);
 
-  //Set Compare Status
+  // Set Compare Status based on amt and prevAmt
   useEffect(() => {
     if (amt > prevAmt) {
       setCompareStatus("increase");
@@ -53,7 +55,7 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
     } else {
       setCompareStatus("none");
     }
-  });
+  }, [amt, prevAmt]);
 
   return (
     <Box

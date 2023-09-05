@@ -59,7 +59,6 @@ const columns = [
     headerName: "Status",
     width: 200,
     filterable: true,
-    //TODO: Fix order (Pending Approval to For Refund) Also: make default sort
     renderCell: (params) => {
       const status = params.value;
       let statusComponent;

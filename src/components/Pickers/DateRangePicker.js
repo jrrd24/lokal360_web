@@ -2,16 +2,19 @@ import React from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
-import { useDateRange } from "../../contexts/DateRangeContext"; // Update with the correct path
+import { useDateRange } from "../../contexts/DateRangeContext";
 
-//TODO: Get number of days selected then get previous date range equivalent to the number of days selected
-//TODO: Also save this to the DateRangeContext
 function DateRangePicker() {
   const { dateRange, setDateRange } = useDateRange(); // Access the context values
 
+  // Update the context with the new date range
   const handleDateChange = (newDateRange) => {
-    setDateRange(newDateRange.selection); // Update the context with the new date range
+    setDateRange(newDateRange.selection);
   };
+
+  // Calculate the current date
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
 
   return (
     <div>
@@ -19,7 +22,8 @@ function DateRangePicker() {
         editableDateInputs={true}
         onChange={handleDateChange}
         moveRangeOnFirstSelection={false}
-        ranges={[dateRange]} // Pass the dateRange directly, as it's an object
+        ranges={[dateRange]}
+        maxDate={currentDate}
       />
     </div>
   );
