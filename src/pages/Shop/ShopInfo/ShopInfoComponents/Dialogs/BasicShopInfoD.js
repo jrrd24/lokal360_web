@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Stack, Typography, FormGroup } from "@mui/material";
+import { Stack, Typography, FormGroup, Box } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import CustomSwitch from "../../../../../components/FormComponents/CustomSwitch";
 
@@ -52,6 +52,7 @@ function BasicShopInfoD({
   description,
   deliver,
   pickup,
+  sellsRawMaterials,
 }) {
   return (
     <Stack spacing={3} sx={{ sx }}>
@@ -134,25 +135,49 @@ function BasicShopInfoD({
           }}
         />
 
-        <FormGroup sx={{ pl: 2 }}>
-          <Typography
-            component="legend"
-            sx={{ fontSize: "18px", fontWeight: 600, textAlign: "left" }}
-          >
-            Shipping Options
-          </Typography>
-          <CustomSwitch
-            name="delivery"
-            control={control}
-            label="Delivery"
-            defaultValue={deliver}
-          />
-          <CustomSwitch
-            name="pickUp"
-            control={control}
-            label="Pick-Up"
-            defaultValue={pickup}
-          />
+        <FormGroup
+          sx={{
+            pl: 2,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography
+              component="legend"
+              sx={{ fontSize: "18px", fontWeight: 600, textAlign: "left" }}
+            >
+              Shipping Options
+            </Typography>
+            <CustomSwitch
+              name="delivery"
+              control={control}
+              label="Delivery"
+              defaultValue={deliver}
+            />
+            <CustomSwitch
+              name="pickUp"
+              control={control}
+              label="Pick-Up"
+              defaultValue={pickup}
+            />
+          </Box>
+
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography
+              component="legend"
+              sx={{ fontSize: "18px", fontWeight: 600, textAlign: "left" }}
+            >
+              Raw Materials
+            </Typography>
+            <CustomSwitch
+              name="sellsRawMaterials"
+              control={control}
+              label="Sells Raw Materials"
+              defaultValue={sellsRawMaterials}
+            />
+          </Box>
         </FormGroup>
       </Stack>
     </Stack>

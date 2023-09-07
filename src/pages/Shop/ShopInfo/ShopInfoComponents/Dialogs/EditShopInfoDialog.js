@@ -100,7 +100,7 @@ function EditShopInfoDialog({
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Dialog Title/ Buttons */}
           <DialogTitle
-            height={70}
+            minHeight={70}
             sx={{
               position: "sticky",
               borderBottom: `1px solid ${theme.palette.text.forty}`,

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-
 function CustomDataGrid({
   data,
   columns,
@@ -14,7 +13,13 @@ function CustomDataGrid({
   return (
     <DataGrid
       //sx line is needed for overflow (bug in mui data grid v6)
-      sx={{ display: "grid", gridTemplateRows: "auto 1f auto" }}
+      sx={{
+        display: "grid",
+        gridTemplateRows: "auto 1f auto",
+        ".MuiDataGrid-main": {
+          minHeight: 200,
+        },
+      }}
       rows={data}
       columns={columns}
       slots={{ toolbar: GridToolbar }}
@@ -27,6 +32,8 @@ function CustomDataGrid({
           csvOptions: { disableToolbarButton: disableExport },
           printOptions: { disableToolbarButton: disableExport },
         },
+        panel: { sx: { maxWidth: "90%" } },
+        filterPanel: { sx: { maxWidth: "90%" } },
       }}
       getRowId={(row) => row[rowID]}
       initialState={{
@@ -39,7 +46,7 @@ function CustomDataGrid({
           },
         },
       }}
-      getRowHeight={autoHeight ? () => "auto" : ""}
+      getRowHeight={autoHeight ? () => "auto" : () => null}
       disableRowSelectionOnClick
       pageSizeOptions={[5, 10, 15]}
     />

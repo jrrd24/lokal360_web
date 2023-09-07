@@ -712,6 +712,11 @@ export default function ShopSidebar({ component: MainComponent }) {
                   p: 0,
                   py: 3,
                 },
+
+                display: "block",
+                textAlign: "center",
+                margin: "0 auto", // Center-align the component horizontally
+                maxWidth: "2000px",
               })
             }
           >

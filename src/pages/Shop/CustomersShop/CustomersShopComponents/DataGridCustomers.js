@@ -53,7 +53,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-function DataGridCustomers() {
+function  DataGridCustomers() {
   // State and event handlers for the menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);

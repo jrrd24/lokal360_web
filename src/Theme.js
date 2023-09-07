@@ -32,6 +32,8 @@ const theme = createTheme({
 
     //? Colors for promo type
     promo: { peso: "#F7B801", percent: "#F18701", freeShipping: "#6E5FDE" },
+
+    //? Colors for status
     status: {
       pending: "#F35B04",
       preparing: "#F18701",

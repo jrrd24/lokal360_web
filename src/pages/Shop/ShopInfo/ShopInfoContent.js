@@ -137,6 +137,7 @@ function ShopInfoContent() {
               description={description}
               deliver={shipping_deliver_enabled}
               pickup={shipping_pickup_enabled}
+              sellsRawMaterials={sells_raw_mats}
             />
           </Box>
 

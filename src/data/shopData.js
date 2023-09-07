@@ -32,7 +32,7 @@ const shopData = [
     header_img_link: require("../assets/placeholder.png"),
     custom_color_hex: null,
     custom_low_stock_lvl: null,
-    sells_raw_mats: false,
+    sells_raw_mats: true,
     //add the ff
     total_sales: 25995.0,
     no_of_products: 1023,

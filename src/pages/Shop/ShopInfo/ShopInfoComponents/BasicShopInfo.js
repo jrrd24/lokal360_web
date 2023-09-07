@@ -6,6 +6,7 @@ import {
   FormGroup,
   FormControlLabel,
   FormLabel,
+  Box,
 } from "@mui/material";
 import { ReadOnlyCustomInput } from "../../../../components/FormComponents/CustomInput";
 
@@ -16,6 +17,7 @@ function BasicShopInfo({
   description,
   deliver,
   pickup,
+  sellsRawMaterials,
 }) {
   return (
     <Stack spacing={3} width={"100%"}>
@@ -68,25 +70,48 @@ function BasicShopInfo({
           multiline
         />
 
-        <FormGroup sx={{ pl: 2 }}>
-          <FormLabel
-            component="legend"
-            sx={{ fontSize: "18px", fontWeight: 600, textAlign: "left" }}
-          >
-            Shipping Options
-          </FormLabel>
-          <FormControlLabel
-            disabled
-            control={<Switch checked={deliver || false} />}
-            label="Delivery"
-            name="delivery"
-          />
-          <FormControlLabel
-            disabled
-            control={<Switch checked={pickup || false} />}
-            label="Pick-Up"
-            name="pickUp"
-          />
+        <FormGroup
+          sx={{
+            pl: 2,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel
+              component="legend"
+              sx={{ fontSize: "18px", fontWeight: 600, textAlign: "left" }}
+            >
+              Shipping Options
+            </FormLabel>
+            <FormControlLabel
+              disabled
+              control={<Switch checked={deliver || false} />}
+              label="Delivery"
+              name="delivery"
+            />
+            <FormControlLabel
+              disabled
+              control={<Switch checked={pickup || false} />}
+              label="Pick-Up"
+              name="pickUp"
+            />
+          </Box>
+          <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <FormLabel
+              component="legend"
+              sx={{ fontSize: "18px", fontWeight: 600, textAlign: "left" }}
+            >
+              Raw Materials
+            </FormLabel>
+            <FormControlLabel
+              disabled
+              control={<Switch checked={sellsRawMaterials || false} />}
+              label="Sells Raw Materials"
+              name="sellsRawMaterials"
+            />
+          </Box>
         </FormGroup>
       </Stack>
     </Stack>

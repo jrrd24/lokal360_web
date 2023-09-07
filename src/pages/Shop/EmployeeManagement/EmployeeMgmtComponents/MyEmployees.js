@@ -1,11 +1,11 @@
 import React from "react";
-import DataGridAds from "./DataGridAds";
 import { Box, Typography, Stack } from "@mui/material";
 import theme from "../../../../Theme";
+import DataGridEmployees from "./DataGridEmployees";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
-import NewAdvertismentDialog from "./NewAdvertismentDialog/NewAdvertismentDialog";
+import AddEmployeeDialog from "./AddEmployeeDialog/AddEmployeeDialog";
 
-function MyLokalAds() {
+function MyEmployees() {
   // Handle Open Dialog Box (AddProduct)
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -17,7 +17,15 @@ function MyLokalAds() {
 
   return (
     <div>
-      <Box sx={{ width: "100%" }}>
+      <Box
+        sx={{
+          maxWidth: "750px",
+          "@media (max-width: 1516px)": {
+            justifyContent: "center",
+            maxWidth: "100%",
+          },
+        }}
+      >
         <Stack spacing={2} direction={"column"}>
           {/*Section Name */}
           <Box
@@ -29,25 +37,19 @@ function MyLokalAds() {
               },
             }}
           >
-            <Typography variant="sectionTitle">My Lokal Ads</Typography>
-            <ButtonAdd label={"New Advertisment"} onClickAction={handleOpen} />
-
+            <Typography variant="sectionTitle">My Employees</Typography>
+            <ButtonAdd label={"Add Employee"} onClickAction={handleOpen} />
             {/*TODO: Add onClick for Button */}
           </Box>
-          <Typography variant="seeAll" sx={{ textAlign: "left" }}>
-            To search for an Advertisment, Click <b>Filters</b>, then{" "}
-            <b>Select a Column</b>, then type what you are looking for in{" "}
-            <b>Value</b>
-          </Typography>
 
-          <DataGridAds />
+          <DataGridEmployees />
         </Stack>
       </Box>
 
       {/*New Promo Dialog Box */}
-      <NewAdvertismentDialog open={open} handleClose={handleClose} />
+      <AddEmployeeDialog open={open} handleClose={handleClose} />
     </div>
   );
 }
 
-export default MyLokalAds;
+export default MyEmployees;
