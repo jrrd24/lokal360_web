@@ -1,47 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Stack, Typography, FormGroup, Box } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import CustomSwitch from "../../../../../components/FormComponents/CustomSwitch";
-
-//Products Category
-const productsCategory = [
-  {
-    value: "Bamboo",
-    label: "Bamboo",
-  },
-  {
-    value: "Cacao",
-    label: "Cacao",
-  },
-  {
-    value: "Coconut",
-    label: "Coconut",
-  },
-  {
-    value: "Coffee",
-    label: "Coffee",
-  },
-  {
-    value: "Fruits and Nuts",
-    label: "Fruits and Nuts",
-  },
-  {
-    value: "Local Cuisine",
-    label: "Local Cuisine",
-  },
-  {
-    value: "Meat and Fish",
-    label: "Meat and Fish",
-  },
-  {
-    value: "Wearables",
-    label: "Wearables",
-  },
-  {
-    value: "Homestyle",
-    label: "Homestyle",
-  },
-];
+import { productsCategory } from "../../../../../utils/MapSelectMenuItems";
 
 function BasicShopInfoD({
   sx,

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, useMediaQuery } from "@mui/material";
-import UploadImageDialog from "../DialogBox/UploadImageDialog";
+import { UploadImageDialog } from "../DialogBox/UploadImageDialog";
 
 function ButtonEditImage({ name, label }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));

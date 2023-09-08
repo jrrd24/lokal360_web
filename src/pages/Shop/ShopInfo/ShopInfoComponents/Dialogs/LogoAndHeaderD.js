@@ -1,7 +1,6 @@
 import React from "react";
-import { Stack, Typography, Box, Button } from "@mui/material";
+import { Stack, Typography, Box } from "@mui/material";
 import styles from "../../../../../css/Styles.module.css";
-import UploadImageDialog from "../../../../../components/DialogBox/UploadImageDialog";
 import ButtonEditImage from "../../../../../components/Buttons/ButtonEditImage";
 
 function LogoAndHeaderD({ control, logo, header }) {
@@ -30,7 +29,7 @@ function LogoAndHeaderD({ control, logo, header }) {
             <img
               className={`${styles.grow}`}
               name={"ShopLogo"}
-              src={logo}
+              src={logo || ""}
               alt="Shop logo"
               loading="eager"
               style={{
@@ -64,7 +63,7 @@ function LogoAndHeaderD({ control, logo, header }) {
             <img
               className={`${styles.grow}`}
               name={"ShopHeader"}
-              src={header}
+              src={header || ""}
               alt="Shop Header"
               style={{
                 backgroundColor: "#FFF",

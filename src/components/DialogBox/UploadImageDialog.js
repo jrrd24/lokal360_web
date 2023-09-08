@@ -10,6 +10,7 @@ import {
   Stack,
   Alert,
   AlertTitle,
+  createTheme,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import ButtonCloseDialog from "../Buttons/ButtonCloseDialog";
@@ -225,4 +226,122 @@ function UploadImageDialog({
   );
 }
 
-export default UploadImageDialog;
+function UploadImage({ alt, name, control, register, setValue }) {
+  const [uploadError, setUploadError] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isImageDirty, setIsImageDirty] = useState(false);
+
+  const bgColor = `${theme.palette.background.paper}`;
+  const textColor = `${theme.palette.primary.main}`;
+
+  // Handle image change
+  const handleImageChange = (e) => {
+    setUploadError(false);
+    setSelectedImage(null);
+    setIsImageDirty(false);
+    const selectedFile = e.target.files[0];
+    if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setSelectedImage(imageUrl);
+      setValue("productThumbnail", imageUrl);
+    } else {
+      setUploadError(true);
+    }
+  };
+  // Use useEffect to observe selectedImage changes and update the form field
+  useEffect(() => {
+    if (selectedImage !== null) {
+      setValue("productThumbnail", selectedImage);
+    }
+  }, [selectedImage, setValue]);
+
+  return (
+    <Box sx={{ py: 5, width: "100%" }}>
+      <Button
+        variant="outlined"
+        component="label"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: bgColor,
+          width: "100%",
+          height: "100px",
+          marginBottom: "10px",
+          cursor: "pointer",
+          color: textColor,
+          border: "solid",
+          borderStyle: "dashed",
+          borderWidth: 2,
+          borderColor: textColor,
+          transition: "background-color 0.3s",
+        }}
+      >
+        <input
+          type="file"
+          hidden
+          accept="image/*"
+          {...register("productThumbnail")}
+          onChange={handleImageChange}
+        />
+        <Image />
+        <Typography
+          variant="sectionTitleSmall"
+          color="inherit" // Change text color for invalid hex
+        >
+          Upload Image
+        </Typography>
+      </Button>
+      {/*Display error message */}
+      {uploadError && (
+        <Alert severity="warning">
+          <AlertTitle>Upload Warning:</AlertTitle>
+          No Image Uploaded or <strong>2mb Maximum File Size </strong>is
+          Exceeded
+        </Alert>
+      )}
+      {/*Display Uploaded Image */}
+      <Stack
+        spacing={1}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          py: 5,
+        }}
+      >
+        <Typography
+          variant="sectionTitleSmall"
+          color="inherit"
+          sx={{
+            display: "flex",
+            alignItems: "start",
+          }}
+        >
+          {uploadError || selectedImage === null ? "" : "    Image Preview"}
+        </Typography>
+
+        {selectedImage && (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              maxHeight: 300,
+              maxWidth: "100%",
+            }}
+          >
+            <CustomImage
+              control={control}
+              name={name}
+              selectedImage={selectedImage}
+              alt={alt}
+            />
+          </Box>
+        )}
+      </Stack>
+    </Box>
+  );
+}
+
+export { UploadImageDialog, UploadImage };

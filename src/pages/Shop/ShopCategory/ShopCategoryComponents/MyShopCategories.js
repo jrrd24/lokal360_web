@@ -3,7 +3,6 @@ import { Stack, Box, Typography } from "@mui/material";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import DataGridCategories from "./DataGridCategories";
 import { useMediaQuery } from "@mui/material";
-import theme from "../../../../Theme";
 import NewCategoryDialog from "./NewCategoryDialog/NewCategoryDialog";
 
 function MyShopCategories() {
@@ -50,12 +49,6 @@ function MyShopCategories() {
 
             {/*TODO: Add onClick for Button */}
           </Box>
-          <Typography variant="seeAll" sx={{ textAlign: "left" }}>
-            To search for a Category, Click <b>Filters</b>, then{" "}
-            <b>Select a Column</b>, then type what you are looking for in{" "}
-            <b>Value</b>
-          </Typography>
-
           <DataGridCategories />
         </Stack>
       </Box>

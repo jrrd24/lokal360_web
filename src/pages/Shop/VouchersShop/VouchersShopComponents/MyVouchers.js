@@ -3,7 +3,6 @@ import { Box, Typography, Stack } from "@mui/material";
 import DataGridVouchers from "./DataGridVouchers";
 import theme from "../../../../Theme";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
-import NewPromoDialog from "../../PromosShop/PromosShopComponents/NewPromoDialog/NewPromoDialog";
 import NewVoucherDialog from "./NewVoucherDialog/NewVoucherDialog";
 
 function MyVouchers() {
@@ -41,12 +40,6 @@ function MyVouchers() {
             <Typography variant="sectionTitle">My Vouchers</Typography>
             <ButtonAdd label={"New Voucher"} onClickAction={handleOpen} />
           </Box>
-          <Typography variant="seeAll" sx={{ textAlign: "left" }}>
-            To search for a Voucher, Click <b>Filters</b>, then{" "}
-            <b>Select a Column</b>, then type what you are looking for in{" "}
-            <b>Value</b>
-          </Typography>
-
           <DataGridVouchers />
         </Stack>
       </Box>

@@ -25,11 +25,6 @@ function MyOrders() {
 
           {/*TODO: Add onClick for Button */}
         </Box>
-        <Typography variant="seeAll" sx={{ textAlign: "left" }}>
-          To search for an Order, Click <b>Filters</b>, then{" "}
-          <b>Select a Column</b>, then type what you are looking for in{" "}
-          <b>Value</b>
-        </Typography>
 
         <DataGridOrders />
       </Stack>

@@ -42,7 +42,7 @@ const CustomInput = ({
       control={control}
       name={name}
       rules={rules}
-      defaultValue={value}
+      defaultValue={value || ""}
       render={({ field, fieldState }) => (
         <TextField
           name={name}

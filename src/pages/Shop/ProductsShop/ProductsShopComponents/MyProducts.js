@@ -18,6 +18,10 @@ function MyProducts() {
     setOpen(false);
   };
 
+  const handleSave = () => {
+    handleClose();
+  };
+
   return (
     <div style={{ width: "100%" }}>
       <Box
@@ -48,6 +52,7 @@ function MyProducts() {
         open={open}
         handleClose={handleClose}
         isSmScreen={isSmScreen}
+        handleSave={handleSave}
       />
     </div>
   );

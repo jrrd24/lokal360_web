@@ -12,6 +12,7 @@ import theme from "../../../../../Theme";
 import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
 import { useForm } from "react-hook-form";
+import DProductDetails from "./DProductDetails";
 
 function AddProductDialog({ open, handleClose, isSmScreen, handleSave }) {
   //for react hook form
@@ -21,11 +22,13 @@ function AddProductDialog({ open, handleClose, isSmScreen, handleSave }) {
     formState: { errors, isDirty },
     trigger,
     reset,
+    register,
+    setValue,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data); // Form data
-    // handleSave();
+    handleSave();
     reset();
   };
 
@@ -83,7 +86,14 @@ function AddProductDialog({ open, handleClose, isSmScreen, handleSave }) {
           >
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              PLACE CONTENT HERE
+              {/*Product Details */}
+              <Box sx={{ py: 5 }}>
+                <DProductDetails
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                />
+              </Box>
             </Stack>
           </DialogContent>
 
