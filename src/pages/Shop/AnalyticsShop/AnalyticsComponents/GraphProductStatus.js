@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import theme from "../../../../Theme";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 import CustomLineChart from "../../../../components/CustomLineChart";
@@ -57,28 +57,9 @@ const lines = [
 
 function GraphProductStatus() {
   return (
-    <Stack
-      spacing={3}
-      direction={"column"}
-      sx={{
-        "@media (max-width: 1516px)": {
-          justifyContent: "center",
-        },
-      }}
-    >
+    <Stack spacing={3} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Header */}
-      <Stack
-        spacing={2}
-        direction={"row"}
-        sx={{
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "row",
-          gap: "16px",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
+      <Stack spacing={2} direction={"row"} sx={{ ...classes.sectionHeader }}>
         {/*Section Name */}
         <Stack>
           <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
@@ -86,9 +67,7 @@ function GraphProductStatus() {
             <Typography
               variant="inherit"
               component={"span"}
-              sx={{
-                color: `${theme.palette.text.sixty}`,
-              }}
+              sx={{ color: `${theme.palette.text.sixty}` }}
             >
               Product Status Graph
             </Typography>
@@ -96,27 +75,13 @@ function GraphProductStatus() {
         </Stack>
 
         {/*Date time */}
-        <Box
-          sx={{
-            order: 2,
-            display: "flex",
-            flexDirection: "row",
-            gap: "8px",
-            flexWrap: "wrap",
-          }}
-        >
+        <Box sx={{ ...classes.dateTimeContainer }}>
           <DisplayDateSelection />
         </Box>
       </Stack>
 
       {/*Section Content */}
-      <Stack
-        spacing={2}
-        sx={{
-          maxWidth: "99%",
-          height: "350px",
-        }}
-      >
+      <Stack spacing={2} sx={{ ...classes.sectionContent }}>
         {/*TODO: Add Graph Here */}
         {/*Graph */}
         <CustomLineChart
@@ -129,4 +94,29 @@ function GraphProductStatus() {
   );
 }
 
+const classes = {
+  main: {
+    "@media (max-width: 1516px)": {
+      justifyContent: "center",
+    },
+  },
+  sectionHeader: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    gap: "16px",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  dateTimeContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "8px",
+    flexWrap: "wrap",
+  },
+  sectionContent: {
+    maxWidth: "99%",
+    height: "350px",
+  },
+};
 export default GraphProductStatus;

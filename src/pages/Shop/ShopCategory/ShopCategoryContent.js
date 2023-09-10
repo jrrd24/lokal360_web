@@ -17,61 +17,17 @@ function ShopCategoryContent() {
       {/*Main Content*/}
       <Box sx={{ ...theme.components.box.mainContent }}>
         {/*(Left Side)*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentRow,
-            "@media (max-width: 1516px)": {
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.leftContainer }}>
           {/*My Categories*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "600px",
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.categories }}>
             <MyShopCategories />
           </Box>
         </Box>
 
         {/*(Right Side)*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentRow,
-            "@media (max-width: 1516px)": {
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.rightContainer }}>
           {/*Products Sold Per Category */}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              maxWidth: "340px",
-              order: 3,
-              "@media (max-width: 1516px)": {
-                order: 3,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: 807,
-              },
-              "@media (max-width: 913px)": {
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.soldPerCategory }}>
             <SoldPerCategory hideShowAll={true} />
           </Box>
         </Box>
@@ -79,5 +35,49 @@ function ShopCategoryContent() {
     </Box>
   );
 }
+
+const classes = {
+  leftContainer: {
+    ...theme.components.box.contentRow,
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  rightContainer: {
+    ...theme.components.box.contentRow,
+    "@media (max-width: 1516px)": {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  categories: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "600px",
+    "@media (max-width: 912px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  soldPerCategory: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "340px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: 807,
+    },
+    "@media (max-width: 913px)": {
+      minWidth: "100%",
+    },
+  },
+};
 
 export default ShopCategoryContent;

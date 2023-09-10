@@ -1,29 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Typography, Stack, Hidden } from "@mui/material";
 import DateTimeComponent from "./DateTimeComponent";
 import PartnerTag from "../ShopOnly/PartnerTag";
 
 function PageInfoComponent({ PageName, Subtitle, isPartner }) {
   return (
-    <Box
-      sx={{
-        pb: 5,
-        "@media (max-width: 600px)": {
-          px: 3,
-        },
-      }}
-    >
+    <Box sx={{ ...classes.mainContainer }}>
       {/*Shop Info */}
-      <Box
-        sx={{
-          textAlign: "start",
-          backgroundColor: "transparent",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: "16px",
-        }}
-      >
+      <Box sx={{ ...classes.insideContainer }}>
         <Stack spacing={-1}>
           <Stack spacing={2} direction={"row"} alignContent={"center"}>
             {/*Show Page Name */}
@@ -42,5 +26,23 @@ function PageInfoComponent({ PageName, Subtitle, isPartner }) {
     </Box>
   );
 }
+
+const classes = {
+  mainContainer: {
+    pb: 5,
+    "@media (max-width: 600px)": {
+      px: 3,
+    },
+  },
+
+  insideContainer: {
+    textAlign: "start",
+    backgroundColor: "transparent",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "16px",
+  },
+};
 
 export default PageInfoComponent;

@@ -19,35 +19,12 @@ function MyShopCategories() {
 
   return (
     <div style={{ width: "100%" }}>
-      <Box
-        sx={{
-          maxWidth: "600px",
-          "@media (max-width: 720px)": {
-            justifyContent: "center",
-            maxWidth: "100%",
-          },
-        }}
-      >
+      <Box sx={{ ...classes.main }}>
         <Stack spacing={2} direction={"column"}>
           {/*Section Name */}
-          <Box
-            direction={"row"}
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "16px",
-              flexWrap: "wrap",
-              alignItems: "baseline",
-              justifyContent: "flex-start",
-              "@media (max-width: 415px)": {
-                gap: "6px",
-              },
-            }}
-          >
+          <Box direction={"row"} sx={{ ...classes.sectionName }}>
             <Typography variant="sectionTitle">My Categories</Typography>
             <ButtonAdd label={"New Category"} onClickAction={handleOpen} />
-
-            {/*TODO: Add onClick for Button */}
           </Box>
           <DataGridCategories />
         </Stack>
@@ -63,4 +40,25 @@ function MyShopCategories() {
   );
 }
 
+const classes = {
+  main: {
+    maxWidth: "600px",
+    "@media (max-width: 720px)": {
+      justifyContent: "center",
+      maxWidth: "100%",
+    },
+  },
+
+  sectionName: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "16px",
+    flexWrap: "wrap",
+    alignItems: "baseline",
+    justifyContent: "flex-start",
+    "@media (max-width: 415px)": {
+      gap: "6px",
+    },
+  },
+};
 export default MyShopCategories;

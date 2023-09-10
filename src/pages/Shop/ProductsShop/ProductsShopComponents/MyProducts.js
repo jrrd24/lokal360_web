@@ -4,11 +4,8 @@ import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import DataGridProducts from "./DataGridProducts";
 import theme from "../../../../Theme";
 import AddProductDialog from "./AddProductDialog/AddProductDialog";
-import { useMediaQuery } from "@mui/material";
 
 function MyProducts() {
-  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
   // Handle Open Dialog Box (AddProduct)
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -51,7 +48,6 @@ function MyProducts() {
       <AddProductDialog
         open={open}
         handleClose={handleClose}
-        isSmScreen={isSmScreen}
         handleSave={handleSave}
       />
     </div>

@@ -18,18 +18,7 @@ function ProductsShopContent() {
       {/*Main Content*/}
       <Box sx={{ ...theme.components.box.mainContent }}>
         {/*Featured Products/ My Products (Left Side)*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            order: 1,
-            "@media (max-width: 1516px)": {
-              order: 2,
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.leftContainer }}>
           {/*Featured Products*/}
           <Box
             sx={{
@@ -47,72 +36,20 @@ function ProductsShopContent() {
           </Box>
 
           {/*My Products*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "750px",
-              "@media (max-width: 1516px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.myProductsContainer }}>
             <MyProducts />
           </Box>
         </Box>
 
         {/*Product Info (Right Side)*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            order: 2,
-            "@media (max-width: 1516px)": {
-              order: 1,
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.rightContainer }}>
           {/*Top Products */}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              maxWidth: "340px",
-              order: 1,
-              "@media (max-width: 1516px)": {
-                order: 2,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "48%",
-              },
-              "@media (max-width: 913px)": {
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.topProductsContainer }}>
             <TopProducts hideShowAll={true} />
           </Box>
 
           {/*Products Sold Per Category */}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              maxWidth: "340px",
-              order: 2,
-              "@media (max-width: 1516px)": {
-                order: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "48%",
-              },
-              "@media (max-width: 913px)": {
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.categoryContainer }}>
             <ProductStatus hideShowAll={true} />
           </Box>
         </Box>
@@ -121,4 +58,64 @@ function ProductsShopContent() {
   );
 }
 
+const classes = {
+  leftContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      alignItems: "baseline",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  rightContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      flexDirection: "row",
+      alignItems: "baseline",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  myProductsContainer: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "750px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  topProductsContainer: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "340px",
+    order: 1,
+    "@media (max-width: 1516px)": {
+      order: 2,
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "48%",
+    },
+    "@media (max-width: 913px)": {
+      minWidth: "100%",
+    },
+  },
+
+  categoryContainer: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "340px",
+    order: 2,
+    "@media (max-width: 1516px)": {
+      order: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "48%",
+    },
+    "@media (max-width: 913px)": {
+      minWidth: "100%",
+    },
+  },
+};
 export default ProductsShopContent;

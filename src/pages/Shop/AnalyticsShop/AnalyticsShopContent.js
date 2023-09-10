@@ -21,40 +21,16 @@ function AnalyticsShopContent() {
       {/*Page Content */}
       <Box sx={{ ...theme.components.box.mainContent }}>
         {/*Statistics Boxes Section*/}
-        <Box
-          sx={{
-            minWidth: "1120px",
-            order: 1,
-            "@media (max-width: 1516px)": {
-              order: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.statisticsBoxContainer }}>
           <StatisticsBoxes />
         </Box>
 
         {/*Main Content*/}
         <Box sx={{ ...theme.components.box.mainContent, order: 2 }}>
           {/*Graphs (Left Side)*/}
-          <Box
-            sx={{
-              ...theme.components.box.contentColumn,
-              "@media (max-width: 1516px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.leftContainer }}>
             {/*Product Sales Graph*/}
-            <Box
-              sx={{
-                ...theme.components.box.graphContainer,
-              }}
-            >
+            <Box sx={{ ...theme.components.box.graphContainer }}>
               <GraphSalesAnalytics />
             </Box>
 
@@ -70,71 +46,18 @@ function AnalyticsShopContent() {
           </Box>
 
           {/*Product Info (Right Side)*/}
-          <Box
-            sx={{
-              ...theme.components.box.contentColumn,
-              "@media (max-width: 1516px)": {
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.rightContainer }}>
             {/*Date time */}
-            <Box
-              sx={{
-                order: 2,
-                display: "flex",
-                flexDirection: "column",
-                gap: "8px",
-                flexWrap: "wrap",
-                "@media (max-width: 1189px)": {
-                  order: 2,
-                  flexDirection: "row",
-                  gap: "16px",
-                },
-              }}
-            >
+            <Box sx={{ ...classes.dateTimeContainer }}>
               <DateRangePicker />
             </Box>
             {/*Top Products */}
-            <Box
-              sx={{
-                ...theme.components.box.sectionContainer,
-                maxWidth: "340px",
-                order: 3,
-                "@media (max-width: 1516px)": {
-                  order: 3,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "48%",
-                },
-                "@media (max-width: 913px)": {
-                  minWidth: "100%",
-                },
-              }}
-            >
+            <Box sx={{ ...classes.topProducts }}>
               <TopProducts />
             </Box>
 
             {/*Products Sold Per Category */}
-            <Box
-              sx={{
-                ...theme.components.box.sectionContainer,
-                maxWidth: "340px",
-                order: 3,
-                "@media (max-width: 1516px)": {
-                  order: 3,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "48%",
-                },
-                "@media (max-width: 913px)": {
-                  minWidth: "100%",
-                },
-              }}
-            >
+            <Box sx={{ ...classes.soldPerCategory }}>
               <SoldPerCategory />
             </Box>
           </Box>
@@ -144,4 +67,70 @@ function AnalyticsShopContent() {
   );
 }
 
+const classes = {
+  statisticsBoxContainer: {
+    minWidth: "1120px",
+    order: 1,
+    "@media (max-width: 1516px)": {
+      order: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  leftContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  rightContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  dateTimeContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "8px",
+    flexWrap: "wrap",
+    "@media (max-width: 1189px)": {
+      flexDirection: "row",
+      gap: "16px",
+      minWidth: "30%",
+    },
+  },
+
+  topProducts: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "340px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "60%",
+    },
+    "@media (max-width: 1020px)": {
+      minWidth: "100%",
+    },
+  },
+
+  soldPerCategory: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "340px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+};
 export default AnalyticsShopContent;

@@ -47,7 +47,7 @@ function MyEmployees() {
       </Box>
 
       {/*New Promo Dialog Box */}
-      <AddEmployeeDialog open={open} handleClose={handleClose} />
+      <AddEmployeeDialog open={open} handleClose={handleClose}/>
     </div>
   );
 }

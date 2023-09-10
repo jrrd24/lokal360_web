@@ -222,6 +222,53 @@ const theme = createTheme({
         justifyContent: "center",
       },
     },
+
+    dialog: {
+      //? for all dialogTitles
+      //* sx={{...theme.components.dialog.dialogTitle}}
+      dialogTitle: {
+        minHeight: 70,
+        position: "sticky",
+        borderBottom: `1px solid`,
+        borderColor: (theme) => theme.palette.text.forty,
+      },
+
+      //? for proper spacing of dialog title content
+      //* sx={{...theme.components.dialog.dialogTitleContent}}
+      dialogTitleContent: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      },
+
+      //? for all dialogContents
+      //* sx={{...theme.components.dialog.dialogContent}}
+      dialogContent: {
+        height: "75vh",
+        backgroundColor: (theme) => theme.palette.background.paper,
+        display: "flex",
+        justifyContent: "center",
+        "@media (max-width: 600px)": {
+          height: "90vh",
+        },
+      },
+
+      //? styles for buttom saveButton on sm screens
+      //* sx={{...theme.components.dialog.saveButtonSmall}}
+      saveButtonSmall: {
+        position: "sticky",
+        bottom: 0,
+        backgroundColor: (theme) => theme.palette.background.paper,
+        zIndex: 1,
+        display: {
+          xs: "block",
+          sm: "block",
+          md: "none",
+          lg: "none",
+          xl: "none",
+        },
+      },
+    },
   },
 });
 

@@ -17,15 +17,7 @@ function MyPromos() {
 
   return (
     <div>
-      <Box
-        sx={{
-          maxWidth: "750px",
-          "@media (max-width: 1516px)": {
-            justifyContent: "center",
-            maxWidth: "100%",
-          },
-        }}
-      >
+      <Box sx={{ ...classes.sectionName }}>
         <Stack spacing={2} direction={"column"}>
           <Box sx={{ ...theme.components.box.sectionName }}>
             <Typography variant="sectionTitle">My Promos</Typography>
@@ -42,4 +34,13 @@ function MyPromos() {
   );
 }
 
+const classes = {
+  sectionName: {
+    maxWidth: "750px",
+    "@media (max-width: 1516px)": {
+      justifyContent: "center",
+      maxWidth: "100%",
+    },
+  },
+};
 export default MyPromos;

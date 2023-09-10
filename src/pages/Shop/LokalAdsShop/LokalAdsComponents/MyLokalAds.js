@@ -20,15 +20,7 @@ function MyLokalAds() {
       <Box sx={{ width: "100%" }}>
         <Stack spacing={2} direction={"column"}>
           {/*Section Name */}
-          <Box
-            direction={"row"}
-            sx={{
-              ...theme.components.box.sectionName,
-              "@media (max-width: 415px)": {
-                gap: "6px",
-              },
-            }}
-          >
+          <Box direction={"row"} sx={{ ...classes.sectionName }}>
             <Typography variant="sectionTitle">My Lokal Ads</Typography>
             <ButtonAdd label={"New Advertisment"} onClickAction={handleOpen} />
 
@@ -44,4 +36,12 @@ function MyLokalAds() {
   );
 }
 
+const classes = {
+  sectionName: {
+    ...theme.components.box.sectionName,
+    "@media (max-width: 415px)": {
+      gap: "6px",
+    },
+  },
+};
 export default MyLokalAds;

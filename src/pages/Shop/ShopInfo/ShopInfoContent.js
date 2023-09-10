@@ -80,33 +80,11 @@ function ShopInfoContent() {
       />
 
       {/*Page Content */}
-      <Box
-        sx={{
-          ...theme.components.box.mainContent,
-        }}
-      >
+      <Box sx={{ ...theme.components.box.mainContent }}>
         {/*Main Content*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            "@media (max-width: 1516px)": {
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.main }}>
           {/*Display Shop Info*/}
-          <Box
-            sx={{
-              minWidth: "600px",
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.displayInfo }}>
             <DisplayShopInfo
               shopName={name}
               totalSales={total_sales}
@@ -119,17 +97,7 @@ function ShopInfoContent() {
           </Box>
 
           {/*Basic Shop Info*/}
-          <Box
-            sx={{
-              minWidth: "600px",
-              ...theme.components.box.sectionContainer,
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.content }}>
             <BasicShopInfo
               shopName={name}
               category={categoryID}
@@ -142,47 +110,17 @@ function ShopInfoContent() {
           </Box>
 
           {/*Address Info*/}
-          <Box
-            sx={{
-              minWidth: "600px",
-              ...theme.components.box.sectionContainer,
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.content }}>
             <ShopAddress />
           </Box>
 
           {/*Contact Info*/}
-          <Box
-            sx={{
-              minWidth: "600px",
-              ...theme.components.box.sectionContainer,
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.content }}>
             <ContactInfo phoneNum={phone_number} website={website_link} />
           </Box>
 
           {/*Operating hours*/}
-          <Box
-            sx={{
-              minWidth: "600px",
-              ...theme.components.box.sectionContainer,
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.content }}>
             <OperatingHours
               days={days}
               timeOpen={time_open}
@@ -191,32 +129,12 @@ function ShopInfoContent() {
           </Box>
 
           {/*Logo and Header*/}
-          <Box
-            sx={{
-              minWidth: "600px",
-              ...theme.components.box.sectionContainer,
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.content }}>
             <LogoAndHeader logo={logo_img_link} header={header_img_link} />
           </Box>
 
           {/*Color*/}
-          <Box
-            sx={{
-              minWidth: "600px",
-              ...theme.components.box.sectionContainer,
-              "@media (max-width: 912px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.content }}>
             <SelectColor color={custom_color_hex} />
           </Box>
         </Box>
@@ -225,4 +143,32 @@ function ShopInfoContent() {
   );
 }
 
+const classes = {
+  main: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+  displayInfo: {
+    minWidth: "600px",
+    "@media (max-width: 912px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  content: {
+    minWidth: "600px",
+    ...theme.components.box.sectionContainer,
+    "@media (max-width: 912px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+};
 export default ShopInfoContent;

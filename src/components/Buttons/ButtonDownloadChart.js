@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Typography } from "@mui/material";
 import React from "react";
-import { Download, Height } from "@mui/icons-material";
+import { Download } from "@mui/icons-material";
 
 function ButtonDownloadChart({ handleOnClick, isLoading }) {
   return (
@@ -14,13 +14,7 @@ function ButtonDownloadChart({ handleOnClick, isLoading }) {
         )
       }
       onClick={handleOnClick}
-      sx={{
-        alignSelf: "left",
-        "@media (max-width: 600px)": {
-          alignSelf: "center",
-        },
-        width: 180,
-      }}
+      sx={{ ...classes.typographyContainer }}
     >
       <Typography
         variant="sectionTitleSmall"
@@ -31,5 +25,15 @@ function ButtonDownloadChart({ handleOnClick, isLoading }) {
     </Button>
   );
 }
+
+const classes = {
+  typographyContainer: {
+    alignSelf: "left",
+    "@media (max-width: 600px)": {
+      alignSelf: "center",
+    },
+    width: 180,
+  },
+};
 
 export default ButtonDownloadChart;

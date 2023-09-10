@@ -12,8 +12,10 @@ import theme from "../../../../../Theme";
 import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
 import { useForm } from "react-hook-form";
+import { useMediaQuery } from "@mui/material";
 
-function AddEmployeeDialog({ open, handleClose, isSmScreen, handleSave }) {
+function AddEmployeeDialog({ open, handleClose, handleSave }) {
+  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //for react hook form
   const {
     control,
@@ -38,25 +40,11 @@ function AddEmployeeDialog({ open, handleClose, isSmScreen, handleSave }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
-        sx={{
-          backgroundColor: "#ECECEC80",
-        }}
+        sx={{ backgroundColor: "#ECECEC80" }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle
-            minHeight={70}
-            sx={{
-              position: "sticky",
-              borderBottom: `1px solid ${theme.palette.text.forty}`,
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
+          <DialogTitle sx={{ ...theme.components.dialog.dialogTitle }}>
+            <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
               {/* Dialog Title*/}
               <Typography variant="sectionTitle">Add New Employee</Typography>
 
@@ -73,14 +61,7 @@ function AddEmployeeDialog({ open, handleClose, isSmScreen, handleSave }) {
           </DialogTitle>
 
           {/* Dialog Content */}
-          <DialogContent
-            sx={{
-              height: "75vh",
-              backgroundColor: `${theme.palette.background.paper}`,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
               PLACE CONTENT HERE
@@ -88,27 +69,8 @@ function AddEmployeeDialog({ open, handleClose, isSmScreen, handleSave }) {
           </DialogContent>
 
           {/* Show Save Button at Bottom for small screens */}
-          <Box
-            sx={{
-              position: "sticky",
-              bottom: 0,
-              backgroundColor: `${theme.palette.background.paper}`,
-              zIndex: 1,
-              display: {
-                xs: "block",
-                sm: "block",
-                md: "none",
-                lg: "none",
-                xl: "none",
-              },
-            }}
-          >
-            <DialogActions
-              sx={{
-                py: 2,
-                display: "flex",
-              }}
-            >
+          <Box sx={{ ...theme.components.dialog.saveButtonSmall }}>
+            <DialogActions sx={{ py: 2, display: "flex" }}>
               <ButtonSave type="submit" isDirty={isDirty} />
             </DialogActions>
           </Box>

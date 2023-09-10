@@ -19,14 +19,10 @@ import ContactInfoD from "./ContactInfoD";
 import OperatingHoursD from "./OperatingHoursD";
 import LogoAndHeaderD from "./LogoAndHeaderD";
 import SelectColorD from "./SelectColorD";
+import { useMediaQuery } from "@mui/material";
 
-function EditShopInfoDialog({
-  open,
-  handleClose,
-  isSmScreen,
-  handleSave,
-  shopData,
-}) {
+function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
+  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //destructure shopData
   const {
     shopID,
@@ -93,26 +89,15 @@ function EditShopInfoDialog({
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
-        sx={{
-          backgroundColor: "#ECECEC80",
-        }}
+        sx={{ backgroundColor: "#ECECEC80" }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Dialog Title/ Buttons */}
           <DialogTitle
             minHeight={70}
-            sx={{
-              position: "sticky",
-              borderBottom: `1px solid ${theme.palette.text.forty}`,
-            }}
+            sx={{ ...theme.components.dialog.dialogTitle }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
+            <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
               {/* Dialog Title*/}
               <Typography variant="sectionTitle">
                 Edit Shop Information
@@ -131,14 +116,7 @@ function EditShopInfoDialog({
           </DialogTitle>
 
           {/* Dialog Content */}
-          <DialogContent
-            sx={{
-              height: "75vh",
-              backgroundColor: `${theme.palette.background.paper}`,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Basic Shop Info */}
@@ -216,27 +194,8 @@ function EditShopInfoDialog({
           </DialogContent>
 
           {/* Show Save Button at Bottom for small screens */}
-          <Box
-            sx={{
-              position: "sticky",
-              bottom: 0,
-              backgroundColor: `${theme.palette.background.paper}`,
-              zIndex: 1,
-              display: {
-                xs: "block",
-                sm: "block",
-                md: "none",
-                lg: "none",
-                xl: "none",
-              },
-            }}
-          >
-            <DialogActions
-              sx={{
-                py: 2,
-                display: "flex",
-              }}
-            >
+          <Box sx={{ ...theme.components.dialog.saveButtonSmall }}>
+            <DialogActions sx={{ py: 2, display: "flex" }}>
               <ButtonSave type="submit" isDirty={isDirty} />
             </DialogActions>
           </Box>

@@ -16,49 +16,14 @@ function OrdersShopContent() {
       {/*Main Content*/}
       <Box sx={{ ...theme.components.box.mainContent }}>
         {/*Orders Overview / Shop Orders*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            order: 1,
-            "@media (max-width: 1516px)": {
-              order: 2,
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.leftContainer }}>
           {/*Orders Overview*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "1120px",
-              order: 1,
-              "@media (max-width: 1516px)": {
-                order: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.contentContainer }}>
             <OrderSummary hideShowAll={true} />
           </Box>
 
           {/*Shop Orders*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "1120px",
-              order: 2,
-              "@media (max-width: 1516px)": {
-                order: 2,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.contentContainer }}>
             <MyOrders />
           </Box>
         </Box>
@@ -66,5 +31,28 @@ function OrdersShopContent() {
     </Box>
   );
 }
+
+const classes = {
+  leftContainer: {
+    ...theme.components.box.contentColumn,
+    order: 1,
+    "@media (max-width: 1516px)": {
+      order: 2,
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  contentContainer: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "1120px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+};
 
 export default OrdersShopContent;

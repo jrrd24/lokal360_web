@@ -9,11 +9,7 @@ function SoldPerCategory({ hideShowAll }) {
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section header */}
-      <Stack
-        spacing={3}
-        direction={"row"}
-        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
-      >
+      <Stack spacing={3} direction={"row"} sx={{ ...classes.sectionHeader }}>
         {/*Section Name */}
         <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
           Products Sold Per Category
@@ -22,31 +18,34 @@ function SoldPerCategory({ hideShowAll }) {
         {/*See All */}
         <Box
           className={`${Styles.grow}`}
-          sx={{
-            minWidth: 60,
-            textAlign: "right",
-            display: hideShowAll ? "none" : "block",
-          }}
+          sx={{ ...classes.seeAll, display: hideShowAll ? "none" : "block" }}
         >
           <CustomLink to="/shop/products/shop_category">{"See All"}</CustomLink>
         </Box>
       </Stack>
 
       {/*Content */}
-      <Stack
-        spacing={1}
-        direction={"column"}
-        sx={{
-          "@media (max-width: 1516px)": {
-            alignItems: "center",
-            justifyContent: "center",
-          },
-        }}
-      >
+      <Stack spacing={1} direction={"column"} sx={{ ...classes.content }}>
         <CustomBarChart data={shopCategoryData} />
       </Stack>
     </Stack>
   );
 }
 
+const classes = {
+  sectionHeader: {
+    alignItems: "baseline",
+    justifyContent: "space-between",
+  },
+  seeAll: {
+    minWidth: 60,
+    textAlign: "right",
+  },
+  content: {
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
+};
 export default SoldPerCategory;

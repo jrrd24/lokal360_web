@@ -15,30 +15,9 @@ function EmployeeManagementContent() {
       {/*Main Content*/}
       <Box sx={{ ...theme.components.box.mainContent }}>
         {/*(Left Side)*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            "@media (max-width: 1516px)": {
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
-          {/*My Customers*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "600px",
-              order: 1,
-              "@media (max-width: 912px)": {
-                order: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+        <Box sx={{ ...classes.leftContainer }}>
+          {/*My Employees*/}
+          <Box sx={{ ...classes.employeesContainer }}>
             <MyEmployees />
           </Box>
         </Box>
@@ -47,4 +26,26 @@ function EmployeeManagementContent() {
   );
 }
 
+const classes = {
+  leftContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  employeesContainer: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "600px",
+    order: 1,
+    "@media (max-width: 912px)": {
+      order: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+};
 export default EmployeeManagementContent;

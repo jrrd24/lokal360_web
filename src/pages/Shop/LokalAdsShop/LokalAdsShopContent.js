@@ -16,49 +16,14 @@ function LokalAdsShopContent() {
       {/*Main Content*/}
       <Box sx={{ ...theme.components.box.mainContent }}>
         {/*Ads Status / My Lokal Ads*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            order: 1,
-            "@media (max-width: 1516px)": {
-              order: 2,
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.leftContainer }}>
           {/*Ads Status*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "1120px",
-              order: 1,
-              "@media (max-width: 1516px)": {
-                order: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.contentContainer }}>
             <AdsStatus />
           </Box>
 
           {/*My Lokal Ads*/}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              minWidth: "1120px",
-              order: 2,
-              "@media (max-width: 1516px)": {
-                order: 2,
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.contentContainer }}>
             <MyLokalAds />
           </Box>
         </Box>
@@ -67,4 +32,24 @@ function LokalAdsShopContent() {
   );
 }
 
+const classes = {
+  leftContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  contentContainer: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "1120px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+};
 export default LokalAdsShopContent;

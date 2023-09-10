@@ -22,70 +22,20 @@ function DashboardShopContent() {
       {/*Page Content */}
       <Box sx={{ ...theme.components.box.mainContent }}>
         {/*Orders, Ads, Vouchers (Right Side)*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            "@media (max-width: 1516px)": {
-              minWidth: "100%",
-            },
-            "@media (max-width: 600px)": {
-              alignItems: "center",
-              justifyContent: "center",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.rightContainer }}>
           {/*Order Summary */}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              maxWidth: "750px",
-              "@media (max-width: 1516px)": {
-                minWidth: "100%",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.orderSummaryContainer }}>
             <OrderSummary />
           </Box>
           {/*Vouchers and Lokal Ads */}
-          <Box
-            sx={{
-              ...theme.components.box.contentRow,
-              minWidth: "100%",
-              "@media (max-width: 1185px)": {
-                minWidth: "100%",
-                flexDirection: "column",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.voucherAdsContainer }}>
             {/*Active Lokal Ads*/}
-            <Box
-              sx={{
-                ...theme.components.box.sectionContainer,
-                width: "360px",
-                "@media (max-width: 1516px)": {
-                  minWidth: "48.5%",
-                },
-                "@media (max-width: 1185px)": {
-                  minWidth: "100%",
-                },
-              }}
-            >
+            <Box sx={{ ...classes.adsContainer }}>
               <ActiveLokalAds />
             </Box>
 
             {/*Active Vouchers*/}
-            <Box
-              sx={{
-                ...theme.components.box.sectionContainer,
-                width: "360px",
-                "@media (max-width: 1516px)": {
-                  minWidth: "48.5%",
-                },
-                "@media (max-width: 1185px)": {
-                  minWidth: "100%",
-                },
-              }}
-            >
+            <Box sx={{ ...classes.voucherContainer }}>
               <ActiveVouchers />
             </Box>
           </Box>
@@ -96,90 +46,25 @@ function DashboardShopContent() {
         </Box>
 
         {/*Customer, Prod (Left Side)*/}
-        <Box
-          sx={{
-            ...theme.components.box.contentColumn,
-            "@media (max-width: 1516px)": {
-              minWidth: "100%",
-              flexDirection: "row",
-            },
-            "@media (max-width: 600px)": {
-              alignItems: "center",
-              justifyContent: "center",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.leftContainer }}>
           {/*Date Range Picker */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              maxWidth: "340px",
-              "@media (max-width: 1516px)": {
-                minWidth: "100%",
-                ...theme.components.box.sectionContainer,
-                order: 3,
-              },
-              "@media (max-width: 1185px)": {
-                minWidth: "100%",
-                order: 1,
-              },
-            }}
-          >
+          <Box sx={{ ...classes.datePickerContainer }}>
             <DateRangePicker />
           </Box>
 
           {/*Valuable Customers */}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              maxWidth: "340px",
-              "@media (max-width: 1516px)": {
-                minWidth: "48.5%",
-                order: 1,
-              },
-              "@media (max-width: 1185px)": {
-                minWidth: "100%",
-                order: 2,
-              },
-            }}
-          >
+          <Box sx={{ ...classes.valuableCustomersContainer }}>
             <ValuableCustomers />
           </Box>
 
           {/*Product Status */}
-          <Box
-            sx={{
-              ...theme.components.box.sectionContainer,
-              maxWidth: "340px",
-              "@media (max-width: 1516px)": {
-                minWidth: "48.5%",
-                order: 2,
-              },
-              "@media (max-width: 1185px)": {
-                minWidth: "100%",
-                order: 3,
-              },
-            }}
-          >
+          <Box sx={{ ...classes.productStatusContainer }}>
             <ProductStatus />
           </Box>
         </Box>
 
         {/*User and Shop Info */}
-        <Box
-          sx={{
-            ...theme.components.box.sectionContainer,
-            minWidth: "1120px",
-
-            "@media (max-width: 1516px)": {
-              alignItems: "center",
-              justifyContent: "center",
-              minWidth: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.infoContainer }}>
           <UserShopInfo />
         </Box>
       </Box>
@@ -187,4 +72,119 @@ function DashboardShopContent() {
   );
 }
 
+const classes = {
+  rightContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      minWidth: "100%",
+    },
+    "@media (max-width: 600px)": {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
+
+  orderSummaryContainer: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "750px",
+    "@media (max-width: 1516px)": {
+      minWidth: "100%",
+    },
+  },
+
+  voucherAdsContainer: {
+    ...theme.components.box.contentRow,
+    minWidth: "100%",
+    "@media (max-width: 1185px)": {
+      minWidth: "100%",
+      flexDirection: "column",
+    },
+  },
+
+  adsContainer: {
+    ...theme.components.box.sectionContainer,
+    width: "360px",
+    "@media (max-width: 1516px)": {
+      minWidth: "48.5%",
+    },
+    "@media (max-width: 1185px)": {
+      minWidth: "100%",
+    },
+  },
+
+  voucherContainer: {
+    ...theme.components.box.sectionContainer,
+    width: "360px",
+    "@media (max-width: 1516px)": {
+      minWidth: "48.5%",
+    },
+    "@media (max-width: 1185px)": {
+      minWidth: "100%",
+    },
+  },
+
+  leftContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      minWidth: "100%",
+      flexDirection: "row",
+    },
+    "@media (max-width: 600px)": {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
+
+  datePickerContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    maxWidth: "340px",
+    "@media (max-width: 1516px)": {
+      minWidth: "100%",
+      ...theme.components.box.sectionContainer,
+      order: 3,
+    },
+    "@media (max-width: 1185px)": {
+      minWidth: "100%",
+      order: 1,
+    },
+  },
+
+  valuableCustomersContainer: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "340px",
+    "@media (max-width: 1516px)": {
+      minWidth: "48.5%",
+      order: 1,
+    },
+    "@media (max-width: 1185px)": {
+      minWidth: "100%",
+      order: 2,
+    },
+  },
+
+  productStatusContainer: {
+    ...theme.components.box.sectionContainer,
+    maxWidth: "340px",
+    "@media (max-width: 1516px)": {
+      minWidth: "48.5%",
+      order: 2,
+    },
+    "@media (max-width: 1185px)": {
+      minWidth: "100%",
+      order: 3,
+    },
+  },
+
+  infoContainer: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "1120px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+};
 export default DashboardShopContent;

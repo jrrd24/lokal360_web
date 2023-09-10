@@ -8,13 +8,9 @@ import MapData from "../../../../utils/MapData";
 
 function TopProducts({ hideShowAll }) {
   return (
-    <Stack spacing={2} sx={{ width: "100%" }}>
+    <Stack spacing={2} sx={{ ...classes.main }}>
       {/*Section name */}
-      <Stack
-        spacing={3}
-        direction={"row"}
-        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
-      >
+      <Stack spacing={3} direction={"row"} sx={{ ...classes.sectionName }}>
         <Typography variant="sectionTitle">Top Products</Typography>
         <Box
           className={`${Styles.grow}`}
@@ -25,16 +21,7 @@ function TopProducts({ hideShowAll }) {
       </Stack>
 
       {/*Content */}
-      <Stack
-        spacing={1}
-        direction={"column"}
-        sx={{
-          "@media (max-width: 1516px)": {
-            alignItems: "center",
-            justifyContent: "center",
-          },
-        }}
-      >
+      <Stack spacing={1} direction={"column"} sx={{ ...classes.content }}>
         {/*Mapping user data*/}
         <MapData
           inputData={productData}
@@ -47,5 +34,20 @@ function TopProducts({ hideShowAll }) {
     </Stack>
   );
 }
+
+const classes = {
+  main: {
+    width: "100%",
+  },
+
+  sectionName: { alignItems: "baseline", justifyContent: "space-between" },
+
+  content: {
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
+};
 
 export default TopProducts;

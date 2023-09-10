@@ -5,54 +5,10 @@ import theme from "../../../../Theme";
 
 function StatisticsBoxes() {
   return (
-    <Box
-      sx={{
-        maxWidth: "1120px",
-        ...theme.components.box.mainContent,
-        "@media (max-width: 1516px)": {
-          alignItems: "center",
-          justifyContent: "center",
-          minWidth: "100%",
-        },
-      }}
-    >
-      <Stack
-        spacing={1}
-        direction={"row"}
-        sx={{
-          "@media (max-width: 1189px)": {
-            ...theme.components.box.mainContent,
-          },
-          "@media (max-width: 913px)": {
-            gap: "0px",
-            minWidth: "100%",
-          },
-        }}
-      >
+    <Box sx={{ ...classes.main }}>
+      <Stack spacing={1} direction={"row"} sx={{ ...classes.stackContainer }}>
         {/*Statistics Box Container */}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "16px",
-            flexWrap: "wrap",
-            order: 1,
-            alignItems: "center",
-
-            "@media (max-width: 1189px)": {
-              order: 2,
-              alignItems: "center",
-              justifyContent: "center",
-            },
-            "@media (max-width: 913px)": {
-              px: 2,
-              height: "150px",
-              overflow: "auto",
-              flexDirection: "column",
-              width: "100%",
-            },
-          }}
-        >
+        <Box sx={{ ...classes.statisticsBoxContainer }}>
           <StatisticBox
             name={"Sales"}
             amt={25995}
@@ -70,4 +26,47 @@ function StatisticsBoxes() {
   );
 }
 
+const classes = {
+  main: {
+    maxWidth: "1120px",
+    ...theme.components.box.mainContent,
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  stackContainer: {
+    "@media (max-width: 1189px)": {
+      ...theme.components.box.mainContent,
+    },
+    "@media (max-width: 913px)": {
+      gap: "0px",
+      minWidth: "100%",
+    },
+  },
+
+  statisticsBoxContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "16px",
+    flexWrap: "wrap",
+    order: 1,
+    alignItems: "center",
+
+    "@media (max-width: 1189px)": {
+      order: 2,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "@media (max-width: 913px)": {
+      px: 2,
+      height: "150px",
+      overflow: "auto",
+      flexDirection: "column",
+      width: "100%",
+    },
+  },
+};
 export default StatisticsBoxes;

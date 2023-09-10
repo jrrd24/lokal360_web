@@ -8,21 +8,9 @@ import voucherData from "../../../../data/voucherData";
 
 function ActiveVouchers() {
   return (
-    <Stack
-      spacing={1}
-      direction={"column"}
-      sx={{
-        width: "100%",
-        "@media (max-width: 1516px)": {
-          justifyContent: "center",
-        },
-      }}
-    >
+    <Stack spacing={1} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Name */}
-      <Stack
-        direction={"row"}
-        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
-      >
+      <Stack direction={"row"} sx={{ ...classes.sectionName }}>
         <Typography variant="sectionTitle">Active Vouchers</Typography>
         <Box className={`${styles.grow}`}>
           <CustomLink to="/shop/vouchers">{"See All"}</CustomLink>
@@ -44,4 +32,17 @@ function ActiveVouchers() {
   );
 }
 
+const classes = {
+  main: {
+    width: "100%",
+    "@media (max-width: 1516px)": {
+      justifyContent: "center",
+    },
+  },
+
+  sectionName: {
+    alignItems: "baseline",
+    justifyContent: "space-between",
+  },
+};
 export default ActiveVouchers;

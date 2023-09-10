@@ -25,17 +25,7 @@ function OrderSummary({ hideShowAll }) {
   return (
     <Stack spacing={3} sx={{ width: "100%" }}>
       {/*Section Header */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "16px",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          maxWidth: "100%",
-        }}
-      >
+      <Box sx={{ ...classes.sectionHeader }}>
         {/*Section Name and Active Orders */}
         <Stack
           spacing={0}
@@ -156,4 +146,15 @@ function OrderSummary({ hideShowAll }) {
   );
 }
 
+const classes = {
+  sectionHeader: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "16px",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    maxWidth: "100%",
+  },
+};
 export default OrderSummary;

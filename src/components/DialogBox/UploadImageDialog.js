@@ -10,7 +10,6 @@ import {
   Stack,
   Alert,
   AlertTitle,
-  createTheme,
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import ButtonCloseDialog from "../Buttons/ButtonCloseDialog";
@@ -95,10 +94,7 @@ function UploadImageDialog({
         {/* Dialog Title/ Buttons */}
         <DialogTitle
           minHeight={70}
-          sx={{
-            position: "sticky",
-            borderBottom: `1px solid ${theme.palette.text.forty}`,
-          }}
+          sx={{ ...theme.components.dialog.dialogTitle }}
         >
           <Box
             sx={{
@@ -120,34 +116,12 @@ function UploadImageDialog({
         </DialogTitle>
 
         {/* Dialog Content*/}
-        <DialogContent
-          sx={{
-            height: "60vh",
-            backgroundColor: `${theme.palette.background.paper}`,
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
+        <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
           <Box sx={{ py: 5, width: "100%" }}>
             <Button
               variant="outlined"
               component="label"
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: bgColor,
-                width: "100%",
-                height: "100px",
-                marginBottom: "10px",
-                cursor: "pointer",
-                color: textColor,
-                border: "solid",
-                borderStyle: "dashed",
-                borderWidth: 2,
-                borderColor: textColor,
-                transition: "background-color 0.3s",
-              }}
+              sx={{ ...classes.uploadImageButton }}
             >
               <input
                 type="file"
@@ -173,22 +147,11 @@ function UploadImageDialog({
               </Alert>
             )}
             {/*Display Uploaded Image */}
-            <Stack
-              spacing={1}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                py: 5,
-              }}
-            >
+            <Stack spacing={1} sx={{ ...classes.displayUploadedImage }}>
               <Typography
                 variant="sectionTitleSmall"
                 color="inherit"
-                sx={{
-                  display: "flex",
-                  alignItems: "start",
-                }}
+                sx={{ ...classes.selectedImageTypography }}
               >
                 {uploadError || selectedImage === null
                   ? ""
@@ -196,15 +159,7 @@ function UploadImageDialog({
               </Typography>
 
               {selectedImage && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    maxHeight: 300,
-                    maxWidth: "100%",
-                  }}
-                >
+                <Box sx={{ ...classes.customImageContainer }}>
                   <CustomImage
                     control={control}
                     name={name}
@@ -260,22 +215,7 @@ function UploadImage({ alt, name, control, register, setValue }) {
       <Button
         variant="outlined"
         component="label"
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: bgColor,
-          width: "100%",
-          height: "100px",
-          marginBottom: "10px",
-          cursor: "pointer",
-          color: textColor,
-          border: "solid",
-          borderStyle: "dashed",
-          borderWidth: 2,
-          borderColor: textColor,
-          transition: "background-color 0.3s",
-        }}
+        sx={{ ...classes.uploadImageButton }}
       >
         <input
           type="file"
@@ -301,36 +241,17 @@ function UploadImage({ alt, name, control, register, setValue }) {
         </Alert>
       )}
       {/*Display Uploaded Image */}
-      <Stack
-        spacing={1}
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          py: 5,
-        }}
-      >
+      <Stack spacing={1} sx={{ ...classes.displayUploadedImage }}>
         <Typography
           variant="sectionTitleSmall"
           color="inherit"
-          sx={{
-            display: "flex",
-            alignItems: "start",
-          }}
+          sx={{ ...classes.selectedImageTypography }}
         >
           {uploadError || selectedImage === null ? "" : "    Image Preview"}
         </Typography>
 
         {selectedImage && (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              maxHeight: 300,
-              maxWidth: "100%",
-            }}
-          >
+          <Box sx={{ ...classes.customImageContainer }}>
             <CustomImage
               control={control}
               name={name}
@@ -343,5 +264,38 @@ function UploadImage({ alt, name, control, register, setValue }) {
     </Box>
   );
 }
+
+const classes = {
+  uploadImageButton: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100px",
+    marginBottom: "10px",
+    cursor: "pointer",
+    border: "solid",
+    borderStyle: "dashed",
+    borderWidth: 2,
+    transition: "background-color 0.3s",
+  },
+  displayUploadedImage: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    py: 5,
+  },
+  selectedImageTypography: {
+    display: "flex",
+    alignItems: "start",
+  },
+  customImageContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    maxHeight: 300,
+    maxWidth: "100%",
+  },
+};
 
 export { UploadImageDialog, UploadImage };

@@ -49,28 +49,9 @@ const lines = [
 
 function GraphSalesAnalytics() {
   return (
-    <Stack
-      spacing={3}
-      direction={"column"}
-      sx={{
-        "@media (max-width: 1516px)": {
-          justifyContent: "center",
-        },
-      }}
-    >
+    <Stack spacing={3} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Header */}
-      <Stack
-        spacing={2}
-        direction={"row"}
-        sx={{
-          alignItems: "center",
-          display: "flex",
-          flexDirection: "row",
-          gap: "16px",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
+      <Stack spacing={2} direction={"row"} sx={{ ...classes.sectionHeader }}>
         {/*Section Name */}
         <Stack>
           <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
@@ -88,26 +69,13 @@ function GraphSalesAnalytics() {
         </Stack>
 
         {/*Date time */}
-        <Box
-          sx={{
-            order: 2,
-            display: "flex",
-            flexDirection: "row",
-            gap: "8px",
-            flexWrap: "wrap",
-          }}
-        >
+        <Box sx={{ ...classes.dateTimeContainer }}>
           <DisplayDateSelection />
         </Box>
       </Stack>
 
       {/*Section Content */}
-      <Box
-        sx={{
-          maxWidth: "99%",
-          height: "350px",
-        }}
-      >
+      <Box sx={{ ...classes.sectionContent }}>
         {/*TODO: Add Graph Here */}
         {/*Graph */}
         <CustomLineChart
@@ -119,5 +87,31 @@ function GraphSalesAnalytics() {
     </Stack>
   );
 }
+
+const classes = {
+  main: {
+    "@media (max-width: 1516px)": {
+      justifyContent: "center",
+    },
+  },
+  sectionHeader: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    gap: "16px",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+  },
+  dateTimeContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "8px",
+    flexWrap: "wrap",
+  },
+  sectionContent: {
+    maxWidth: "99%",
+    height: "350px",
+  },
+};
 
 export default GraphSalesAnalytics;

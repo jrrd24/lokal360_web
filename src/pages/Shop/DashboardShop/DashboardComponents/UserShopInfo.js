@@ -9,18 +9,7 @@ import theme from "../../../../Theme";
 
 function UserShopInfo() {
   return (
-    <Box
-      sx={{
-        ...theme.components.box.contentRow,
-        width: "100%",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingX: 5,
-        "@media (max-width: 550px)": {
-          paddingX: 1,
-        },
-      }}
-    >
+    <Box sx={{ ...classes.main }}>
       {/* Shop Info*/}
       <Stack spacing={2} direction={"row"} sx={{ alignItems: "center" }}>
         {/*Shop Logo */}
@@ -37,22 +26,8 @@ function UserShopInfo() {
           </Typography>
 
           {/*Shop Info*/}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "8px",
-              flexWrap: "wrap",
-              alignItems: "flex-start",
-              justifyContent: "center",
-              "@media (max-width: 550px)": {
-                flexDirection: "column",
-                gap: "0px",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.shopInfoContainer }}>
             {/*Products Count */}
-
             <Typography variant="sectionTitleSmall" color={"primary"}>
               <NumberFormat value={1000} isShortened={true} />
               &nbsp;
@@ -78,11 +53,7 @@ function UserShopInfo() {
         <Stack
           spacing={2}
           direction={"row"}
-          sx={{
-            alignItems: "center",
-            justifyItems: "center",
-            textAlign: "center",
-          }}
+          sx={{ ...classes.userInfoContainer }}
         >
           {/*User Avatar */}
           <Avatar
@@ -104,4 +75,35 @@ function UserShopInfo() {
   );
 }
 
+const classes = {
+  main: {
+    ...theme.components.box.contentRow,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingX: 5,
+    "@media (max-width: 550px)": {
+      paddingX: 1,
+    },
+  },
+
+  shopInfoContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "8px",
+    flexWrap: "wrap",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    "@media (max-width: 550px)": {
+      flexDirection: "column",
+      gap: "0px",
+    },
+  },
+
+  userInfoContainer: {
+    alignItems: "center",
+    justifyItems: "center",
+    textAlign: "center",
+  },
+};
 export default UserShopInfo;

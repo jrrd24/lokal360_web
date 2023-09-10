@@ -7,30 +7,11 @@ function AdsStatus() {
   return (
     <Stack spacing={3} sx={{ width: "100%" }}>
       {/*Section Name */}
-      <Box
-        direction={"row"}
-        sx={{
-          ...theme.components.box.sectionName,
-          "@media (max-width: 415px)": {
-            gap: "6px",
-          },
-        }}
-      >
+      <Box direction={"row"} sx={{ ...classes.sectionName }}>
         <Typography variant="sectionTitle">Lokal Ads Status </Typography>
       </Box>
       {/*Main */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "16px",
-          flexWrap: "wrap",
-          "@media (max-width: 600px)": {
-            alignItems: "center",
-            justifyContent: "center",
-          },
-        }}
-      >
+      <Box sx={{ ...classes.mainContent }}>
         <AdStatusContainer
           color={`${theme.palette.status.delivery}`}
           count={2}
@@ -61,4 +42,26 @@ function AdsStatus() {
   );
 }
 
+const classes = {
+  sectionName: {
+    ...theme.components.box.sectionName,
+    "@media (max-width: 415px)": {
+      gap: "6px",
+    },
+  },
+
+  mainContent: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "16px",
+    flexWrap: "wrap",
+    "@media (max-width: 785px)": {
+      px: 2,
+      height: "120px",
+      overflow: "auto",
+      flexDirection: "column",
+      width: "100%",
+    },
+  },
+};
 export default AdsStatus;

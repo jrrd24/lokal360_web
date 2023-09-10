@@ -10,11 +10,7 @@ function ValuableCustomers() {
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section name */}
-      <Stack
-        spacing={3}
-        direction={"row"}
-        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
-      >
+      <Stack spacing={3} direction={"row"} sx={{ ...classes.sectionName }}>
         <Typography variant="sectionTitle">Valuable Customers</Typography>
         <Box className={`${Styles.grow}`}>
           <CustomLink to="/shop/customers">{"See All"}</CustomLink>
@@ -22,16 +18,7 @@ function ValuableCustomers() {
       </Stack>
 
       {/*Content */}
-      <Stack
-        spacing={1}
-        direction={"column"}
-        sx={{
-          "@media (max-width: 1516px)": {
-            alignItems: "center",
-            justifyContent: "center",
-          },
-        }}
-      >
+      <Stack spacing={1} direction={"column"} sx={{ ...classes.content }}>
         {/*Mapping user data*/}
         <MapData
           inputData={userData}
@@ -45,4 +32,13 @@ function ValuableCustomers() {
   );
 }
 
+const classes = {
+  sectionName: { alignItems: "baseline", justifyContent: "space-between" },
+  content: {
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
+};
 export default ValuableCustomers;
