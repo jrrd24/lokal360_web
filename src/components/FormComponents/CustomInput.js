@@ -1,3 +1,15 @@
+/*
+* CUSTOM INPUT
+* Contains the ff: CustomInput, ReadOnlyCustomInput, and CustomNumberInput
+?       CustomInput: for any textfields or select (comboBox) in a form, also includes textfields with
+?                    icon adornments, and multiline textFields
+?       ReadOnlyCustomInput: display read-only information in textFields
+?       CustomNumberInput: for textfields with Number/ Currency Inputs
+* Reason for separating CustomInput and CustomNumberInput:
+*       To avoid making CustomInput too complicated with extra conditional statements and props.
+*       Also since NumericFormat is used instead of Text Field
+*/
+
 import React, { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import {
@@ -9,6 +21,7 @@ import {
 } from "@mui/material";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
+import { NumericFormat } from "react-number-format";
 
 const CustomInput = ({
   control,
@@ -21,21 +34,22 @@ const CustomInput = ({
   multiline,
   select,
   selectMenuItems,
-  variant,
   value,
+  setPromoType,
   component: icon,
 }) => {
   const [viewPass, setViewPass] = useState(true);
-  const [activeVariant, setActiveVariant] = useState("outlined");
+  const [fieldValue, setFieldValue] = useState("");
+
+  useEffect(() => {
+    if (setPromoType) {
+      setPromoType(fieldValue);
+    }
+  }, [fieldValue, setPromoType]);
 
   const handleTogglePassword = () => {
     setViewPass(!viewPass);
   };
-
-  //Set Variant
-  useEffect(() => {
-    variant != null ? setActiveVariant(variant) : setActiveVariant("outlined");
-  }, [variant]);
 
   return (
     <Controller
@@ -43,17 +57,25 @@ const CustomInput = ({
       name={name}
       rules={rules}
       defaultValue={value || ""}
+      type=""
       render={({ field, fieldState }) => (
         <TextField
           name={name}
           label={label}
           type={secureTextEntry ? (viewPass ? "password" : "text") : "text"}
           value={field.value}
-          onChange={field.onChange}
+          onChange={
+            setFieldValue
+              ? (e) => {
+                  field.onChange(e);
+                  setFieldValue(e.target.value); // Update the useState variable
+                }
+              : field.onChange
+          }
           onBlur={field.onBlur}
-          variant={activeVariant}
+          variant={"outlined"}
           multiline={multiline}
-          maxRows={multiline ? 4 : undefined}
+          rows={multiline ? 4 : undefined}
           select={select}
           size={"medium"}
           InputProps={{
@@ -98,7 +120,7 @@ const CustomInput = ({
   );
 };
 
-function ReadOnlyCustomInput({
+const ReadOnlyCustomInput = ({
   name,
   label,
   defaultValue,
@@ -106,7 +128,7 @@ function ReadOnlyCustomInput({
   multiline,
   sx,
   component: Icon,
-}) {
+}) => {
   return (
     <TextField
       key={name}
@@ -142,6 +164,68 @@ function ReadOnlyCustomInput({
       InputLabelProps={{}}
     />
   );
-}
+};
 
-export { CustomInput, ReadOnlyCustomInput };
+const CustomNumberInput = ({
+  sx,
+  control,
+  name,
+  rules,
+  value,
+  label,
+  width,
+  type,
+  disabled,
+}) => {
+  return (
+    <Controller
+      control={control}
+      name={name}
+      rules={rules}
+      defaultValue={value || ""}
+      render={({ field, fieldState }) => (
+        <NumericFormat
+          name={name}
+          label={label}
+          customInput={TextField}
+          displayType="input"
+          thousandSeparator={true}
+          value={field.value}
+          onValueChange={(values) => {
+            const { value } = values;
+            field.onChange({
+              target: {
+                name: name,
+                value: value,
+              },
+            });
+          }}
+          onBlur={field.onBlur}
+          variant="outlined"
+          size="medium"
+          disabled={disabled}
+          allowNegative={false} // Optional: Prevent negative values
+          InputProps={{
+            startAdornment:
+              type === "Peso Discount" || type === "Free Shipping" ? (
+                <InputAdornment position="start">₱</InputAdornment>
+              ) : (
+                ""
+              ),
+            endAdornment:
+              type === "Percent Discount" ? (
+                <InputAdornment position="start">%</InputAdornment>
+              ) : (
+                ""
+              ),
+          }}
+          error={!!fieldState.error}
+          helperText={fieldState.error ? fieldState.error.message : ""}
+          sx={{ ...sx, width: width }}
+        />
+      )}
+    />
+  );
+};
+
+export { CustomInput, ReadOnlyCustomInput, CustomNumberInput };

@@ -13,6 +13,7 @@ import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
+import DPromoDetails from "./DPromoDetails";
 
 function NewPromoDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -23,11 +24,21 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
     formState: { errors, isDirty },
     trigger,
     reset,
+    register,
+    setValue,
   } = useForm();
 
   const onSubmit = (data) => {
+    //Parse number data
+    //Parse Discount Value then /100 if percent discount
+    if (data.promoType === "Percent Discount") {
+      data.discountValue = Number(data.discountValue) / 100;
+    } else {
+      data.discountValue = Number(data.discountValue);
+    }
+    data.minSpend = Number(data.minSpend);
     console.log(data); // Form data
-    // handleSave();
+    handleSave();
     reset();
   };
 
@@ -67,7 +78,14 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
           <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              PLACE CONTENT HERE
+              {/*Promo Details*/}
+              <Box sx={{ py: 5 }}>
+                <DPromoDetails
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                />
+              </Box>
             </Stack>
           </DialogContent>
 

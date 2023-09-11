@@ -2,14 +2,9 @@ import React from "react";
 import { Stack, Box, Typography } from "@mui/material";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import DataGridCategories from "./DataGridCategories";
-import { useMediaQuery } from "@mui/material";
 import NewCategoryDialog from "./NewCategoryDialog/NewCategoryDialog";
 
-function MyShopCategories() {
-  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
-  // Handle Open Dialog Box (AddProduct)
-  const [open, setOpen] = React.useState(false);
+function MyShopCategories({ open, setOpen, handleSave }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -34,7 +29,7 @@ function MyShopCategories() {
       <NewCategoryDialog
         open={open}
         handleClose={handleClose}
-        isSmScreen={isSmScreen}
+        handleSave={handleSave}
       />
     </div>
   );

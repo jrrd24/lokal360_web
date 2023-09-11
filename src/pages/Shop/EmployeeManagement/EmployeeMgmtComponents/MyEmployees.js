@@ -5,9 +5,7 @@ import DataGridEmployees from "./DataGridEmployees";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import AddEmployeeDialog from "./AddEmployeeDialog/AddEmployeeDialog";
 
-function MyEmployees() {
-  // Handle Open Dialog Box (AddProduct)
-  const [open, setOpen] = React.useState(false);
+function MyEmployees({ open, setOpen, handleSave }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -47,7 +45,7 @@ function MyEmployees() {
       </Box>
 
       {/*New Promo Dialog Box */}
-      <AddEmployeeDialog open={open} handleClose={handleClose}/>
+      <AddEmployeeDialog open={open} handleClose={handleClose} handleSave={handleSave}/>
     </div>
   );
 }

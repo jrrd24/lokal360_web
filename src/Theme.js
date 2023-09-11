@@ -229,7 +229,10 @@ const theme = createTheme({
       dialogTitle: {
         minHeight: 70,
         position: "sticky",
+        top: 0,
+        zIndex: 1000,
         borderBottom: `1px solid`,
+        backgroundColor: (theme) => theme.palette.background.paper,
         borderColor: (theme) => theme.palette.text.forty,
       },
 

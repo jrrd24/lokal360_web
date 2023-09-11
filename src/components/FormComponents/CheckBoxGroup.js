@@ -2,33 +2,33 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import { FormControlLabel, Checkbox, FormGroup, Grid } from "@mui/material";
 
-function DaysOpenSelector({ name, control, label, days, width }) {
+function CheckBoxGroup({ name, control, label, choices, width }) {
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={days}
+      defaultValue={choices}
       render={({ field }) => (
         <FormGroup style={{ width: width }}>
           <p>{label}</p>
           <Grid container spacing={0}>
-            {Object.keys(field.value).map((day) => (
-              <Grid key={day} item xs={6}>
+            {Object.keys(field.value).map((choice) => (
+              <Grid key={choice} item xs={6}>
                 <FormControlLabel
                   control={
                     <Checkbox
                       name={name}
-                      checked={field.value[day]}
+                      checked={field.value[choice]}
                       onChange={(e) => {
                         const updatedDays = {
                           ...field.value,
-                          [day]: e.target.checked,
+                          [choice]: e.target.checked,
                         };
                         field.onChange(updatedDays);
                       }}
                     />
                   }
-                  label={day}
+                  label={choice}
                 />
               </Grid>
             ))}
@@ -39,4 +39,4 @@ function DaysOpenSelector({ name, control, label, days, width }) {
   );
 }
 
-export default DaysOpenSelector;
+export default CheckBoxGroup;

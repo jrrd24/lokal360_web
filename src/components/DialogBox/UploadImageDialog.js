@@ -198,7 +198,7 @@ function UploadImage({ alt, name, control, register, setValue }) {
     if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
       const imageUrl = URL.createObjectURL(selectedFile);
       setSelectedImage(imageUrl);
-      setValue("productThumbnail", imageUrl);
+      setValue(name, imageUrl);
     } else {
       setUploadError(true);
     }
@@ -206,7 +206,7 @@ function UploadImage({ alt, name, control, register, setValue }) {
   // Use useEffect to observe selectedImage changes and update the form field
   useEffect(() => {
     if (selectedImage !== null) {
-      setValue("productThumbnail", selectedImage);
+      setValue(name, selectedImage);
     }
   }, [selectedImage, setValue]);
 
@@ -221,7 +221,7 @@ function UploadImage({ alt, name, control, register, setValue }) {
           type="file"
           hidden
           accept="image/*"
-          {...register("productThumbnail")}
+          {...register(name)}
           onChange={handleImageChange}
         />
         <Image />

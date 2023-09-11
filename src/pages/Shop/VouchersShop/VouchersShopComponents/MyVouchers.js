@@ -5,9 +5,7 @@ import theme from "../../../../Theme";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewVoucherDialog from "./NewVoucherDialog/NewVoucherDialog";
 
-function MyVouchers() {
-  // Handle Open Dialog Box (AddProduct)
-  const [open, setOpen] = React.useState(false);
+function MyVouchers({ handleSave, open, setOpen }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -45,7 +43,7 @@ function MyVouchers() {
       </Box>
 
       {/*New Promo Dialog Box */}
-      <NewVoucherDialog open={open} handleClose={handleClose} />
+      <NewVoucherDialog open={open} handleClose={handleClose} handleSave={handleSave} />
     </div>
   );
 }

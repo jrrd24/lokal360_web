@@ -5,9 +5,7 @@ import theme from "../../../../Theme";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewAdvertismentDialog from "./NewAdvertismentDialog/NewAdvertismentDialog";
 
-function MyLokalAds() {
-  // Handle Open Dialog Box (AddProduct)
-  const [open, setOpen] = React.useState(false);
+function MyLokalAds({ handleSave, open, setOpen }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -31,7 +29,11 @@ function MyLokalAds() {
       </Box>
 
       {/*New Promo Dialog Box */}
-      <NewAdvertismentDialog open={open} handleClose={handleClose} />
+      <NewAdvertismentDialog
+        open={open}
+        handleClose={handleClose}
+        handleSave={handleSave}
+      />
     </div>
   );
 }

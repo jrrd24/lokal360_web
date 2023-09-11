@@ -5,18 +5,12 @@ import DataGridProducts from "./DataGridProducts";
 import theme from "../../../../Theme";
 import AddProductDialog from "./AddProductDialog/AddProductDialog";
 
-function MyProducts() {
-  // Handle Open Dialog Box (AddProduct)
-  const [open, setOpen] = React.useState(false);
+function MyProducts({ handleSave, open, setOpen }) {
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleSave = () => {
-    handleClose();
   };
 
   return (

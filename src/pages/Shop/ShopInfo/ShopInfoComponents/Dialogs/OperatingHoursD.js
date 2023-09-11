@@ -4,7 +4,7 @@ import CustomInput from "../../../../../components/FormComponents/CustomInput";
 import { CalendarMonth } from "@mui/icons-material";
 import { CustomTimePicker } from "../../../../../components/FormComponents/CustomTimePicker";
 import dayjs from "dayjs";
-import DaysOpenSelector from "../../../../../components/FormComponents/DaysOpenSelectior";
+import CheckBoxGroup from "../../../../../components/FormComponents/CheckBoxGroup";
 
 function OperatingHoursD({
   control,
@@ -32,11 +32,11 @@ function OperatingHoursD({
       {/*TextBoxes */}
       <Stack spacing={3}>
         {/*Days Opem */}
-        <DaysOpenSelector
+        <CheckBoxGroup
           name="daysOpen"
           control={control}
           label="Days Open"
-          days={{
+          choices={{
             Monday: mon,
             Tuesday: tues,
             Wednesday: wed,

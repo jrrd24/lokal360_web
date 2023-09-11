@@ -4,10 +4,8 @@ import NumberFormat from "../../../../utils/NumberFormat";
 import theme from "../../../../Theme";
 import styles from "../../../../css/Styles.module.css";
 import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
-import { useMediaQuery } from "@mui/material";
 import ButtonEdit from "../../../../components/Buttons/ButtonEdit";
 import CustomAlert from "../../../../components/CustomAlert";
-
 
 function DisplayShopInfo({
   shopName,
@@ -18,8 +16,6 @@ function DisplayShopInfo({
   shopData,
   shopID,
 }) {
-  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -188,7 +184,6 @@ function DisplayShopInfo({
       <EditShopInfoDialog
         open={open}
         handleClose={handleClose}
-        isSmScreen={isSmScreen}
         handleSave={handleSave}
         shopData={shopData}
       />

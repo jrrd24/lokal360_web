@@ -12,8 +12,11 @@ import theme from "../../../../../Theme";
 import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
 import { useForm } from "react-hook-form";
+import DAdDetails from "./DAdDetails";
+import { useMediaQuery } from "@mui/material";
 
-function NewAdvertismentDialog({ open, handleClose, isSmScreen, handleSave }) {
+function NewAdvertismentDialog({ open, handleClose, handleSave }) {
+  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //for react hook form
   const {
     control,
@@ -21,11 +24,13 @@ function NewAdvertismentDialog({ open, handleClose, isSmScreen, handleSave }) {
     formState: { errors, isDirty },
     trigger,
     reset,
+    register,
+    setValue,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data); // Form data
-    // handleSave();
+    handleSave();
     reset();
   };
 
@@ -48,7 +53,7 @@ function NewAdvertismentDialog({ open, handleClose, isSmScreen, handleSave }) {
             <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
               {/* Dialog Title*/}
               <Typography variant="sectionTitle">
-                Create New Advertisment
+                Create New Advertisement
               </Typography>
 
               {/*  Buttons */}
@@ -67,7 +72,14 @@ function NewAdvertismentDialog({ open, handleClose, isSmScreen, handleSave }) {
           <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              PLACE CONTENT HERE
+              {/*Ads Details*/}
+              <Box sx={{ py: 5 }}>
+                <DAdDetails
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                />
+              </Box>
             </Stack>
           </DialogContent>
 

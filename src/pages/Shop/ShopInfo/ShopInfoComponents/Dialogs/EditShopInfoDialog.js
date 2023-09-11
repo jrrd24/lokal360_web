@@ -93,10 +93,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Dialog Title/ Buttons */}
-          <DialogTitle
-            minHeight={70}
-            sx={{ ...theme.components.dialog.dialogTitle }}
-          >
+          <DialogTitle sx={{ ...theme.components.dialog.dialogTitle }}>
             <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
               {/* Dialog Title*/}
               <Typography variant="sectionTitle">
@@ -129,6 +126,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
                   description={description}
                   deliver={shipping_deliver_enabled}
                   pickup={shipping_pickup_enabled}
+                  sellsRawMaterials={sells_raw_mats}
                 />
               </Box>
 

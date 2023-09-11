@@ -1,38 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import SoldPerCategory from "../AnalyticsShop/AnalyticsComponents/SoldPerCategory";
 import MyShopCategories from "./ShopCategoryComponents/MyShopCategories";
 import { Box } from "@mui/material";
 import theme from "../../../Theme";
+import CustomAlert from "../../../components/CustomAlert";
 
 function ShopCategoryContent() {
+  // Handle Open Dialog Box
+  const [open, setOpen] = React.useState(false);
+  // Handle Open Alert
+  const [openAlert, setOpenAlert] = useState(false);
+  const [severity, setSeverity] = useState("error");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const handleSave = (severity, alertMsg) => {
+    setOpen(false);
+    setSeverity("success");
+    setAlertMsg("Shop Information Successfully Updated!");
+    setOpenAlert(true);
+  };
   return (
-    //Page Container
-    <Box sx={{ ...theme.components.box.pageContainer }}>
-      <PageInfoComponent
-        PageName={"Shop Categories"}
-        Subtitle={"Add and Manage your Custom Shop Categories"}
-      />
+    <div>
+      <Box sx={{ ...theme.components.box.pageContainer }}>
+        <PageInfoComponent
+          PageName={"Shop Categories"}
+          Subtitle={"Add and Manage your Custom Shop Categories"}
+        />
 
-      {/*Main Content*/}
-      <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*(Left Side)*/}
-        <Box sx={{ ...classes.leftContainer }}>
-          {/*My Categories*/}
-          <Box sx={{ ...classes.categories }}>
-            <MyShopCategories />
+        {/*Main Content*/}
+        <Box sx={{ ...theme.components.box.mainContent }}>
+          {/*(Left Side)*/}
+          <Box sx={{ ...classes.leftContainer }}>
+            {/*My Categories*/}
+            <Box sx={{ ...classes.categories }}>
+              <MyShopCategories
+                handleSave={handleSave}
+                open={open}
+                setOpen={setOpen}
+              />
+            </Box>
           </Box>
-        </Box>
 
-        {/*(Right Side)*/}
-        <Box sx={{ ...classes.rightContainer }}>
-          {/*Products Sold Per Category */}
-          <Box sx={{ ...classes.soldPerCategory }}>
-            <SoldPerCategory hideShowAll={true} />
+          {/*(Right Side)*/}
+          <Box sx={{ ...classes.rightContainer }}>
+            {/*Products Sold Per Category */}
+            <Box sx={{ ...classes.soldPerCategory }}>
+              <SoldPerCategory hideShowAll={true} />
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+      {/*Display Alert */}
+      <CustomAlert
+        open={openAlert}
+        setOpen={setOpenAlert}
+        severity={severity}
+        alertMsg={alertMsg}
+      />
+    </div>
   );
 }
 

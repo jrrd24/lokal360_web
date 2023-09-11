@@ -5,9 +5,8 @@ import DataGridPromos from "./DataGridPromos";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewPromoDialog from "./NewPromoDialog/NewPromoDialog";
 
-function MyPromos() {
-  // Handle Open Dialog Box (AddProduct)
-  const [open, setOpen] = React.useState(false);
+function MyPromos({ handleSave, open, setOpen }) {
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -29,7 +28,11 @@ function MyPromos() {
       </Box>
 
       {/*New Promo Dialog Box */}
-      <NewPromoDialog open={open} handleClose={handleClose} />
+      <NewPromoDialog
+        open={open}
+        handleClose={handleClose}
+        handleSave={handleSave}
+      />
     </div>
   );
 }

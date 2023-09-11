@@ -1,30 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import theme from "../../../Theme";
 import MyPromos from "./PromosShopComponents/MyPromos";
+import CustomAlert from "../../../components/CustomAlert";
 
 function PromosShopContent() {
-  return (
-    <Box sx={{ ...theme.components.box.pageContainer }}>
-      <PageInfoComponent
-        PageName={"Promos"}
-        Subtitle={
-          "Promos can be applied directly to a Product or be used in a Voucher"
-        }
-      />
+  // Handle Open Dialog Box
+  const [open, setOpen] = React.useState(false);
+  // Handle Open Alert
+  const [openAlert, setOpenAlert] = useState(false);
+  const [severity, setSeverity] = useState("error");
+  const [alertMsg, setAlertMsg] = useState("");
 
-      {/*Main Content*/}
-      <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*(Left Side)*/}
-        <Box sx={{ ...classes.leftContainer }}>
-          {/*My Customers*/}
-          <Box sx={{ ...classes.customerContainer }}>
-            <MyPromos />
+  const handleSave = (severity, alertMsg) => {
+    setOpen(false);
+    setSeverity("success");
+    setAlertMsg("Shop Information Successfully Updated!");
+    setOpenAlert(true);
+  };
+
+  return (
+    <div>
+      <Box sx={{ ...theme.components.box.pageContainer }}>
+        <PageInfoComponent
+          PageName={"Promos"}
+          Subtitle={
+            "Promos can be applied directly to a Product or be used in a Voucher"
+          }
+        />
+
+        {/*Main Content*/}
+        <Box sx={{ ...theme.components.box.mainContent }}>
+          {/*(Left Side)*/}
+          <Box sx={{ ...classes.leftContainer }}>
+            {/*My Customers*/}
+            <Box sx={{ ...classes.customerContainer }}>
+              <MyPromos handleSave={handleSave} open={open} setOpen={setOpen} />
+            </Box>
           </Box>
         </Box>
       </Box>
-    </Box>
+
+      {/*Display Alert */}
+      <CustomAlert
+        open={openAlert}
+        setOpen={setOpenAlert}
+        severity={severity}
+        alertMsg={alertMsg}
+      />
+    </div>
   );
 }
 
