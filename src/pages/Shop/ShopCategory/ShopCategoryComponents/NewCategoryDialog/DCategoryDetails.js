@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Stack, Typography, Alert, Divider } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
+import MapData from "../../../../../utils/MapData";
+import { ProductToggleNew } from "../../../../../components/FormComponents/ProductToggle";
+//dummy data
+import productData from "../../../../../data/productData";
 
 function DCategoryDetails({ sx, control, register, setValue }) {
   return (
@@ -53,7 +57,17 @@ function DCategoryDetails({ sx, control, register, setValue }) {
 
         {/*Product Containers (MAP) */}
         {/*TODO: Add Product Containers Here */}
-        <Stack spacing={3}>INSERT PRODUCT CONTAINERS HERE</Stack>
+        <Stack spacing={3}>
+          {/* Mapping user data */}
+          <ProductToggleNew
+            name="categoryProducts"
+            control={control}
+            label=""
+            data={productData}
+            condition={(product) => product.shopCategoryID === null}
+            targetField={"shopCategoryID"}
+          />
+        </Stack>
       </Stack>
     </Stack>
   );

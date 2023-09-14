@@ -77,16 +77,7 @@ function CustomerContainer({ data }) {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: 60,
-        minWidth: 300,
-        backgroundColor: `${theme.palette.background.paper}`,
-        p: 1,
-        justifyContent: "center",
-      }}
-      className={`${Styles.changeBG}`}
-    >
+    <Box sx={{ ...classes.main }} className={`${Styles.changeBG}`}>
       <Stack spacing={1} direction={"row"} alignItems="center">
         {/*User Image */}
         <Avatar src={img} />
@@ -115,43 +106,52 @@ function CustomerContainer({ data }) {
             <NumberFormat value={total} isPeso={true} />
           </Typography>
         </Stack>
-
-        {/*See More Button */}
-        <IconButton
-          aria-label="Customer See More"
-          id="see-more-button"
-          aria-controls={open ? "customized-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          variant="contained"
-          onClick={handleClick}
-        >
-          <MoreVertIcon />
-        </IconButton>
-
-        {/*Pop Up Menu */}
-        <StyledMenu
-          id="customized-menu"
-          MenuListProps={{
-            "aria-labelledby": "demo-customized-button",
-          }}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose} disableRipple>
-            <ChatBubble />
-            Chat
-          </MenuItem>
-          <MenuItem onClick={handleClose} disableRipple>
-            <ReportProblem />
-            Report
-          </MenuItem>
-        </StyledMenu>
       </Stack>
+      {/*See More Button */}
+      <IconButton
+        aria-label="Customer See More"
+        id="see-more-button"
+        aria-controls={open ? "customized-menu" : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : undefined}
+        variant="contained"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+
+      {/*Pop Up Menu */}
+      <StyledMenu
+        id="customized-menu"
+        MenuListProps={{
+          "aria-labelledby": "demo-customized-button",
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose} disableRipple>
+          <ChatBubble />
+          Chat
+        </MenuItem>
+        <MenuItem onClick={handleClose} disableRipple>
+          <ReportProblem />
+          Report
+        </MenuItem>
+      </StyledMenu>
     </Box>
   );
 }
+
+const classes = {
+  main: {
+    minHeight: 60,
+    backgroundColor: `${theme.palette.background.paper}`,
+    p: 1,
+    justifyContent: "space-between",
+    display: "flex",
+  },
+};
 
 CustomerContainer.propTypes = {
   img: PropTypes.string,

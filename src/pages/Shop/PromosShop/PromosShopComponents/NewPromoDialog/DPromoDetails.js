@@ -5,6 +5,12 @@ import {
   CustomNumberInput,
 } from "../../../../../components/FormComponents/CustomInput";
 import { promoTypes } from "../../../../../utils/MapSelectMenuItems";
+import MapData from "../../../../../utils/MapData";
+import productData from "../../../../../data/productData";
+import {
+  ProductToggleNew,
+  ProductToggleTry,
+} from "../../../../../components/FormComponents/ProductToggle";
 
 function DPromoDetails({ sx, control, register, setValue }) {
   const [promoType, setPromoType] = useState("");
@@ -37,7 +43,7 @@ function DPromoDetails({ sx, control, register, setValue }) {
       return "Minimum Amount is ₱1.00";
     } else if (
       numericValue > 100 &&
-      promoType == "Percent Discount" &&
+      promoType === "Percent Discount" &&
       inputName !== "minSpend"
     ) {
       return "Maximum Percentage must be between or equal to 1 and 100";
@@ -158,7 +164,17 @@ function DPromoDetails({ sx, control, register, setValue }) {
         </Stack>
         {/*Product Containers (MAP) */}
         {/*TODO: Add Product Containers Here */}
-        <Stack spacing={3}>INSERT PRODUCT CONTAINERS HERE</Stack>
+        <Stack spacing={3}>
+          {/* Mapping user data */}
+          <ProductToggleNew
+            name="promoProducts"
+            control={control}
+            label=""
+            data={productData}
+            condition={(product) => product.promoID === null}
+            targetField={"promoID"}
+          />
+        </Stack>
       </Stack>
     </Stack>
   );

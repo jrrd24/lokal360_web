@@ -7,6 +7,10 @@ const productData = [
     status: "Low Stock",
     number_of_variations: 9,
     promo_type: "Peso Discount",
+    is_featured: false,
+    // inner join
+    shopCategoryID: 1,
+    promoID: 1,
   },
 
   {
@@ -17,6 +21,9 @@ const productData = [
     status: "Out Of Stock",
     number_of_variations: 4,
     promo_type: "Free Shipping",
+    is_featured: true,
+    shopCategoryID: 1,
+    promoID: null,
   },
   {
     productID: 3,
@@ -26,6 +33,9 @@ const productData = [
     status: "In Stock",
     number_of_variations: 3,
     promo_type: "Percent Discount",
+    is_featured: false,
+    shopCategoryID: 1,
+    promoID: null,
   },
   {
     productID: 4,
@@ -35,6 +45,9 @@ const productData = [
     status: "In Stock",
     number_of_variations: 8,
     promo_type: "None",
+    is_featured: false,
+    shopCategoryID: 2,
+    promoID: 1,
   },
   {
     productID: 5,
@@ -44,6 +57,9 @@ const productData = [
     status: "Low Stock",
     number_of_variations: 5,
     promo_type: "Percent Discount",
+    is_featured: true,
+    shopCategoryID: null,
+    promoID: null,
   },
   {
     productID: 6,
@@ -53,6 +69,9 @@ const productData = [
     status: "In Stock",
     number_of_variations: 2,
     promo_type: "Free Shipping",
+    is_featured: false,
+    shopCategoryID: null,
+    promoID: 2,
   },
   {
     productID: 7,
@@ -62,6 +81,8 @@ const productData = [
     status: "In Stock",
     number_of_variations: 7,
     promo_type: "Peso Discount",
+    shopCategoryID: 3,
+    promoID: 1,
   },
   {
     productID: 8,
@@ -71,6 +92,9 @@ const productData = [
     status: "Low Stock",
     number_of_variations: 10,
     promo_type: "None",
+    is_featured: false,
+    shopCategoryID: 4,
+    promoID: 3,
   },
   {
     productID: 9,
@@ -80,6 +104,9 @@ const productData = [
     status: "Discontinued",
     number_of_variations: 1,
     promo_type: "Percent Discount",
+    is_featured: false,
+    shopCategoryID: null,
+    promoID: 4,
   },
   {
     productID: 10,
@@ -89,6 +116,9 @@ const productData = [
     status: "Out Of Stock",
     number_of_variations: 6,
     promo_type: "Free Shipping",
+    is_featured: false,
+    shopCategoryID: 3,
+    promoID: 5,
   },
   {
     productID: 11,
@@ -98,6 +128,8 @@ const productData = [
     status: "In Stock",
     number_of_variations: 9,
     promo_type: "Peso Discount",
+    shopCategoryID: 4,
+    promoID: 6,
   },
   {
     productID: 12,
@@ -107,6 +139,8 @@ const productData = [
     status: "Low Stock",
     number_of_variations: 4,
     promo_type: "Percent Discount",
+    shopCategoryID: 5,
+    promoID: 7,
   },
   {
     productID: 13,
@@ -116,6 +150,19 @@ const productData = [
     status: "Out Of Stock",
     number_of_variations: 7,
     promo_type: "None",
+    shopCategoryID: 6,
+    promoID: null,
+  },
+  {
+    productID: 14,
+    product_image: require("../assets/lokal360_Logo.png"),
+    name: "Product 14",
+    total_sold: 21,
+    status: "Out Of Stock",
+    number_of_variations: 7,
+    promo_type: "None",
+    shopCategoryID: 7,
+    promoID: 4,
   },
 ];
 

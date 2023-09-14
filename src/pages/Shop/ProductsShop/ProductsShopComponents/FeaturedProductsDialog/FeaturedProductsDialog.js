@@ -13,6 +13,7 @@ import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
+import DFeaturedDetails from "./DFeaturedDetails";
 
 function FeaturedProductsDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -23,6 +24,8 @@ function FeaturedProductsDialog({ open, handleClose, handleSave }) {
     formState: { errors, isDirty },
     trigger,
     reset,
+    register,
+    setValue,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -40,9 +43,7 @@ function FeaturedProductsDialog({ open, handleClose, handleSave }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
-        sx={{
-          backgroundColor: "#ECECEC80",
-        }}
+        sx={{ backgroundColor: "#ECECEC80" }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle
@@ -71,7 +72,13 @@ function FeaturedProductsDialog({ open, handleClose, handleSave }) {
           <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              PLACE CONTENT HERE
+              <Box sx={{ py: 5 }}>
+                <DFeaturedDetails
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                />
+              </Box>
             </Stack>
           </DialogContent>
 

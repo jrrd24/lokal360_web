@@ -18,35 +18,15 @@ function ProductContainer({ data }) {
   } = data || {};
 
   return (
-    <Box
-      sx={{
-        minHeight: 60,
-        minWidth: 300,
-        backgroundColor: `${theme.palette.background.paper}`,
-        p: 1,
-        justifyContent: "center",
-      }}
-      className={`${Styles.changeBG}`}
-    >
+    <Box sx={{ ...classes.main }} className={`${Styles.changeBG}`}>
       <Stack
         spacing={1}
         direction={"row"}
         alignItems="center"
         textAlign={"left"}
       >
-        {/*User Image */}
-        <Avatar
-          src={product_image}
-          alt="P"
-          sx={{
-            backgroundColor: "#FFF",
-            width: 50,
-            height: 50,
-            border: "solid",
-            borderColor: "transparent",
-            borderRadius: 2,
-          }}
-        />
+        {/*Product Image */}
+        <Avatar src={product_image} alt="P" sx={{ ...classes.productImage }} />
 
         {/*Content */}
         <Stack
@@ -72,14 +52,11 @@ function ProductContainer({ data }) {
             </Typography>{" "}
           </Typography>
         </Stack>
-
-        {/*See More Button */}
-        <IconButton>
-          <ArrowCircleRightIcon
-            sx={{ color: `${theme.palette.primary.main}` }}
-          />
-        </IconButton>
       </Stack>
+      {/*See More Button */}
+      <IconButton>
+        <ArrowCircleRightIcon sx={{ color: `${theme.palette.primary.main}` }} />
+      </IconButton>
     </Box>
   );
 }
@@ -88,6 +65,25 @@ ProductContainer.propTypes = {
   product_image: PropTypes.string,
   name: PropTypes.string,
   total_sold: PropTypes.number,
+};
+
+const classes = {
+  main: {
+    minHeight: 60,
+    backgroundColor: `${theme.palette.background.paper}`,
+    p: 1,
+    justifyContent: "space-between",
+    display: "flex",
+  },
+
+  productImage: {
+    backgroundColor: "#FFF",
+    width: 50,
+    height: 50,
+    border: "solid",
+    borderColor: "transparent",
+    borderRadius: 2,
+  },
 };
 
 export default ProductContainer;

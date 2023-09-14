@@ -27,8 +27,12 @@ function MapData({
   showUpTo,
   idName,
   horizontal,
+  condition,
+  control,
 }) {
-  const sortedData = inputData
+  const filteredData = condition ? inputData.filter(condition) : inputData;
+
+  const sortedData = filteredData
     .slice()
     .sort((a, b) => b[sortByField] - a[sortByField]);
   const showLimit = sortedData.slice(0, showUpTo);
@@ -47,15 +51,13 @@ function MapData({
               height: 170,
               overflow: "auto",
             }
-          : null
+          : { width: "100%" }
       }
     >
       {showLimit.length > 0 ? (
         showLimit.map((data) => (
-          <div
-            key={data[idName]}
-          >
-            <Component data={data} />
+          <div key={data[idName]}>
+            <Component data={data} control={control} />
           </div>
         ))
       ) : (
