@@ -6,6 +6,9 @@
 ?            sortByField = the field to be used when sorting the data
 ?            showUpTo = number of data to be mapped (OPTIONAL)
 ?            idName = name of the data's unique id field
+?            horizontal = set mapping direction to horizontal
+?            height = height of the map data container
+?            condition = for filtering data
 *   RETURNS: all or specified number of mapped data that is sorted 
 *            depending on the passed props
 *   SAMPLE:   <MapData
@@ -27,8 +30,8 @@ function MapData({
   showUpTo,
   idName,
   horizontal,
+  height,
   condition,
-  control,
 }) {
   const filteredData = condition ? inputData.filter(condition) : inputData;
 
@@ -46,18 +49,18 @@ function MapData({
               gap: "8px",
               flexWrap: "wrap",
               alignItems: "center",
-              justifyContent: "flex-start",
+              justifyContent: "space-between",
               maxWidth: "100%",
-              height: 170,
+              height: height,
               overflow: "auto",
             }
-          : { width: "100%" }
+          : { maxWidth: "100%" }
       }
     >
       {showLimit.length > 0 ? (
         showLimit.map((data) => (
           <div key={data[idName]}>
-            <Component data={data} control={control} />
+            <Component data={data} />
           </div>
         ))
       ) : (

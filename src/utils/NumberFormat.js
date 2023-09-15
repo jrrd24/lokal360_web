@@ -23,7 +23,10 @@ function NumberFormat({ value, isPeso, isShortened, noDecimal }) {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       };
-  const formattedValuePeso = value?.toLocaleString(0, pesoOptions);
+  const formattedValuePeso = value?.toLocaleString(
+    0,
+    value > 999 ? noDecimal : pesoOptions
+  );
   const peso = `₱ ${formattedValuePeso}`;
 
   //Shortened Format

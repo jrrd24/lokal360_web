@@ -40,7 +40,11 @@ function ProductToggle({ data, control }) {
             textAlign={"left"}
           >
             {/* Product Image */}
-            <Avatar src={product_image} alt="P" sx={{}} />
+            <Avatar
+              src={product_image || require("../../assets/lokal360_Logo.png")}
+              alt="P"
+              sx={{}}
+            />
 
             {/* Product Name */}
             <Typography variant="sectionTitleSmall">
@@ -101,7 +105,14 @@ const ProductToggleNew = ({
                 textAlign={"left"}
               >
                 {/* Product Image */}
-                <Avatar src={product.product_image} alt="P" sx={{}} />
+                <Avatar
+                  src={
+                    product.product_image ||
+                    require("../../assets/lokal360_Logo.png")
+                  }
+                  alt="P"
+                  sx={{}}
+                />
 
                 {/* Product Name */}
                 <Typography variant="sectionTitleSmall">

@@ -19,10 +19,12 @@ const theme = createTheme({
       eighty: "#444444CC",
       sixty: "#44444499",
       forty: "#44444466",
+      ten: "#4444441A",
     },
     background: {
       paper: "#FFFFFF",
       default: "#F8F7FD",
+      dialogBox: "#ECECEC80",
     },
     divider: "#9D9D9D",
     buttonHover: "#757575",
@@ -59,6 +61,7 @@ const theme = createTheme({
       lineHeight: "20px",
       letterSpacing: -0.3,
       textTransform: "none",
+      textAlign: "left",
     },
     sectionSubtitle: {
       fontSize: "16px",
@@ -224,6 +227,11 @@ const theme = createTheme({
     },
 
     dialog: {
+      dialogBox: {
+        backgroundColor: (theme) => theme.palette.background.dialogBox,
+      },
+      paperProps: { borderRadius: "15px" },
+
       //? for all dialogTitles
       //* sx={{...theme.components.dialog.dialogTitle}}
       dialogTitle: {

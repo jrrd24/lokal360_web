@@ -26,6 +26,7 @@ function ActiveVouchers() {
           showUpTo={3}
           idName={"voucherID"}
           horizontal
+          height={170}
         />
       </Box>
     </Stack>

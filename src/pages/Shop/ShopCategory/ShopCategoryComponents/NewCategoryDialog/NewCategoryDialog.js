@@ -43,9 +43,8 @@ function NewCategoryDialog({ open, handleClose, handleSave }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
-        sx={{
-          backgroundColor: "#ECECEC80",
-        }}
+        sx={{ ...theme.components.dialog.dialogBox }}
+        PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle
@@ -74,7 +73,8 @@ function NewCategoryDialog({ open, handleClose, handleSave }) {
           <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              {/*Category Details*/}              <Box sx={{ py: 5 }}>
+              {/*Category Details*/}{" "}
+              <Box sx={{ py: 5 }}>
                 <DCategoryDetails
                   control={control}
                   register={register}

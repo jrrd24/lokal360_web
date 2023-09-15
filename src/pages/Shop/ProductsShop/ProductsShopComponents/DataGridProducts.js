@@ -6,7 +6,6 @@ import { ArrowCircleRight } from "@mui/icons-material";
 import productData from "../../../../data/productData";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import { Link } from "react-router-dom";
-
 // Define Datagrid Columns
 const columns = [
   {
@@ -25,7 +24,7 @@ const columns = [
       let statusComponent;
       statusComponent = (
         <Avatar
-          src={img}
+          src={img || require("../../../../assets/lokal360_Logo.png")}
           sx={{
             backgroundColor: "#FFF",
             width: 45,

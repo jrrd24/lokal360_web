@@ -3,6 +3,9 @@ import { Box, Stack, Typography } from "@mui/material";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import theme from "../../../../Theme";
 import FeaturedProductsDialog from "./FeaturedProductsDialog/FeaturedProductsDialog";
+import ProductPreview from "../../../../components/ShopOnly/ProductPreview";
+import MapData from "../../../../utils/MapData";
+import productData from "../../../../data/productData";
 
 function FeaturedProducts() {
   // Handle Open Dialog Box (AddProduct)
@@ -25,32 +28,20 @@ function FeaturedProducts() {
         </Box>
 
         {/*TODO: Add featured products */}
-        <Box sx={{ ...classes.featuredProductsContainer }}>
-          <Box sx={{ height: 265, width: 180, backgroundColor: "#ffbb03" }} />
-          <Box sx={{ height: 265, width: 180, backgroundColor: "#ffd14d" }} />
-          <Box sx={{ height: 265, width: 180, backgroundColor: "#6ef" }} />
-        </Box>
+        <MapData
+          inputData={productData}
+          component={ProductPreview}
+          idName={"productID"}
+          horizontal
+          height={300}
+          condition={(data) => data.is_featured === true}
+          sortByField={"total_sold"}
+        />
       </Stack>
 
       <FeaturedProductsDialog open={open} handleClose={handleClose} />
     </div>
   );
 }
-
-const classes = {
-  featuredProductsContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    width: "100%",
-    overflow: "auto",
-    height: 275,
-    "@media (max-width: 709px)": {
-      justifyContent: "flex-start",
-    },
-  },
-};
 
 export default FeaturedProducts;

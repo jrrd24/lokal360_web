@@ -63,14 +63,14 @@ function ProductsShopContent() {
 
           {/*Product Info (Right Side)*/}
           <Box sx={{ ...classes.rightContainer }}>
-            {/*Top Products */}
-            <Box sx={{ ...classes.topProductsContainer }}>
-              <TopProducts hideShowAll={true} />
-            </Box>
-
             {/*Products Sold Per Category */}
             <Box sx={{ ...classes.categoryContainer }}>
               <ProductStatus hideShowAll={true} />
+            </Box>
+
+            {/*Top Products */}
+            <Box sx={{ ...classes.topProductsContainer }}>
+              <TopProducts hideShowAll={true} />
             </Box>
           </Box>
         </Box>
@@ -120,9 +120,7 @@ const classes = {
   topProductsContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    order: 1,
     "@media (max-width: 1516px)": {
-      order: 2,
       alignItems: "center",
       justifyContent: "center",
       minWidth: "48%",
@@ -135,9 +133,7 @@ const classes = {
   categoryContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    order: 2,
     "@media (max-width: 1516px)": {
-      order: 1,
       alignItems: "center",
       justifyContent: "center",
       minWidth: "48%",

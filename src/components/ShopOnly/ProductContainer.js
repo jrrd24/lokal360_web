@@ -26,14 +26,18 @@ function ProductContainer({ data }) {
         textAlign={"left"}
       >
         {/*Product Image */}
-        <Avatar src={product_image} alt="P" sx={{ ...classes.productImage }} />
+        <Avatar
+          src={product_image || require("../../assets/lokal360_Logo.png")}
+          alt="P"
+          sx={{ ...classes.productImage }}
+        />
 
         {/*Content */}
         <Stack
           spacing={0}
           direction={"column"}
           alignItems="flex-start"
-          sx={{ width: 200 }}
+          sx={{ width: "100%" }}
         >
           {/* User Name*/}
           <Typography variant="sectionTitleSmall">
@@ -78,6 +82,7 @@ const classes = {
   },
 
   productImage: {
+    objectFit: "contain",
     backgroundColor: "#FFF",
     width: 50,
     height: 50,

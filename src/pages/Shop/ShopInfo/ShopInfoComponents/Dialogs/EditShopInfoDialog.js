@@ -89,7 +89,8 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
-        sx={{ backgroundColor: "#ECECEC80" }}
+        sx={{ ...theme.components.dialog.dialogBox }}
+        PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           {/* Dialog Title/ Buttons */}

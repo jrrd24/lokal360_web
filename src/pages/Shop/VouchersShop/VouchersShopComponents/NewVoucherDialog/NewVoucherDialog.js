@@ -43,7 +43,8 @@ function NewVoucherDialog({ open, handleClose, handleSave }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
-        sx={{ backgroundColor: "#ECECEC80" }}
+        sx={{ ...theme.components.dialog.dialogBox }}
+        PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <DialogTitle sx={{ ...theme.components.dialog.dialogTitle }}>
