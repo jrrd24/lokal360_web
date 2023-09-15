@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack, Typography, Alert, Divider } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
-import MapData from "../../../../../utils/MapData";
 import { ProductToggleNew } from "../../../../../components/FormComponents/ProductToggle";
 //dummy data
 import productData from "../../../../../data/productData";

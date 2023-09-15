@@ -5,12 +5,8 @@ import {
   CustomNumberInput,
 } from "../../../../../components/FormComponents/CustomInput";
 import { promoTypes } from "../../../../../utils/MapSelectMenuItems";
-import MapData from "../../../../../utils/MapData";
 import productData from "../../../../../data/productData";
-import {
-  ProductToggleNew,
-  ProductToggleTry,
-} from "../../../../../components/FormComponents/ProductToggle";
+import { ProductToggleNew } from "../../../../../components/FormComponents/ProductToggle";
 
 function DPromoDetails({ sx, control, register, setValue }) {
   const [promoType, setPromoType] = useState("");

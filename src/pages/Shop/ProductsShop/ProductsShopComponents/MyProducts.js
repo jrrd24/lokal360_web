@@ -32,13 +32,12 @@ function MyProducts({ handleSave, open, setOpen }) {
             {/*TODO: Add onClick for Button */}
           </Box>
 
-          <Box sx={{ alignSelf: "center" }}>
+          <Box sx={{ alignSelf: "center", width: "100%" }}>
             <DataGridProducts />
           </Box>
         </Stack>
       </Box>
-
-      {/*Add Product Dialog Box */}
+      {/*Add Product Dialog Box */},
       <AddProductDialog
         open={open}
         handleClose={handleClose}

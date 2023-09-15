@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Stack, Typography, Alert, Divider } from "@mui/material";
 import CustomDatePicker from "../../../../../components/FormComponents/CustomDatePicker";
+import {
+  ProductToggleNew,
+  PromoToggle,
+} from "../../../../../components/FormComponents/ProductToggle";
+import productData from "../../../../../data/productData";
+import promoData from "../../../../../data/promoData";
 
 function DVoucherDetails({ sx, control, register, setValue }) {
   return (
@@ -58,7 +64,17 @@ function DVoucherDetails({ sx, control, register, setValue }) {
 
         {/*Product Containers (MAP) */}
         {/*TODO: Add Promo Containers Here */}
-        <Stack spacing={3}>INSERT PROMO CONTAINERS HERE</Stack>
+        <Stack spacing={3}>
+          {" "}
+          <PromoToggle
+            name="voucherPromo"
+            control={control}
+            label=""
+            data={promoData}
+            targetField={`promoID`}
+            condition={(data) => data.promoID !== null}
+          />
+        </Stack>
       </Stack>
 
       <Divider />
@@ -83,7 +99,16 @@ function DVoucherDetails({ sx, control, register, setValue }) {
 
         {/*Product Containers (MAP) */}
         {/*TODO: Add Product Containers Here */}
-        <Stack spacing={3}>INSERT PRODUCT CONTAINERS HERE</Stack>
+        <Stack spacing={3}>
+          <ProductToggleNew
+            name="voucherProducts"
+            control={control}
+            label=""
+            data={productData}
+            targetField={`voucherID`}
+            condition={(data) => data.productID !== null}
+          />
+        </Stack>
       </Stack>
     </Stack>
   );

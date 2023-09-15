@@ -14,8 +14,8 @@ function MyLokalAds({ handleSave, open, setOpen }) {
   };
 
   return (
-    <div>
-      <Box sx={{ width: "100%" }}>
+    <div style={{ width: "100%" }}>
+      <Box>
         <Stack spacing={2} direction={"column"}>
           {/*Section Name */}
           <Box direction={"row"} sx={{ ...classes.sectionName }}>

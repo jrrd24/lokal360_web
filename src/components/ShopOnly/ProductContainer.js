@@ -74,6 +74,7 @@ const classes = {
     p: 1,
     justifyContent: "space-between",
     display: "flex",
+    borderRadius: 2,
   },
 
   productImage: {

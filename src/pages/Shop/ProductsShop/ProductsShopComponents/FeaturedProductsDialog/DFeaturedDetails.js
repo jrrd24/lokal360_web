@@ -1,9 +1,6 @@
 import React from "react";
 import { Divider, Stack, Typography, Alert } from "@mui/material";
-import {
-  ProductToggle,
-  ProductToggleNew,
-} from "../../../../../components/FormComponents/ProductToggle";
+import { ProductToggle } from "../../../../../components/FormComponents/ProductToggle";
 import productData from "../../../../../data/productData";
 import MapData from "../../../../../utils/MapData";
 

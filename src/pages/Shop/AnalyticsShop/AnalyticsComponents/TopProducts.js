@@ -36,13 +36,12 @@ function TopProducts({ hideShowAll }) {
 }
 
 const classes = {
-  main: {
-    width: "100%",
-  },
+  main: { width: "100%" },
 
   sectionName: { alignItems: "baseline", justifyContent: "space-between" },
 
   content: {
+    width: "100%",
     "@media (max-width: 1516px)": {
       alignItems: "center",
       justifyContent: "center",
