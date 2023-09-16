@@ -2,7 +2,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 1,
     shopID: 1,
-    name: "ad 1",
+    name: "Ad 1",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "2023-02-13",
@@ -14,7 +14,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 2,
     shopID: 1,
-    name: "ad 2",
+    name: "Ad 2",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "N/A",
@@ -26,7 +26,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 3,
     shopID: 1,
-    name: "ad 3",
+    name: "Ad 3",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "2023-02-12",
@@ -38,7 +38,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 4,
     shopID: 1,
-    name: "ad 4",
+    name: "Ad 4",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "N/A",
@@ -50,7 +50,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 5,
     shopID: 1,
-    name: "ad 5",
+    name: "Ad 5",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "2023-02-12",
@@ -62,7 +62,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 6,
     shopID: 1,
-    name: "ad 6",
+    name: "Ad 6",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "2023-02-13",
@@ -74,7 +74,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 7,
     shopID: 1,
-    name: "ad 7",
+    name: "Ad 7",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "2023-02-12",
@@ -86,7 +86,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 8,
     shopID: 1,
-    name: "ad 8",
+    name: "Ad 8",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "2023-02-12",
@@ -98,7 +98,7 @@ const lokalAdsData = [
   {
     lokalAdsID: 9,
     shopID: 1,
-    name: "ad 9",
+    name: "Ad 9",
     start_date: "2023-02-15",
     end_date: "2023-02-15",
     approved_at: "2023-02-12",

@@ -5,7 +5,7 @@ import DataGridEmployees from "./DataGridEmployees";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import AddEmployeeDialog from "./AddEmployeeDialog/AddEmployeeDialog";
 
-function MyEmployees({ open, setOpen, handleSave }) {
+function MyEmployees({ open, setOpen, handleSave, openEdit, setOpenEdit }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -40,12 +40,20 @@ function MyEmployees({ open, setOpen, handleSave }) {
             {/*TODO: Add onClick for Button */}
           </Box>
 
-          <DataGridEmployees />
+          <DataGridEmployees
+            openEdit={openEdit}
+            setOpenEdit={setOpenEdit}
+            handleSave={handleSave}
+          />
         </Stack>
       </Box>
 
       {/*New Promo Dialog Box */}
-      <AddEmployeeDialog open={open} handleClose={handleClose} handleSave={handleSave}/>
+      <AddEmployeeDialog
+        open={open}
+        handleClose={handleClose}
+        handleSave={handleSave}
+      />
     </div>
   );
 }

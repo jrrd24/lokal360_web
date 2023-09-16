@@ -1,12 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton, Typography, Box, Stack } from "@mui/material";
 import promoData from "../../../../data/promoData";
 import theme from "../../../../Theme";
 import { Edit, LocalShipping, Percent } from "@mui/icons-material";
 import { FaPesoSign } from "react-icons/fa6";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
+import EditPromoDialog from "./EditPromoDialog/EditPromoDialog";
 
-function DataGridPromos() {
+function DataGridPromos({ openEdit, setOpenEdit, handleSave }) {
+  //Set Active Edit
+  const [editingPromo, setEditingPromo] = useState({
+    promoID: null,
+    shopID: null,
+    promo_type: null,
+    discount_amount: null,
+    min_spend: null,
+  });
+
+  //Initialize category Info field
+  promoData.forEach((row) => {
+    row.categoryInfo = [
+      row.promoID,
+      row.shopID,
+      row.promo_type,
+      row.discount_amount,
+      row.min_spend,
+    ];
+  });
+
+  const handleOpen = ({
+    promoID,
+    shopID,
+    promo_type,
+    discount_amount,
+    min_spend,
+  }) => {
+    setOpenEdit(true);
+    setEditingPromo({
+      promoID,
+      shopID,
+      promo_type,
+      discount_amount,
+      min_spend,
+    });
+  };
+  const handleClose = () => {
+    setOpenEdit(false);
+  };
+
   // Precompute values for each row
   const computedPromoData = promoData.map((row) => {
     let discountValue = null;
@@ -121,7 +162,7 @@ function DataGridPromos() {
       ),
     },
     {
-      field: "",
+      field: "categoryInfo",
       headerName: "Action",
       width: 60,
       sortable: false,
@@ -130,8 +171,21 @@ function DataGridPromos() {
       disableExport: true,
       renderCell: (params) => {
         let statusComponent;
+        const { promoID, shopID, promo_type, discount_amount, min_spend } =
+          params.row;
+
         statusComponent = (
-          <IconButton>
+          <IconButton
+            onClick={() =>
+              handleOpen({
+                promoID,
+                shopID,
+                promo_type,
+                discount_amount,
+                min_spend,
+              })
+            }
+          >
             <Edit sx={{ color: `${theme.palette.primary.main}` }} />
           </IconButton>
         );
@@ -141,11 +195,20 @@ function DataGridPromos() {
   ];
 
   return (
-    <CustomDataGrid
-      data={computedPromoData}
-      columns={columns}
-      rowID={"promoID"}
-    />
+    <div>
+      <CustomDataGrid
+        data={computedPromoData}
+        columns={columns}
+        rowID={"promoID"}
+      />
+
+      <EditPromoDialog
+        open={openEdit}
+        handleClose={handleClose}
+        handleSave={handleSave}
+        data={editingPromo}
+      />
+    </div>
   );
 }
 

@@ -1,12 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import { IconButton, Box, Typography, Avatar } from "@mui/material";
 import { Cancel, CheckCircle, Edit } from "@mui/icons-material";
 import theme from "../../../../Theme";
 // import dummy data
 import employeeData from "../../../../data/employeeData";
+import EditEmployeeDialog from "./EditEmployeeDialog/EditEmployeeDialog";
 
-function DataGridEmployees() {
+function DataGridEmployees({ openEdit, setOpenEdit, handleSave }) {
+  //Set Active Edit
+  const [editingEmployee, setEditingEmployee] = useState({
+    shopEmployeeID: null,
+    userID: null,
+    shopID: null,
+    job_title: null,
+    profile_pic: null,
+    is_active: null,
+    name: null,
+  });
+
+  //Initialize category Info field
+  employeeData.forEach((row) => {
+    row.categoryInfo = [
+      row.shopEmployeeID,
+      row.userID,
+      row.shopID,
+      row.job_title,
+      row.profile_pic,
+      row.is_active,
+      row.name,
+    ];
+  });
+
+  const handleOpen = ({
+    shopEmployeeID,
+    userID,
+    shopID,
+    job_title,
+    profile_pic,
+    is_active,
+    name,
+  }) => {
+    setOpenEdit(true);
+    setEditingEmployee({
+      shopEmployeeID,
+      userID,
+      shopID,
+      job_title,
+      profile_pic,
+      is_active,
+      name,
+    });
+  };
+  const handleClose = () => {
+    setOpenEdit(false);
+  };
+
   // Define data grid columns
   const columns = [
     {
@@ -70,7 +119,7 @@ function DataGridEmployees() {
       },
     },
     {
-      field: "",
+      field: "categoryInfo",
       headerName: "Action",
       width: 80,
       align: "center",
@@ -79,11 +128,32 @@ function DataGridEmployees() {
       filterable: false,
       hideable: false,
       disableExport: true,
-      renderCell: () => {
+      renderCell: (params) => {
         let statusComponent;
+        const {
+          shopEmployeeID,
+          userID,
+          shopID,
+          job_title,
+          profile_pic,
+          is_active,
+          name,
+        } = params.row;
         statusComponent = (
           <Box>
-            <IconButton onClick={null}>
+            <IconButton
+              onClick={() =>
+                handleOpen({
+                  shopEmployeeID,
+                  userID,
+                  shopID,
+                  job_title,
+                  profile_pic,
+                  is_active,
+                  name,
+                })
+              }
+            >
               <Edit sx={{ color: `${theme.palette.primary.main}` }} />
             </IconButton>
           </Box>
@@ -94,11 +164,20 @@ function DataGridEmployees() {
   ];
 
   return (
-    <CustomDataGrid
-      data={employeeData}
-      columns={columns}
-      rowID={"shopEmployeeID"}
-    />
+    <div>
+      <CustomDataGrid
+        data={employeeData}
+        columns={columns}
+        rowID={"shopEmployeeID"}
+      />
+
+      <EditEmployeeDialog
+        open={openEdit}
+        handleClose={handleClose}
+        handleSave={handleSave}
+        data={editingEmployee}
+      />
+    </div>
   );
 }
 

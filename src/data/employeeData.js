@@ -6,7 +6,7 @@ const employeeData = [
     job_title: "Manager",
     profile_pic: require("../assets/avatars/128_9.png"),
     //from User ID
-    name: "user 1",
+    name: "Employee 1",
     is_active: true,
   },
   {
@@ -15,8 +15,8 @@ const employeeData = [
     shopID: 2,
     job_title: "Accounting",
     profile_pic: require("../assets/avatars/128_6.png"),
-    //from user Id
-    name: "user 2",
+    //from Employee Id
+    name: "Employee 2",
     is_active: false,
   },
   {
@@ -25,8 +25,8 @@ const employeeData = [
     shopID: 3,
     job_title: "Employee",
     profile_pic: require("../assets/avatars/128_7.png"),
-    //from user Id
-    name: "user 3",
+    //from Employee Id
+    name: "Employee 3",
     is_active: false,
   },
   {
@@ -35,8 +35,8 @@ const employeeData = [
     shopID: 4,
     job_title: "Employee",
     profile_pic: require("../assets/avatars/128_1.png"),
-    //from user Id
-    name: "user 4",
+    //from Employee Id
+    name: "Employee 4",
     is_active: true,
   },
 ];

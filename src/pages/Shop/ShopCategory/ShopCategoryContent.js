@@ -8,7 +8,8 @@ import CustomAlert from "../../../components/CustomAlert";
 
 function ShopCategoryContent() {
   // Handle Open Dialog Box
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   // Handle Open Alert
   const [openAlert, setOpenAlert] = useState(false);
   const [severity, setSeverity] = useState("error");
@@ -38,6 +39,8 @@ function ShopCategoryContent() {
                 handleSave={handleSave}
                 open={open}
                 setOpen={setOpen}
+                openEdit={openEdit}
+                setOpenEdit={setOpenEdit}
               />
             </Box>
           </Box>

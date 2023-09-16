@@ -63,10 +63,10 @@ const theme = createTheme({
       textTransform: "none",
       textAlign: "left",
     },
-    sectionSubtitle: {
-      fontSize: "16px",
-      fontWeight: 600,
-      color: "#444444CC",
+    sectionSubTitle: {
+      fontSize: "18px",
+      color: "#44444499",
+      lineHeight: "20px",
     },
     seeAll: {
       fontSize: "16px",

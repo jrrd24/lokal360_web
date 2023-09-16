@@ -4,7 +4,13 @@ import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import DataGridCategories from "./DataGridCategories";
 import NewCategoryDialog from "./NewCategoryDialog/NewCategoryDialog";
 
-function MyShopCategories({ open, setOpen, handleSave }) {
+function MyShopCategories({
+  open,
+  setOpen,
+  handleSave,
+  openEdit,
+  setOpenEdit,
+}) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -21,7 +27,11 @@ function MyShopCategories({ open, setOpen, handleSave }) {
             <Typography variant="sectionTitle">My Categories</Typography>
             <ButtonAdd label={"New Category"} onClickAction={handleOpen} />
           </Box>
-          <DataGridCategories />
+          <DataGridCategories
+            openEdit={openEdit}
+            setOpenEdit={setOpenEdit}
+            handleSave={handleSave}
+          />
         </Stack>
       </Box>
 

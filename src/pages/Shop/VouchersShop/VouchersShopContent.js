@@ -8,6 +8,7 @@ import CustomAlert from "../../../components/CustomAlert";
 function VouchersShopContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   // Handle Open Alert
   const [openAlert, setOpenAlert] = useState(false);
   const [severity, setSeverity] = useState("error");
@@ -30,34 +31,15 @@ function VouchersShopContent() {
         {/*Main Content*/}
         <Box sx={{ ...theme.components.box.mainContent }}>
           {/*(Left Side)*/}
-          <Box
-            sx={{
-              ...theme.components.box.contentColumn,
-              "@media (max-width: 1516px)": {
-                alignItems: "center",
-                justifyContent: "center",
-                minWidth: "100%",
-              },
-            }}
-          >
-            {/*My Customers*/}
-            <Box
-              sx={{
-                ...theme.components.box.sectionContainer,
-                minWidth: "600px",
-                order: 1,
-                "@media (max-width: 912px)": {
-                  order: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "100%",
-                },
-              }}
-            >
+          <Box sx={{ ...classes.leftContainer }}>
+            {/*My Vouchers*/}
+            <Box sx={{ ...classes.content }}>
               <MyVouchers
                 handleSave={handleSave}
                 open={open}
                 setOpen={setOpen}
+                openEdit={openEdit}
+                setOpenEdit={setOpenEdit}
               />
             </Box>
           </Box>
@@ -75,4 +57,24 @@ function VouchersShopContent() {
   );
 }
 
+const classes = {
+  leftContainer: {
+    ...theme.components.box.contentColumn,
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+
+  content: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "600px",
+    "@media (max-width: 912px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
+};
 export default VouchersShopContent;

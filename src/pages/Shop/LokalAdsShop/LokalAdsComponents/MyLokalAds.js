@@ -5,7 +5,7 @@ import theme from "../../../../Theme";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewAdvertismentDialog from "./NewAdvertismentDialog/NewAdvertismentDialog";
 
-function MyLokalAds({ handleSave, open, setOpen }) {
+function MyLokalAds({ handleSave, open, setOpen, openEdit, setOpenEdit }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -24,7 +24,11 @@ function MyLokalAds({ handleSave, open, setOpen }) {
 
             {/*TODO: Add onClick for Button */}
           </Box>
-          <DataGridAds />
+          <DataGridAds
+            openEdit={openEdit}
+            setOpenEdit={setOpenEdit}
+            handleSave={handleSave}
+          />
         </Stack>
       </Box>
 

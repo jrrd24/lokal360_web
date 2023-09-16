@@ -5,8 +5,7 @@ import DataGridPromos from "./DataGridPromos";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewPromoDialog from "./NewPromoDialog/NewPromoDialog";
 
-function MyPromos({ handleSave, open, setOpen }) {
-  
+function MyPromos({ handleSave, open, setOpen, openEdit, setOpenEdit }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -23,7 +22,11 @@ function MyPromos({ handleSave, open, setOpen }) {
             <ButtonAdd label={"New Promo"} onClickAction={handleOpen} />
           </Box>
 
-          <DataGridPromos />
+          <DataGridPromos
+            openEdit={openEdit}
+            setOpenEdit={setOpenEdit}
+            handleSave={handleSave}
+          />
         </Stack>
       </Box>
 

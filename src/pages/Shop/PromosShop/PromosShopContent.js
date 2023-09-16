@@ -8,6 +8,7 @@ import CustomAlert from "../../../components/CustomAlert";
 function PromosShopContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   // Handle Open Alert
   const [openAlert, setOpenAlert] = useState(false);
   const [severity, setSeverity] = useState("error");
@@ -34,9 +35,15 @@ function PromosShopContent() {
         <Box sx={{ ...theme.components.box.mainContent }}>
           {/*(Left Side)*/}
           <Box sx={{ ...classes.leftContainer }}>
-            {/*My Customers*/}
+            {/*My Promos*/}
             <Box sx={{ ...classes.customerContainer }}>
-              <MyPromos handleSave={handleSave} open={open} setOpen={setOpen} />
+              <MyPromos
+                handleSave={handleSave}
+                open={open}
+                setOpen={setOpen}
+                openEdit={openEdit}
+                setOpenEdit={setOpenEdit}
+              />
             </Box>
           </Box>
         </Box>

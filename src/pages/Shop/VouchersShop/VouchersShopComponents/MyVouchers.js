@@ -5,7 +5,7 @@ import theme from "../../../../Theme";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewVoucherDialog from "./NewVoucherDialog/NewVoucherDialog";
 
-function MyVouchers({ handleSave, open, setOpen }) {
+function MyVouchers({ handleSave, open, setOpen, openEdit, setOpenEdit }) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -15,37 +15,46 @@ function MyVouchers({ handleSave, open, setOpen }) {
 
   return (
     <div>
-      <Box
-        sx={{
-          maxWidth: "750px",
-          "@media (max-width: 1516px)": {
-            justifyContent: "center",
-            maxWidth: "100%",
-          },
-        }}
-      >
+      <Box sx={{ ...classes.main }}>
         <Stack spacing={2} direction={"column"}>
           {/*Section Name */}
-          <Box
-            direction={"row"}
-            sx={{
-              ...theme.components.box.sectionName,
-              "@media (max-width: 415px)": {
-                gap: "6px",
-              },
-            }}
-          >
+          <Box direction={"row"} sx={{ ...classes.sectionName }}>
             <Typography variant="sectionTitle">My Vouchers</Typography>
             <ButtonAdd label={"New Voucher"} onClickAction={handleOpen} />
           </Box>
-          <DataGridVouchers />
+          <DataGridVouchers
+            openEdit={openEdit}
+            setOpenEdit={setOpenEdit}
+            handleSave={handleSave}
+          />
         </Stack>
       </Box>
 
       {/*New Promo Dialog Box */}
-      <NewVoucherDialog open={open} handleClose={handleClose} handleSave={handleSave} />
+      <NewVoucherDialog
+        open={open}
+        handleClose={handleClose}
+        handleSave={handleSave}
+      />
     </div>
   );
 }
+
+const classes = {
+  main: {
+    maxWidth: "750px",
+    "@media (max-width: 1516px)": {
+      justifyContent: "center",
+      maxWidth: "100%",
+    },
+  },
+
+  sectionName: {
+    ...theme.components.box.sectionName,
+    "@media (max-width: 415px)": {
+      gap: "6px",
+    },
+  },
+};
 
 export default MyVouchers;
