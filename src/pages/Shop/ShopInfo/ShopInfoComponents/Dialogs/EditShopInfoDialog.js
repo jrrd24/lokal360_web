@@ -72,6 +72,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
     formState: { errors, isDirty },
     trigger,
     reset,
+    setValue,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -156,6 +157,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
               <Box sx={{ py: 5 }}>
                 <OperatingHoursD
                   control={control}
+                  setValue={setValue}
                   mon={is_open_mon}
                   tues={is_open_tues}
                   wed={is_open_wed}

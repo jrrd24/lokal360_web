@@ -63,22 +63,15 @@ function SimpleColorPicker({ control, color }) {
         variant="contained"
         onClick={handleCopyToClipboard}
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          ...classes.button,
           backgroundColor: background,
-          width: "100%",
-          height: "100px",
-          marginBottom: "10px",
-          cursor: "pointer",
-          transition: "background-color 0.3s", // Add transition for smooth color change
           "&:hover": {
             backgroundColor: background, // White with 10% opacity
           },
         }}
       >
         <Typography
-          variant="sectionTitleSmall"
+          variant="sectionTitleSmallCenter"
           color={"white"} // Change text color for invalid hex
         >
           {background}
@@ -139,18 +132,7 @@ function DisplayColor({ color }) {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: background,
-          width: "100%",
-          height: "100px",
-          marginBottom: "10px",
-          borderRadius: 3,
-        }}
-      >
+      <Box sx={{ ...classes.displayColor, backgroundColor: background }}>
         <Typography
           variant="sectionTitleSmall"
           color={theme.palette.text.contrastText}
@@ -169,4 +151,25 @@ function DisplayColor({ color }) {
   );
 }
 
+const classes = {
+  button: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100px",
+    marginBottom: "10px",
+    cursor: "pointer",
+    transition: "background-color 0.3s", // Add transition for smooth color change
+  },
+  displayColor: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100px",
+    marginBottom: "10px",
+    borderRadius: 3,
+  },
+};
 export { SimpleColorPicker, DisplayColor };

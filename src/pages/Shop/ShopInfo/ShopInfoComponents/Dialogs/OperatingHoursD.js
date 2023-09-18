@@ -18,6 +18,7 @@ function OperatingHoursD({
   sun,
   timeOpen,
   timeClose,
+  setValue
 }) {
   return (
     <Stack spacing={3} sx={{ sx }}>
@@ -46,6 +47,7 @@ function OperatingHoursD({
             Sunday: sun,
           }}
           width="100%"
+          setValue={setValue}
         />
 
         {/*Open and Closing Time */}

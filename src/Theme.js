@@ -64,6 +64,17 @@ const theme = createTheme({
       textTransform: "none",
       textAlign: "left",
     },
+
+    sectionTitleSmallCenter: {
+      fontSize: "20px",
+      fontWeight: 600,
+      color: "#444",
+      lineHeight: "20px",
+      letterSpacing: -0.3,
+      textTransform: "none",
+      textAlign: "center",
+    },
+
     sectionSubTitle: {
       fontSize: "18px",
       color: "#44444499",

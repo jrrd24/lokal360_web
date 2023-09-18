@@ -133,7 +133,7 @@ function DisplayShopInfo({
             >
               {/*Total Sales*/}
               <Stack>
-                <Typography variant="sectionTitleSmall" color={"primary"}>
+                <Typography variant="sectionTitleSmallCenter" color={"primary"}>
                   <NumberFormat value={totalSales || 0} isPeso={true} />
                   &nbsp;
                 </Typography>
@@ -148,7 +148,7 @@ function DisplayShopInfo({
 
               {/*Products*/}
               <Stack>
-                <Typography variant="sectionTitleSmall" color={"primary"}>
+                <Typography variant="sectionTitleSmallCenter" color={"primary"}>
                   <NumberFormat value={noOfProducts || 0} isShortened={true} />
                   &nbsp;
                 </Typography>
@@ -163,7 +163,7 @@ function DisplayShopInfo({
 
               {/*Followers*/}
               <Stack>
-                <Typography variant="sectionTitleSmall" color={"primary"}>
+                <Typography variant="sectionTitleSmallCenter" color={"primary"}>
                   <NumberFormat value={noOfFollowers || 0} isShortened={true} />
                   &nbsp;
                 </Typography>
