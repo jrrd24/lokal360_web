@@ -5,7 +5,14 @@ import DataGridEmployees from "./DataGridEmployees";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import AddEmployeeDialog from "./AddEmployeeDialog/AddEmployeeDialog";
 
-function MyEmployees({ open, setOpen, handleSave, openEdit, setOpenEdit }) {
+function MyEmployees({
+  open,
+  setOpen,
+  handleSave,
+  handleDelete,
+  openEdit,
+  setOpenEdit,
+}) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -15,26 +22,10 @@ function MyEmployees({ open, setOpen, handleSave, openEdit, setOpenEdit }) {
 
   return (
     <div>
-      <Box
-        sx={{
-          maxWidth: "750px",
-          "@media (max-width: 1516px)": {
-            justifyContent: "center",
-            maxWidth: "100%",
-          },
-        }}
-      >
+      <Box sx={{ ...classes.main }}>
         <Stack spacing={2} direction={"column"}>
           {/*Section Name */}
-          <Box
-            direction={"row"}
-            sx={{
-              ...theme.components.box.sectionName,
-              "@media (max-width: 415px)": {
-                gap: "6px",
-              },
-            }}
-          >
+          <Box direction={"row"} sx={{ ...classes.sectionName }}>
             <Typography variant="sectionTitle">My Employees</Typography>
             <ButtonAdd label={"Add Employee"} onClickAction={handleOpen} />
             {/*TODO: Add onClick for Button */}
@@ -44,6 +35,7 @@ function MyEmployees({ open, setOpen, handleSave, openEdit, setOpenEdit }) {
             openEdit={openEdit}
             setOpenEdit={setOpenEdit}
             handleSave={handleSave}
+            handleDelete={handleDelete}
           />
         </Stack>
       </Box>
@@ -57,5 +49,22 @@ function MyEmployees({ open, setOpen, handleSave, openEdit, setOpenEdit }) {
     </div>
   );
 }
+
+const classes = {
+  main: {
+    maxWidth: "750px",
+    "@media (max-width: 1516px)": {
+      justifyContent: "center",
+      maxWidth: "100%",
+    },
+  },
+
+  sectionName: {
+    ...theme.components.box.sectionName,
+    "@media (max-width: 415px)": {
+      gap: "6px",
+    },
+  },
+};
 
 export default MyEmployees;

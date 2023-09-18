@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   Box,
@@ -14,8 +14,17 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DEditVoucherDetails from "./DEditVoucherDetails";
+import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
+import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
 
-function EditVoucherDialog({ open, handleClose, handleSave, data }) {
+
+function EditVoucherDialog({
+  open,
+  handleClose,
+  handleSave,
+  handleDelete,
+  data,
+}) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //for react hook form
   const {
@@ -32,6 +41,24 @@ function EditVoucherDialog({ open, handleClose, handleSave, data }) {
     console.log(data); // Form data
     handleSave();
     reset();
+  };
+
+  //handle delete dialog box
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteData, setDeleteData] = useState({
+    id: null,
+    name: null,
+  });
+  const handleOpenDelete = ({ id, name }) => {
+    setOpenDelete(true);
+    setDeleteData({ id, name });
+  };
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+    handleClose();
+  };
+  const handleCancel = () => {
+    setOpenDelete(false);
   };
 
   return (
@@ -63,6 +90,16 @@ function EditVoucherDialog({ open, handleClose, handleSave, data }) {
 
               {/*  Buttons */}
               <DialogActions sx={{ gap: "16px" }}>
+                <ButtonDelete
+                  type="button"
+                  onClick={() =>
+                    handleOpenDelete({
+                      id: data.voucherID,
+                      name: `Voucher ID: ${data.voucherID}, Type: ${data.promo_type}`,
+                    })
+                  }
+                  sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+                />
                 <ButtonSave
                   type="submit"
                   isDirty={isDirty}
@@ -83,6 +120,7 @@ function EditVoucherDialog({ open, handleClose, handleSave, data }) {
                   control={control}
                   register={register}
                   setValue={setValue}
+                  data={data}
                 />
               </Box>
             </Stack>
@@ -91,11 +129,29 @@ function EditVoucherDialog({ open, handleClose, handleSave, data }) {
           {/* Show Save Button at Bottom for small screens */}
           <Box sx={{ ...theme.components.dialog.saveButtonSmall }}>
             <DialogActions sx={{ py: 2, display: "flex" }}>
+              <ButtonDelete
+                type="button"
+                onClick={() =>
+                  handleOpenDelete({
+                    id: data.voucherID,
+                    name: `Voucher ID: ${data.voucherID}, Type: ${data.promo_type}`,
+                  })
+                }
+              />
               <ButtonSave type="submit" isDirty={isDirty} />
             </DialogActions>
           </Box>
         </form>
       </Dialog>
+
+      {/*Delete Dialog */}
+      <DeleteDialog
+        openDelete={openDelete}
+        handleCloseDelete={handleCloseDelete}
+        handleCancel={handleCancel}
+        handleDelete={handleDelete}
+        data={deleteData}
+      />
     </div>
   );
 }

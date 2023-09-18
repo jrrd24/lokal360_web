@@ -83,6 +83,9 @@ function DAdDetails({ sx, control, register, setValue }) {
             <b>Shop Page</b> and the <b>Homepage</b>. This method will require{" "}
             <b>Admin Approval</b> before the Ad is displayed
           </Alert>
+          <Alert severity="warning">
+            Ads <b>Cannot Be Edited</b> once it is Saved
+          </Alert>
         </Stack>
 
         <Stack sx={{ py: 5 }}>

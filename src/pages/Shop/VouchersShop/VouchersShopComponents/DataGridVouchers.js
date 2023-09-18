@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import VoucherContainer from "../../../../components/ShopOnly/VoucherContainer";
 import { Typography } from "@mui/material";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
-import voucherData from "../../../../data/voucherData";
 import { IconButton, Box } from "@mui/material";
 import { Cancel, CheckCircle, Edit } from "@mui/icons-material";
 import theme from "../../../../Theme";
 import EditVoucherDialog from "./EditVoucherDialog/EditVoucherDialog";
+import voucherData from "../../../../data/voucherData";
 
-function DataGridVouchers({ openEdit, setOpenEdit, handleSave }) {
+
+function DataGridVouchers({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
   const [editingVoucher, setEditingVoucher] = useState({
     voucherID: null,
@@ -199,6 +200,7 @@ function DataGridVouchers({ openEdit, setOpenEdit, handleSave }) {
         open={openEdit}
         handleClose={handleClose}
         handleSave={handleSave}
+        handleDelete={handleDelete}
         data={editingVoucher}
       />
     </div>

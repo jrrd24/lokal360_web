@@ -4,9 +4,19 @@ const employeeData = [
     userID: 1,
     shopID: 1,
     job_title: "Manager",
-    profile_pic: require("../assets/avatars/128_9.png"),
+    access_analytics: true,
+    access_products: true,
+    access_customers: true,
+    access_orders: true,
+    access_shopInformation: true,
+    access_promos: true,
+    access_lokal_ads: true,
+    access_vouchers: true,
+
     //from User ID
     name: "Employee 1",
+    email: "employee1@gmail.com",
+    profile_pic: require("../assets/avatars/128_9.png"),
     is_active: true,
   },
   {
@@ -14,9 +24,19 @@ const employeeData = [
     userID: 2,
     shopID: 2,
     job_title: "Accounting",
-    profile_pic: require("../assets/avatars/128_6.png"),
+    access_analytics: true,
+    access_products: true,
+    access_customers: false,
+    access_orders: false,
+    access_shopInformation: false,
+    access_promos: false,
+    access_lokal_ads: false,
+    access_vouchers: false,
+
     //from Employee Id
     name: "Employee 2",
+    email: "employee2@gmail.com",
+    profile_pic: require("../assets/avatars/128_6.png"),
     is_active: false,
   },
   {
@@ -24,9 +44,19 @@ const employeeData = [
     userID: 3,
     shopID: 3,
     job_title: "Employee",
-    profile_pic: require("../assets/avatars/128_7.png"),
+    access_analytics: true,
+    access_products: true,
+    access_customers: false,
+    access_orders: true,
+    access_shopInformation: false,
+    access_promos: false,
+    access_lokal_ads: false,
+    access_vouchers: false,
+
     //from Employee Id
     name: "Employee 3",
+    email: "employee3@gmail.com",
+    profile_pic: require("../assets/avatars/128_7.png"),
     is_active: false,
   },
   {
@@ -34,10 +64,20 @@ const employeeData = [
     userID: 4,
     shopID: 4,
     job_title: "Employee",
-    profile_pic: require("../assets/avatars/128_1.png"),
+    access_analytics: false,
+    access_products: true,
+    access_customers: false,
+    access_orders: false,
+    access_shopInformation: false,
+    access_promos: true,
+    access_lokal_ads: true,
+    access_vouchers: false,
+
     //from Employee Id
     name: "Employee 4",
     is_active: true,
+    email: "employee4@gmail.com",
+    profile_pic: require("../assets/avatars/128_1.png"),
   },
 ];
 export default employeeData;

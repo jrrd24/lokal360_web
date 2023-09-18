@@ -27,6 +27,7 @@ function AdsStatus({ status }) {
         width: 160,
         p: 1,
         m: 1,
+        borderRadius: 3,
         backgroundColor: bgColor,
         display: "flex",
         justifyContent: "center",

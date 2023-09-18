@@ -7,7 +7,7 @@ import { FaPesoSign } from "react-icons/fa6";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import EditPromoDialog from "./EditPromoDialog/EditPromoDialog";
 
-function DataGridPromos({ openEdit, setOpenEdit, handleSave }) {
+function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
   const [editingPromo, setEditingPromo] = useState({
     promoID: null,
@@ -206,6 +206,7 @@ function DataGridPromos({ openEdit, setOpenEdit, handleSave }) {
         open={openEdit}
         handleClose={handleClose}
         handleSave={handleSave}
+        handleDelete={handleDelete}
         data={editingPromo}
       />
     </div>

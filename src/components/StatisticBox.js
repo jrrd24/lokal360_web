@@ -88,7 +88,7 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
               fontSize: 24,
             }}
           >
-            <NumberFormat value={amt} isPeso={isMoney} />
+            <NumberFormat value={amt} isPeso={isMoney}  />
           </Typography>
         </Stack>
 

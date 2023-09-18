@@ -5,7 +5,14 @@ import DataGridPromos from "./DataGridPromos";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewPromoDialog from "./NewPromoDialog/NewPromoDialog";
 
-function MyPromos({ handleSave, open, setOpen, openEdit, setOpenEdit }) {
+function MyPromos({
+  handleSave,
+  handleDelete,
+  open,
+  setOpen,
+  openEdit,
+  setOpenEdit,
+}) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -26,6 +33,7 @@ function MyPromos({ handleSave, open, setOpen, openEdit, setOpenEdit }) {
             openEdit={openEdit}
             setOpenEdit={setOpenEdit}
             handleSave={handleSave}
+            handleDelete={handleDelete}
           />
         </Stack>
       </Box>

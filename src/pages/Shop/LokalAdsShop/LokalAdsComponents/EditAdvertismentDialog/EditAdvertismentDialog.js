@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   Box,
@@ -14,8 +14,16 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DEditAdsDetails from "./DEditAdsDetails";
+import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
+import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
 
-function EditAdvertismentDialog({ open, handleClose, handleSave, data }) {
+function EditAdvertismentDialog({
+  open,
+  handleClose,
+  handleSave,
+  handleDelete,
+  data,
+}) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //for react hook form
   const {
@@ -32,6 +40,24 @@ function EditAdvertismentDialog({ open, handleClose, handleSave, data }) {
     console.log(data); // Form data
     handleSave();
     reset();
+  };
+
+  //handle delete dialog box
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteData, setDeleteData] = useState({
+    id: null,
+    name: null,
+  });
+  const handleOpenDelete = ({ id, name }) => {
+    setOpenDelete(true);
+    setDeleteData({ id, name });
+  };
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+    handleClose();
+  };
+  const handleCancel = () => {
+    setOpenDelete(false);
   };
 
   return (
@@ -54,19 +80,25 @@ function EditAdvertismentDialog({ open, handleClose, handleSave, data }) {
             <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
               {/* Dialog Title*/}
               <Stack spacing={0}>
-                <Typography variant="sectionTitle">Edit Lokal Ad</Typography>
+                <Typography variant="sectionTitle">Lokal Ad Details</Typography>
                 <Typography variant="sectionSubTitle">
                   <b>{data.name}</b>
                 </Typography>
               </Stack>
 
               {/*  Buttons */}
-              <DialogActions sx={{ gap: "16px" }}>
-                <ButtonSave
-                  type="submit"
-                  isDirty={isDirty}
+              <DialogActions sx={{ ...theme.components.dialog.dialogActions }}>
+                <ButtonDelete
+                  type="button"
+                  onClick={() =>
+                    handleOpenDelete({
+                      id: data.lokalAdsID,
+                      name: data.name,
+                    })
+                  }
                   sx={{ display: { xs: "none", sm: "none", md: "block" } }}
                 />
+
                 <ButtonCloseDialog handleClose={handleClose} />
               </DialogActions>
             </Box>
@@ -76,12 +108,13 @@ function EditAdvertismentDialog({ open, handleClose, handleSave, data }) {
           <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              {/*Category Details*/}{" "}
+              {/*Advertisment Details*/}{" "}
               <Box sx={{ py: 5 }}>
                 <DEditAdsDetails
                   control={control}
                   register={register}
                   setValue={setValue}
+                  data={data}
                 />
               </Box>
             </Stack>
@@ -90,11 +123,28 @@ function EditAdvertismentDialog({ open, handleClose, handleSave, data }) {
           {/* Show Save Button at Bottom for small screens */}
           <Box sx={{ ...theme.components.dialog.saveButtonSmall }}>
             <DialogActions sx={{ py: 2, display: "flex" }}>
-              <ButtonSave type="submit" isDirty={isDirty} />
+              <ButtonDelete
+                type="button"
+                onClick={() =>
+                  handleOpenDelete({
+                    id: data.lokalAdsID,
+                    name: data.name,
+                  })
+                }
+              />
             </DialogActions>
           </Box>
         </form>
       </Dialog>
+
+      {/*Delete Dialog */}
+      <DeleteDialog
+        openDelete={openDelete}
+        handleCloseDelete={handleCloseDelete}
+        handleCancel={handleCancel}
+        handleDelete={handleDelete}
+        data={deleteData}
+      />
     </div>
   );
 }

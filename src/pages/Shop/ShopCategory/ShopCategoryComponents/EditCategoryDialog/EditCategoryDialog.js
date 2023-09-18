@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   Box,
@@ -17,6 +17,7 @@ import DEditCategoryDetails from "./DEditCategoryDetails";
 
 function EditCategoryDialog({ open, handleClose, handleSave, data }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   //for react hook form
   const {
     control,
@@ -84,6 +85,7 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
                   control={control}
                   register={register}
                   setValue={setValue}
+                  data={data}
                 />
               </Box>
             </Stack>

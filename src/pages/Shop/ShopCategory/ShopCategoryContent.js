@@ -15,10 +15,18 @@ function ShopCategoryContent() {
   const [severity, setSeverity] = useState("error");
   const [alertMsg, setAlertMsg] = useState("");
 
-  const handleSave = (severity, alertMsg) => {
+  const handleSave = ({ severity, alertMsg }) => {
     setOpen(false);
+    setOpenEdit(false);
     setSeverity("success");
     setAlertMsg("Shop Information Successfully Updated!");
+    setOpenAlert(true);
+  };
+
+  const handleDelete = ({ id, name }) => {
+    console.log("Deleted: ", id);
+    setSeverity("error");
+    setAlertMsg(name + " is deleted");
     setOpenAlert(true);
   };
   return (
@@ -37,6 +45,7 @@ function ShopCategoryContent() {
             <Box sx={{ ...classes.categories }}>
               <MyShopCategories
                 handleSave={handleSave}
+                handleDelete={handleDelete}
                 open={open}
                 setOpen={setOpen}
                 openEdit={openEdit}
@@ -54,6 +63,7 @@ function ShopCategoryContent() {
           </Box>
         </Box>
       </Box>
+
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}

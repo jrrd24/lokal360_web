@@ -5,6 +5,7 @@ import { Delete, Edit } from "@mui/icons-material";
 import shopCategoryData from "../../../../data/shopCategoryData";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import EditCategoryDialog from "./EditCategoryDialog/EditCategoryDialog";
+import DeleteDialog from "../../../../components/DialogBox/DeleteDialog";
 
 // Define data grid columns
 
@@ -12,6 +13,7 @@ export default function DataGridCategories({
   openEdit,
   setOpenEdit,
   handleSave,
+  handleDelete,
 }) {
   //Set Active Edit
   const [editingCategory, setEditingCategory] = useState({
@@ -36,6 +38,17 @@ export default function DataGridCategories({
   };
   const handleClose = () => {
     setOpenEdit(false);
+  };
+
+  //handle delete dialog box
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteData, setDeleteData] = useState({ id: null, name: null });
+  const handleOpenDelete = ({ id, name }) => {
+    setOpenDelete(true);
+    setDeleteData({ id, name });
+  };
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
   };
 
   const columns = [
@@ -72,7 +85,9 @@ export default function DataGridCategories({
           params.row;
         statusComponent = (
           <Box>
-            <IconButton>
+            <IconButton
+              onClick={() => handleOpenDelete({ id: shopCategoryID, name })}
+            >
               <Delete sx={{ color: `${theme.palette.danger.delete}` }} />
             </IconButton>
 
@@ -103,6 +118,14 @@ export default function DataGridCategories({
         handleClose={handleClose}
         handleSave={handleSave}
         data={editingCategory}
+      />
+
+      {/*Delete Dialog */}
+      <DeleteDialog
+        openDelete={openDelete}
+        handleCloseDelete={handleCloseDelete}
+        handleDelete={handleDelete}
+        data={deleteData}
       />
     </div>
   );

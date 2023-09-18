@@ -1,57 +1,61 @@
 import React from "react";
-import { Stack, Typography, Alert } from "@mui/material";
+import { Stack, Typography, Alert, Divider } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import CheckBoxGroup from "../../../../../components/FormComponents/CheckBoxGroup";
 
 function DEmployeeInfo({ sx, control, register, setValue }) {
   return (
-    <Stack spacing={3} sx={{ sx }}>
+    <Stack spacing={5} sx={{ sx }}>
       {/*Section Name */}
-      <Stack sx={{ alignItems: "baseline", justifyContent: "space-between" }}>
-        <Typography variant="sectionTitleSmall">Employee Details</Typography>
-        <Alert severity="info" sx={{ mt: 1, width: "100%" }}>
-          An Employee must have a <b>Registered User Account</b>
-        </Alert>
-      </Stack>
-
-      {/*TextBoxes */}
       <Stack spacing={3}>
-        {/*Employee Email */}
-        <CustomInput
-          control={control}
-          name="employeeEmail"
-          label="Email Address"
-          width="100%"
-          rules={{
-            required: "Email Is Required",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "Invalid Email Address",
-            },
-            maxLength: {
-              value: 255,
-              message: "Max Length of Email is 255 Characters",
-            },
-          }}
-        />
+        <Stack sx={{ alignItems: "baseline", justifyContent: "space-between" }}>
+          <Typography variant="sectionTitleSmall">Employee Details</Typography>
+          <Alert severity="info" sx={{ mt: 1, width: "100%" }}>
+            An Employee must have a <b>Registered User Account</b>
+          </Alert>
+        </Stack>
 
-        {/*Job Title */}
-        <CustomInput
-          control={control}
-          name="jobTitle"
-          label="Job Title"
-          width="100%"
-          rules={{
-            required: "Employee Job Title Is Required",
-            maxLength: {
-              value: 100,
-              message: "Max Length of 100 Characters",
-            },
-          }}
-        />
+        {/*TextBoxes */}
+        <Stack spacing={3}>
+          {/*Employee Email */}
+          <CustomInput
+            control={control}
+            name="employeeEmail"
+            label="Email Address"
+            width="100%"
+            rules={{
+              required: "Email Is Required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid Email Address",
+              },
+              maxLength: {
+                value: 255,
+                message: "Max Length of Email is 255 Characters",
+              },
+            }}
+          />
+
+          {/*Job Title */}
+          <CustomInput
+            control={control}
+            name="jobTitle"
+            label="Job Title"
+            width="100%"
+            rules={{
+              required: "Employee Job Title Is Required",
+              maxLength: {
+                value: 100,
+                message: "Max Length of 100 Characters",
+              },
+            }}
+          />
+        </Stack>
       </Stack>
 
-      <Stack sx={{ py: 5 }}>
+      <Divider />
+
+      <Stack>
         <Typography variant="sectionTitleSmall">Priviledges</Typography>
         <Alert severity="info" sx={{ mt: 1, width: "100%" }}>
           Choose the <b>Modules</b> that can be <b>Accessed</b> by this Employee
@@ -72,6 +76,7 @@ function DEmployeeInfo({ sx, control, register, setValue }) {
             Vouchers: false,
           }}
           width="100%"
+          setValue={setValue}
         />
       </Stack>
     </Stack>

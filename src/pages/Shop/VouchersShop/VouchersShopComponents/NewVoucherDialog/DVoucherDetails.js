@@ -106,7 +106,7 @@ function DVoucherDetails({ sx, control, register, setValue }) {
             label=""
             data={productData}
             targetField={`voucherID`}
-            condition={(data) => data.productID !== null}
+            condition={(data) => data.voucherID === null}
           />
         </Stack>
       </Stack>

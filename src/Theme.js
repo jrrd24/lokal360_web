@@ -29,6 +29,7 @@ const theme = createTheme({
     divider: "#9D9D9D",
     buttonHover: "#757575",
     success: { main: "#198754" },
+    active: { main: "#00FF00" },
     warning: { main: "#ffc107" },
     danger: { main: "#dc3545", delete: "#AB3130" },
 
@@ -261,6 +262,20 @@ const theme = createTheme({
         justifyContent: "center",
         "@media (max-width: 600px)": {
           height: "90vh",
+        },
+      },
+
+      dialogContentText: {
+        pl: 5,
+        minHeight: 50,
+        pr: 2,
+      },
+
+      dialogActions: {
+        pr: 3,
+        justifyContent: "space-between",
+        "& > *:not(:last-child)": {
+          marginRight: "24px",
         },
       },
 

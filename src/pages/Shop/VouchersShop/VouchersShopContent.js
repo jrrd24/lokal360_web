@@ -20,6 +20,13 @@ function VouchersShopContent() {
     setAlertMsg("Shop Information Successfully Updated!");
     setOpenAlert(true);
   };
+
+  const handleDelete = ({ id, name }) => {
+    console.log("Deleted: ", id);
+    setSeverity("error");
+    setAlertMsg(name + " is deleted");
+    setOpenAlert(true);
+  };
   return (
     <div>
       <Box sx={{ ...theme.components.box.pageContainer }}>
@@ -36,6 +43,7 @@ function VouchersShopContent() {
             <Box sx={{ ...classes.content }}>
               <MyVouchers
                 handleSave={handleSave}
+                handleDelete={handleDelete}
                 open={open}
                 setOpen={setOpen}
                 openEdit={openEdit}

@@ -34,7 +34,7 @@ const CustomInput = ({
   multiline,
   select,
   selectMenuItems,
-  value,
+  value: propValue,
   setPromoType,
   component: icon,
 }) => {
@@ -47,6 +47,11 @@ const CustomInput = ({
     }
   }, [fieldValue, setPromoType]);
 
+  // Set 'fieldValue' to 'propValue' if it's defined
+  useEffect(() => {
+    setFieldValue(propValue || "");
+  }, [propValue]);
+
   const handleTogglePassword = () => {
     setViewPass(!viewPass);
   };
@@ -56,19 +61,19 @@ const CustomInput = ({
       control={control}
       name={name}
       rules={rules}
-      defaultValue={value || ""}
+      defaultValue={propValue || ""}
       type=""
       render={({ field, fieldState }) => (
         <TextField
           name={name}
           label={label}
           type={secureTextEntry ? (viewPass ? "password" : "text") : "text"}
-          value={field.value}
+          value={fieldValue}
           onChange={
             setFieldValue
               ? (e) => {
                   field.onChange(e);
-                  setFieldValue(e.target.value); // Update the useState variable
+                  setFieldValue(e.target.value);
                 }
               : field.onChange
           }
@@ -171,18 +176,24 @@ const CustomNumberInput = ({
   control,
   name,
   rules,
-  value,
+  value: propValue,
   label,
   width,
   type,
   disabled,
 }) => {
+  const [fieldValue, setFieldValue] = useState(0);
+  useEffect(() => {
+    type === "Percent Discount"
+      ? setFieldValue(propValue * 100)
+      : setFieldValue(propValue || 0);
+  }, [propValue]);
   return (
     <Controller
       control={control}
       name={name}
       rules={rules}
-      defaultValue={value || ""}
+      defaultValue={propValue}
       render={({ field, fieldState }) => (
         <NumericFormat
           name={name}
@@ -190,7 +201,7 @@ const CustomNumberInput = ({
           customInput={TextField}
           displayType="input"
           thousandSeparator={true}
-          value={field.value}
+          value={fieldValue}
           onValueChange={(values) => {
             const { value } = values;
             field.onChange({

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { FormControlLabel, Checkbox, FormGroup, Grid } from "@mui/material";
 
-function CheckBoxGroup({ name, control, label, choices, width }) {
+function CheckBoxGroup({ name, control, label, choices, width, setValue }) {
+  useEffect(() => {
+    // Update the value of the checkboxes when choices change
+    setValue(name, choices);
+  }, [name, setValue, choices]);
   return (
     <Controller
       name={name}

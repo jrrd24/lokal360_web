@@ -21,6 +21,13 @@ function EmployeeManagementContent() {
     setOpenAlert(true);
   };
 
+  const handleDelete = ({ id, name }) => {
+    console.log("Deleted: ", id);
+    setSeverity("error");
+    setAlertMsg(name + " is deleted");
+    setOpenAlert(true);
+  };
+
   return (
     <div>
       <Box sx={{ ...theme.components.box.pageContainer }}>
@@ -37,6 +44,7 @@ function EmployeeManagementContent() {
             <Box sx={{ ...classes.employeesContainer }}>
               <MyEmployees
                 handleSave={handleSave}
+                handleDelete={handleDelete}
                 open={open}
                 setOpen={setOpen}
                 openEdit={openEdit}

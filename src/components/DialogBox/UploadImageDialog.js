@@ -16,16 +16,10 @@ import ButtonCloseDialog from "../Buttons/ButtonCloseDialog";
 import theme from "../../Theme";
 import { Image } from "@mui/icons-material";
 import ButtonSave from "../Buttons/ButtonSave";
-import CustomImage from "../FormComponents/CustomImage";
+import { CustomImage } from "../FormComponents/CustomImage";
+import { useMediaQuery } from "@mui/material";
 
-function UploadImageDialog({
-  open,
-  handleClose,
-  alt,
-  name,
-  label,
-  isSmScreen,
-}) {
+function UploadImageDialog({ open, handleClose, alt, name, label }) {
   const [uploadError, setUploadError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageDirty, setIsImageDirty] = useState(false);
@@ -40,8 +34,7 @@ function UploadImageDialog({
     register,
   } = useForm();
 
-  const bgColor = `${theme.palette.background.paper}`;
-  const textColor = `${theme.palette.primary.main}`;
+  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   // Handle image change
   const handleImageChange = (e) => {
@@ -86,9 +79,8 @@ function UploadImageDialog({
       open={open}
       onClose={handleClose}
       hideBackdrop={true}
-      sx={{
-        backgroundColor: "#ECECEC80",
-      }}
+      sx={{ ...theme.components.dialog.dialogBox }}
+      PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
     >
       <form onSubmit={handleSubmit(onSubmitImage)}>
         {/* Dialog Title/ Buttons */}
@@ -96,13 +88,7 @@ function UploadImageDialog({
           minHeight={70}
           sx={{ ...theme.components.dialog.dialogTitle }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+          <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
             {/* Dialog Title*/}
             <Typography variant="sectionTitle">
               {label || "Upload Image"}

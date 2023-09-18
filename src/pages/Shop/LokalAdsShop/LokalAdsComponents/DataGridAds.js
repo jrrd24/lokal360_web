@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { IconButton, Avatar } from "@mui/material";
 import theme from "../../../../Theme";
-import { Edit } from "@mui/icons-material";
+import { Info } from "@mui/icons-material";
 import AdsStatus from "../../../../components/ShopOnly/StatusAndTags/AdsStatus";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 //import dummy data
 import lokalAdsData from "../../../../data/lokalAdsData";
 import EditAdvertismentDialog from "./EditAdvertismentDialog/EditAdvertismentDialog";
 
-function DataGridAds({ openEdit, setOpenEdit, handleSave }) {
+function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
   const [editingAd, setEditingAd] = useState({
     lokalAdsID: null,
@@ -96,6 +96,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave }) {
               border: "solid",
               borderColor: "transparent",
               borderRadius: 2,
+              objectFit: "cover",
             }}
           />
         );
@@ -187,7 +188,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave }) {
               })
             }
           >
-            <Edit sx={{ color: `${theme.palette.primary.main}` }} />
+            <Info sx={{ color: `${theme.palette.primary.main}` }} />
           </IconButton>
         );
         return statusComponent;
@@ -208,6 +209,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave }) {
         open={openEdit}
         handleClose={handleClose}
         handleSave={handleSave}
+        handleDelete={handleDelete}
         data={editingAd}
       />
     </div>

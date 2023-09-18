@@ -8,6 +8,7 @@ function MyShopCategories({
   open,
   setOpen,
   handleSave,
+  handleDelete,
   openEdit,
   setOpenEdit,
 }) {
@@ -31,6 +32,7 @@ function MyShopCategories({
             openEdit={openEdit}
             setOpenEdit={setOpenEdit}
             handleSave={handleSave}
+            handleDelete={handleDelete}
           />
         </Stack>
       </Box>

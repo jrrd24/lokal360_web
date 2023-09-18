@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   Box,
@@ -14,8 +14,16 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DEditPromoDetails from "./DEditPromoDetails";
+import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
+import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
 
-function EditPromoDialog({ open, handleClose, handleSave, data }) {
+function EditPromoDialog({
+  open,
+  handleClose,
+  handleSave,
+  handleDelete,
+  data,
+}) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //for react hook form
   const {
@@ -32,6 +40,24 @@ function EditPromoDialog({ open, handleClose, handleSave, data }) {
     console.log(data); // Form data
     handleSave();
     reset();
+  };
+
+  //handle delete dialog box
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteData, setDeleteData] = useState({
+    id: null,
+    name: null,
+  });
+  const handleOpenDelete = ({ id, name }) => {
+    setOpenDelete(true);
+    setDeleteData({ id, name });
+  };
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+    handleClose();
+  };
+  const handleCancel = () => {
+    setOpenDelete(false);
   };
 
   return (
@@ -62,7 +88,17 @@ function EditPromoDialog({ open, handleClose, handleSave, data }) {
               </Stack>
 
               {/*  Buttons */}
-              <DialogActions sx={{ gap: "16px" }}>
+              <DialogActions sx={{ ...theme.components.dialog.dialogActions }}>
+                <ButtonDelete
+                  type="button"
+                  onClick={() =>
+                    handleOpenDelete({
+                      id: data.promoID,
+                      name: `Promo ID: ${data.promoID}, Type: ${data.promo_type}`,
+                    })
+                  }
+                  sx={{ display: { xs: "none", sm: "none", md: "block" } }}
+                />
                 <ButtonSave
                   type="submit"
                   isDirty={isDirty}
@@ -83,6 +119,7 @@ function EditPromoDialog({ open, handleClose, handleSave, data }) {
                   control={control}
                   register={register}
                   setValue={setValue}
+                  data={data}
                 />
               </Box>
             </Stack>
@@ -91,11 +128,29 @@ function EditPromoDialog({ open, handleClose, handleSave, data }) {
           {/* Show Save Button at Bottom for small screens */}
           <Box sx={{ ...theme.components.dialog.saveButtonSmall }}>
             <DialogActions sx={{ py: 2, display: "flex" }}>
+              <ButtonDelete
+                type="button"
+                onClick={() =>
+                  handleOpenDelete({
+                    id: data.promoID,
+                    name: `Promo ID: ${data.promoID}, Type: ${data.promo_type}`,
+                  })
+                }
+              />
               <ButtonSave type="submit" isDirty={isDirty} />
             </DialogActions>
           </Box>
         </form>
       </Dialog>
+
+      {/*Delete Dialog */}
+      <DeleteDialog
+        openDelete={openDelete}
+        handleCloseDelete={handleCloseDelete}
+        handleCancel={handleCancel}
+        handleDelete={handleDelete}
+        data={deleteData}
+      />
     </div>
   );
 }

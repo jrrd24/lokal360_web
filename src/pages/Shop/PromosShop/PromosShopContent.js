@@ -21,6 +21,13 @@ function PromosShopContent() {
     setOpenAlert(true);
   };
 
+  const handleDelete = ({ id, name }) => {
+    console.log("Deleted: ", id);
+    setSeverity("error");
+    setAlertMsg(name + " is deleted");
+    setOpenAlert(true);
+  };
+
   return (
     <div>
       <Box sx={{ ...theme.components.box.pageContainer }}>
@@ -39,6 +46,7 @@ function PromosShopContent() {
             <Box sx={{ ...classes.customerContainer }}>
               <MyPromos
                 handleSave={handleSave}
+                handleDelete={handleDelete}
                 open={open}
                 setOpen={setOpen}
                 openEdit={openEdit}

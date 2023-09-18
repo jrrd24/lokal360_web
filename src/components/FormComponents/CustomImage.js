@@ -25,4 +25,14 @@ function CustomImage({
   );
 }
 
-export default CustomImage;
+function ReadOnlyCustomImage({ selectedImage, alt }) {
+  return (
+    <img
+      src={selectedImage}
+      alt={alt}
+      style={{ maxHeight: 250, width: "100%", objectFit: "cover" }}
+    />
+  );
+}
+
+export { CustomImage, ReadOnlyCustomImage };

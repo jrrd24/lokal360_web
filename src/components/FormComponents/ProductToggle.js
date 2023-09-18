@@ -9,7 +9,7 @@ import {
   Radio,
   FormControlLabel,
 } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import theme from "../../Theme";
 import Styles from "../../css/Styles.module.css";
 import PropTypes from "prop-types";
@@ -78,12 +78,29 @@ const ProductToggleNew = ({
   width,
   condition,
   targetField,
+  targetID,
 }) => {
   const filteredData = data.filter(condition);
   const initialValue = filteredData.reduce((acc, product) => {
-    acc[product.productID] = product[targetField] !== null;
+    acc[product.productID] = targetID
+      ? product[targetField] === targetID
+      : product[targetField] !== null;
     return acc;
   }, {});
+
+  // Use state to manage the switch values
+  const [switchValues, setSwitchValues] = useState(initialValue);
+
+  // Listen for changes in the 'data' prop and update the switch values
+  useEffect(() => {
+    const updatedValues = filteredData.reduce((acc, product) => {
+      acc[product.productID] = targetID
+        ? product[targetField] === targetID
+        : product[targetField] !== null;
+      return acc;
+    }, {});
+    setSwitchValues(updatedValues);
+  }, [data, condition, targetField]);
 
   return (
     <Controller
@@ -123,13 +140,14 @@ const ProductToggleNew = ({
               {/* Toggle */}
               <Switch
                 name={`${name}[${product.productID}]`} // Use a unique name for each switch
-                checked={field.value[product.productID]}
+                checked={switchValues[product.productID]}
                 onChange={(e) => {
                   const updatedData = {
-                    ...field.value,
-                    [product.productID]: !field.value[product.productID], // Toggle the boolean value
+                    ...switchValues,
+                    [product.productID]: e.target.checked, // Update the local state
                   };
-                  field.onChange(updatedData);
+                  setSwitchValues(updatedData); // Update the local state
+                  field.onChange(updatedData); // Update the form control
                 }}
               />
             </Box>
@@ -148,12 +166,18 @@ const PromoToggle = ({
   data,
   width,
   condition,
-  targetField,
+  value,
 }) => {
   const labelStyle = {
     display: "flex",
     justifyContent: "space-between", // Add space between radio and label
   };
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  useEffect(() => {
+    setSelectedValue(value); // Set the initial value from the prop when it changes
+  }, [value]);
 
   return (
     <Controller
@@ -161,7 +185,15 @@ const PromoToggle = ({
       control={control}
       defaultValue=""
       render={({ field }) => (
-        <RadioGroup sx={{ width: "100%" }} value={field.value}>
+        <RadioGroup
+          sx={{ width: "100%" }}
+          value={selectedValue}
+          onChange={(e) => {
+            const selectedProductId = e.target.value;
+            setSelectedValue(selectedProductId); // Update the local state
+            field.onChange(selectedProductId);
+          }}
+        >
           {data.filter(condition).map((promo) => (
             <FormControlLabel
               key={promo.promoID}
@@ -228,6 +260,7 @@ const PromoToggle = ({
               }
               onChange={(e) => {
                 const selectedProductId = e.target.value;
+                setSelectedValue(selectedProductId);
                 field.onChange(selectedProductId);
               }}
             />
@@ -235,6 +268,91 @@ const PromoToggle = ({
         </RadioGroup>
       )}
     />
+  );
+};
+
+//For Mapping Promo toggles
+const ReadOnlyPromoToggle = ({ data, condition, value }) => {
+  const labelStyle = {
+    display: "flex",
+    justifyContent: "space-between", // Add space between radio and label
+  };
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  useEffect(() => {
+    setSelectedValue(value); // Set the initial value from the prop when it changes
+  }, [value]);
+
+  return (
+    <RadioGroup sx={{ width: "100%" }} value={selectedValue}>
+      {data.filter(condition).map((promo) => (
+        <FormControlLabel
+          key={promo.promoID}
+          value={promo.promoID.toString()}
+          control={<Radio />}
+          labelPlacement="start"
+          className={`${Styles.changeBG}`}
+          sx={{ ...classes.main }}
+          label={
+            <div style={labelStyle}>
+              <Box>
+                <Stack
+                  spacing={2}
+                  direction={"row"}
+                  alignItems="center"
+                  textAlign={"left"}
+                  sx={{ display: "flex", alignContent: "center" }}
+                >
+                  <Box
+                    sx={{
+                      backgroundColor:
+                        promo.promo_type === "Peso Discount"
+                          ? theme.palette.promo.peso
+                          : promo.promo_type === "Percent Discount"
+                          ? theme.palette.promo.percent
+                          : theme.palette.promo.freeShipping,
+                      ...theme.components.box.iconContainer,
+                    }}
+                  >
+                    {" "}
+                    {promo.promo_type === "Peso Discount" ? (
+                      <FaPesoSign style={{ ...classes.icon }} />
+                    ) : promo.promo_type === "Percent Discount" ? (
+                      <Percent sx={{ ...classes.icon }} />
+                    ) : (
+                      <LocalShipping sx={{ ...classes.icon }} />
+                    )}
+                  </Box>
+                  {/* promo Image */}
+
+                  <Stack>
+                    {/* promo Name */}
+                    <Typography variant="sectionTitleSmall">
+                      <TruncateString str={promo.promo_type} n={30} />
+                    </Typography>
+
+                    {/* discount amt */}
+                    <Typography>
+                      {promo.promo_type === "Percent Discount"
+                        ? `${promo.discount_amount * 100}% off`
+                        : promo.promo_type === "Peso Discount"
+                        ? `₱${promo.discount_amount} off`
+                        : `Up to ₱${promo.discount_amount} off`}
+                    </Typography>
+
+                    {/* min spend */}
+                    <Typography>{`Minimum Spend: ₱${promo.min_spend}`}</Typography>
+                  </Stack>
+                </Stack>
+              </Box>
+              {/* Add some space */}
+              <div style={{ marginLeft: "16px" }}></div>
+            </div>
+          }
+        />
+      ))}
+    </RadioGroup>
   );
 };
 
@@ -262,4 +380,4 @@ const classes = {
   },
 };
 
-export { ProductToggle, ProductToggleNew, PromoToggle };
+export { ProductToggle, ProductToggleNew, PromoToggle, ReadOnlyPromoToggle };

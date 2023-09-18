@@ -5,7 +5,14 @@ import theme from "../../../../Theme";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewAdvertismentDialog from "./NewAdvertismentDialog/NewAdvertismentDialog";
 
-function MyLokalAds({ handleSave, open, setOpen, openEdit, setOpenEdit }) {
+function MyLokalAds({
+  handleSave,
+  handleDelete,
+  open,
+  setOpen,
+  openEdit,
+  setOpenEdit,
+}) {
   const handleOpen = () => {
     setOpen(true);
   };
@@ -28,6 +35,7 @@ function MyLokalAds({ handleSave, open, setOpen, openEdit, setOpenEdit }) {
             openEdit={openEdit}
             setOpenEdit={setOpenEdit}
             handleSave={handleSave}
+            handleDelete={handleDelete}
           />
         </Stack>
       </Box>
