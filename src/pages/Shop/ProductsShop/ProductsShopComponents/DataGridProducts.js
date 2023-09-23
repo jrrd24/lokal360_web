@@ -8,12 +8,7 @@ import CustomDataGrid from "../../../../components/CustomDataGrid";
 import { Link } from "react-router-dom";
 // Define Datagrid Columns
 const columns = [
-  {
-    field: "productID",
-    headerName: "ID",
-    width: 80,
-    hideable: false,
-  },
+  { field: "productID", headerName: "ID", width: 80, hideable: false },
   {
     field: "product_image",
     headerName: "Image",
@@ -93,7 +88,7 @@ const columns = [
       let statusComponent;
       const productID = params.row.productID;
       statusComponent = (
-        <Link to={`/shop/products/product_page?productId=${productID}`}>
+        <Link to={`/shop/products/product_page/${productID}`}>
           <IconButton>
             <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
           </IconButton>

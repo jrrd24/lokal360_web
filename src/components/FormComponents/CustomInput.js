@@ -147,7 +147,7 @@ const ReadOnlyCustomInput = ({
         Icon
           ? {
               startAdornment: (
-                <Box sx={{ pt: "4px" }}>
+                <Box>
                   {" "}
                   {/* Add padding to the Box */}
                   <InputAdornment position="start">

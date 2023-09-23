@@ -21,15 +21,7 @@ function LogoAndHeader({ logo, header }) {
             src={logo}
             alt="Shop logo"
             loading="eager"
-            style={{
-              backgroundColor: "#FFF",
-              borderRadius: 10,
-              height: 100,
-              width: 100,
-              border: "solid",
-              borderColor: `#44444433`,
-              borderWidth: 2,
-            }}
+            style={{ ...classes.image, height: 100, width: 100 }}
           />
         </Box>
       </Stack>
@@ -41,20 +33,22 @@ function LogoAndHeader({ logo, header }) {
           <img
             src={header}
             alt="Shop Header"
-            style={{
-              backgroundColor: "#FFF",
-              borderRadius: 10,
-              height: 180,
-              width: 320,
-              border: "solid",
-              borderColor: `#44444433`,
-              borderWidth: 2,
-            }}
+            style={{ ...classes.image, height: 180, width: 320 }}
           />
         </Box>
       </Stack>
     </Stack>
   );
 }
+
+const classes = {
+  image: {
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    border: "solid",
+    borderColor: `#44444433`,
+    borderWidth: 2,
+  },
+};
 
 export default LogoAndHeader;

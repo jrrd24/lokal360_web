@@ -8,13 +8,39 @@ const productData = [
     number_of_variations: 9,
     promo_type: "Peso Discount",
     is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     // inner join
     voucherID: null,
     shopCategoryID: 1,
+    shopCategory: "Category A",
     promoID: 1,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+
+    variations: [
+      {
+        prodVariationID: 1,
+        productID: 1,
+        name: "variation 1",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 4,
+        amt_on_hand: 15,
+      },
+      {
+        prodVariationID: 2,
+        productID: 1,
+        name: "variation 2",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 4,
+        amt_on_hand: 9,
+      },
+    ],
   },
 
   {
@@ -26,12 +52,38 @@ const productData = [
     number_of_variations: 4,
     promo_type: "Free Shipping",
     is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: null,
     shopCategoryID: 1,
+    shopCategory: "Category A",
     promoID: null,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+
+    variations: [
+      {
+        prodVariationID: 3,
+        productID: 2,
+        name: "variation 3",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 4,
+        amt_on_hand: 0,
+      },
+      {
+        prodVariationID: 4,
+        productID: 2,
+        name: "variation 4",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 4,
+        amt_on_hand: 8,
+      },
+    ],
   },
   {
     productID: 3,
@@ -42,12 +94,28 @@ const productData = [
     number_of_variations: 3,
     promo_type: "Percent Discount",
     is_featured: true,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: null,
     shopCategoryID: 1,
+    shopCategory: "Category A",
     promoID: null,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 5,
+        productID: 3,
+        name: "variation 5",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 21,
+      },
+    ],
   },
   {
     productID: 4,
@@ -58,12 +126,28 @@ const productData = [
     number_of_variations: 8,
     promo_type: "None",
     is_featured: true,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: null,
     shopCategoryID: 2,
+    shopCategory: "Category B",
     promoID: 1,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 6,
+        productID: 4,
+        name: "variation 5",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 16,
+      },
+    ],
   },
   {
     productID: 5,
@@ -74,12 +158,28 @@ const productData = [
     number_of_variations: 5,
     promo_type: "Percent Discount",
     is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: null,
     shopCategoryID: null,
+    shopCategory: "",
     promoID: null,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 7,
+        productID: 5,
+        name: "variation 7",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 1,
+      },
+    ],
   },
   {
     productID: 6,
@@ -90,12 +190,28 @@ const productData = [
     number_of_variations: 2,
     promo_type: "Free Shipping",
     is_featured: true,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: null,
     shopCategoryID: null,
+    shopCategory: "",
     promoID: 2,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 8,
+        productID: 6,
+        name: "variation 8",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 11,
+      },
+    ],
   },
   {
     productID: 7,
@@ -105,12 +221,29 @@ const productData = [
     status: "In Stock",
     number_of_variations: 7,
     promo_type: "Peso Discount",
+    is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 1,
     shopCategoryID: 3,
+    shopCategory: "Category C",
     promoID: 1,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 9,
+        productID: 7,
+        name: "variation 9",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 15,
+      },
+    ],
   },
   {
     productID: 8,
@@ -121,12 +254,28 @@ const productData = [
     number_of_variations: 10,
     promo_type: "None",
     is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 1,
     shopCategoryID: 4,
+    shopCategory: "Category D",
     promoID: 3,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 10,
+        productID: 8,
+        name: "variation 10",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 6,
+      },
+    ],
   },
   {
     productID: 9,
@@ -137,12 +286,28 @@ const productData = [
     number_of_variations: 1,
     promo_type: "Percent Discount",
     is_featured: true,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 2,
     shopCategoryID: null,
+    shopCategory: "",
     promoID: 4,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 11,
+        productID: 9,
+        name: "variation 11",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 0,
+      },
+    ],
   },
   {
     productID: 10,
@@ -153,12 +318,28 @@ const productData = [
     number_of_variations: 6,
     promo_type: "Free Shipping",
     is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 2,
     shopCategoryID: 3,
+    shopCategory: "Category C",
     promoID: 5,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 12,
+        productID: 10,
+        name: "variation 12",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 0,
+      },
+    ],
   },
   {
     productID: 11,
@@ -169,12 +350,28 @@ const productData = [
     number_of_variations: 9,
     promo_type: "Peso Discount",
     is_featured: true,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 2,
     shopCategoryID: 4,
+    shopCategory: "Category D",
     promoID: 6,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 13,
+        productID: 11,
+        name: "variation 13",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 15,
+      },
+    ],
   },
   {
     productID: 12,
@@ -185,12 +382,28 @@ const productData = [
     number_of_variations: 4,
     promo_type: "Percent Discount",
     is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 3,
     shopCategoryID: 5,
     promoID: 7,
+    shopCategory: "Category G",
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 14,
+        productID: 12,
+        name: "variation 14",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 8,
+      },
+    ],
   },
   {
     productID: 13,
@@ -201,12 +414,28 @@ const productData = [
     number_of_variations: 7,
     promo_type: "None",
     is_featured: false,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 4,
     shopCategoryID: 6,
+    shopCategory: "Category F",
     promoID: null,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 15,
+        productID: 13,
+        name: "variation 15",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 0,
+      },
+    ],
   },
   {
     productID: 14,
@@ -216,12 +445,29 @@ const productData = [
     status: "Out Of Stock",
     number_of_variations: 7,
     promo_type: "None",
+    is_featured: true,
+    category: "Bamboo",
+    description:
+      "lorem ispum sada dasjkldhaslk dioeudioa klasjdalsd a duiapdia ad9pwoae idam poaiedaopw edaklxnma auapeasd jkh ra",
+
     voucherID: 3,
     shopCategoryID: 7,
+    shopCategory: "Category G",
     promoID: 4,
     price: 750.0,
     orig_price: 750.0,
     rating: 4.5,
+    variations: [
+      {
+        prodVariationID: 16,
+        productID: 14,
+        name: "variation 16",
+        price: 120.0,
+        var_image: null,
+        amt_sold: 10,
+        amt_on_hand: 0,
+      },
+    ],
   },
 ];
 

@@ -27,6 +27,7 @@ import EmployeeManagement from "./pages/Shop/EmployeeManagement/EmployeeManageme
 import SettingsShop from "./pages/Shop/SettingsShop/SettingsShop";
 import ShopCategory from "./pages/Shop/ShopCategory/ShopCategory";
 import { DateRangeProvider } from "./contexts/DateRangeContext";
+import ProductPage from "./pages/Shop/ProductsShop/ProductPage/ProductPage";
 
 function App() {
   return (
@@ -68,6 +69,10 @@ function App() {
               <Route
                 path="/shop/employee_management"
                 element={<EmployeeManagement />}
+              />
+              <Route
+                path="/shop/products/product_page/:productID"
+                element={<ProductPage />}
               />
               {/*Display Error page if route does not exist */}
               <Route path="*" element={<RouterError />} />

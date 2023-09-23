@@ -23,10 +23,10 @@ function ActiveVouchers() {
           inputData={voucherData}
           component={VoucherContainer}
           sortByField={"start_date"}
-          showUpTo={3}
           idName={"voucherID"}
           horizontal
           height={170}
+          condition={(voucher) => voucher.is_active === true}
         />
       </Box>
     </Stack>
