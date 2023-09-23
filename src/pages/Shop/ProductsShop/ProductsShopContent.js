@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import { Box } from "@mui/material";
-import TopProducts from "../AnalyticsShop/AnalyticsComponents/TopProducts";
-import ProductStatus from "../DashboardShop/DashboardComponents/ProductStatus";
-import FeaturedProducts from "./ProductsShopComponents/FeaturedProducts";
-import MyProducts from "./ProductsShopComponents/MyProducts";
 import theme from "../../../Theme";
 import CustomAlert from "../../../components/CustomAlert";
+import { LoadingCircle } from "../../../components/Loading/Loading";
+
+// Lazy-Loaded Components
+const FeaturedProducts = lazy(() =>
+  import("./ProductsShopComponents/FeaturedProducts")
+);
+const MyProducts = lazy(() => import("./ProductsShopComponents/MyProducts"));
+const TopProducts = lazy(() =>
+  import("../AnalyticsShop/AnalyticsComponents/TopProducts")
+);
+const ProductStatus = lazy(() =>
+  import("../DashboardShop/DashboardComponents/ProductStatus")
+);
+
+
 
 function ProductsShopContent() {
   // Handle Open Dialog Box
@@ -36,28 +47,21 @@ function ProductsShopContent() {
           {/*Featured Products/ My Products (Left Side)*/}
           <Box sx={{ ...classes.leftContainer }}>
             {/*Featured Products*/}
-            <Box
-              sx={{
-                ...theme.components.box.sectionContainer,
-                minWidth: "750px",
-                maxWidth: "790px",
-                "@media (max-width: 1516px)": {
-                  alignItems: "center",
-                  justifyContent: "center",
-                  minWidth: "100%",
-                },
-              }}
-            >
-              <FeaturedProducts />
+            <Box sx={{ ...classes.featuredProductsContainer }}>
+              <Suspense fallback={<LoadingCircle />}>
+                <FeaturedProducts />
+              </Suspense>
             </Box>
 
             {/*My Products*/}
             <Box sx={{ ...classes.myProductsContainer }}>
-              <MyProducts
-                handleSave={handleSave}
-                open={open}
-                setOpen={setOpen}
-              />
+              <Suspense fallback={<LoadingCircle />}>
+                <MyProducts
+                  handleSave={handleSave}
+                  open={open}
+                  setOpen={setOpen}
+                />
+              </Suspense>
             </Box>
           </Box>
 
@@ -65,12 +69,16 @@ function ProductsShopContent() {
           <Box sx={{ ...classes.rightContainer }}>
             {/*Products Sold Per Category */}
             <Box sx={{ ...classes.categoryContainer }}>
-              <ProductStatus hideShowAll={true} />
+              <Suspense fallback={<LoadingCircle />}>
+                <ProductStatus hideShowAll={true} />
+              </Suspense>
             </Box>
 
             {/*Top Products */}
             <Box sx={{ ...classes.topProductsContainer }}>
-              <TopProducts hideShowAll={true} />
+              <Suspense fallback={<LoadingCircle />}>
+                <TopProducts hideShowAll={true} />
+              </Suspense>
             </Box>
           </Box>
         </Box>
@@ -107,6 +115,16 @@ const classes = {
     },
   },
 
+  featuredProductsContainer: {
+    ...theme.components.box.sectionContainer,
+    minWidth: "750px",
+    maxWidth: "790px",
+    "@media (max-width: 1516px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "100%",
+    },
+  },
   myProductsContainer: {
     ...theme.components.box.sectionContainer,
     minWidth: "750px",

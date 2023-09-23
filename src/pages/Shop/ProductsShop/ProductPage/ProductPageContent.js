@@ -1,10 +1,13 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { Box, Tabs, Tab } from "@mui/material";
+import { Box, Tabs, Tab, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import theme from "../../../../Theme";
 import PageInfoComponent from "../../../../components/PageInfoAndTime/PageInfoComponent";
 import productData from "../../../../data/productData";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
+import CustomAlert from "../../../../components/CustomAlert";
+import { useNavigate } from "react-router-dom";
+
 // Lazy-loaded components
 const ProductInfo = lazy(() => import("./ProductPageComponents/ProductInfo"));
 const Variations = lazy(() => import("./ProductPageComponents/Variations"));
@@ -44,7 +47,43 @@ function a11yProps(index) {
   };
 }
 
-function ProductPageContent({ selectedProductID }) {
+function ProductPageContent({ selectedProductID, setProductName }) {
+  // Handle Alert Click
+  const [open, setOpen] = useState(false);
+  const [openNewVar, setOpenNewVar] = useState(false);
+  const [openEditVar, setOpenEditVar] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [severity, setSeverity] = useState("error");
+  const [alertMsg, setAlertMsg] = useState("");
+
+  const handleSave = (severity, alertMsg) => {
+    setOpen(false);
+    setOpenNewVar(false);
+    setOpenEditVar(false);
+    setSeverity("success");
+    setAlertMsg("Shop Information Successfully Updated!");
+    setOpenAlert(true);
+  };
+
+  const handleDelete = ({ id, name }) => {
+    console.log("Deleted: ", id);
+    setSeverity("error");
+    setAlertMsg(name + " is deleted");
+    setOpenAlert(true);
+  };
+
+  const navigate = useNavigate();
+
+  const handleDeleteProduct = ({ id, name }) => {
+    console.log("Deleted:", id);
+    setSeverity("error");
+    setAlertMsg(name + " is deleted");
+    setOpenAlert(true);
+    setTimeout(() => {
+      navigate("/shop/products");
+    }, 2000);
+  };
+
   // Use state to store the selectedProduct
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -54,8 +93,14 @@ function ProductPageContent({ selectedProductID }) {
       (product) => product.productID === selectedProductID
     );
 
-    foundProduct ? setSelectedProduct(foundProduct) : setSelectedProduct(null);
-  }, [selectedProductID]);
+    if (foundProduct) {
+      setSelectedProduct(foundProduct);
+      setProductName(foundProduct.name);
+    } else {
+      setSelectedProduct(null);
+      setProductName("Product");
+    }
+  }, [selectedProductID, setProductName]);
 
   const {
     productID,
@@ -88,99 +133,154 @@ function ProductPageContent({ selectedProductID }) {
   };
 
   return (
-    <Box sx={{ ...theme.components.box.pageContainer }}>
-      <PageInfoComponent
-        PageName={"Product Information"}
-        Subtitle={`View and Manage Product Information`}
-      />
-      {/*Page Content */}
-      <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*Main Content*/}
-        <Box sx={{ ...classes.main }}>
-          {/*Display Product Info*/}
-          <Box sx={{ ...classes.displayInfo }}>
-            <Suspense fallback={<LoadingCircle />}>
-              <ProductInfo
-                productID={productID}
-                productImage={product_image}
-                name={name}
-                totalSales={total_sold * price}
-                amountSold={total_sold}
-                noOfVariations={number_of_variations}
-              />
-            </Suspense>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="primary"
-              textColor="inherit"
-              variant="fullWidth"
-              sx={{ ...classes.tabs }}
-            >
-              <Tab label="Details" {...a11yProps(0)} />
-              <Tab label="Comments" {...a11yProps(1)} />
-              <Tab label="Analytics" {...a11yProps(2)} />
-            </Tabs>
-          </Box>
-
-          {/*Details */}
-          <CustomTabPanel value={value} index={0}>
-            <Box sx={{ ...classes.main }}>
-              {/*Product Variations*/}
-              <Box sx={{ ...classes.content }}>
-                <Suspense fallback={<LoadingCircle />}>
-                  <Variations variations={variations} />
-                </Suspense>
-              </Box>
-
-              {/*Appllied Promos*/}
-              <Box sx={{ ...classes.content }}>
-                <Suspense fallback={<LoadingCircle />}>
-                  <Promos promoID={promoID} />
-                </Suspense>
-              </Box>
-
-              {/*Vouchers*/}
-              <Box sx={{ ...classes.content }}>
-                <Suspense fallback={<LoadingCircle />}>
-                  <Vouchers productID={productID} />
-                </Suspense>
-              </Box>
-
-              {/*Product Details*/}
-              <Box sx={{ ...classes.content }}>
-                <Suspense fallback={<LoadingCircle />}>
-                  <Details
-                    name={name}
-                    category={category}
-                    shopCategory={shopCategory}
-                    description={description}
-                    rating={rating}
-                  />
-                </Suspense>
-              </Box>
-
-              {/*Product Images*/}
-              <Box sx={{ ...classes.content }}>
-                <Suspense fallback={<LoadingCircle />}>
-                  <ProductImages />
-                </Suspense>
-              </Box>
+    <div>
+      <Box sx={{ ...theme.components.box.pageContainer }}>
+        <PageInfoComponent
+          PageName={"Product Information"}
+          Subtitle={`View and Manage Product Information`}
+        />
+        {/*Page Content */}
+        <Box sx={{ ...theme.components.box.mainContent }}>
+          {/*Main Content*/}
+          <Box sx={{ ...classes.main }}>
+            {/*Display Product Info*/}
+            <Box sx={{ ...classes.displayInfo }}>
+              <Suspense fallback={<LoadingCircle />}>
+                <ProductInfo
+                  productID={productID}
+                  productImage={product_image}
+                  name={name}
+                  totalSales={total_sold * price}
+                  amountSold={total_sold}
+                  noOfVariations={number_of_variations}
+                  productData={selectedProduct}
+                  open={open}
+                  setOpen={setOpen}
+                  handleSave={handleSave}
+                  handleDelete={handleDeleteProduct}
+                />
+              </Suspense>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                indicatorColor="primary"
+                textColor="inherit"
+                variant="fullWidth"
+                sx={{ ...classes.tabs }}
+              >
+                <Tab
+                  label={
+                    <Typography
+                      variant="sectionTitleSmall"
+                      sx={{ ...classes.tab }}
+                    >
+                      Details
+                    </Typography>
+                  }
+                  {...a11yProps(0)}
+                />
+                <Tab
+                  label={
+                    <Typography
+                      variant="sectionTitleSmall"
+                      sx={{ ...classes.tab }}
+                    >
+                      Comments
+                    </Typography>
+                  }
+                  {...a11yProps(1)}
+                />
+                <Tab
+                  label={
+                    <Typography
+                      variant="sectionTitleSmall"
+                      sx={{ ...classes.tab }}
+                    >
+                      Analytics
+                    </Typography>
+                  }
+                  {...a11yProps(2)}
+                />
+              </Tabs>
             </Box>
-          </CustomTabPanel>
 
-          {/*Comments*/}
-          <CustomTabPanel value={value} index={1}>
-            All Comments
-          </CustomTabPanel>
+            {/*Details */}
+            <CustomTabPanel value={value} index={0}>
+              <Box sx={{ ...classes.main }}>
+                {/*Product Variations*/}
+                <Box sx={{ ...classes.content }}>
+                  <Suspense fallback={<LoadingCircle />}>
+                    <Variations
+                      variations={variations}
+                      openNewVar={openNewVar}
+                      setOpenNewVar={setOpenNewVar}
+                      openEditVar={openEditVar}
+                      setOpenEditVar={setOpenEditVar}
+                      handleSave={handleSave}
+                      handleDelete={handleDelete}
+                      productID={productID}
+                      name={name}
+                    />
+                  </Suspense>
+                </Box>
 
-          {/*Analytics*/}
-          <CustomTabPanel value={value} index={2}>
-            Product Analytics
-          </CustomTabPanel>
+                {/*Appllied Promos*/}
+                <Box sx={{ ...classes.content }}>
+                  <Suspense fallback={<LoadingCircle />}>
+                    <Promos promoID={promoID} />
+                  </Suspense>
+                </Box>
+
+                {/*Vouchers*/}
+                <Box sx={{ ...classes.content }}>
+                  <Suspense fallback={<LoadingCircle />}>
+                    <Vouchers productID={productID} />
+                  </Suspense>
+                </Box>
+
+                {/*Product Details*/}
+                <Box sx={{ ...classes.content }}>
+                  <Suspense fallback={<LoadingCircle />}>
+                    <Details
+                      name={name}
+                      category={category}
+                      shopCategory={shopCategory}
+                      description={description}
+                      rating={rating}
+                    />
+                  </Suspense>
+                </Box>
+
+                {/*Product Images*/}
+                <Box sx={{ ...classes.content }}>
+                  <Suspense fallback={<LoadingCircle />}>
+                    <ProductImages />
+                  </Suspense>
+                </Box>
+              </Box>
+            </CustomTabPanel>
+
+            {/*Comments*/}
+            <CustomTabPanel value={value} index={1}>
+              All Comments
+            </CustomTabPanel>
+
+            {/*Analytics*/}
+            <CustomTabPanel value={value} index={2}>
+              Product Analytics
+            </CustomTabPanel>
+          </Box>
         </Box>
       </Box>
-    </Box>
+
+      {/*Display Alert */}
+      <CustomAlert
+        open={openAlert}
+        setOpen={setOpenAlert}
+        severity={severity}
+        alertMsg={alertMsg}
+      />
+    </div>
   );
 }
 
@@ -202,6 +302,10 @@ const classes = {
     },
   },
 
+  tab: {
+    color: "inherit",
+    fontSize: 18,
+  },
   content: {
     minWidth: "600px",
     ...theme.components.box.sectionContainer,

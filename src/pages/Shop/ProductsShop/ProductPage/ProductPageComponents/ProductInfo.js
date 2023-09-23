@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import NumberFormat from "../../../../../utils/NumberFormat";
-import theme from "../../../../../Theme";
 import styles from "../../../../../css/Styles.module.css";
 import ButtonEdit from "../../../../../components/Buttons/ButtonEdit";
-import CustomAlert from "../../../../../components/CustomAlert";
+import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
+import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
+import EditProductInfoDialog from "./EditProductInfoDialog/EditProductInfoDialog";
 
 function ProductInfo({
   productID,
@@ -13,9 +14,12 @@ function ProductInfo({
   totalSales,
   amountSold,
   noOfVariations,
+  productData,
+  open,
+  setOpen,
+  handleSave,
+  handleDelete,
 }) {
-  // Handle Open Dialog Box
-  const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -23,16 +27,22 @@ function ProductInfo({
     setOpen(false);
   };
 
-  // Handle Alert Click
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
-
-  const handleSave = (severity, alertMsg) => {
-    setOpen(false);
-    setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
-    setOpenAlert(true);
+  //handle delete dialog box
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteData, setDeleteData] = useState({
+    id: null,
+    name: null,
+  });
+  const handleOpenDelete = ({ id, name }) => {
+    setOpenDelete(true);
+    setDeleteData({ id, name });
+  };
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+    handleClose();
+  };
+  const handleCancel = () => {
+    setOpenDelete(false);
   };
 
   return (
@@ -54,7 +64,14 @@ function ProductInfo({
         <Stack spacing={2} sx={{ ...classes.infoAndButtonContainer }}>
           {/*Button */}
           <Box sx={{ ...classes.buttonContainer }}>
-            {/*Button is disabled if shopID is not found */}
+            <ButtonDelete
+              onClick={() =>
+                handleOpenDelete({
+                  id: productID,
+                  name: name,
+                })
+              }
+            />
             <ButtonEdit handleOpen={handleOpen} disabled={!productID} />
           </Box>
 
@@ -106,19 +123,20 @@ function ProductInfo({
       </Box>
 
       {/*Display Edit shop Dialog box */}
-      {/* <EditShopInfoDialog
+      <EditProductInfoDialog
         open={open}
         handleClose={handleClose}
         handleSave={handleSave}
-        shopData={shopData}
-      /> */}
+        productData={productData}
+      />
 
-      {/*Display Alert */}
-      <CustomAlert
-        open={openAlert}
-        setOpen={setOpenAlert}
-        severity={severity}
-        alertMsg={alertMsg}
+      {/*Delete Dialog */}
+      <DeleteDialog
+        openDelete={openDelete}
+        handleCloseDelete={handleCloseDelete}
+        handleCancel={handleCancel}
+        handleDelete={handleDelete}
+        data={deleteData}
       />
     </div>
   );
@@ -133,7 +151,7 @@ const classes = {
     width: "100%",
     justifyContent: "space-between",
     alignItems: "center",
-    "@media (max-width: 912px)": {
+    "@media (max-width: 900px)": {
       p: 3,
       gap: "8px",
     },
@@ -141,7 +159,7 @@ const classes = {
 
   logo: {
     width: "20%",
-    "@media (max-width: 912px)": {
+    "@media (max-width: 900px)": {
       width: "100%",
     },
   },
@@ -156,14 +174,14 @@ const classes = {
   infoContainer: {
     width: "100%",
     textAlign: "left",
-    "@media (max-width: 912px)": {
+    "@media (max-width: 900px)": {
       textAlign: "center",
     },
   },
 
   infoAndButtonContainer: {
     width: "70%",
-    "@media (max-width: 912px)": {
+    "@media (max-width: 900px)": {
       width: "100%",
     },
   },
@@ -171,8 +189,11 @@ const classes = {
   buttonContainer: {
     width: "100%",
     textAlign: "right",
-    "@media (max-width: 912px)": {
-      textAlign: "center",
+    display: "flex",
+    gap: 2,
+    justifyContent: "right",
+    "@media (max-width: 900px)": {
+      justifyContent: "center",
     },
   },
 

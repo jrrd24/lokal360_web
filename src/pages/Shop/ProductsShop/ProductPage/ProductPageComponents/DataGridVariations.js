@@ -1,11 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, IconButton } from "@mui/material";
 import CustomDataGrid from "../../../../../components/CustomDataGrid";
 import { ProductInventoryStatus } from "../../../../../components/ShopOnly/StatusAndTags/ProductInventoryStatus";
 import { Edit } from "@mui/icons-material";
 import theme from "../../../../../Theme";
+import EditVariationDialog from "./EditVariationDialog/EditVariationDialog";
 
-function DataGridVariations({ data }) {
+function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
+  //Set Active Edit
+  const [editingVaritaion, setEditingVariation] = useState({
+    prodVariationID: null,
+    productID: null,
+    name: null,
+    price: null,
+    var_image: null,
+    amt_sold: null,
+    amt_on_hand: null,
+  });
+
+  //Initialize category Info field
+  data &&
+    data.length > 0 &&
+    data.forEach((row) => {
+      // Initialize categoryInfo field for each row
+      row.categoryInfo = [
+        row.prodVariationID,
+        row.productID,
+        row.name,
+        row.price,
+        row.var_image,
+        row.amt_sold,
+        row.amt_on_hand,
+      ];
+    });
+
+  const handleOpen = ({
+    prodVariationID,
+    productID,
+    name,
+    price,
+    var_image,
+    amt_sold,
+    amt_on_hand,
+  }) => {
+    setOpen(true);
+    setEditingVariation({
+      prodVariationID,
+      productID,
+      name,
+      price,
+      var_image,
+      amt_sold,
+      amt_on_hand,
+    });
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const columns = [
     { field: "prodVariationID", headerName: "ID", hideable: false, width: 80 },
 
@@ -69,9 +121,30 @@ function DataGridVariations({ data }) {
       disableExport: true,
       renderCell: (params) => {
         let statusComponent;
+        const {
+          prodVariationID,
+          productID,
+          name,
+          price,
+          var_image,
+          amt_sold,
+          amt_on_hand,
+        } = params.row;
 
         statusComponent = (
-          <IconButton>
+          <IconButton
+            onClick={() =>
+              handleOpen({
+                prodVariationID,
+                productID,
+                name,
+                price,
+                var_image,
+                amt_sold,
+                amt_on_hand,
+              })
+            }
+          >
             <Edit sx={{ color: `${theme.palette.primary.main}` }} />
           </IconButton>
         );
@@ -79,6 +152,7 @@ function DataGridVariations({ data }) {
       },
     },
   ];
+
   return (
     <div>
       <CustomDataGrid
@@ -87,6 +161,14 @@ function DataGridVariations({ data }) {
         rowsPerPage={5}
         rowID={"prodVariationID"}
         columns={columns}
+      />
+
+      <EditVariationDialog
+        open={open}
+        handleClose={handleClose}
+        handleSave={handleSave}
+        handleDelete={handleDelete}
+        data={editingVaritaion}
       />
     </div>
   );

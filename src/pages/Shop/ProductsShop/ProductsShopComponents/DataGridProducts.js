@@ -37,7 +37,7 @@ const columns = [
   {
     field: "name",
     headerName: "Name",
-    width: 200,
+    width: 275,
   },
   {
     field: "total_sold",
@@ -65,17 +65,7 @@ const columns = [
       return statusComponent;
     },
   },
-  {
-    field: "number_of_variations",
-    headerName: "No. of Variations",
-    type: "number",
-    width: 130,
-  },
-  {
-    field: "promo_type",
-    headerName: "Promo Applied",
-    width: 170,
-  },
+
   {
     field: "",
     headerName: "Action",
