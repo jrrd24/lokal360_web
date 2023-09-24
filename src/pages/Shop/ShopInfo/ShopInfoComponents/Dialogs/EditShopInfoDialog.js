@@ -137,6 +137,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
               <Box sx={{ py: 5 }}>
                 <ShopAddressD
                   control={control}
+                  setValue={setValue}
                   addressLine1={address_addressLine1}
                   addressLine2={address_addressLine2}
                   barangay={address_barangay}

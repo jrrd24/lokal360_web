@@ -37,9 +37,19 @@ const CustomInput = ({
   value: propValue,
   setPromoType,
   component: icon,
+  setSelectedValue,
 }) => {
   const [viewPass, setViewPass] = useState(true);
   const [fieldValue, setFieldValue] = useState("");
+
+  const handleValueChange = (e, field) => {
+    const selectedValue = e.target.value;
+    field.onChange(selectedValue); // Call the field's onChange function
+    setFieldValue(selectedValue); // Update the field value
+    if (setSelectedValue) {
+      setSelectedValue(selectedValue); // Call the setter function
+    }
+  };
 
   useEffect(() => {
     if (setPromoType) {
@@ -69,14 +79,7 @@ const CustomInput = ({
           label={label}
           type={secureTextEntry ? (viewPass ? "password" : "text") : "text"}
           value={fieldValue}
-          onChange={
-            setFieldValue
-              ? (e) => {
-                  field.onChange(e);
-                  setFieldValue(e.target.value);
-                }
-              : field.onChange
-          }
+          onChange={(e) => handleValueChange(e, field)}
           onBlur={field.onBlur}
           variant={"outlined"}
           multiline={multiline}

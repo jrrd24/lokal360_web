@@ -1,8 +1,10 @@
 //TODO: Add google maps api
 import { Stack, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import {
+  barangays,
+  districts,
   municipalities,
   provinces,
   regions,
@@ -10,6 +12,7 @@ import {
 
 function ShopAddressD({
   control,
+  setValue,
   sx,
   addressLine1,
   addressLine2,
@@ -19,9 +22,104 @@ function ShopAddressD({
   postalCode,
   province,
 }) {
-  const [selectedRegion, setSelectedRegion] = useState("");
-  const [selectedProvince, setSelectedProvince] = useState("");
-  const [selectedMunicipality, setSelectedMunicipality] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState(region || "");
+  const [selectedProvince, setSelectedProvince] = useState(province || "");
+  const [selectedMunicipality, setSelectedMunicipality] = useState(
+    municipality || ""
+  );
+  const [selectedBarangay, setSelectedBarangay] = useState(barangay || "");
+
+  const [filteredProvince, setFilteredProvince] = useState([]);
+  const [filteredMunicipality, setFilteredMunicipality] = useState([]);
+  const [filteredBarangay, setFilteredBarangay] = useState([]);
+
+  // Keep track of whether the component has loaded
+  const [componentLoaded, setComponentLoaded] = useState(false);
+
+  //For filtered Provinces
+  useEffect(() => {
+    const selectedRegionCode = regions.find(
+      (region) => region.label === selectedRegion
+    )?.code;
+
+    let ProvinceData = [];
+    if (selectedRegionCode === "130000000") {
+      ProvinceData = districts.filter(
+        (province) => province.regionCode === selectedRegionCode
+      );
+    } else {
+      ProvinceData = provinces.filter(
+        (province) => province.regionCode === selectedRegionCode
+      );
+    }
+
+    // Check if the component has loaded before clearing the fields
+    if (componentLoaded) {
+      setSelectedProvince("");
+      setSelectedMunicipality("");
+      setSelectedBarangay("");
+
+      setValue("addressProvince", "");
+      setValue("addressMunicipality", "");
+      setValue("addressBarangay", "");
+    } else {
+      // Set the component as loaded after the initial render
+      setComponentLoaded(true);
+    }
+
+    setFilteredProvince(ProvinceData);
+  }, [selectedRegion]);
+
+  //For filtered Municipalities
+  useEffect(() => {
+    const selectedProvinceCode =
+      provinces.find((province) => province.label === selectedProvince)
+        ?.provinceCode ||
+      districts.find((district) => district.label === selectedProvince)
+        ?.districtCode;
+
+    console.log("Province Code", selectedProvinceCode);
+    const MunicipalityData = municipalities.filter(
+      (municipality) =>
+        municipality.provinceCode === selectedProvinceCode ||
+        municipality.districtCode === selectedProvinceCode
+    );
+
+    if (componentLoaded) {
+      setSelectedMunicipality("");
+      setSelectedBarangay("");
+
+      setValue("addressMunicipality", "");
+      setValue("addressBarangay", "");
+    } else {
+      setComponentLoaded(true);
+    }
+
+    setFilteredMunicipality(MunicipalityData);
+  }, [selectedProvince, selectedRegion]);
+
+  //For filtered Barangays
+  useEffect(() => {
+    const selectedMunicipalityCode = municipalities.find(
+      (municipality) => municipality.label === selectedMunicipality
+    )?.municipalityCode;
+
+    const BarangayData = barangays.filter(
+      (barangay) =>
+        barangay.municipalityCode === selectedMunicipalityCode ||
+        barangay.cityCode === selectedMunicipalityCode
+    );
+
+    if (componentLoaded) {
+      setSelectedBarangay("");
+
+      setValue("addressBarangay", "");
+    } else {
+      setComponentLoaded(true);
+    }
+
+    setFilteredBarangay(BarangayData);
+  }, [selectedMunicipality]);
 
   return (
     <Stack spacing={3} width={"100%"}>
@@ -43,10 +141,10 @@ function ShopAddressD({
           value={addressLine1}
           width="100%"
           rules={{
-            required: "Shop Name Is Required",
+            required: "Address Line 1 Is Required",
             maxLength: {
-              value: 60,
-              message: "Max Length of 60 Characters",
+              value: 200,
+              message: "Max Length of 200 Characters",
             },
           }}
         />
@@ -60,60 +158,71 @@ function ShopAddressD({
           width="100%"
         />
 
-        {/*barangay / municipality */}
+        {/*region/province */}
         <Stack direction={"row"} spacing={3}>
           {/*region*/}
           <CustomInput
             control={control}
-            name="region"
+            name="addressRegion"
             label="Region"
-            value={region}
+            value={selectedRegion}
             width="48%"
             select
             selectMenuItems={regions}
+            setSelectedValue={setSelectedRegion}
+            rules={{ required: "Region Is Required" }}
           />
           {/*barangay*/}
 
-          {/*municipality*/}
+          {/*province*/}
           <CustomInput
             control={control}
-            name="province"
+            name="addressProvince"
             label="Province"
-            value={province}
+            value={selectedProvince}
             width="48%"
             select
-            selectMenuItems={provinces}
+            selectMenuItems={filteredProvince}
+            setSelectedValue={setSelectedProvince}
+            rules={{ required: "Province Is Required" }}
           />
         </Stack>
 
-        {/*region / postal code */}
+        {/*municipality/ barangay */}
         <Stack direction={"row"} spacing={3}>
           {/*municipality*/}
           <CustomInput
             control={control}
-            name="municipality"
-            label="Municipality"
-            value={municipality}
+            name="addressMunicipality"
+            label="City/ Municipality"
+            value={selectedMunicipality}
             width="48%"
             select
-            selectMenuItems={municipalities}
+            selectMenuItems={filteredMunicipality}
+            setSelectedValue={setSelectedMunicipality}
+            rules={{ required: "City/ Municipality Is Required" }}
           />
 
           <CustomInput
             control={control}
-            name="barangay"
+            name="addressBarangay"
             label="Barangay"
-            value={barangay}
+            value={selectedBarangay}
             width="48%"
+            select
+            selectMenuItems={filteredBarangay}
+            setSelectedValue={setSelectedBarangay}
+            rules={{ required: "Barangay Is Required" }}
           />
         </Stack>
         {/*postal code*/}
         <CustomInput
           control={control}
-          name="postalCode"
+          name="addressPostalCode"
           label="Postal Code"
           value={postalCode}
           width="48%"
+          rules={{ required: "Postal Code Is Required" }}
         />
       </Stack>
     </Stack>
