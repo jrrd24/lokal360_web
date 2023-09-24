@@ -3,6 +3,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
 import { useDateRange } from "../../contexts/DateRangeContext";
+import theme from "../../Theme";
 
 function DateRangePicker() {
   const { dateRange, setDateRange } = useDateRange(); // Access the context values
@@ -24,6 +25,7 @@ function DateRangePicker() {
         moveRangeOnFirstSelection={false}
         ranges={[dateRange]}
         maxDate={currentDate}
+        rangeColors={[theme.palette.primary.main]}
       />
     </div>
   );

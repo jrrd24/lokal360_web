@@ -8,7 +8,7 @@ import NumberFormat from "../../utils/NumberFormat";
 function ProductPreview({ data }) {
   const {
     image = data ? data.product_image : null,
-    name = data ? data.name : null,
+    product_name = data ? data.product_name : null,
     rating = data ? data.rating : null,
     amtSold = data ? data.total_sold : null,
     price = data ? data.price : null,
@@ -29,7 +29,7 @@ function ProductPreview({ data }) {
         <Stack spacing={1}>
           {/*Prod Name */}
           <Typography sx={{ ...classes.prodName }}>
-            <TruncateString str={name || "NaN"} n={44} />
+            <TruncateString str={product_name || "NaN"} n={44} />
           </Typography>
 
           {/*Prod Ratings and Amt Sold */}

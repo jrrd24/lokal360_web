@@ -13,7 +13,7 @@ function ProductContainer({ data }) {
   // for error handiling in case of undefined params
   const {
     product_image = "",
-    name = "Unknown Product",
+    product_name = "Unknown Product",
     total_sold = 0,
   } = data || {};
 
@@ -41,7 +41,7 @@ function ProductContainer({ data }) {
         >
           {/* User Name*/}
           <Typography variant="sectionTitleSmall">
-            <TruncateString str={name} n={30} />
+            <TruncateString str={product_name} n={30} />
           </Typography>
 
           {/* Order Count and Total Spent*/}
@@ -67,7 +67,7 @@ function ProductContainer({ data }) {
 
 ProductContainer.propTypes = {
   product_image: PropTypes.string,
-  name: PropTypes.string,
+  product_name: PropTypes.string,
   total_sold: PropTypes.number,
 };
 

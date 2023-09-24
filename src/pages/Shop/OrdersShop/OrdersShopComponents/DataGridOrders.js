@@ -26,13 +26,13 @@ const columns = [
     filterable: true,
   },
   {
-    field: "name",
+    field: "username",
     headerName: "Customer Name",
     width: 160,
     filterable: true,
   },
   {
-    field: "products",
+    field: "orderItem",
     headerName: "Products Bought",
     width: 180,
     filterable: true,
@@ -96,7 +96,7 @@ const columns = [
     width: 120,
   },
   {
-    field: "createdAt",
+    field: "created_at",
     headerName: "Date Created",
     filterable: true,
     width: 120,
@@ -115,7 +115,7 @@ const columns = [
       let statusComponent;
       let orderID = params.row.orderID;
       statusComponent = (
-        <Link to={`/shop/orders/order_page?orderId=${orderID}`}>
+        <Link to={`/shop/orders/order_page/${orderID}`}>
           <IconButton>
             <ArrowCircleRight sx={{ color: `${theme.palette.primary.main}` }} />
           </IconButton>
@@ -126,11 +126,12 @@ const columns = [
   },
 ];
 
-//Use to make sure products are rendered as 1 string for csv export
+//Use to make sure orderItem are rendered as 1 string for csv export
 const preProcessedData = orderData.map((order) => {
+  const productNames = order.orderItem.map((item) => item.product_name);
   return {
     ...order,
-    products: order.products.join(", "),
+    orderItem: productNames.join(", "),
   };
 });
 

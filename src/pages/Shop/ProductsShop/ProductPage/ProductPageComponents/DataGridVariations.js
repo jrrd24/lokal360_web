@@ -11,7 +11,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
   const [editingVaritaion, setEditingVariation] = useState({
     prodVariationID: null,
     productID: null,
-    name: null,
+    variation_name: null,
     price: null,
     var_image: null,
     amt_sold: null,
@@ -26,7 +26,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
       row.categoryInfo = [
         row.prodVariationID,
         row.productID,
-        row.name,
+        row.variation_name,
         row.price,
         row.var_image,
         row.amt_sold,
@@ -37,7 +37,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
   const handleOpen = ({
     prodVariationID,
     productID,
-    name,
+    variation_name,
     price,
     var_image,
     amt_sold,
@@ -47,7 +47,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
     setEditingVariation({
       prodVariationID,
       productID,
-      name,
+      variation_name,
       price,
       var_image,
       amt_sold,
@@ -87,7 +87,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
       },
     },
 
-    { field: "name", headerName: "Name", width: 160 },
+    { field: "variation_name", headerName: "Name", width: 160 },
     {
       field: "amt_on_hand",
       headerName: "Status",
@@ -124,7 +124,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
         const {
           prodVariationID,
           productID,
-          name,
+          variation_name,
           price,
           var_image,
           amt_sold,
@@ -137,7 +137,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
               handleOpen({
                 prodVariationID,
                 productID,
-                name,
+                variation_name,
                 price,
                 var_image,
                 amt_sold,

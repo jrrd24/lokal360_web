@@ -7,6 +7,9 @@ import productData from "../../../../data/productData";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import CustomAlert from "../../../../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
+import ReviewContainer from "../../../../components/ShopOnly/ReviewContainer";
+import MapData from "../../../../utils/MapData";
+import reviewData from "../../../../data/reviewData";
 
 // Lazy-loaded components
 const ProductInfo = lazy(() => import("./ProductPageComponents/ProductInfo"));
@@ -95,7 +98,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
 
     if (foundProduct) {
       setSelectedProduct(foundProduct);
-      setProductName(foundProduct.name);
+      setProductName(foundProduct.product_name);
     } else {
       setSelectedProduct(null);
       setProductName("Product");
@@ -105,7 +108,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
   const {
     productID,
     product_image,
-    name,
+    product_name,
     total_sold,
     status,
     number_of_variations,
@@ -149,7 +152,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                 <ProductInfo
                   productID={productID}
                   productImage={product_image}
-                  name={name}
+                  name={product_name}
                   totalSales={total_sold * price}
                   amountSold={total_sold}
                   noOfVariations={number_of_variations}
@@ -190,17 +193,6 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                   }
                   {...a11yProps(1)}
                 />
-                <Tab
-                  label={
-                    <Typography
-                      variant="sectionTitleSmall"
-                      sx={{ ...classes.tab }}
-                    >
-                      Analytics
-                    </Typography>
-                  }
-                  {...a11yProps(2)}
-                />
               </Tabs>
             </Box>
 
@@ -219,7 +211,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                       handleSave={handleSave}
                       handleDelete={handleDelete}
                       productID={productID}
-                      name={name}
+                      name={product_name}
                     />
                   </Suspense>
                 </Box>
@@ -242,7 +234,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                 <Box sx={{ ...classes.content }}>
                   <Suspense fallback={<LoadingCircle />}>
                     <Details
-                      name={name}
+                      name={product_name}
                       category={category}
                       shopCategory={shopCategory}
                       description={description}
@@ -262,12 +254,14 @@ function ProductPageContent({ selectedProductID, setProductName }) {
 
             {/*Comments*/}
             <CustomTabPanel value={value} index={1}>
-              All Comments
-            </CustomTabPanel>
-
-            {/*Analytics*/}
-            <CustomTabPanel value={value} index={2}>
-              Product Analytics
+              <MapData
+                inputData={reviewData}
+                component={ReviewContainer}
+                idName={"reviewID"}
+                condition={(review) => review.productID === productID}
+                nullMessage={"No Comments Found"}
+                nullImg
+              />
             </CustomTabPanel>
           </Box>
         </Box>

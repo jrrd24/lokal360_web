@@ -1,17 +1,56 @@
 const orderData = [
   {
     orderID: 1,
-    name: "Samantha Miller",
-    products: ["1x Product A", "1x Product B", "1x Product C"],
-    total_price: 275.0,
+    shopperID: 1,
+    deliveryAddressID: 1,
+    shopperClaimedVoucherID: 1,
     status: "Pending Approval",
     shipping_method: "Delivery",
-    createdAt: "2023-05-10 15:30:00",
+    created_at: "2023-05-10 15:30:00",
+    approved_at: "",
+    completed_at: "",
+    total_price: 240.0,
+
+    // inner join
+    orderItem: [
+      {
+        orderItemID: 1,
+        orderID: 1,
+        productID: 1,
+        productVariationID: 1,
+        quantity: 1,
+        price: 120.0,
+        //inner join product
+        product_name: "Bamboo Bliss Bedsheets",
+        variation_name: "variation 1",
+      },
+      {
+        orderItemID: 2,
+        orderID: 1,
+        productID: 2,
+        productVariationID: 3,
+        quantity: 1,
+        price: 120.0,
+        //inner join product
+        product_name: "Eco-Friendly Bamboo Toothbrush",
+        variation_name: "variation 3",
+      },
+    ],
+
+    //shoppper inner join
+    username: "Samantha Miller",
+    // inner join deliveryAddress
+    municipality: "Tuguegarao City",
+    postal_code: "3500",
+    region: "Cagayan",
+    addressLine1: "#40 Apple Street",
+    addressLine2: "",
+    barangay: "Centro 2",
   },
   {
     orderID: 2,
     name: "Benjamin Martinez",
-    products: ["1x Product A", "1x Product B"],
+    orderItem: ["1x Product A", "1x Product B"],
     total_price: 195.5,
     status: "Preparing",
     shipping_method: "Delivery",
@@ -20,7 +59,7 @@ const orderData = [
   {
     orderID: 3,
     name: "Olivia Johnson",
-    products: ["1x Product A"],
+    orderItem: ["1x Product A"],
     total_price: 120.0,
     status: "Ready For Pick-Up",
     shipping_method: "Pick-Up",
@@ -29,7 +68,7 @@ const orderData = [
   {
     orderID: 4,
     name: "Elijah Williams",
-    products: ["1x Product A"],
+    orderItem: ["1x Product A"],
     total_price: 75.0,
     status: "On Delivery",
     shipping_method: "Delivery",
@@ -38,7 +77,7 @@ const orderData = [
   {
     orderID: 5,
     name: "Ava Thompson",
-    products: ["1x Product A"],
+    orderItem: ["1x Product A"],
     total_price: 86.25,
     status: "Complete",
     shipping_method: "Pick-Up",
@@ -47,7 +86,7 @@ const orderData = [
   {
     orderID: 6,
     name: "Jackson Anderson",
-    products: ["1x Product B"],
+    orderItem: ["1x Product B"],
     total_price: 115.0,
     status: "Cancelled",
     shipping_method: "Pick-Up",
@@ -56,7 +95,7 @@ const orderData = [
   {
     orderID: 7,
     name: "Sophia Davis",
-    products: ["1x Product C"],
+    orderItem: ["1x Product C"],
     total_price: 100.0,
     status: "Complete",
     shipping_method: "Delivery",
@@ -65,7 +104,7 @@ const orderData = [
   {
     orderID: 8,
     name: "Liam Wilson",
-    products: ["1x Product C"],
+    orderItem: ["1x Product C"],
     total_price: 110.0,
     status: "Complete",
     shipping_method: "Delivery",
@@ -74,7 +113,7 @@ const orderData = [
   {
     orderID: 9,
     name: "Emma Brown",
-    products: ["1x Product D"],
+    orderItem: ["1x Product D"],
     total_price: 110.0,
     status: "On Delivery",
     shipping_method: "Delivery",
@@ -83,7 +122,7 @@ const orderData = [
   {
     orderID: 10,
     name: "Noah Robinson",
-    products: ["1x Product D"],
+    orderItem: ["1x Product D"],
     total_price: 110.0,
     status: "For Refund",
     shipping_method: "Delivery",
@@ -92,7 +131,7 @@ const orderData = [
   {
     orderID: 11,
     name: "Noah Robinson",
-    products: ["1x Product B, 2x Product B"],
+    orderItem: ["1x Product B, 2x Product B"],
     total_price: 160.0,
     status: "Preparing",
     shipping_method: "Delivery",
@@ -101,7 +140,7 @@ const orderData = [
   {
     orderID: 12,
     name: "Ava Thompson",
-    products: ["1x Product B, 2x Product B, 1x Product C"],
+    orderItem: ["1x Product B, 2x Product B, 1x Product C"],
     total_price: 267.5,
     status: "Complete",
     shipping_method: "Pick-Up",

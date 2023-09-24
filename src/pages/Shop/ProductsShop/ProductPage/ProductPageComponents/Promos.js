@@ -84,7 +84,7 @@ function Promos({ promoID }) {
                   />
                 </svg>
               </div>
-              <Typography variant="body2" color="textSecondary">
+              <Typography variant="seeAll" color="textSecondary" sx={{ mt: 3 }}>
                 No Applied Promo
               </Typography>
             </Stack>

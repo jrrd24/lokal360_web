@@ -28,6 +28,7 @@ import SettingsShop from "./pages/Shop/SettingsShop/SettingsShop";
 import ShopCategory from "./pages/Shop/ShopCategory/ShopCategory";
 import { DateRangeProvider } from "./contexts/DateRangeContext";
 import ProductPage from "./pages/Shop/ProductsShop/ProductPage/ProductPage";
+import OrderPage from "./pages/Shop/OrdersShop/OrderPage/OrderPage";
 
 function App() {
   return (
@@ -73,6 +74,10 @@ function App() {
               <Route
                 path="/shop/products/product_page/:productID"
                 element={<ProductPage />}
+              />
+              <Route
+                path="/shop/orders/order_page/:orderID"
+                element={<OrderPage />}
               />
               {/*Display Error page if route does not exist */}
               <Route path="*" element={<RouterError />} />

@@ -35,7 +35,7 @@ const columns = [
     },
   },
   {
-    field: "name",
+    field: "product_name",
     headerName: "Name",
     width: 275,
   },

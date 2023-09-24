@@ -2,7 +2,7 @@ const productData = [
   {
     productID: 1,
     product_image: null,
-    name: "Bamboo Bliss Bedsheets",
+    product_name: "Bamboo Bliss Bedsheets",
     total_sold: 76,
     status: "Low Stock",
     number_of_variations: 9,
@@ -25,7 +25,7 @@ const productData = [
       {
         prodVariationID: 1,
         productID: 1,
-        name: "variation 1",
+        variation_name: "variation 1",
         price: 120.0,
         var_image: null,
         amt_sold: 4,
@@ -34,7 +34,7 @@ const productData = [
       {
         prodVariationID: 2,
         productID: 1,
-        name: "variation 2",
+        variation_name: "variation 2",
         price: 120.0,
         var_image: null,
         amt_sold: 4,
@@ -46,7 +46,7 @@ const productData = [
   {
     productID: 2,
     product_image: null,
-    name: "Eco-Friendly Bamboo Toothbrush",
+    product_name: "Eco-Friendly Bamboo Toothbrush",
     total_sold: 58,
     status: "Out Of Stock",
     number_of_variations: 4,
@@ -68,7 +68,7 @@ const productData = [
       {
         prodVariationID: 3,
         productID: 2,
-        name: "variation 3",
+        variation_name: "variation 3",
         price: 120.0,
         var_image: null,
         amt_sold: 4,
@@ -77,7 +77,7 @@ const productData = [
       {
         prodVariationID: 4,
         productID: 2,
-        name: "variation 4",
+        variation_name: "variation 4",
         price: 120.0,
         var_image: null,
         amt_sold: 4,
@@ -88,7 +88,7 @@ const productData = [
   {
     productID: 3,
     product_image: null,
-    name: "Bamboo Charcoal Air Purifier sda dsadas dsadasd asd asd",
+    product_name: "Bamboo Charcoal Air Purifier sda dsadas dsadasd asd asd",
     total_sold: 11,
     status: "In Stock",
     number_of_variations: 3,
@@ -109,7 +109,7 @@ const productData = [
       {
         prodVariationID: 5,
         productID: 3,
-        name: "variation 5",
+        variation_name: "variation 5",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -120,7 +120,7 @@ const productData = [
   {
     productID: 4,
     product_image: null,
-    name: "Bamboo Kitchen Utensil Set",
+    product_name: "Bamboo Kitchen Utensil Set",
     total_sold: 93,
     status: "In Stock",
     number_of_variations: 8,
@@ -141,7 +141,7 @@ const productData = [
       {
         prodVariationID: 6,
         productID: 4,
-        name: "variation 5",
+        variation_name: "variation 5",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -152,7 +152,7 @@ const productData = [
   {
     productID: 5,
     product_image: null,
-    name: "Bamboo Fiber Bath Towels",
+    product_name: "Bamboo Fiber Bath Towels",
     total_sold: 27,
     status: "Low Stock",
     number_of_variations: 5,
@@ -173,7 +173,7 @@ const productData = [
       {
         prodVariationID: 7,
         productID: 5,
-        name: "variation 7",
+        variation_name: "variation 7",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -184,7 +184,7 @@ const productData = [
   {
     productID: 6,
     product_image: null,
-    name: "Bamboo Laptop Stand",
+    product_name: "Bamboo Laptop Stand",
     total_sold: 105,
     status: "In Stock",
     number_of_variations: 2,
@@ -205,7 +205,7 @@ const productData = [
       {
         prodVariationID: 8,
         productID: 6,
-        name: "variation 8",
+        variation_name: "variation 8",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -216,7 +216,7 @@ const productData = [
   {
     productID: 7,
     product_image: null,
-    name: "Bamboo Cutting Board",
+    product_name: "Bamboo Cutting Board",
     total_sold: 87,
     status: "In Stock",
     number_of_variations: 7,
@@ -237,7 +237,7 @@ const productData = [
       {
         prodVariationID: 9,
         productID: 7,
-        name: "variation 9",
+        variation_name: "variation 9",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -248,7 +248,7 @@ const productData = [
   {
     productID: 8,
     product_image: null,
-    name: "Bamboo Picnic Basket",
+    product_name: "Bamboo Picnic Basket",
     total_sold: 37,
     status: "Low Stock",
     number_of_variations: 10,
@@ -269,7 +269,7 @@ const productData = [
       {
         prodVariationID: 10,
         productID: 8,
-        name: "variation 10",
+        variation_name: "variation 10",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -280,7 +280,7 @@ const productData = [
   {
     productID: 9,
     product_image: null,
-    name: "Bamboo Desk Organizer",
+    product_name: "Bamboo Desk Organizer",
     total_sold: 9,
     status: "Discontinued",
     number_of_variations: 1,
@@ -301,7 +301,7 @@ const productData = [
       {
         prodVariationID: 11,
         productID: 9,
-        name: "variation 11",
+        variation_name: "variation 11",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -312,7 +312,7 @@ const productData = [
   {
     productID: 10,
     product_image: null,
-    name: "Bamboo Fiber Coffee Cups",
+    product_name: "Bamboo Fiber Coffee Cups",
     total_sold: 70,
     status: "Out Of Stock",
     number_of_variations: 6,
@@ -333,7 +333,7 @@ const productData = [
       {
         prodVariationID: 12,
         productID: 10,
-        name: "variation 12",
+        variation_name: "variation 12",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -344,7 +344,7 @@ const productData = [
   {
     productID: 11,
     product_image: null,
-    name: "Bamboo Soap Dispenser",
+    product_name: "Bamboo Soap Dispenser",
     total_sold: 62,
     status: "In Stock",
     number_of_variations: 9,
@@ -365,7 +365,7 @@ const productData = [
       {
         prodVariationID: 13,
         productID: 11,
-        name: "variation 13",
+        variation_name: "variation 13",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -376,7 +376,7 @@ const productData = [
   {
     productID: 12,
     product_image: null,
-    name: "Bamboo Plant Stand",
+    product_name: "Bamboo Plant Stand",
     total_sold: 39,
     status: "Low Stock",
     number_of_variations: 4,
@@ -397,7 +397,7 @@ const productData = [
       {
         prodVariationID: 14,
         productID: 12,
-        name: "variation 14",
+        variation_name: "variation 14",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -408,7 +408,7 @@ const productData = [
   {
     productID: 13,
     product_image: null,
-    name: "Bamboo Folding Chair",
+    product_name: "Bamboo Folding Chair",
     total_sold: 21,
     status: "Out Of Stock",
     number_of_variations: 7,
@@ -429,7 +429,7 @@ const productData = [
       {
         prodVariationID: 15,
         productID: 13,
-        name: "variation 15",
+        variation_name: "variation 15",
         price: 120.0,
         var_image: null,
         amt_sold: 10,
@@ -440,7 +440,7 @@ const productData = [
   {
     productID: 14,
     product_image: null,
-    name: "Product 14",
+    product_name: "Product 14",
     total_sold: 21,
     status: "Out Of Stock",
     number_of_variations: 7,
@@ -461,7 +461,7 @@ const productData = [
       {
         prodVariationID: 16,
         productID: 14,
-        name: "variation 16",
+        variation_name: "variation 16",
         price: 120.0,
         var_image: null,
         amt_sold: 10,

@@ -33,14 +33,13 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
     categoryID,
     shipping_deliver_enabled,
     shipping_pickup_enabled,
-    address_city,
-    address_country,
-    address_district,
-    address_iso_country_code,
+    address_municipality,
+    address_province,
     address_postal_code,
     address_region,
-    address_street,
-    address_street_no,
+    address_addressLine1,
+    address_addressLine2,
+    address_barangay,
     phone_number,
     website_link,
     is_open_mon,
@@ -136,7 +135,16 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
 
               {/*Shop Address */}
               <Box sx={{ py: 5 }}>
-                <ShopAddressD />
+                <ShopAddressD
+                  control={control}
+                  addressLine1={address_addressLine1}
+                  addressLine2={address_addressLine2}
+                  barangay={address_barangay}
+                  municipality={address_municipality}
+                  region={address_region}
+                  postalCode={address_postal_code}
+                  province={address_province}
+                />
               </Box>
 
               <Divider />

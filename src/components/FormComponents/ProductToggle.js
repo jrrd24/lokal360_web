@@ -22,13 +22,13 @@ import { FaPesoSign } from "react-icons/fa6";
 function ProductToggle({ data, control }) {
   const {
     product_image = "",
-    name = "Unknown Product",
+    product_name = "Unknown Product",
     is_featured,
   } = data || {};
 
   return (
     <Controller
-      name={name}
+      name={product_name}
       control={control}
       defaultValue={is_featured}
       render={({ field }) => (
@@ -48,12 +48,12 @@ function ProductToggle({ data, control }) {
 
             {/* Product Name */}
             <Typography variant="sectionTitleSmall">
-              <TruncateString str={name} n={30} />
+              <TruncateString str={product_name} n={30} />
             </Typography>
           </Stack>
 
           {/* Toggle */}
-          <Switch name={name} checked={field.value} onChange={field.onChange} />
+          <Switch name={product_name} checked={field.value} onChange={field.onChange} />
         </Box>
       )}
     />
@@ -63,7 +63,7 @@ function ProductToggle({ data, control }) {
 ProductToggle.propTypes = {
   data: PropTypes.shape({
     product_image: PropTypes.string,
-    name: PropTypes.string,
+    product_name: PropTypes.string,
     is_featured: PropTypes.bool,
   }),
   control: PropTypes.object.isRequired,
@@ -133,7 +133,7 @@ const ProductToggleNew = ({
 
                 {/* Product Name */}
                 <Typography variant="sectionTitleSmall">
-                  <TruncateString str={product.name} n={30} />
+                  <TruncateString str={product.product_name} n={30} />
                 </Typography>
               </Stack>
 
