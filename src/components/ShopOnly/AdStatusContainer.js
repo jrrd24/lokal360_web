@@ -12,7 +12,7 @@ function AdStatusContainer({ color, count, status }) {
         height: 100,
         minWidth: 200,
         backgroundColor: bgColor,
-        borderRadius: 2,
+        borderRadius: 5,
       }}
     >
       <Box p={2}>

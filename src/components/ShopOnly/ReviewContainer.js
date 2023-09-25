@@ -60,20 +60,20 @@ function ReviewContainer({ data }) {
       <Typography variant="body" sx={{ lineHeight: "18px", fontSize: "14px" }}>
         {review_content}
       </Typography>
-
-      <Divider sx={{ pt: 3 }} />
     </Stack>
   );
 }
 
 const classes = {
   main: {
+    ...theme.components.box.sectionContainer,
     width: "100%",
     backgroundColor: `${theme.palette.background.paper}`,
     minHeight: 100,
     textAlign: "left",
     px: 2,
     py: 2,
+    my: 2,
     borderRadius: 2,
   },
 

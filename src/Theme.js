@@ -171,10 +171,6 @@ const theme = createTheme({
         backgroundColor: (theme) => theme.palette.background.paper,
         boxShadow: "0px 2px 5px 0px rgba(110, 95, 222, 0.25)",
         transition: "background-color 0.3s, opacity 0.3s",
-        display: "flex",
-        flexDirection: "row",
-        gap: "32px",
-        flexWrap: "wrap",
         padding: "20px",
 
         transform: "perspective(1px) translateZ(0)",
@@ -204,6 +200,7 @@ const theme = createTheme({
       //? for Boxes that wrap graphs
       //* sx={{...theme.components.box.graphContainer}}
       graphContainer: {
+        borderRadius: "10px",
         minWidth: "750px",
         "@media (max-width: 1516px)": {
           alignItems: "center",

@@ -29,17 +29,16 @@ function CustomersShopContent() {
 const classes = {
   leftContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
-      alignItems: "center",
-      justifyContent: "center",
-      minWidth: "100%",
-    },
+
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: "100%",
   },
 
   customersContainer: {
     ...theme.components.box.sectionContainer,
     minWidth: "600px",
-    "@media (max-width: 912px)": {
+    "@media (max-width: 900px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",

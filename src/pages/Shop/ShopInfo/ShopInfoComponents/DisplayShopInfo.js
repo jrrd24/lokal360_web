@@ -44,15 +44,10 @@ function DisplayShopInfo({
         sx={{
           display: "flex",
           flexDirection: "row",
-          gap: "32px",
           flexWrap: "wrap",
           width: "100%",
           justifyContent: "space-between",
           alignItems: "center",
-          "@media (max-width: 912px)": {
-            p: 3,
-            gap: "8px",
-          },
         }}
       >
         {/*Shop Logo */}
@@ -105,8 +100,9 @@ function DisplayShopInfo({
           <Stack
             spacing={2}
             sx={{
-              width: "100%",
+              width: "80%",
               textAlign: "left",
+              alignSelf: "center",
               "@media (max-width: 912px)": {
                 textAlign: "center",
               },
@@ -126,9 +122,6 @@ function DisplayShopInfo({
                 justifyContent: "space-between",
                 textAlign: "center",
                 alignItems: "center",
-                "@media (max-width: 600px)": {
-                  justifyContent: "center",
-                },
               }}
             >
               {/*Total Sales*/}

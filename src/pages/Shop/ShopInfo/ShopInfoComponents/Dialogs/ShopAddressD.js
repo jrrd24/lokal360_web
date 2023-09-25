@@ -222,7 +222,13 @@ function ShopAddressD({
           label="Postal Code"
           value={postalCode}
           width="48%"
-          rules={{ required: "Postal Code Is Required" }}
+          rules={{
+            required: "Postal Code Is Required",
+            maxLength: {
+              value: 4,
+              message: "Postal Code has 4 digits Only (Sample: 3500)",
+            },
+          }}
         />
       </Stack>
     </Stack>

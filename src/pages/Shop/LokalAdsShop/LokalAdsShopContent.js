@@ -74,9 +74,11 @@ function LokalAdsShopContent() {
 const classes = {
   leftContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
+    maxWidth: "1120px",
+    "@media (max-width: 1200px)": {
       alignItems: "center",
       justifyContent: "center",
+      maxWidth: "100%",
       minWidth: "100%",
     },
   },
@@ -84,7 +86,7 @@ const classes = {
   contentContainer: {
     ...theme.components.box.sectionContainer,
     minWidth: "1120px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1200px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",

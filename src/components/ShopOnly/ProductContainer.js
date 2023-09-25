@@ -79,6 +79,7 @@ const classes = {
     justifyContent: "space-between",
     display: "flex",
     borderRadius: 2,
+    minWidth: "100%",
   },
 
   productImage: {

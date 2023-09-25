@@ -75,7 +75,7 @@ function DashboardShopContent() {
 const classes = {
   rightContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 900px)": {
       minWidth: "100%",
     },
     "@media (max-width: 600px)": {
@@ -87,7 +87,7 @@ const classes = {
   orderSummaryContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "750px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 900px)": {
       minWidth: "100%",
     },
   },
@@ -104,10 +104,8 @@ const classes = {
   adsContainer: {
     ...theme.components.box.sectionContainer,
     width: "360px",
-    "@media (max-width: 1516px)": {
-      minWidth: "48.5%",
-    },
-    "@media (max-width: 1185px)": {
+
+    "@media (max-width: 1300px)": {
       minWidth: "100%",
     },
   },
@@ -115,23 +113,22 @@ const classes = {
   voucherContainer: {
     ...theme.components.box.sectionContainer,
     width: "360px",
-    "@media (max-width: 1516px)": {
-      minWidth: "48.5%",
-    },
-    "@media (max-width: 1185px)": {
+
+    "@media (max-width: 1300px)": {
       minWidth: "100%",
     },
   },
 
   leftContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
-      minWidth: "100%",
-      flexDirection: "row",
-    },
-    "@media (max-width: 600px)": {
+    "@media (max-width: 1300px)": {
+      minWidth: "752px",
       alignItems: "center",
       justifyContent: "center",
+    },
+
+    "@media (max-width: 900px)": {
+      minWidth: "100%",
     },
   },
 
@@ -140,12 +137,7 @@ const classes = {
     alignItems: "center",
     justifyContent: "center",
     maxWidth: "340px",
-    "@media (max-width: 1516px)": {
-      minWidth: "100%",
-      ...theme.components.box.sectionContainer,
-      order: 3,
-    },
-    "@media (max-width: 1185px)": {
+    "@media (max-width: 1300px)": {
       minWidth: "100%",
       order: 1,
     },
@@ -154,11 +146,7 @@ const classes = {
   valuableCustomersContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    "@media (max-width: 1516px)": {
-      minWidth: "48.5%",
-      order: 1,
-    },
-    "@media (max-width: 1185px)": {
+    "@media (max-width: 1300px)": {
       minWidth: "100%",
       order: 2,
     },
@@ -167,11 +155,7 @@ const classes = {
   productStatusContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    "@media (max-width: 1516px)": {
-      minWidth: "48.5%",
-      order: 2,
-    },
-    "@media (max-width: 1185px)": {
+    "@media (max-width: 1300px)": {
       minWidth: "100%",
       order: 3,
     },
@@ -180,7 +164,12 @@ const classes = {
   infoContainer: {
     ...theme.components.box.sectionContainer,
     minWidth: "1120px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1300px)": {
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: "750px",
+    },
+    "@media (max-width: 900px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",

@@ -153,15 +153,14 @@ function ShopInfoContent() {
 const classes = {
   main: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
-      alignItems: "center",
-      justifyContent: "center",
-      minWidth: "100%",
-    },
+
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: "100%",
   },
   displayInfo: {
     minWidth: "600px",
-    "@media (max-width: 912px)": {
+    "@media (max-width: 900px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",
@@ -171,7 +170,7 @@ const classes = {
   content: {
     minWidth: "600px",
     ...theme.components.box.sectionContainer,
-    "@media (max-width: 912px)": {
+    "@media (max-width: 900px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",

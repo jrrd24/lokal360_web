@@ -52,11 +52,11 @@ function MapData({
               flexWrap: "wrap",
               alignItems: "center",
               justifyContent: "space-between",
-              maxWidth: "100%",
+              minWidth: "100%",
               height: height,
               overflow: "auto",
             }
-          : { maxWidth: "100%" }
+          : { minWidth: "100%" }
       }
     >
       {showLimit.length > 0 ? (

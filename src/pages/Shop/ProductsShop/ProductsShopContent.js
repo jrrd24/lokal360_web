@@ -17,8 +17,6 @@ const ProductStatus = lazy(() =>
   import("../DashboardShop/DashboardComponents/ProductStatus")
 );
 
-
-
 function ProductsShopContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
@@ -98,7 +96,7 @@ function ProductsShopContent() {
 const classes = {
   leftContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 900px)": {
       alignItems: "baseline",
       justifyContent: "center",
       minWidth: "100%",
@@ -107,7 +105,13 @@ const classes = {
 
   rightContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1300px)": {
+      flexDirection: "row",
+      alignItems: "baseline",
+      justifyContent: "center",
+      minWidth: "790px",
+    },
+    "@media (max-width: 900px)": {
       flexDirection: "row",
       alignItems: "baseline",
       justifyContent: "center",
@@ -116,10 +120,11 @@ const classes = {
   },
 
   featuredProductsContainer: {
-    ...theme.components.box.sectionContainer,
     minWidth: "750px",
     maxWidth: "790px",
-    "@media (max-width: 1516px)": {
+    p: 0,
+    "@media (max-width: 900px)": {
+      p: 2,
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",
@@ -128,7 +133,7 @@ const classes = {
   myProductsContainer: {
     ...theme.components.box.sectionContainer,
     minWidth: "750px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 900px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",
@@ -138,12 +143,9 @@ const classes = {
   topProductsContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1300px)": {
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "48%",
-    },
-    "@media (max-width: 913px)": {
       minWidth: "100%",
     },
   },
@@ -151,12 +153,9 @@ const classes = {
   categoryContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1300px)": {
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "48%",
-    },
-    "@media (max-width: 913px)": {
       minWidth: "100%",
     },
   },

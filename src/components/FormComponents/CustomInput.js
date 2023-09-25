@@ -190,7 +190,7 @@ const CustomNumberInput = ({
     type === "Percent Discount"
       ? setFieldValue(propValue * 100)
       : setFieldValue(propValue || 0);
-  }, [propValue]);
+  }, [propValue, type]);
   return (
     <Controller
       control={control}

@@ -70,9 +70,11 @@ function AnalyticsShopContent() {
 const classes = {
   statisticsBoxContainer: {
     minWidth: "1120px",
-    order: 1,
-    "@media (max-width: 1516px)": {
-      order: 1,
+    "@media (max-width: 1300px)": {
+      maxWidth: "785px",
+      minWidth: "750px",
+    },
+    "@media (max-width: 900px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",
@@ -81,7 +83,8 @@ const classes = {
 
   leftContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
+    minWidth: "750px",
+    "@media (max-width: 900px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",
@@ -90,10 +93,12 @@ const classes = {
 
   rightContainer: {
     ...theme.components.box.contentColumn,
-    "@media (max-width: 1516px)": {
-      flexDirection: "row",
+    "@media (max-width: 1300px)": {
       alignItems: "center",
       justifyContent: "center",
+      minWidth: "750px",
+    },
+    "@media (max-width: 900px)": {
       minWidth: "100%",
     },
   },
@@ -103,22 +108,19 @@ const classes = {
     flexDirection: "column",
     gap: "8px",
     flexWrap: "wrap",
-    "@media (max-width: 1189px)": {
-      flexDirection: "row",
+    "@media (max-width: 1300px)": {
       gap: "16px",
-      minWidth: "30%",
+      minWidth: "100%",
     },
   },
 
   topProducts: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1300px)": {
       alignItems: "center",
       justifyContent: "center",
-      minWidth: "60%",
-    },
-    "@media (max-width: 1020px)": {
+      maxWidth: "100%",
       minWidth: "100%",
     },
   },
@@ -126,9 +128,10 @@ const classes = {
   soldPerCategory: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1300px)": {
       alignItems: "center",
       justifyContent: "center",
+      maxWidth: "100%",
       minWidth: "100%",
     },
   },

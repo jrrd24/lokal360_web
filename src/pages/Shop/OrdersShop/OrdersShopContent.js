@@ -36,7 +36,7 @@ const classes = {
   leftContainer: {
     ...theme.components.box.contentColumn,
     order: 1,
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1200px)": {
       order: 2,
       alignItems: "center",
       justifyContent: "center",
@@ -47,7 +47,7 @@ const classes = {
   contentContainer: {
     ...theme.components.box.sectionContainer,
     minWidth: "1120px",
-    "@media (max-width: 1516px)": {
+    "@media (max-width: 1200px)": {
       alignItems: "center",
       justifyContent: "center",
       minWidth: "100%",

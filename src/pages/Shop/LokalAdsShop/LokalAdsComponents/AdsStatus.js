@@ -54,8 +54,9 @@ const classes = {
     display: "flex",
     flexDirection: "row",
     gap: "16px",
+    justifyContent: "space-between",
     flexWrap: "wrap",
-    "@media (max-width: 785px)": {
+    "@media (max-width: 1200px)": {
       px: 2,
       height: "120px",
       overflow: "auto",
