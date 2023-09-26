@@ -33,11 +33,29 @@ const columns = [
   },
   {
     field: "orderItem",
-    headerName: "Products Bought",
-    width: 180,
-    filterable: true,
+    headerName: "Order Items",
+    width: 200,
     renderCell: (params) => {
-      return <Box>{params.value}</Box>;
+      const productNames = params.value.split(", ").map((item) => {
+        const [quantity, productName] = item.split("x ");
+        return (
+          <div style={{ textAlign: "left" }} key={productName}>
+            <Typography variant="body" fontWeight="bold">
+              {quantity}x{" "}
+              <Typography
+                variant="body"
+                fontWeight="regular"
+                component={"span"}
+              >
+                {productName}
+              </Typography>{" "}
+              <br />
+            </Typography>
+          </div>
+        );
+      });
+
+      return <div>{productNames}</div>;
     },
   },
   {
@@ -128,7 +146,9 @@ const columns = [
 
 //Use to make sure orderItem are rendered as 1 string for csv export
 const preProcessedData = orderData.map((order) => {
-  const productNames = order.orderItem.map((item) => item.product_name);
+  const productNames = order.orderItem.map(
+    (item) => `${item.quantity}x ${item.product_name}`
+  );
   return {
     ...order,
     orderItem: productNames.join(", "),

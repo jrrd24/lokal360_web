@@ -82,7 +82,7 @@ function EditVariationDialog({
               <Stack spacing={0}>
                 <Typography variant="sectionTitle">Edit Variation</Typography>
                 <Typography variant="sectionSubTitle">
-                  <b>{data.name}</b>
+                  <b>{data.variation_name}</b>
                 </Typography>
               </Stack>
 
@@ -93,7 +93,7 @@ function EditVariationDialog({
                   onClick={() =>
                     handleOpenDelete({
                       id: data.prodVariationID,
-                      name: data.name,
+                      name: data.variation_name,
                     })
                   }
                   sx={{ display: { xs: "none", sm: "none", md: "block" } }}

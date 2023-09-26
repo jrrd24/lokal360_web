@@ -23,7 +23,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
   const {
     productID,
     product_image,
-    name,
+    product_name,
     category,
     description,
     shopCategory,
@@ -41,7 +41,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
 
   const onSubmit = (data) => {
     console.log(data); // Form data
-    handleSave();
+    handleSave({ productName: product_name });
     reset();
   };
 
@@ -86,7 +86,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
               <Box sx={{ py: 5 }}>
                 <DProductInfo
                   control={control}
-                  name={name}
+                  name={product_name}
                   category={category}
                   selectedShopCategory={shopCategory}
                   description={description}

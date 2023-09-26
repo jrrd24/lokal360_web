@@ -28,7 +28,7 @@ function ProductsShopContent() {
   const handleSave = (severity, alertMsg) => {
     setOpen(false);
     setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
+    setAlertMsg("Successfully Created New Product");
     setOpenAlert(true);
   };
 

@@ -46,7 +46,7 @@ function DEditVariationInfo({ sx, control, register, setValue, data }) {
             name="variationName"
             label="Variation Name"
             width="100%"
-            value={data.name}
+            value={data.variation_name}
             rules={{
               required: "Variation Name Is Required",
               maxLength: {

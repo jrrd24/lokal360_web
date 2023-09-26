@@ -59,15 +59,30 @@ function ProductPageContent({ selectedProductID, setProductName }) {
   const [severity, setSeverity] = useState("error");
   const [alertMsg, setAlertMsg] = useState("");
 
-  const handleSave = (severity, alertMsg) => {
+  const handleSaveUpdateProduct = (severity, alertMsg, productName) => {
     setOpen(false);
-    setOpenNewVar(false);
-    setOpenEditVar(false);
     setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
+    setAlertMsg(
+      <>
+        Successfully Updated Product: <b>{productName}</b>
+      </>
+    );
     setOpenAlert(true);
   };
 
+  const handleSaveNewVariation = (severity, alertMsg) => {
+    setOpenNewVar(false);
+    setSeverity("success");
+    setAlertMsg("New Variation Created Successfully");
+    setOpenAlert(true);
+  };
+
+  const handleSaveEditVariation = (severity, alertMsg, variationName) => {
+    setOpenEditVar(false);
+    setSeverity("success");
+    setAlertMsg(<>Variation {variationName} Successfully Updated</>);
+    setOpenAlert(true);
+  };
   const handleDelete = ({ id, name }) => {
     console.log("Deleted: ", id);
     setSeverity("error");
@@ -159,7 +174,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                   productData={selectedProduct}
                   open={open}
                   setOpen={setOpen}
-                  handleSave={handleSave}
+                  handleSave={handleSaveUpdateProduct}
                   handleDelete={handleDeleteProduct}
                 />
               </Suspense>
@@ -208,7 +223,8 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                       setOpenNewVar={setOpenNewVar}
                       openEditVar={openEditVar}
                       setOpenEditVar={setOpenEditVar}
-                      handleSave={handleSave}
+                      handleSaveNew={handleSaveNewVariation}
+                      handleSaveEdit={handleSaveEditVariation}
                       handleDelete={handleDelete}
                       productID={productID}
                       name={product_name}

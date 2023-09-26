@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, ButtonBase, Stack, Typography } from "@mui/material";
 import theme from "../../Theme";
 import TruncateString from "../../utils/TruncateString";
 import { StarHalf } from "@mui/icons-material";
 import NumberFormat from "../../utils/NumberFormat";
+import { useNavigate } from "react-router-dom";
 
 function ProductPreview({ data }) {
   const {
@@ -13,53 +14,64 @@ function ProductPreview({ data }) {
     amtSold = data ? data.total_sold : null,
     price = data ? data.price : null,
     origPrice = data ? data.orig_price : null,
+    productID = data.productID,
   } = data || {};
-  return (
-    <Box sx={{ ...classes.main }}>
-      {/*Prod Image */}
-      <Box sx={{ ...classes.imageContainer }}>
-        <img
-          src={image || require("../../assets/lokal360_Logo.png")}
-          style={{ ...classes.image }}
-          alt="logo"
-        />
-      </Box>
-      {/*Prod Details */}
-      <Box sx={{ ...classes.prodDetailsContainer }}>
-        <Stack spacing={1}>
-          {/*Prod Name */}
-          <Typography sx={{ ...classes.prodName }}>
-            <TruncateString str={product_name || "NaN"} n={44} />
-          </Typography>
 
-          {/*Prod Ratings and Amt Sold */}
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate(`/shop/products/product_page/${productID}`);
+  };
+  return (
+    <ButtonBase
+      onClick={onClick}
+      sx={{ padding: 0, borderRadius: "10px", overflow: "hidden" }}
+    >
+      <Box sx={{ ...classes.main }}>
+        {/*Prod Image */}
+        <Box sx={{ ...classes.imageContainer }}>
+          <img
+            src={image || require("../../assets/lokal360_Logo.png")}
+            style={{ ...classes.image }}
+            alt="logo"
+          />
+        </Box>
+        {/*Prod Details */}
+        <Box sx={{ ...classes.prodDetailsContainer }}>
+          <Stack spacing={1}>
+            {/*Prod Name */}
+            <Typography sx={{ ...classes.prodName }}>
+              <TruncateString str={product_name || "NaN"} n={44} />
+            </Typography>
+
+            {/*Prod Ratings and Amt Sold */}
+            <Box sx={{ ...classes.prodDetail }}>
+              <StarHalf sx={{ ...classes.star }} />
+              <Typography sx={{ fontSize: "inherit" }}>
+                <span style={{ ...classes.prodDetailBig }}>
+                  {rating || "N/A"}
+                </span>
+                /5 | <b>{amtSold || 0}</b> Sold
+              </Typography>
+            </Box>
+          </Stack>
+
+          {/*Prod Price*/}
           <Box sx={{ ...classes.prodDetail }}>
-            <StarHalf sx={{ ...classes.star }} />
-            <Typography sx={{ fontSize: "inherit" }}>
+            <Typography sx={{ fontSize: "inherit", alignItems: "baseline" }}>
               <span style={{ ...classes.prodDetailBig }}>
-                {rating || "N/A"}
+                <NumberFormat value={price || 0} isPeso />
               </span>
-              /5 | <b>{amtSold || 0}</b> Sold
+              &nbsp;&nbsp;
+              {origPrice !== price ? (
+                <span style={{ textDecoration: "line-through" }}>
+                  <NumberFormat value={origPrice} isPeso noDecimal />
+                </span>
+              ) : null}
             </Typography>
           </Box>
-        </Stack>
-
-        {/*Prod Price*/}
-        <Box sx={{ ...classes.prodDetail }}>
-          <Typography sx={{ fontSize: "inherit", alignItems: "baseline" }}>
-            <span style={{ ...classes.prodDetailBig }}>
-              <NumberFormat value={price || 0} isPeso />
-            </span>
-            &nbsp;&nbsp;
-            {origPrice !== price ? (
-              <span style={{ textDecoration: "line-through" }}>
-                <NumberFormat value={origPrice} isPeso noDecimal />
-              </span>
-            ) : null}
-          </Typography>
         </Box>
       </Box>
-    </Box>
+    </ButtonBase>
   );
 }
 

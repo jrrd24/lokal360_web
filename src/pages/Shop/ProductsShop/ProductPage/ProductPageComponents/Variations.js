@@ -11,10 +11,11 @@ function Variations({
   setOpenNewVar,
   openEditVar,
   setOpenEditVar,
-  handleSave,
+  handleSaveNew,
+  handleSaveEdit,
   handleDelete,
   productID,
-  name,
+  product_name,
 }) {
   const handleOpen = () => {
     setOpenNewVar(true);
@@ -22,8 +23,6 @@ function Variations({
   const handleClose = () => {
     setOpenNewVar(false);
   };
-
-   
 
   return (
     <div>
@@ -40,7 +39,7 @@ function Variations({
             data={variations}
             open={openEditVar}
             setOpen={setOpenEditVar}
-            handleSave={handleSave}
+            handleSave={handleSaveEdit}
             handleClose={handleClose}
             handleDelete={handleDelete}
           />
@@ -49,9 +48,9 @@ function Variations({
 
       <NewVariationDialog
         open={openNewVar}
-        handleSave={handleSave}
+        handleSave={handleSaveNew}
         handleClose={handleClose}
-        name={name}
+        name={product_name}
       />
     </div>
   );

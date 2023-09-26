@@ -325,19 +325,27 @@ export default function ShopSidebar({ component: MainComponent }) {
       "Settings",
       "Shop Category",
     ];
-    const selectedMenuItemIndex = menuItems.indexOf(currentPathname);
-    if (selectedMenuItemIndex !== -1) {
-      setSelectedMenuItem(menuItemTexts[selectedMenuItemIndex]);
-    }
+    // Check if the current pathname is for a product page or order page
+    if (currentPathname.includes("/shop/products/product_page/")) {
+      setSelectedMenuItem("Products");
+    } else if (currentPathname.includes("/shop/orders/order_page/")) {
+      setSelectedMenuItem("Orders");
+    } else {
+      // Handle other menu items based on the pathname
+      const selectedMenuItemIndex = menuItems.indexOf(currentPathname);
+      if (selectedMenuItemIndex !== -1) {
+        setSelectedMenuItem(menuItemTexts[selectedMenuItemIndex]);
+      }
 
-    const isSettingsPage = currentPathname === "/admin/settings";
-    if (isSettingsPage) {
-      setSelectedMenuItem("Settings");
-    }
+      const isSettingsPage = currentPathname === "/admin/settings";
+      if (isSettingsPage) {
+        setSelectedMenuItem("Settings");
+      }
 
-    if (currentPathname === "/shop/products/shop_category") {
-      setSelectedMenuItem("Shop Category");
-      setValue("two"); // Set the tab value to "two" for Shop Categories
+      if (currentPathname === "/shop/products/shop_category") {
+        setSelectedMenuItem("Shop Category");
+        setValue("two"); // Set the tab value to "two" for Shop Categories
+      }
     }
   }, []);
 

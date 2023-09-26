@@ -30,7 +30,7 @@ function FeaturedProductsDialog({ open, handleClose, handleSave }) {
 
   const onSubmit = (data) => {
     console.log(data); // Form data
-    // handleSave();
+    handleSave();
     reset();
   };
 

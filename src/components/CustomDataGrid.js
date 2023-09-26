@@ -11,6 +11,7 @@ function CustomDataGrid({
   disableExport,
   noRowsWarning,
   rowsPerPage,
+  disableGridToolbar,
 }) {
   return (
     <DataGrid
@@ -81,7 +82,7 @@ function CustomDataGrid({
       }}
       rows={data || []}
       columns={columns || []}
-      slots={{ toolbar: GridToolbar }}
+      slots={{ toolbar: disableGridToolbar ? "" : GridToolbar }}
       //Hide Density from toolbar
       disableDensitySelector={disableDensity}
       slotProps={{

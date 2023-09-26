@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import theme from "../../../../Theme";
@@ -6,15 +6,26 @@ import FeaturedProductsDialog from "./FeaturedProductsDialog/FeaturedProductsDia
 import ProductPreview from "../../../../components/ShopOnly/ProductPreview";
 import MapData from "../../../../utils/MapData";
 import productData from "../../../../data/productData";
+import CustomAlert from "../../../../components/CustomAlert";
 
 function FeaturedProducts() {
   // Handle Open Dialog Box (AddProduct)
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+  const [severity, setSeverity] = useState("error");
+  const [alertMsg, setAlertMsg] = useState("");
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleSave = (severity, alertMsg) => {
+    setOpen(false);
+    setSeverity("success");
+    setAlertMsg(" Successfully Updated Featured Products");
+    setOpenAlert(true);
   };
 
   return (
@@ -24,10 +35,8 @@ function FeaturedProducts() {
         <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
           <Typography variant="sectionTitle">Featured Products</Typography>
           <ButtonAdd label={"Add / Edit Featured"} onClickAction={handleOpen} />
-          {/*TODO: Add onClick for Button */}
         </Box>
 
-        {/*TODO: Add featured products */}
         <MapData
           inputData={productData}
           component={ProductPreview}
@@ -39,7 +48,19 @@ function FeaturedProducts() {
         />
       </Stack>
 
-      <FeaturedProductsDialog open={open} handleClose={handleClose} />
+      <FeaturedProductsDialog
+        open={open}
+        handleClose={handleClose}
+        handleSave={handleSave}
+      />
+
+      {/*Display Alert */}
+      <CustomAlert
+        open={openAlert}
+        setOpen={setOpenAlert}
+        severity={severity}
+        alertMsg={alertMsg}
+      />
     </div>
   );
 }
