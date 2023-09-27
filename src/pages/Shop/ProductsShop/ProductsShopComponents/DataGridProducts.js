@@ -19,7 +19,7 @@ const columns = [
       let statusComponent;
       statusComponent = (
         <Avatar
-          src={img || require("../../../../assets/lokal360_Logo.png")}
+          src={img || require("../../../../assets/product_placeholder_big.jpg")}
           sx={{
             backgroundColor: "#FFF",
             width: 45,

@@ -116,7 +116,7 @@ const classes = {
 
   topProducts: {
     ...theme.components.box.sectionContainer,
-    maxWidth: "340px",
+    width: "340px",
     "@media (max-width: 1300px)": {
       alignItems: "center",
       justifyContent: "center",

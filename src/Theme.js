@@ -56,7 +56,7 @@ const theme = createTheme({
       letterSpacing: -0.3,
     },
     sectionTitleSmall: {
-      fontSize: "20px",
+      fontSize: "18px",
       fontWeight: 600,
       color: "#444",
       lineHeight: "20px",
@@ -233,6 +233,39 @@ const theme = createTheme({
         alignItems: "center",
         justifyContent: "center",
       },
+
+      productPreview: {
+        "& .hvr-reveal": {
+          display: "inline-block",
+          verticalAlign: "middle",
+          WebkitTransform: "perspective(1px) translateZ(0)",
+          transform: "perspective(1px) translateZ(0)",
+          boxShadow: "0 0 1px rgba(0, 0, 0, 0)",
+          position: "relative",
+          overflow: "hidden",
+        },
+        "& .hvr-reveal:before": {
+          content: '""',
+          position: "absolute",
+          zIndex: -1,
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+          borderColor: "#2098D1",
+          borderStyle: "solid",
+          borderWidth: 0,
+          transitionProperty: "border-width",
+          transitionDuration: "0.1s",
+          transitionTimingFunction: "ease-out",
+        },
+        "& .hvr-reveal:hover:before, & .hvr-reveal:focus:before, & .hvr-reveal:active:before":
+          {
+            WebkitTransform: "translateY(0)",
+            transform: "translateY(0)",
+            borderWidth: "4px",
+          },
+      },
     },
 
     dialog: {
@@ -301,6 +334,15 @@ const theme = createTheme({
           lg: "none",
           xl: "none",
         },
+      },
+    },
+
+    buttonBase: {
+      main: {
+        padding: 0,
+        borderRadius: "10px",
+        overflow: "hidden",
+        width: "100%",
       },
     },
   },

@@ -4,6 +4,7 @@ import theme from "../../Theme";
 import FormatDate from "../../utils/FormatDate";
 import NumberFormat from "../../utils/NumberFormat";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 function VoucherContainer({ data }) {
   const {
@@ -31,8 +32,13 @@ function VoucherContainer({ data }) {
     }
   }, [type, value]);
 
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate(`/shop/vouchers`);
+  };
   return (
     <ButtonBase
+      onClick={onClick}
       sx={{
         backgroundColor: `${theme.palette.background.paper}`,
         width: 270,

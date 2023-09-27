@@ -44,6 +44,7 @@ import HandshakeIcon from "@mui/icons-material/Handshake";
 import BadgeIcon from "@mui/icons-material/Badge";
 
 const drawerWidth = 260;
+// For Drawer Transition
 
 //For Appbar
 const Search = styled("div")(({ theme }) => ({
@@ -377,15 +378,30 @@ export default function ShopSidebar({ component: MainComponent }) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       {/*Appbar (Header) */}
-      <AppBar position="fixed" open={open}>
-        <Toolbar sx={{ backgroundColor: "#FFFFFF" }}>
+      <AppBar
+        position="fixed"
+        open={open}
+        sx={{ backgroundColor: theme.palette.primary.main }}
+      >
+        <Toolbar
+          sx={{
+            backgroundColor:
+              selectedMenuItem === "360 Partner"
+                ? "transparent"
+                : theme.palette.background.paper,
+            transition: "background-color 0.3s ease",
+          }}
+        >
           {/*Hamburger Menu Button */}
           <IconButton
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-              color: `${theme.palette.buttonHover}`,
+              color:
+                selectedMenuItem === "360 Partner"
+                  ? theme.palette.background.paper
+                  : theme.palette.buttonHover,
               marginRight: 5,
               ...(open && { display: "none" }),
             }}
@@ -395,9 +411,9 @@ export default function ShopSidebar({ component: MainComponent }) {
 
           {/*Branding Logo */}
           <img
-            src={require("../../assets/lokal360_Logo.png")}
+            src={require("../../assets/lokal360_logo_filled.png")}
             alt="logo"
-            style={{ width: 53, height: 45 }}
+            style={{ width: 45, height: 45, marginRight: 10 }}
           />
           {/*Search */}
           <Box
@@ -408,16 +424,35 @@ export default function ShopSidebar({ component: MainComponent }) {
               borderColor: "#BBBBBB",
               borderRadius: 2,
               alignSelf: "center",
+
               display: { xs: "none", sm: "block" },
             }}
           >
             <InputBase
               name="searchBar"
-              sx={{ ml: 1, flex: 1, width: 300 }}
+              sx={{
+                ml: 1,
+                flex: 1,
+                width: 300,
+                "& input": {
+                  color:
+                    selectedMenuItem === "360 Partner"
+                      ? theme.palette.text.main
+                      : "",
+                },
+              }}
               placeholder="Find Your Products"
-              inputProps={{ "aria-label": "search google maps" }}
             />
-            <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+            <IconButton
+              type="button"
+              sx={{
+                p: "10px",
+                color:
+                  selectedMenuItem === "360 Partner"
+                    ? theme.palette.primary.main
+                    : "",
+              }}
+            >
               <SearchIcon />
             </IconButton>
           </Box>
@@ -426,8 +461,12 @@ export default function ShopSidebar({ component: MainComponent }) {
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
-              color="primary"
+              sx={{
+                color:
+                  selectedMenuItem === "360 Partner"
+                    ? theme.palette.background.paper
+                    : "primary",
+              }}
             >
               <Badge badgeContent={100} color="error" max={99}>
                 <NotificationsIcon />
@@ -439,18 +478,27 @@ export default function ShopSidebar({ component: MainComponent }) {
               color="#BBBBBB"
             >
               <Badge badgeContent={0} color="error" max={99}>
-                <MailIcon color="primary" />
+                <MailIcon
+                  sx={{
+                    color:
+                      selectedMenuItem === "360 Partner"
+                        ? theme.palette.background.paper
+                        : "primary",
+                  }}
+                />
               </Badge>
             </IconButton>
 
             <IconButton
               size="large"
               edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="primary"
+              sx={{
+                color:
+                  selectedMenuItem === "360 Partner"
+                    ? theme.palette.background.paper
+                    : "primary",
+              }}
             >
               <AccountCircle />
             </IconButton>
@@ -458,11 +506,13 @@ export default function ShopSidebar({ component: MainComponent }) {
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
               onClick={handleMobileMenuOpen}
-              color="primary"
+              sx={{
+                color:
+                  selectedMenuItem === "360 Partner"
+                    ? theme.palette.background.paper
+                    : "primary",
+              }}
             >
               <MoreIcon />
             </IconButton>
@@ -475,7 +525,15 @@ export default function ShopSidebar({ component: MainComponent }) {
         variant="permanent"
         open={open}
         sx={{
-          display: { xs: open ? "block" : "none", sm: "block" },
+          display: {
+            xs: open ? "block" : "none",
+            sm:
+              selectedMenuItem === "360 Partner"
+                ? open
+                  ? "block"
+                  : "none"
+                : "block",
+          },
         }}
       >
         {/*Sidebar Menu Header with minimize button */}
@@ -715,10 +773,10 @@ export default function ShopSidebar({ component: MainComponent }) {
             sx={
               (mainComponentStyle,
               {
-                p: 3,
+                p: selectedMenuItem === "360 Partner" ? 0 : 3,
                 "@media (max-width: 600px)": {
                   p: 0,
-                  py: 3,
+                  py: selectedMenuItem === "360 Partner" ? 0 : 3,
                 },
 
                 display: "block",

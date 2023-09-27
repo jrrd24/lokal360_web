@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import theme from "../../../Theme";
 import CustomAlert from "../../../components/CustomAlert";
 import { LoadingCircle } from "../../../components/Loading/Loading";
+import { LoadingProduct } from "../../../components/Loading/LoadingProducts.js";
 
 // Lazy-Loaded Components
 const FeaturedProducts = lazy(() =>
@@ -46,14 +47,15 @@ function ProductsShopContent() {
           <Box sx={{ ...classes.leftContainer }}>
             {/*Featured Products*/}
             <Box sx={{ ...classes.featuredProductsContainer }}>
-              <Suspense fallback={<LoadingCircle />}>
+              <Suspense fallback={<LoadingProduct />}>
                 <FeaturedProducts />
               </Suspense>
             </Box>
 
             {/*My Products*/}
+
             <Box sx={{ ...classes.myProductsContainer }}>
-              <Suspense fallback={<LoadingCircle />}>
+              <Suspense fallback={<LoadingProduct />}>
                 <MyProducts
                   handleSave={handleSave}
                   open={open}
@@ -66,18 +68,16 @@ function ProductsShopContent() {
           {/*Product Info (Right Side)*/}
           <Box sx={{ ...classes.rightContainer }}>
             {/*Products Sold Per Category */}
-            <Box sx={{ ...classes.categoryContainer }}>
-              <Suspense fallback={<LoadingCircle />}>
+            <Suspense fallback={<LoadingCircle />}>
+              <Box sx={{ ...classes.categoryContainer }}>
                 <ProductStatus hideShowAll={true} />
-              </Suspense>
-            </Box>
+              </Box>
 
-            {/*Top Products */}
-            <Box sx={{ ...classes.topProductsContainer }}>
-              <Suspense fallback={<LoadingCircle />}>
+              {/*Top Products */}
+              <Box sx={{ ...classes.topProductsContainer }}>
                 <TopProducts hideShowAll={true} />
-              </Suspense>
-            </Box>
+              </Box>
+            </Suspense>
           </Box>
         </Box>
       </Box>

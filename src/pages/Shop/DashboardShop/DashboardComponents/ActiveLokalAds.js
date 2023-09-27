@@ -16,7 +16,10 @@ function ActiveLokalAds() {
       </Stack>
 
       {/*TODO: Add lokal ads here */}
-      <Box sx={{ ...classes.adsContainer }}>
+      <Box
+        className="scrollable-content custom-scrollbar"
+        sx={{ ...classes.adsContainer }}
+      >
         <Box sx={{ height: 145, width: 330, backgroundColor: "#ffbb03" }} />
         <Box sx={{ height: 145, width: 330, backgroundColor: "#ffd14d" }} />
         <Box sx={{ height: 145, width: 330, backgroundColor: "#6ef" }} />
@@ -42,7 +45,7 @@ const classes = {
     flexWrap: "wrap",
 
     maxWidth: "100%",
-    height: "155px",
+    height: 171,
     overflow: "auto",
   },
 };

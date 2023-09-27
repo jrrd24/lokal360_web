@@ -61,7 +61,7 @@ function DisplayShopInfo({
           }}
         >
           <img
-            src={logo}
+            src={logo || require("../../../../assets/lokal360_logo_filled.png")}
             alt="Shop logo"
             style={{
               backgroundColor: "#FFF",

@@ -29,13 +29,13 @@ import ShopCategory from "./pages/Shop/ShopCategory/ShopCategory";
 import { DateRangeProvider } from "./contexts/DateRangeContext";
 import ProductPage from "./pages/Shop/ProductsShop/ProductPage/ProductPage";
 import OrderPage from "./pages/Shop/OrdersShop/OrderPage/OrderPage";
-
+import "./css/scrollbar.css";
 function App() {
   return (
     <DateRangeProvider>
       <ThemeProvider theme={theme}>
         <Container disableGutters maxWidth="100%">
-          <div className="App">
+          <div className="App custom-scrollbar">
             <Routes>
               {/*Login */}
               <Route path="/" element={<DashboardShop />} />

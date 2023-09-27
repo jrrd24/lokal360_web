@@ -5,7 +5,7 @@ import TruncateString from "../../utils/TruncateString";
 import { StarHalf } from "@mui/icons-material";
 import NumberFormat from "../../utils/NumberFormat";
 import { useNavigate } from "react-router-dom";
-
+import styles from "../../css/Styles.module.css";
 function ProductPreview({ data }) {
   const {
     image = data ? data.product_image : null,
@@ -24,13 +24,22 @@ function ProductPreview({ data }) {
   return (
     <ButtonBase
       onClick={onClick}
-      sx={{ padding: 0, borderRadius: "10px", overflow: "hidden" }}
+      className={`${styles.grow}`}
+      sx={{
+        ...theme.components.buttonBase.main,
+        //change ripple color
+        "&:hover, &:focus": {
+          "& .MuiTouchRipple-root": {
+            color: theme.palette.primary.main,
+          },
+        },
+      }}
     >
       <Box sx={{ ...classes.main }}>
         {/*Prod Image */}
         <Box sx={{ ...classes.imageContainer }}>
           <img
-            src={image || require("../../assets/lokal360_Logo.png")}
+            src={image || require("../../assets/product_placeholder.jpg")}
             style={{ ...classes.image }}
             alt="logo"
           />
@@ -40,7 +49,7 @@ function ProductPreview({ data }) {
           <Stack spacing={1}>
             {/*Prod Name */}
             <Typography sx={{ ...classes.prodName }}>
-              <TruncateString str={product_name || "NaN"} n={44} />
+              <TruncateString str={product_name || "NaN"} n={40} />
             </Typography>
 
             {/*Prod Ratings and Amt Sold */}
@@ -77,7 +86,7 @@ function ProductPreview({ data }) {
 
 const classes = {
   main: {
-    minHeight: 270,
+    height: 280,
     width: 180,
     backgroundColor: `${theme.palette.background.paper}`,
     boxShadow: "1px 2px 5px 1px rgba(110, 95, 222, 0.25)",
@@ -87,7 +96,7 @@ const classes = {
   },
 
   imageContainer: {
-    height: 130,
+    height: 180,
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
   },
@@ -95,7 +104,7 @@ const classes = {
   image: {
     objectFit: "cover",
     objectPosition: "center",
-    height: 130,
+    height: 180,
     width: 178,
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
@@ -107,31 +116,31 @@ const classes = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    minHeight: 140,
+    height: 100,
   },
 
   prodName: {
-    fontSize: "18px",
-    fontWeight: 600,
-    color: "#444",
-    lineHeight: "19px",
+    fontSize: "16px",
+    color: theme.palette.text.primary,
+    fontWeight: "400",
+    lineHeight: "16px",
     letterSpacing: -0.3,
   },
 
   star: {
-    fontSize: "22px",
+    fontSize: "20px",
     fontWeight: 600,
     color: `${theme.palette.primary.main}`,
   },
 
   prodDetailBig: {
-    fontSize: "18px",
+    fontSize: "14px",
     fontWeight: 600,
     color: `${theme.palette.primary.main}`,
   },
 
   prodDetail: {
-    fontSize: "14px",
+    fontSize: "12px",
     display: "flex",
     alignItems: "center",
     color: `${theme.palette.text.sixty}`,

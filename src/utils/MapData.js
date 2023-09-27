@@ -43,6 +43,7 @@ function MapData({
   const showLimit = sortedData.slice(0, showUpTo);
   return (
     <div
+      className="scrollable-content custom-scrollbar"
       style={
         horizontal
           ? {
@@ -61,7 +62,7 @@ function MapData({
     >
       {showLimit.length > 0 ? (
         showLimit.map((data) => (
-          <div key={data[idName]}>
+          <div key={data[idName]} style={{ marginTop: horizontal ? 15 : 0 }}>
             <Component data={data} />
           </div>
         ))

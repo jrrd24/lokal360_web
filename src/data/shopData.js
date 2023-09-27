@@ -31,7 +31,7 @@ const shopData = [
     time_open: "2023-08-25T07:00",
     time_close: "2023-08-25T20:00",
 
-    logo_img_link: require("../assets/lokal360_Logo.png"),
+    logo_img_link: require("../assets/lokal360_logo_filled.png"),
     header_img_link: require("../assets/placeholder.png"),
     custom_color_hex: null,
     custom_low_stock_lvl: null,

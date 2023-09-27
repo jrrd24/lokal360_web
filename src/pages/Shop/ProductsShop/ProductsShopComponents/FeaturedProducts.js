@@ -42,7 +42,7 @@ function FeaturedProducts() {
           component={ProductPreview}
           idName={"productID"}
           horizontal
-          height={300}
+          height={330}
           condition={(data) => data.is_featured === true}
           sortByField={"total_sold"}
         />

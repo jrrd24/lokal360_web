@@ -25,7 +25,7 @@ function ActiveVouchers() {
           sortByField={"start_date"}
           idName={"voucherID"}
           horizontal
-          height={170}
+          height={180}
           condition={(voucher) => voucher.is_active === true}
         />
       </Box>

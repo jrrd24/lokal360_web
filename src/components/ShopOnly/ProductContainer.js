@@ -24,15 +24,7 @@ function ProductContainer({ data }) {
     navigate(`/shop/products/product_page/${productID}`);
   };
   return (
-    <ButtonBase
-      onClick={onClick}
-      sx={{
-        padding: 0,
-        borderRadius: "10px",
-        overflow: "hidden",
-        width: "100%",
-      }}
-    >
+    <ButtonBase onClick={onClick} sx={{ ...theme.components.buttonBase.main }}>
       <Box sx={{ ...classes.main }} className={`${Styles.changeBG}`}>
         <Stack
           spacing={1}
@@ -42,7 +34,10 @@ function ProductContainer({ data }) {
         >
           {/*Product Image */}
           <Avatar
-            src={product_image || require("../../assets/lokal360_Logo.png")}
+            src={
+              product_image ||
+              require("../../assets/product_placeholder_big.jpg")
+            }
             alt="P"
             sx={{ ...classes.productImage }}
           />
