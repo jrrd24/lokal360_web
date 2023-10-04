@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   Box,
   Checkbox,
@@ -8,22 +8,27 @@ import {
   Button,
   Divider,
   Typography,
+  Stack,
 } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import { CustomInput } from "../../components/FormComponents/CustomInput";
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import { ApiBaseUrl } from "../../api/Api.js";
 import CustomAlert from "../../components/CustomAlert";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-
-//initialize api url
-const baseUrl = ApiBaseUrl;
-const url = `${baseUrl}/api/user/login`;
+import AuthContext from "../../contexts/AuthProvider";
+import Api from "../../api/Api";
 
 const LoginForm = () => {
+  //initialize api url
+  const LOGIN_URL = `/api/auth/login`;
+  // React Hook Form / auth context / react-router declarations
   const navigate = useNavigate();
+  const { setAuth, auth } = useContext(AuthContext);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   //Handle Alert Click
   const [open, setOpen] = useState(false);
@@ -36,41 +41,38 @@ const LoginForm = () => {
     setOpen(true);
   };
 
-  // For React Hook Form
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
   // Function for handling login after clicking login button
-  const handleLogin = (data) => {
+  const handleLogin = async (data) => {
     const { email, password } = data;
     const payload = {
       email,
       password,
     };
-    console.log(payload);
 
-    axios
-      .post(url, payload)
+    Api.post(LOGIN_URL, payload, {
+      headers: { "Content-Type": "application/json" },
+    })
       .then((response) => {
+        //pass the ff to AuthContext
+        const accessToken = response?.data?.accessToken;
+        const roles = response?.data.roles;
+        setAuth({ email, password, roles, accessToken });
+        console.log("Logged In", { payload, roles, accessToken });
         //store token in js-cookie
-        const { accessToken } = response.data;
-        console.log(response.data);
         Cookies.set("access-token", accessToken, {
           expires: 2592000000,
           secure: false,
         });
-
-        console.log("Login successful");
         navigate("/Admin/Dashboard");
+        console.log("AuthContext Values:", {
+          auth /* other context values */,
+        });
       })
       .catch((error) => {
-        console.error("Login:", error);
-        if (error.response && error.response.status === 400) {
-          console.log(error.response);
+        if (error.response && error.response.status === 401) {
           handleClick("warning", "Incorrect Username or Password");
+        } else if (error.response && error.response.status === 404) {
+          handleClick("warning", "User does not Exist");
         } else {
           handleClick("error", "Server Error. Please Try Again Later");
         }

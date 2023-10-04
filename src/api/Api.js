@@ -1,2 +1,5 @@
-const baseUrl = "http://192.168.68.112:8800";
-export const ApiBaseUrl = baseUrl;
+import axios from "axios";
+
+export default axios.create({
+  baseURL: `http://192.168.68.108:8800`,
+});

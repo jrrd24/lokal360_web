@@ -88,20 +88,20 @@ function DEditVariationInfo({ sx, control, register, setValue, data }) {
         <Stack direction={"row"} spacing={3}>
           {/*Variation Name*/}
           <ReadOnlyCustomInput
-            name="amountSold"
-            label="AmountSold"
+            name="itemsSold"
+            label="Items Sold"
             width="48%"
             defaultValue={data.amt_sold}
           />
 
           <CustomNumberInput
             control={control}
-            name="amountOnHand"
-            label="Amount On Hand"
+            name="itemsOnHand"
+            label="Items On Hand"
             width="48%"
             value={data.amt_on_hand}
             rules={{
-              required: "Amount On Hand Is Required",
+              required: "Items Is Required",
               validate: validateMaxNumber,
             }}
           />

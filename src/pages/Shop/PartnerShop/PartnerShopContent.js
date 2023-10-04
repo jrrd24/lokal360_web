@@ -288,7 +288,7 @@ function PartnerShopContent() {
               </Box>
             </Stack>
           </Box>
-        </Box>
+        </Box> 
       </Box>
     </div>
   );
