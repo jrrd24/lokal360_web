@@ -1,12 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import {
   Box,
   Checkbox,
   Container,
   FormControlLabel,
-  Link,
   Button,
   Divider,
+  Link,
   Typography,
   Stack,
 } from "@mui/material";
@@ -14,32 +14,27 @@ import { CustomInput } from "../../components/FormComponents/CustomInput";
 import { useForm } from "react-hook-form";
 import CustomAlert from "../../components/CustomAlert";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import AuthContext from "../../contexts/AuthProvider";
 import Api from "../../api/Api";
+import useAlert from "../../hooks/useAlert";
 
 const LoginForm = () => {
   //initialize api url
   const LOGIN_URL = `/api/auth/login`;
   // React Hook Form / auth context / react-router declarations
   const navigate = useNavigate();
-  const { setAuth, auth } = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const { setAuth } = useContext(AuthContext);
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  //Handle Alert Click
-  const [open, setOpen] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
-
-  const handleClick = (severity, alertMsg) => {
-    setSeverity(severity);
-    setAlertMsg(alertMsg);
-    setOpen(true);
-  };
+  const { open, severity, alertMsg, showAlert, hideAlert } = useAlert();
 
   // Function for handling login after clicking login button
   const handleLogin = async (data) => {
@@ -58,23 +53,20 @@ const LoginForm = () => {
         const roles = response?.data.roles;
         setAuth({ email, password, roles, accessToken });
         console.log("Logged In", { payload, roles, accessToken });
-        //store token in js-cookie
-        Cookies.set("access-token", accessToken, {
-          expires: 2592000000,
-          secure: false,
-        });
-        navigate("/Admin/Dashboard");
-        console.log("AuthContext Values:", {
-          auth /* other context values */,
-        });
+        // //store token in js-cookie
+        // Cookies.set("access-token", accessToken, {
+        //   expires: 5 * 60 * 1000,
+        //   secure: false,
+        // });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
-          handleClick("warning", "Incorrect Username or Password");
+          showAlert("warning", "Incorrect Username or Password");
         } else if (error.response && error.response.status === 404) {
-          handleClick("warning", "User does not Exist");
+          showAlert("warning", "User does not Exist");
         } else {
-          handleClick("error", "Server Error. Please Try Again Later");
+          showAlert("error", "Server Error. Please Try Again Later");
         }
       });
   };
@@ -229,7 +221,7 @@ const LoginForm = () => {
         {/*Alert */}
         <CustomAlert
           open={open}
-          setOpen={setOpen}
+          setOpen={hideAlert}
           severity={severity}
           alertMsg={alertMsg}
         />
