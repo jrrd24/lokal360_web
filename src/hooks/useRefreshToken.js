@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Api from "../api/Api";
+import { api } from "../api/Api";
 import useAuth from "./useAuth";
 
 const useRefreshToken = () => {
@@ -7,29 +7,30 @@ const useRefreshToken = () => {
 
   const refresh = async () => {
     try {
-      
-      const response = await Api.get(`/api/refresh`, {
+      const response = await api.get(`/api/refresh`, {
         headers: {
-            withCredentials: true,
+          withCredentials: true,
         },
       });
-
+      console.log("Response Object:", response);
       setAuth((prev) => {
         console.log(JSON.stringify(prev));
+        console.log(response.data.roles);
         console.log(response.data.accessToken);
-        return { ...prev, accessToken: response.data.accessToken };
+        return {
+          ...prev,
+          roles: response.data.roles,
+          accessToken: response.data.accessToken,
+        };
       });
     } catch (error) {
       // Handle errors here
       console.error(error);
+      throw error;
     }
   };
 
-  useEffect(() => {
-    refresh();
-  }, []); // Empty dependency array ensures the effect runs only once after the initial render
-
-  return refresh; // Return the refresh function
+  return refresh;
 };
 
 export default useRefreshToken;

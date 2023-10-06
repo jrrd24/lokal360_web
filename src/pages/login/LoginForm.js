@@ -13,10 +13,9 @@ import {
 import { CustomInput } from "../../components/FormComponents/CustomInput";
 import { useForm } from "react-hook-form";
 import CustomAlert from "../../components/CustomAlert";
-import Cookies from "js-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import AuthContext from "../../contexts/AuthProvider";
-import Api from "../../api/Api";
+import { api } from "../../api/Api";
 import useAlert from "../../hooks/useAlert";
 
 const LoginForm = () => {
@@ -44,9 +43,10 @@ const LoginForm = () => {
       password,
     };
 
-    Api.post(LOGIN_URL, payload, {
-      headers: { "Content-Type": "application/json" },
-    })
+    api
+      .post(LOGIN_URL, payload, {
+        headers: { "Content-Type": "application/json" },
+      })
       .then((response) => {
         //pass the ff to AuthContext
         const accessToken = response?.data?.accessToken;

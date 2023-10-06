@@ -29,6 +29,7 @@
     "react-scripts": "5.0.1",
     "recharts": "^2.7.2",
     "recharts-to-png": "^2.2.1",
+    "stream-browserify": "^3.0.0",
     "url-loader": "^4.1.1",
     "web-vitals": "^2.1.4",
     "webpack": "^5.88.2",

@@ -30,6 +30,7 @@ import ShopCategory from "./pages/Shop/ShopCategory/ShopCategory.js";
 import ProductPage from "./pages/Shop/ProductsShop/ProductPage/ProductPage.js";
 import OrderPage from "./pages/Shop/OrdersShop/OrderPage/OrderPage.js";
 import RouterUnauthorized from "./pages/Error/RouterUnauthorized.js";
+import PersistLogin from "./components/ForRoute/PersistLogin.js";
 
 function Router() {
   return (
@@ -37,7 +38,8 @@ function Router() {
       {/*Login */}
       <Route path="/login" element={<Login />} />
 
-      <Route element={<RequireAuth allowedRoles={"shop owner"} />}>
+<Route element={<PersistLogin/>}>      
+      <Route element={<RequireAuth allowedRoles={"admin"} />}>
         {/*Admin */}
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/analytics" element={<Analytics />} />
@@ -47,6 +49,9 @@ function Router() {
         <Route path="/admin/lokal_ads" element={<LokalAds />} />
         <Route path="/admin/users" element={<Users />} />
         <Route path="/admin/settings" element={<Settings />} />
+      </Route>
+
+      <Route element={<RequireAuth allowedRoles={"shop owner"} />}>
         {/*Shop */}
         <Route path="/" element={<DashboardShop />} />
         <Route path="/shop/analytics" element={<AnalyticsShop />} />
@@ -72,6 +77,8 @@ function Router() {
           path="/shop/orders/order_page/:orderID"
           element={<OrderPage />}
         />
+      </Route>
+
       </Route>
 
       {/*Display Unauthorized page  */}

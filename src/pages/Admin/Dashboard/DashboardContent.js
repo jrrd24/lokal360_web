@@ -1,24 +1,31 @@
 import React, { useEffect } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
-import useRefreshToken from "../../../hooks/useRefreshToken";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import useDataGetPrivate from "../../../hooks/useDataGetPrivate";
+import useLogout from "../../../hooks/useLogout";
+import { useNavigate } from "react-router-dom";
 
 function DashboardContent() {
-  const refresh = useRefreshToken();
+  const HOME_URL = `/api/home/`;
 
-  // useEffect to call the refresh function once when the component mounts
-  useEffect(() => {
-    refresh();
-  }, []); // Empty dependency array ensures the effect runs only once after the initial render
+  const logout = useLogout();
+  const navigate = useNavigate();
+  const { data, loading, error } = useDataGetPrivate(HOME_URL);
+  console.log(data);
 
+  const handleLogOut = async () => {
+    await logout();
+    navigate("/login");
+  };
   return (
     <Box sx={{ backgroundColor: "transparent" }}>
       <PageInfoComponent
         PageName={"Admin Dashboard"}
         Subtitle={"Welcome Admin"}
       />
-
-      <button onClick={() => refresh()}>REFRESH</button>
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+      <button onClick={handleLogOut}>LOGOUT</button>
     </Box>
   );
 }
