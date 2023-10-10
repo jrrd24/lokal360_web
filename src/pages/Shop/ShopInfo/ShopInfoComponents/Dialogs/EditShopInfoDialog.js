@@ -68,7 +68,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { isDirty },
     trigger,
     reset,
     setValue,

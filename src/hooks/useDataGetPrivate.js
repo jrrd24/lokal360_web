@@ -27,7 +27,6 @@ const useDataGetPrivate = (apiUrl) => {
 
     fetchData();
 
-    // No cleanup needed for this effect
   }, [apiUrl]);
 
   return { data, loading, error };

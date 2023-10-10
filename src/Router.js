@@ -31,6 +31,8 @@ import ProductPage from "./pages/Shop/ProductsShop/ProductPage/ProductPage.js";
 import OrderPage from "./pages/Shop/OrdersShop/OrderPage/OrderPage.js";
 import RouterUnauthorized from "./pages/Error/RouterUnauthorized.js";
 import PersistLogin from "./components/ForRoute/PersistLogin.js";
+import Profile from "./pages/Profile/Profile.js";
+import UserRegistration from "./pages/Test/UserRegistration.js";
 
 function Router() {
   return (
@@ -38,48 +40,55 @@ function Router() {
       {/*Login */}
       <Route path="/login" element={<Login />} />
 
-<Route element={<PersistLogin/>}>      
-      <Route element={<RequireAuth allowedRoles={"admin"} />}>
-        {/*Admin */}
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/admin/analytics" element={<Analytics />} />
-        <Route path="/admin/reports" element={<Reports />} />
-        <Route path="/admin/category" element={<Category />} />
-        <Route path="/admin/shop_management" element={<ShopsManagement />} />
-        <Route path="/admin/lokal_ads" element={<LokalAds />} />
-        <Route path="/admin/users" element={<Users />} />
-        <Route path="/admin/settings" element={<Settings />} />
+      {/*Secured Routes */}
+      <Route element={<PersistLogin />}>
+        <Route element={<RequireAuth allowedRoles={"admin"} />}>
+          {/*Admin */}
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/analytics" element={<Analytics />} />
+          <Route path="/admin/reports" element={<Reports />} />
+          <Route path="/admin/category" element={<Category />} />
+          <Route path="/admin/shop_management" element={<ShopsManagement />} />
+          <Route path="/admin/lokal_ads" element={<LokalAds />} />
+          <Route path="/admin/users" element={<Users />} />
+          <Route path="/admin/settings" element={<Settings />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={"shop owner"} />}>
+          {/*Shop */}
+          <Route path="/" element={<DashboardShop />} />
+          <Route path="/shop/analytics" element={<AnalyticsShop />} />
+          <Route path="/shop/products" element={<ProductsShop />} />
+          <Route
+            path="/shop/products/shop_category"
+            element={<ShopCategory />}
+          />
+          <Route path="/shop/customers" element={<CustomersShop />} />
+          <Route path="/shop/orders" element={<OrdersShop />} />
+          <Route path="/shop/shop_info" element={<ShopInfo />} />
+          <Route path="/shop/promos" element={<PromosShop />} />
+          <Route path="/shop/lokal_ads" element={<LokalAdsShop />} />
+          <Route path="/shop/vouchers" element={<VouchersShop />} />
+          <Route path="/shop/360_partner" element={<PartnerShop />} />
+          <Route path="/shop/settings" element={<SettingsShop />} />
+          <Route
+            path="/shop/employee_management"
+            element={<EmployeeManagement />}
+          />
+          <Route
+            path="/shop/products/product_page/:productID"
+            element={<ProductPage />}
+          />
+          <Route
+            path="/shop/orders/order_page/:orderID"
+            element={<OrderPage />}
+          />
+          <Route path="/profile/" element={<Profile />} />
+        </Route>
       </Route>
 
-      <Route element={<RequireAuth allowedRoles={"shop owner"} />}>
-        {/*Shop */}
-        <Route path="/" element={<DashboardShop />} />
-        <Route path="/shop/analytics" element={<AnalyticsShop />} />
-        <Route path="/shop/products" element={<ProductsShop />} />
-        <Route path="/shop/products/shop_category" element={<ShopCategory />} />
-        <Route path="/shop/customers" element={<CustomersShop />} />
-        <Route path="/shop/orders" element={<OrdersShop />} />
-        <Route path="/shop/shop_info" element={<ShopInfo />} />
-        <Route path="/shop/promos" element={<PromosShop />} />
-        <Route path="/shop/lokal_ads" element={<LokalAdsShop />} />
-        <Route path="/shop/vouchers" element={<VouchersShop />} />
-        <Route path="/shop/360_partner" element={<PartnerShop />} />
-        <Route path="/shop/settings" element={<SettingsShop />} />
-        <Route
-          path="/shop/employee_management"
-          element={<EmployeeManagement />}
-        />
-        <Route
-          path="/shop/products/product_page/:productID"
-          element={<ProductPage />}
-        />
-        <Route
-          path="/shop/orders/order_page/:orderID"
-          element={<OrderPage />}
-        />
-      </Route>
-
-      </Route>
+      {/*Test Routes (Remove Later) */}
+      <Route path="test/user_registration" element={<UserRegistration />} />
 
       {/*Display Unauthorized page  */}
       <Route path="/unauthorized" element={<RouterUnauthorized />} />

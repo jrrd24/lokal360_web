@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { Box, Typography, Stack } from "@mui/material";
+import React from "react";
+import { Box } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
-import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useDataGetPrivate from "../../../hooks/useDataGetPrivate";
 import useLogout from "../../../hooks/useLogout";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +11,6 @@ function DashboardContent() {
   const logout = useLogout();
   const navigate = useNavigate();
   const { data, loading, error } = useDataGetPrivate(HOME_URL);
-  console.log(data);
 
   const handleLogOut = async () => {
     await logout();

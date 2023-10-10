@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Box,
   Checkbox,
@@ -26,12 +26,8 @@ const LoginForm = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { setAuth } = useContext(AuthContext);
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { setAuth, persist, setPersist } = useContext(AuthContext);
+  const { control, handleSubmit } = useForm();
 
   const { open, severity, alertMsg, showAlert, hideAlert } = useAlert();
 
@@ -48,17 +44,17 @@ const LoginForm = () => {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
+        console.log("Login Response:", response);
         //pass the ff to AuthContext
         const accessToken = response?.data?.accessToken;
         const roles = response?.data.roles;
-        setAuth({ email, password, roles, accessToken });
-        console.log("Logged In", { payload, roles, accessToken });
-        // //store token in js-cookie
-        // Cookies.set("access-token", accessToken, {
-        //   expires: 5 * 60 * 1000,
-        //   secure: false,
-        // });
-        navigate(from, { replace: true });
+        const userID = response?.data.userID;
+        console.log(userID);
+        setAuth({ email, password, roles, userID, accessToken });
+        console.log("Logged In", { payload, roles, userID, accessToken });
+
+        // navigate(from, { replace: true });
+        navigate("/");
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
@@ -71,22 +67,21 @@ const LoginForm = () => {
       });
   };
 
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("persist", persist);
+  }, [persist]);
+
   return (
-    <Container
-      sx={{
-        bgcolor: "#ffffff",
-        height: 700,
-        p: 1,
-      }}
-    >
-      <Stack
-        spacing={5}
-        sx={{
-          p: 5,
-        }}
-      >
+    <Container sx={{ bgcolor: "#ffffff", p: 3, borderRadius: 5 }}>
+      <Stack spacing={3} sx={{ p: 2 }}>
         {/*Welcome */}
-        <Box sx={{ fontWeight: "medium", fontSize: 48 }}>Welcome</Box>
+        <Box sx={{ fontWeight: "medium", fontSize: 48, textAlign: "left" }}>
+          Welcome
+        </Box>
 
         {/*Login Form */}
         <form onSubmit={handleSubmit(handleLogin)}>
@@ -140,16 +135,15 @@ const LoginForm = () => {
               sx={{ width: "400" }}
             >
               {/*Remember Me*/}
-              <FormControlLabel control={<Checkbox />} label="Remember Me" />
+              <FormControlLabel
+                control={
+                  <Checkbox onChange={togglePersist} checked={persist} />
+                }
+                label="Remember Me"
+              />
 
               {/*Forgot Password */}
-              <Link
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
+              <Link component="button" variant="body2" onClick={() => {}}>
                 Forgot Password
               </Link>
             </Stack>

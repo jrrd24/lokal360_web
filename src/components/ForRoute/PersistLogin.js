@@ -2,28 +2,27 @@ import React, { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import useRefreshToken from "../../hooks/useRefreshToken";
 import useAuth from "../../hooks/useAuth";
+import { CircularProgress } from "@mui/material";
 
 const PersistLogin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const refresh = useRefreshToken();
-  const { auth } = useAuth();
+  const { auth, persist } = useAuth();
 
   useEffect(() => {
+    let isMounted = true;
     const verifyRefreshToken = async () => {
       try {
         const refreshedData = await refresh();
       } catch (err) {
         console.error(err);
       } finally {
-        setIsLoading(false);
+        isMounted && setIsLoading(false);
       }
     };
 
-    const fetchData = async () => {
-      !auth?.accessToken ? await verifyRefreshToken() : setIsLoading(false);
-    };
-
-    fetchData();
+    !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+    return () => (isMounted = false);
   }, []);
 
   useEffect(() => {
@@ -31,7 +30,26 @@ const PersistLogin = () => {
     console.log(`at: ${JSON.stringify(auth?.accessToken)}`);
   }, [isLoading]);
 
-  return <>{isLoading ? <p>...loading</p> : <Outlet />}</>;
+  return (
+    <>
+      {!persist ? (
+        <Outlet />
+      ) : isLoading ? (
+        <div
+          style={{
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <Outlet />
+      )}
+    </>
+  );
 };
 
 export default PersistLogin;

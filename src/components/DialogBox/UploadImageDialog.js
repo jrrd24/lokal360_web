@@ -172,8 +172,6 @@ function UploadImage({ alt, name, control, register, setValue }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageDirty, setIsImageDirty] = useState(false);
 
-  const bgColor = `${theme.palette.background.paper}`;
-  const textColor = `${theme.palette.primary.main}`;
 
   // Handle image change
   const handleImageChange = (e) => {

@@ -1,5 +1,8 @@
 import * as React from "react";
-import { styled, useTheme, alpha } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import theme from "../../Theme";
+// mui components import
+import { styled } from "@mui/material/styles";
 import {
   Box,
   List,
@@ -21,63 +24,33 @@ import {
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import SellIcon from "@mui/icons-material/Sell";
-import PeopleIcon from "@mui/icons-material/People";
-import SettingsIcon from "@mui/icons-material/Settings";
-import StorefrontIcon from "@mui/icons-material/Storefront";
-import PercentIcon from "@mui/icons-material/Percent";
-import CampaignIcon from "@mui/icons-material/Campaign";
-import CardGiftcardIcon from "@mui/icons-material/CardGiftcard";
-import { useNavigate } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import HandshakeIcon from "@mui/icons-material/Handshake";
+// mui icons import
+import {
+  ChevronLeft,
+  ChevronRight,
+  Dashboard,
+  BarChart,
+  Inventory,
+  Sell,
+  People,
+  Settings,
+  Storefront,
+  Percent,
+  Campaign,
+  CardGiftcard,
+  Search,
+  AccountCircle,
+  Mail,
+  Notifications,
+  MoreVert,
+  Handshake,
+} from "@mui/icons-material";
 import BadgeIcon from "@mui/icons-material/Badge";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const drawerWidth = 260;
-// For Drawer Transition
 
-//For Appbar
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
-
-//For Drawer
+// drawer transition animation
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create("width", {
@@ -99,6 +72,7 @@ const closedMixin = (theme) => ({
   },
 });
 
+// component styles
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -143,11 +117,8 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function ShopSidebar({ component: MainComponent }) {
-  //For Page Transitions
-  const [inProp, setInProp] = React.useState(false);
-
-  //For App
+const ShopSidebar = React.memo(({ component: MainComponent }) => {
+  // Handle Menu Open and Close
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -171,24 +142,28 @@ export default function ShopSidebar({ component: MainComponent }) {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  // decalare menus
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
       id={menuId}
       keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
+      transformOrigin={{ horizontal: "right", vertical: "top" }}
+      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate(`/profile/`);
+        }}
+      >
+        <IconButton size="large" color="inherit">
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -197,27 +172,29 @@ export default function ShopSidebar({ component: MainComponent }) {
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
+      transformOrigin={{ horizontal: "right", vertical: "top" }}
+      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       id={mobileMenuId}
       keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
+        <IconButton size="large">
+          <Search />
+        </IconButton>
+        <p>Search</p>
+      </MenuItem>
+
+      <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
-            <MailIcon />
+            <Mail />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           size="large"
@@ -225,19 +202,18 @@ export default function ShopSidebar({ component: MainComponent }) {
           color="inherit"
         >
           <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+            <Notifications />
           </Badge>
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
+
+      <MenuItem
+        onClick={() => {
+          navigate(`/profile/`);
+        }}
+      >
+        <IconButton size="large" color="inherit">
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
@@ -253,43 +229,43 @@ export default function ShopSidebar({ component: MainComponent }) {
   const navigate = useNavigate();
 
   //Sidebar Navigation On Click
-  function handleDashboardClick(event) {
+  function handleDashboardClick() {
     navigate("/");
   }
-  function handleAnalyticsClick(event) {
+  function handleAnalyticsClick() {
     navigate("/shop/analytics");
   }
-  function handleProductsClick(event) {
+  function handleProductsClick() {
     navigate("/shop/products");
   }
-  function handleCustomersClick(event) {
+  function handleCustomersClick() {
     navigate("/shop/customers");
   }
-  function handleOrdersClick(event) {
+  function handleOrdersClick() {
     navigate("/shop/orders");
   }
-  function handleShopInfoClick(event) {
+  function handleShopInfoClick() {
     navigate("/shop/shop_info");
   }
-  function handlePromosClick(event) {
+  function handlePromosClick() {
     navigate("/shop/promos");
   }
-  function handleLokalAdsClick(event) {
+  function handleLokalAdsClick() {
     navigate("/shop/lokal_ads");
   }
-  function handleVouchersClick(event) {
+  function handleVouchersClick() {
     navigate("/shop/vouchers");
   }
-  function handlePartnerClick(event) {
+  function handlePartnerClick() {
     navigate("/shop/360_partner");
   }
-  function handleEmployeeClick(event) {
+  function handleEmployeeClick() {
     navigate("/shop/employee_management");
   }
-  function handleSettingsClick(event) {
+  function handleSettingsClick() {
     navigate("/shop/settings");
   }
-  function handleShopCategoriesClick(event) {
+  function handleShopCategoriesClick() {
     setSelectedMenuItem("Shop Category");
     navigate("/shop/products/shop_category");
   }
@@ -331,6 +307,8 @@ export default function ShopSidebar({ component: MainComponent }) {
       setSelectedMenuItem("Products");
     } else if (currentPathname.includes("/shop/orders/order_page/")) {
       setSelectedMenuItem("Orders");
+    } else if (currentPathname.includes("/profile")) {
+      setSelectedMenuItem("");
     } else {
       // Handle other menu items based on the pathname
       const selectedMenuItemIndex = menuItems.indexOf(currentPathname);
@@ -350,7 +328,6 @@ export default function ShopSidebar({ component: MainComponent }) {
     }
   }, []);
 
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   //Open and Close Drawer
@@ -365,7 +342,7 @@ export default function ShopSidebar({ component: MainComponent }) {
   //For Tabs
   const [value, setValue] = React.useState("one");
 
-  const handleChange = (event, newValue, setValue) => {
+  const handleChange = (newValue, setValue) => {
     setValue(newValue);
     if (newValue === "one") {
       handleProductsClick();
@@ -410,24 +387,20 @@ export default function ShopSidebar({ component: MainComponent }) {
           </IconButton>
 
           {/*Branding Logo */}
-          <img
-            src={require("../../assets/lokal360_logo_filled.png")}
-            alt="logo"
-            style={{ width: 45, height: 45, marginRight: 10 }}
-          />
-          {/*Search */}
-          <Box
-            sx={{
-              width: 380,
-              backgroundColor: "#fafafa",
-              border: 1,
-              borderColor: "#BBBBBB",
-              borderRadius: 2,
-              alignSelf: "center",
-
-              display: { xs: "none", sm: "block" },
+          <IconButton
+            sx={{ width: 45, height: 45, marginRight: 10 }}
+            onClick={() => {
+              navigate("/");
             }}
           >
+            <img
+              src={require("../../assets/lokal360_logo_filled.png")}
+              alt="logo"
+              style={{ width: 45, height: 45 }}
+            />
+          </IconButton>
+          {/*Search */}
+          <Box sx={{ ...classes.searchBar }}>
             <InputBase
               name="searchBar"
               sx={{
@@ -453,7 +426,7 @@ export default function ShopSidebar({ component: MainComponent }) {
                     : "",
               }}
             >
-              <SearchIcon />
+              <Search />
             </IconButton>
           </Box>
 
@@ -469,7 +442,7 @@ export default function ShopSidebar({ component: MainComponent }) {
               }}
             >
               <Badge badgeContent={100} color="error" max={99}>
-                <NotificationsIcon />
+                <Notifications />
               </Badge>
             </IconButton>
             <IconButton
@@ -478,7 +451,7 @@ export default function ShopSidebar({ component: MainComponent }) {
               color="#BBBBBB"
             >
               <Badge badgeContent={0} color="error" max={99}>
-                <MailIcon
+                <Mail
                   sx={{
                     color:
                       selectedMenuItem === "360 Partner"
@@ -514,11 +487,17 @@ export default function ShopSidebar({ component: MainComponent }) {
                     : "primary",
               }}
             >
-              <MoreIcon />
+              <MoreVert />
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
+
+      {/* Render the Menu component */}
+      {renderMenu}
+
+      {/* Render the  Mobile Menu component */}
+      {renderMobileMenu}
 
       {/*Sidebar */}
       <Drawer
@@ -539,74 +518,57 @@ export default function ShopSidebar({ component: MainComponent }) {
         {/*Sidebar Menu Header with minimize button */}
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            {theme.direction === "rtl" ? <ChevronRight /> : <ChevronLeft />}
           </IconButton>
         </DrawerHeader>
 
         <Divider />
         {/*sidebar menu items  */}
-        <List
-          sx={{
-            pb: 5,
-            "& .MuiListItemButton-root:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-            "& .MuiListItemButton-root.Mui-selected": {
-              backgroundColor: "transparent",
-            },
-            "& .MuiListItemButton-root.Mui-selected:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-          }}
-        >
+        <List>
           {[
             {
               text: "Dashboard",
-              icon: <DashboardIcon />,
+              icon: <Dashboard />,
               onClick: handleDashboardClick,
             },
             {
               text: "Analytics",
-              icon: <BarChartIcon />,
+              icon: <BarChart />,
               onClick: handleAnalyticsClick,
             },
             {
               text: "Products",
-              icon: <InventoryIcon />,
+              icon: <Inventory />,
               onClick: handleProductsClick,
             },
             {
               text: "Customers",
-              icon: <PeopleIcon />,
+              icon: <People />,
               onClick: handleCustomersClick,
             },
             {
               text: "Orders",
-              icon: <SellIcon />,
+              icon: <Sell />,
               onClick: handleOrdersClick,
             },
             {
               text: "Shop Information",
-              icon: <StorefrontIcon />,
+              icon: <Storefront />,
               onClick: handleShopInfoClick,
             },
             {
               text: "Promos",
-              icon: <PercentIcon />,
+              icon: <Percent />,
               onClick: handlePromosClick,
             },
             {
               text: "Lokal Ads",
-              icon: <CampaignIcon />,
+              icon: <Campaign />,
               onClick: handleLokalAdsClick,
             },
             {
               text: "Vouchers",
-              icon: <CardGiftcardIcon />,
+              icon: <CardGiftcard />,
               onClick: handleVouchersClick,
             },
           ].map((item) => (
@@ -648,24 +610,11 @@ export default function ShopSidebar({ component: MainComponent }) {
         <Divider />
 
         {/*setting menu items  */}
-        <List
-          sx={{
-            pb: 5,
-            "& .MuiListItemButton-root:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-            "& .MuiListItemButton-root.Mui-selected": {
-              backgroundColor: "transparent",
-            },
-            "& .MuiListItemButton-root.Mui-selected:hover": {
-              backgroundColor: "#f0f0f0",
-            },
-          }}
-        >
+        <List sx={{ ...classes.menuItems }}>
           {[
             {
               text: "360 Partner",
-              icon: <HandshakeIcon />,
+              icon: <Handshake />,
               onClick: handlePartnerClick,
             },
             {
@@ -675,7 +624,7 @@ export default function ShopSidebar({ component: MainComponent }) {
             },
             {
               text: "Settings",
-              icon: <SettingsIcon />,
+              icon: <Settings />,
               onClick: handleSettingsClick,
             },
           ].map((item) => (
@@ -720,9 +669,7 @@ export default function ShopSidebar({ component: MainComponent }) {
       <Box
         component="main"
         sx={{
-          flexGrow: 1,
-          backgroundColor: `${theme.palette.background.main}`,
-          minHeight: "100vh",
+          ...classes.mainComponentContainer,
           display: { xs: open ? "none" : "block", sm: "block" },
         }}
       >
@@ -736,12 +683,12 @@ export default function ShopSidebar({ component: MainComponent }) {
           }
           sx={{
             backgroundColor: `${theme.palette.background.paper}`,
+            height: "20px",
             display:
               selectedMenuItem === "Products" ||
               selectedMenuItem === "Shop Category"
                 ? "block"
                 : "none",
-            height: "20px",
           }}
         >
           <Tab
@@ -770,21 +717,14 @@ export default function ShopSidebar({ component: MainComponent }) {
 
         {MainComponent && (
           <Box
-            sx={
-              (mainComponentStyle,
-              {
-                p: selectedMenuItem === "360 Partner" ? 0 : 3,
-                "@media (max-width: 600px)": {
-                  p: 0,
-                  py: selectedMenuItem === "360 Partner" ? 0 : 3,
-                },
-
-                display: "block",
-                textAlign: "center",
-                margin: "0 auto", // Center-align the component horizontally
-                maxWidth: "2000px",
-              })
-            }
+            sx={{
+              ...classes.mainComponent,
+              p: selectedMenuItem === "360 Partner" ? 0 : 3,
+              "@media (max-width: 600px)": {
+                p: 0,
+                py: selectedMenuItem === "360 Partner" ? 0 : 3,
+              },
+            }}
           >
             <MainComponent />
           </Box>
@@ -792,8 +732,45 @@ export default function ShopSidebar({ component: MainComponent }) {
       </Box>
     </Box>
   );
-}
+});
 
-const mainComponentStyle = {
-  width: "100%",
+const classes = {
+  searchBar: {
+    width: 380,
+    backgroundColor: "#fafafa",
+    border: 1,
+    borderColor: "#BBBBBB",
+    borderRadius: 2,
+    alignSelf: "center",
+    display: { xs: "none", sm: "block" },
+  },
+
+  menuItems: {
+    pb: 5,
+    "& .MuiListItemButton-root:hover": {
+      backgroundColor: "#f0f0f0",
+    },
+    "& .MuiListItemButton-root.Mui-selected": {
+      backgroundColor: "transparent",
+    },
+    "& .MuiListItemButton-root.Mui-selected:hover": {
+      backgroundColor: "#f0f0f0",
+    },
+  },
+
+  mainComponentContainer: {
+    flexGrow: 1,
+    backgroundColor: `${theme.palette.background.main}`,
+    minHeight: "100vh",
+  },
+
+  mainComponent: {
+    width: "100%",
+    display: "block",
+    textAlign: "center",
+    margin: "0 auto",
+    maxWidth: "2000px",
+  },
 };
+
+export default ShopSidebar;

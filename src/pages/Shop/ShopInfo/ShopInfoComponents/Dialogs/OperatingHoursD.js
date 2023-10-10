@@ -18,7 +18,7 @@ function OperatingHoursD({
   sun,
   timeOpen,
   timeClose,
-  setValue
+  setValue,
 }) {
   return (
     <Stack spacing={3} sx={{ sx }}>
@@ -60,7 +60,7 @@ function OperatingHoursD({
             value={dayjs(timeOpen)}
             width="48%"
           />
-
+          
           {/*Closing Time*/}
           <CustomTimePicker
             control={control}

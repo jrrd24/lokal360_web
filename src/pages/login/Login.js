@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import LoginForm from "./LoginForm";
 import LoginHeader from "./LoginHeader";
-import { Container } from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 const Login = () => {
@@ -9,11 +9,11 @@ const Login = () => {
   useEffect(() => {
     document.title = "Login | Lokal 360";
     return () => {
-      document.title = "Lokal 360"; 
+      document.title = "Lokal 360";
     };
   }, []);
 
-  return (  
+  return (
     <Container
       disableGutters
       maxWidth="100%"
@@ -24,33 +24,26 @@ const Login = () => {
     >
       <LoginHeader />
 
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
+      <Box
         sx={{
-          height: "100%",
-          pt: 5,
+          minHeight: "90vh",
           display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
         }}
       >
-        <Grid
-          item
-          sx={{ display: { xs: 'none', lg: 'block', xl: 'block' } }}
-        >
+        <Box sx={{ display: { xs: "none", lg: "block", xl: "block" } }}>
           <img
             src={require("../../assets/login_web.png")}
-            style={{ width: 750, height: 600 }}
+            style={{ width: 600, height: "auto" }}
             alt="Logo"
           />
-        </Grid>
+        </Box>
 
-        <Grid item xs>
+        <Box>
           <LoginForm />
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Container>
   );
 };
