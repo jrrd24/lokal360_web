@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useAuth from "../../hooks/useAuth";
-import useDataGetPrivate from "../../hooks/useDataGetPrivate";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
 import {
@@ -8,89 +7,93 @@ import {
   Avatar,
   Stack,
   Typography,
-  Container,
   Skeleton,
+  Button,
 } from "@mui/material";
 import theme from "../../Theme";
 import styles from "../../css/Styles.module.css";
 import maleAvatar from "../../assets/avatars/128_3.png";
 import { ReadOnlyCustomInput } from "../../components/FormComponents/CustomInput";
-import useLoadingDelay from "../../hooks/useLoadingDelay";
+import { useRequestProcessor } from "../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { Logout, Settings } from "@mui/icons-material";
 
-const ProfileContent = React.memo(({ setUsername }) => {
+const ProfileContent = React.memo(() => {
   console.log("profile load");
-  const { auth } = useAuth();
-  const URL = `/api/profile/?userID=${auth.userID}`;
-
-  const { data, loading, error } = useDataGetPrivate(URL);
 
   const logout = useLogout();
   const navigate = useNavigate();
-  // const loadingDelay = useLoadingDelay(loading);
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
   const handleLogOut = async () => {
     await logout();
     navigate("/login");
   };
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setUsername(data[0].Shopper.username);
-  //   }
-  // }, [data, setUsername]);
+  const { data, isLoading, isError } = useCustomQuery(
+    "getProfile",
+    () =>
+      axiosPrivate
+        .get(`/api/profile/?userID=${auth.userID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
 
-  // if (loadingDelay) {
-  //   return (
-  //     <div>
-  //       <div>
-  //         <Box sx={{ ...classes.main }}>
-  //           <Box sx={{ ...classes.overview }}>
-  //             <Box sx={{ ...classes.avatarContainer }}>
-  //               {/*Avatar */}
-  //               <Skeleton variant="circular" height={125} width={125} />
-  //             </Box>
-  //             {/*User Info */}
-  //             <Stack spacing={0}>
-  //               <Skeleton height={30} width={150} />
-  //               <Skeleton height={15} width={100} />
-  //             </Stack>
-  //           </Box>
-  //           {/*Info */}
-  //           <Stack spacing={5} sx={{ ...classes.infoContainer }}>
-  //             {/*User info */}
-  //             <Stack spacing={3} sx={{ ...classes.details }}>
-  //               {/*Section Name */}
-  //               <Box
-  //                 direction={"row"}
-  //                 sx={{ ...theme.components.box.sectionName }}
-  //               >
-  //                 <Skeleton height={35} width={200} />
-  //               </Box>
-  //               {/*User info */}
-  //               <Stack spacing={3}>
-  //                 <ReadOnlyCustomInput label="Username" width="100%" />
-  //                 <Stack direction={"row"} spacing={3}>
-  //                   <ReadOnlyCustomInput label="First Name" width="48%" />
-  //                   <ReadOnlyCustomInput label="Last Name" width="48%" />
-  //                 </Stack>
-  //                 <Stack direction={"row"} spacing={3}>
-  //                   <ReadOnlyCustomInput label="Birthday" width="48%" />
-  //                   <ReadOnlyCustomInput label="Gender" width="48%" />
-  //                 </Stack>
-  //                 <ReadOnlyCustomInput label="Email" width="100%" />
-  //                 <ReadOnlyCustomInput label="Mobile Number" width="100%" />
-  //               </Stack>
-  //               <Skeleton height={150} width={300} sx={{ mt: -10 }} />
-  //             </Stack>
-  //           </Stack>
-  //         </Box>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div>
+        <div>
+          <Box sx={{ ...classes.main }}>
+            <Box sx={{ ...classes.overview }}>
+              <Box sx={{ ...classes.avatarContainer }}>
+                {/*Avatar */}
+                <Skeleton variant="circular" height={125} width={125} />
+              </Box>
+              {/*User Info */}
+              <Stack spacing={0}>
+                <Skeleton height={30} width={150} />
+                <Skeleton height={15} width={100} />
+              </Stack>
+            </Box>
+            {/*Info */}
+            <Stack spacing={5} sx={{ ...classes.infoContainer }}>
+              {/*User info */}
+              <Stack spacing={3} sx={{ ...classes.details }}>
+                {/*Section Name */}
+                <Box
+                  direction={"row"}
+                  sx={{ ...theme.components.box.sectionName }}
+                >
+                  <Skeleton height={35} width={200} />
+                </Box>
+                {/*User info */}
+                <Stack spacing={3}>
+                  <ReadOnlyCustomInput label="Username" width="100%" />
+                  <Stack direction={"row"} spacing={3}>
+                    <ReadOnlyCustomInput label="First Name" width="48%" />
+                    <ReadOnlyCustomInput label="Last Name" width="48%" />
+                  </Stack>
+                  <Stack direction={"row"} spacing={3}>
+                    <ReadOnlyCustomInput label="Birthday" width="48%" />
+                    <ReadOnlyCustomInput label="Gender" width="48%" />
+                  </Stack>
+                  <ReadOnlyCustomInput label="Email" width="100%" />
+                  <ReadOnlyCustomInput label="Mobile Number" width="100%" />
+                </Stack>
+                <Skeleton height={150} width={300} sx={{ mt: -10 }} />
+              </Stack>
+            </Stack>
+          </Box>
+        </div>
+      </div>
+    );
+  }
 
-  // if (error) {
-  //   return <p>Error: {error.message}</p>;
-  // }
+  if (isError) {
+    return <p>Error: {isError.message}</p>;
+  }
 
   return (
     <div>
@@ -220,26 +223,54 @@ const ProfileContent = React.memo(({ setUsername }) => {
 
                 {/* */}
                 <Stack direction={"row"} spacing={3}>
-                  {/*Fname*/}
+                  {/*Created At*/}
                   <ReadOnlyCustomInput
                     label="Created At"
                     defaultValue={new Date(data[0].createdAt).toLocaleString()}
-                    width="48%"
-                  />
-
-                  {/*Lname */}
-                  <ReadOnlyCustomInput
-                    label="Last Modified"
-                    defaultValue={new Date(data[0].updatedAt).toLocaleString()}
-                    width="48%"
+                    width="100%"
                   />
                 </Stack>
               </Stack>
+
+              {/*Button Container*/}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignSelf: "flex-end",
+                  gap: 2,
+                  "@media (max-width: 600px)": { alignSelf: "center" },
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  startIcon={<Settings />}
+                  onClick={() => navigate("/shop/settings")}
+                >
+                  <Typography
+                    variant="sectionTitleSmall"
+                    sx={{ color: "inherit", fontSize: 16 }}
+                  >
+                    Settings
+                  </Typography>
+                </Button>
+
+                <Button
+                  variant="contained"
+                  startIcon={<Logout />}
+                  onClick={handleLogOut}
+                >
+                  <Typography
+                    variant="sectionTitleSmall"
+                    sx={{ color: "inherit", fontSize: 16 }}
+                  >
+                    Logout
+                  </Typography>
+                </Button>
+              </Box>
             </Stack>
           </Box>
         </div>
       )}
-      <button onClick={handleLogOut}>LOGOUT</button>
     </div>
   );
 });
@@ -313,7 +344,7 @@ const UserSVG = () => {
       xmlns="http://www.w3.org/2000/svg"
       data-name="Layer 1"
       width="300"
-      height="auto"
+      height="167.53"
       viewBox="0 0 770 431"
     >
       <polygon
