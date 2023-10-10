@@ -11,30 +11,53 @@ import SelectColor from "./ShopInfoComponents/SelectColor";
 import theme from "../../../Theme";
 //import dummy data
 import shopData from "../../../data/shopData";
+import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import useAuth from "../../../hooks/useAuth";
 
 function ShopInfoContent() {
-  const [currentShopData, setCurrentShopData] = useState(shopData[0]);
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
 
-  useEffect(() => {
-    setCurrentShopData(shopData[0]);
-  }, [shopData]);
+  const { data, isLoading, isError } = useCustomQuery(
+    "getShopInfo",
+    () =>
+      axiosPrivate
+        .get(`/api/shopInfo?userID=${auth.userID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    <div>loading</div>;
+  }
+
+  if (isError) {
+    return <p>Error: {isError.message}</p>;
+  }
+
+  if (!data || data.length === 0) {
+    return <p>No shop data available.</p>;
+  }
 
   //destructure shopData
   const {
     shopID,
     shopOwnerID,
-    name,
+    shop_name,
     type,
     description,
     categoryID,
+    Category: { category_name },
     shipping_deliver_enabled,
     shipping_pickup_enabled,
     address_municipality,
     address_province,
     address_postal_code,
     address_region,
-    address_addressLine1,
-    address_addressLine2,
+    address_line_1,
+    address_line_2,
     address_barangay,
     phone_number,
     website_link,
@@ -58,7 +81,7 @@ function ShopInfoContent() {
     is_360_partner,
     createdAt,
     modifiedAt,
-  } = currentShopData;
+  } = data[0];
 
   //for days open (operating hours)
   const days = [
@@ -85,12 +108,12 @@ function ShopInfoContent() {
           {/*Display Shop Info*/}
           <Box sx={{ ...classes.displayInfo }}>
             <DisplayShopInfo
-              shopName={name}
+              shopName={shop_name}
               totalSales={total_sales}
               noOfProducts={no_of_products}
               noOfFollowers={no_of_followers}
               logo={logo_img_link}
-              shopData={shopData[0]}
+              shopData={data[0]}
               shopID={shopID}
             />
           </Box>
@@ -98,8 +121,8 @@ function ShopInfoContent() {
           {/*Basic Shop Info*/}
           <Box sx={{ ...classes.content }}>
             <BasicShopInfo
-              shopName={name}
-              category={categoryID}
+              shopName={shop_name}
+              category={category_name}
               type={type}
               description={description}
               deliver={shipping_deliver_enabled}
@@ -111,8 +134,8 @@ function ShopInfoContent() {
           {/*Address Info*/}
           <Box sx={{ ...classes.content }}>
             <ShopAddress
-              addressLine1={address_addressLine1}
-              addressLine2={address_addressLine2}
+              addressLine1={address_line_1}
+              addressLine2={address_line_2}
               barangay={address_barangay}
               municipality={address_municipality}
               region={address_region}

@@ -2,7 +2,7 @@ import React from "react";
 import { Divider, Stack, Typography } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import {
-  productsCategory,
+  ProductsCategory,
   shopCategory,
 } from "../../../../../utils/MapSelectMenuItems";
 import { UploadImage } from "../../../../../components/DialogBox/UploadImageDialog";
@@ -42,7 +42,7 @@ function DProductDetails({ sx, control, register, setValue }) {
               label="Products Category"
               width="48%"
               select
-              selectMenuItems={productsCategory}
+              selectMenuItems={ProductsCategory()}
               rules={{ required: "Products Category Is Required" }}
             />
 

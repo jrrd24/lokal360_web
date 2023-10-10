@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, Typography, FormGroup, Box } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import CustomSwitch from "../../../../../components/FormComponents/CustomSwitch";
-import { productsCategory } from "../../../../../utils/MapSelectMenuItems";
+import { ProductsCategory } from "../../../../../utils/MapSelectMenuItems";
 
 function BasicShopInfoD({
   sx,
@@ -55,7 +55,7 @@ function BasicShopInfoD({
             value={category}
             width="48%"
             select
-            selectMenuItems={productsCategory}
+            selectMenuItems={ProductsCategory()}
             rules={{
               required: "Products Category Is Required",
             }}

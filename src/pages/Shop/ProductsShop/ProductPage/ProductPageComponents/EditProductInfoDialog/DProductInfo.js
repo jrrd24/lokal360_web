@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { CustomInput } from "../../../../../../components/FormComponents/CustomInput";
 import {
-  productsCategory,
+  ProductsCategory,
   shopCategory,
 } from "../../../../../../utils/MapSelectMenuItems";
 function DProductInfo({
@@ -51,7 +51,7 @@ function DProductInfo({
             value={category}
             width="48%"
             select
-            selectMenuItems={productsCategory}
+            selectMenuItems={ProductsCategory()}
             rules={{
               required: "Category Is Required",
             }}

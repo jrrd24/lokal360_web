@@ -27,18 +27,19 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
   const {
     shopID,
     shopOwnerID,
-    name,
+    shop_name,
     type,
     description,
     categoryID,
+    Category: { category_name },
     shipping_deliver_enabled,
     shipping_pickup_enabled,
     address_municipality,
     address_province,
     address_postal_code,
     address_region,
-    address_addressLine1,
-    address_addressLine2,
+    address_line_1,
+    address_line_2,
     address_barangay,
     phone_number,
     website_link,
@@ -121,7 +122,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
               <Box sx={{ py: 5 }}>
                 <BasicShopInfoD
                   control={control}
-                  shopName={name}
+                  shopName={shop_name}
                   category={categoryID}
                   type={type}
                   description={description}
@@ -138,8 +139,8 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
                 <ShopAddressD
                   control={control}
                   setValue={setValue}
-                  addressLine1={address_addressLine1}
-                  addressLine2={address_addressLine2}
+                  addressLine1={address_line_1}
+                  addressLine2={address_line_2}
                   barangay={address_barangay}
                   municipality={address_municipality}
                   region={address_region}

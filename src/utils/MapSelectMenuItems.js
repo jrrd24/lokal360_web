@@ -2,7 +2,11 @@ import categoryData from "../data/categoryData";
 import shopCategoryData from "../data/shopCategoryData";
 import promoTypesData from "../data/promoTypesData";
 import axios from "axios";
+import { useRequestProcessor } from "../hooks/useRequestProcessor";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
 
+// fetch data for address
 async function fetchData(url) {
   try {
     const response = await axios.get(url);
@@ -20,10 +24,43 @@ const municipalitiesData = await fetchData(
 const districtsData = await fetchData("https://psgc.gitlab.io/api/districts/");
 const barangaysData = await fetchData("https://psgc.gitlab.io/api/barangays/");
 
-const productsCategory = categoryData.map((category) => ({
-  value: category.name,
-  label: category.name,
-}));
+// fetch data for categories
+// const { useCustomQuery } = useRequestProcessor();
+// const axiosPrivate = useAxiosPrivate();
+// const { auth } = useAuth();
+
+// const ProductsCategory = categoryData.map((category) => ({
+//   value: category.name,
+//   label: category.name,
+// }));
+
+const ProductsCategory = () => {
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  let mappedData = [];
+
+  const { data, isLoading, isError } = useCustomQuery(
+    "getProfile",
+    () => axiosPrivate.get(`/api/category`).then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    <div>loading</div>;
+  } else if (isError) {
+    return <p>Error: {isError.message}</p>;
+  } else if (!data || data.length === 0) {
+    return <p>No shop data available.</p>;
+  } else {
+    mappedData = data?.map((category) => ({
+      value: category.categoryID,
+      label: category.category_name,
+    }));
+  }
+
+  return mappedData;
+};
 
 const shopCategory = shopCategoryData.map((category) => ({
   value: category.name,
@@ -72,7 +109,7 @@ const barangays = barangaysData.map((category) => ({
 }));
 
 export {
-  productsCategory,
+  ProductsCategory,
   shopCategory,
   promoTypes,
   provinces,

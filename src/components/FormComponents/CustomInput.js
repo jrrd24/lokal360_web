@@ -66,6 +66,9 @@ const CustomInput = ({
     setViewPass(!viewPass);
   };
 
+  // Check if selectMenuItems is not empty
+  const hasOptions = selectMenuItems && selectMenuItems.length > 0;
+
   return (
     <Controller
       control={control}
@@ -111,17 +114,23 @@ const CustomInput = ({
           helperText={fieldState.error ? fieldState.error.message : ""}
           sx={{ ...sx, width: width }}
         >
-          {select
-            ? selectMenuItems.map((option) => (
-                <MenuItem
-                  key={option.value}
-                  value={option.value}
-                  id={option.value}
-                >
-                  {option.label}
-                </MenuItem>
-              ))
-            : ""}
+          {hasOptions ? (
+            // Render menu items if there are options available
+            selectMenuItems.map((option) => (
+              <MenuItem
+                key={option.value}
+                value={option.value}
+                id={option.value}
+              >
+                {option.label}
+              </MenuItem>
+            ))
+          ) : (
+            // Show if there are no options
+            <MenuItem key="1" value="1" disabled>
+              No options available
+            </MenuItem>
+          )}
         </TextField>
       )}
     />

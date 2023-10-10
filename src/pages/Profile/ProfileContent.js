@@ -19,7 +19,6 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Logout, Settings } from "@mui/icons-material";
 
 const ProfileContent = React.memo(() => {
-  console.log("profile load");
 
   const logout = useLogout();
   const navigate = useNavigate();
@@ -93,6 +92,10 @@ const ProfileContent = React.memo(() => {
 
   if (isError) {
     return <p>Error: {isError.message}</p>;
+  }
+
+  if (!data || data.length === 0) {
+    return <p>No shop data available.</p>;
   }
 
   return (
