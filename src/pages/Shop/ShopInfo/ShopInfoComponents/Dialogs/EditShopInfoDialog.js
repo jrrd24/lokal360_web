@@ -72,6 +72,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
     formState: { isDirty },
     trigger,
     reset,
+    register,
     setValue,
   } = useForm();
 
@@ -188,6 +189,8 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
                   control={control}
                   logo={logo_img_link}
                   header={header_img_link}
+                  register={register}
+                  setValue={setValue}
                 />
               </Box>
 

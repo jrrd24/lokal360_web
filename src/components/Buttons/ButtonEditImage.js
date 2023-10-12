@@ -1,34 +1,24 @@
 import React from "react";
-import { Button, useMediaQuery } from "@mui/material";
-import { UploadImageDialog } from "../DialogBox/UploadImageDialog";
+import { Button, Typography } from "@mui/material";
+import { Cancel, Edit } from "@mui/icons-material";
 
-function ButtonEditImage({ name, label }) {
-  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  // Handle Open Dialog Box
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+function ButtonEditImage({ showEditImage, editImage }) {
   return (
-    <div>
-      <Button onClick={handleOpen} sx={{ height: 18 }}>
-        {"Edit"}
-      </Button>
-
-      {/*Dialog Box */}
-      <UploadImageDialog
-        open={open}
-        handleClose={handleClose}
-        handleSaveImg={null}
-        name={name}
-        label={label}
-        isSmScreen={isSmScreen}
-      />
-    </div>
+    <Button
+      variant="outlined"
+      color={editImage ? "error" : "primary"}
+      startIcon={editImage ? <Cancel /> : <Edit />}
+      onClick={() => {
+        editImage ? showEditImage(false) : showEditImage(true);
+      }}
+    >
+      <Typography
+        variant="sectionTitleSmall"
+        sx={{ color: "inherit", fontSize: 16 }}
+      >
+        {editImage ? "Cancel" : "Edit Image"}
+      </Typography>
+    </Button>
   );
 }
 

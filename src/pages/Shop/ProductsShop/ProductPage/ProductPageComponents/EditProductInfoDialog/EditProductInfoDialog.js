@@ -24,7 +24,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
     productID,
     product_image,
     product_name,
-    category,
+    categoryID,
     description,
     shopCategory,
   } = productData || {};
@@ -87,7 +87,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
                 <DProductInfo
                   control={control}
                   name={product_name}
-                  category={category}
+                  category={categoryID}
                   selectedShopCategory={shopCategory}
                   description={description}
                 />

@@ -23,6 +23,7 @@ function UploadImageDialog({ open, handleClose, alt, name, label }) {
   const [uploadError, setUploadError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageDirty, setIsImageDirty] = useState(false);
+  let selectedFile = null;
 
   // For React Hook Form
   const {
@@ -44,7 +45,9 @@ function UploadImageDialog({ open, handleClose, alt, name, label }) {
     const selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
       // 2MB in bytes
-      setSelectedImage(URL.createObjectURL(selectedFile));
+      const imageUrl = URL.createObjectURL(selectedFile);
+      setSelectedImage(imageUrl);
+      setValue(name, selectedFile);
     } else {
       setUploadError(true);
     }
@@ -60,13 +63,15 @@ function UploadImageDialog({ open, handleClose, alt, name, label }) {
   useEffect(() => {
     if (selectedImage !== null) {
       setIsImageDirty(true);
+      setValue(name, selectedFile);
     } else {
       setIsImageDirty(false);
     }
-  }, [selectedImage]);
+    setValue(name, selectedFile);
+  }, [selectedImage, selectedFile]);
 
   const onSubmitImage = (data) => {
-    data[name] = selectedImage;
+    data[name] = selectedFile;
     console.log(data); // Form data
     reset();
   };
@@ -167,35 +172,36 @@ function UploadImageDialog({ open, handleClose, alt, name, label }) {
   );
 }
 
-function UploadImage({ alt, name, control, register, setValue }) {
+function UploadImage({ alt, name, control, register, setValue, sx }) {
   const [uploadError, setUploadError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [isImageDirty, setIsImageDirty] = useState(false);
-
+  let selectedFile = null;
 
   // Handle image change
   const handleImageChange = (e) => {
     setUploadError(false);
     setSelectedImage(null);
     setIsImageDirty(false);
-    const selectedFile = e.target.files[0];
+    selectedFile = e.target.files[0];
     if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
       const imageUrl = URL.createObjectURL(selectedFile);
       setSelectedImage(imageUrl);
-      setValue(name, imageUrl);
+      setValue(name, selectedFile);
     } else {
       setUploadError(true);
     }
   };
+
   // Use useEffect to observe selectedImage changes and update the form field
   useEffect(() => {
     if (selectedImage !== null) {
-      setValue(name, selectedImage);
+      setValue(name, selectedFile);
     }
-  }, [selectedImage, setValue]);
+  }, [selectedFile, setValue]);
 
   return (
-    <Box sx={{ py: 5, width: "100%" }}>
+    <Box sx={{ py: 5, width: "100%", ...sx }}>
       <Button
         variant="outlined"
         component="label"

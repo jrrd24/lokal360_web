@@ -1,10 +1,9 @@
-import categoryData from "../data/categoryData";
 import shopCategoryData from "../data/shopCategoryData";
 import promoTypesData from "../data/promoTypesData";
 import axios from "axios";
 import { useRequestProcessor } from "../hooks/useRequestProcessor";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-import useAuth from "../hooks/useAuth";
+
 
 // fetch data for address
 async function fetchData(url) {
@@ -24,10 +23,6 @@ const municipalitiesData = await fetchData(
 const districtsData = await fetchData("https://psgc.gitlab.io/api/districts/");
 const barangaysData = await fetchData("https://psgc.gitlab.io/api/barangays/");
 
-// fetch data for categories
-// const { useCustomQuery } = useRequestProcessor();
-// const axiosPrivate = useAxiosPrivate();
-// const { auth } = useAuth();
 
 // const ProductsCategory = categoryData.map((category) => ({
 //   value: category.name,
@@ -41,7 +36,7 @@ const ProductsCategory = () => {
   let mappedData = [];
 
   const { data, isLoading, isError } = useCustomQuery(
-    "getProfile",
+    "getCategory",
     () => axiosPrivate.get(`/api/category`).then((res) => res.data),
     { enabled: true }
   );

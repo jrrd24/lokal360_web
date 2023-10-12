@@ -54,7 +54,11 @@ function Router() {
           <Route path="/admin/settings" element={<Settings />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={"shop owner"} />}>
+        <Route
+          element={
+            <RequireAuth allowedRoles={["shop owner", "shop employee"]} />
+          }
+        >
           {/*Shop */}
           <Route path="/" element={<DashboardShop />} />
           <Route path="/shop/analytics" element={<AnalyticsShop />} />

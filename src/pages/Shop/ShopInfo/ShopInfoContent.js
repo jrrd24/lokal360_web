@@ -24,7 +24,7 @@ function ShopInfoContent() {
     "getShopInfo",
     () =>
       axiosPrivate
-        .get(`/api/shopInfo?userID=${auth.userID}`)
+        .get(`/api/shopInfo?shopID=${auth.shopID}`)
         .then((res) => res.data),
     { enabled: true }
   );
@@ -48,7 +48,6 @@ function ShopInfoContent() {
     shop_name,
     type,
     description,
-    categoryID,
     Category: { category_name },
     shipping_deliver_enabled,
     shipping_pickup_enabled,
@@ -78,10 +77,7 @@ function ShopInfoContent() {
     total_sales,
     no_of_products,
     no_of_followers,
-    is_360_partner,
-    createdAt,
-    modifiedAt,
-  } = data[0];
+  } = data;
 
   //for days open (operating hours)
   const days = [
@@ -113,7 +109,7 @@ function ShopInfoContent() {
               noOfProducts={no_of_products}
               noOfFollowers={no_of_followers}
               logo={logo_img_link}
-              shopData={data[0]}
+              shopData={data}
               shopID={shopID}
             />
           </Box>

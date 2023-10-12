@@ -18,7 +18,7 @@ function LogoAndHeader({ logo, header }) {
         <Typography variant="sectionSubtitle">Logo</Typography>
         <Box className={`${styles.grow}`}>
           <img
-            src={logo}
+            src={logo || require("../../../../assets/lokal360_Logo.png")}
             alt="Shop logo"
             loading="eager"
             style={{ ...classes.image, height: 100, width: 100 }}
@@ -31,7 +31,7 @@ function LogoAndHeader({ logo, header }) {
         <Typography variant="sectionSubtitle">Header</Typography>
         <Box className={`${styles.grow}`}>
           <img
-            src={header}
+            src={header || require("../../../../assets/placeholder.png")}
             alt="Shop Header"
             style={{ ...classes.image, height: 180, width: 320 }}
           />

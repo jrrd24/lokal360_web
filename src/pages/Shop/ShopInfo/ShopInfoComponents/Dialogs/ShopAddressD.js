@@ -78,7 +78,6 @@ function ShopAddressD({
       districts.find((district) => district.label === selectedProvince)
         ?.districtCode;
 
-    console.log("Province Code", selectedProvinceCode);
     const MunicipalityData = municipalities.filter(
       (municipality) =>
         municipality.provinceCode === selectedProvinceCode ||

@@ -49,9 +49,16 @@ const LoginForm = () => {
         const accessToken = response?.data?.accessToken;
         const roles = response?.data.roles;
         const userID = response?.data.userID;
+        const shopID = response?.data.shopID;
         console.log(userID);
-        setAuth({ email, password, roles, userID, accessToken });
-        console.log("Logged In", { payload, roles, userID, accessToken });
+        setAuth({ email, password, roles, userID, shopID, accessToken });
+        console.log("Logged In", {
+          payload,
+          roles,
+          userID,
+          shopID,
+          accessToken,
+        });
 
         // navigate(from, { replace: true });
         navigate("/");

@@ -22,6 +22,7 @@ const useRefreshToken = () => {
           roles: response.data.roles,
           accessToken: response.data.accessToken,
           userID: response.data.userID,
+          shopID: response.data.shopID,
         };
       });
     } catch (error) {
