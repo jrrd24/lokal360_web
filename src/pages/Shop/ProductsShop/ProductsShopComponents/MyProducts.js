@@ -28,7 +28,7 @@ function MyProducts({ handleSave, open, setOpen }) {
           {/*Section Name */}
           <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
             <Typography variant="sectionTitle">My Products</Typography>
-            <ButtonAdd label={"New Products"} onClickAction={handleOpen} />
+            <ButtonAdd label={"New Product"} onClickAction={handleOpen} />
             {/*TODO: Add onClick for Button */}
           </Box>
 

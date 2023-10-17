@@ -8,35 +8,36 @@ import {
   DialogTitle,
   Stack,
   Divider,
+  useMediaQuery,
 } from "@mui/material";
-import ButtonSave from "../../../../../components/Buttons/ButtonSave";
-import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
-import theme from "../../../../../Theme";
-import { useForm } from "react-hook-form";
+// page sections
 import BasicShopInfoD from "./BasicShopInfoD";
 import ShopAddressD from "./ShopAddressD";
 import ContactInfoD from "./ContactInfoD";
 import OperatingHoursD from "./OperatingHoursD";
 import LogoAndHeaderD from "./LogoAndHeaderD";
 import SelectColorD from "./SelectColorD";
-import { useMediaQuery } from "@mui/material";
+// hooks
 import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../../hooks/useAuth";
+import { useForm } from "react-hook-form";
+// others
+import ButtonSave from "../../../../../components/Buttons/ButtonSave";
+import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
+import theme from "../../../../../Theme";
 import { LoadingCircle } from "../../../../../components/Loading/Loading";
 import { BASE_URL } from "../../../../../api/Api";
 
 function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+
   //destructure shopData
   const {
-    shopID,
-    shopOwnerID,
     shop_name,
     type,
     description,
     categoryID,
-    Category: { category_name },
     shipping_deliver_enabled,
     shipping_pickup_enabled,
     address_municipality,
@@ -60,14 +61,11 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
     logo_img_link,
     header_img_link,
     custom_color_hex,
-    custom_low_stock_lvl,
     sells_raw_mats,
-    total_sales,
-    no_of_products,
-    no_of_followers,
+    // total_sales,
+    // no_of_products,
+    // no_of_followers,
     is_360_partner,
-    createdAt,
-    modifiedAt,
   } = shopData;
 
   // images
@@ -91,7 +89,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
   const { auth } = useAuth();
 
   // mutate data (query key, query function, invalidate query key)
-  const { mutate, onMutate, onError, onSuccess } = useCustomMutate(
+  const { mutate } = useCustomMutate(
     "updateShopInfo",
     async (data) => {
       const response = await axiosPrivate.patch(
@@ -114,7 +112,8 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
         <LoadingCircle />;
       },
       onSuccess: () => {
-        handleSave();
+        handleSave("success", "Shop Data Updated Successfully");
+        reset();
       },
     }
   );
@@ -157,12 +156,8 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
       requestData.shopLogo = data.shopLogo;
     }
 
-    console.log("react-hook-form-data", requestData);
-
     // call mutate
     mutate(requestData);
-    if (onSuccess) handleSave();
-    reset();
   };
 
   return (

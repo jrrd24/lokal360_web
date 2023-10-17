@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import NumberFormat from "../../../../utils/NumberFormat";
 import theme from "../../../../Theme";
@@ -6,6 +6,7 @@ import styles from "../../../../css/Styles.module.css";
 import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
 import ButtonEdit from "../../../../components/Buttons/ButtonEdit";
 import CustomAlert from "../../../../components/CustomAlert";
+import useAlert from "../../../../hooks/useAlert";
 
 function DisplayShopInfo({
   shopName,
@@ -26,105 +27,47 @@ function DisplayShopInfo({
   };
 
   // Handle Alert Click
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const handleSave = (severity, alertMsg) => {
     setOpen(false);
-    setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
   };
 
   return (
     <div>
       {/*Display Page */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          width: "100%",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <Box sx={{ ...classes.main }}>
         {/*Shop Logo */}
-        <Box
-          className={`${styles.grow}`}
-          sx={{
-            width: "20%",
-            "@media (max-width: 912px)": {
-              width: "100%",
-            },
-          }}
-        >
+        <Box className={`${styles.grow}`} sx={{ ...classes.logoContainer }}>
           <img
             src={logo || require("../../../../assets/lokal360_logo_filled.png")}
             alt="Shop logo"
-            style={{
-              backgroundColor: "#FFF",
-              borderRadius: 10,
-              height: 150,
-              width: 150,
-              objectFit: "cover",
-            }}
+            style={{ ...classes.logo }}
           />
         </Box>
 
         {/*Shop Info and Button */}
-        <Stack
-          spacing={2}
-          sx={{
-            width: "70%",
-            "@media (max-width: 912px)": {
-              width: "100%",
-            },
-          }}
-        >
+        <Stack spacing={2} sx={{ ...classes.infoAndBtn }}>
           {/*Button */}
-          <Box
-            sx={{
-              width: "100%",
-              textAlign: "right",
-              "@media (max-width: 912px)": {
-                textAlign: "center",
-              },
-            }}
-          >
+          <Box sx={{ ...classes.button }}>
             {/*Button is disabled if shopID is not found */}
             <ButtonEdit handleOpen={handleOpen} disabled={!shopID} />
           </Box>
 
           {/*Shop Info */}
-          <Stack
-            spacing={2}
-            sx={{
-              width: "80%",
-              textAlign: "left",
-              alignSelf: "center",
-              "@media (max-width: 912px)": {
-                textAlign: "center",
-              },
-            }}
-          >
+          <Stack spacing={2} sx={{ ...classes.shopInfo }}>
             {/*Shop Name*/}
             <Typography variant="sectionTitle">{shopName || "N/A"}</Typography>
 
             {/*Total Sales/ Products/ Followers*/}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                gap: "32px",
-                flexWrap: "wrap",
-                width: "100%",
-                justifyContent: "space-between",
-                textAlign: "center",
-                alignItems: "center",
-              }}
-            >
+            <Box sx={{ ...classes.bottomInfo }}>
               {/*Total Sales*/}
               <Stack>
                 <Typography variant="sectionTitleSmallCenter" color={"primary"}>
@@ -185,7 +128,7 @@ function DisplayShopInfo({
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />
@@ -193,4 +136,65 @@ function DisplayShopInfo({
   );
 }
 
+const classes = {
+  main: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    width: "100%",
+    maxWidth: "600px",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  logoContainer: {
+    width: "20%",
+    "@media (max-width: 912px)": {
+      width: "100%",
+    },
+  },
+
+  logo: {
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    height: 150,
+    width: 150,
+    objectFit: "cover",
+  },
+
+  infoAndBtn: {
+    width: "70%",
+    "@media (max-width: 912px)": {
+      width: "100%",
+    },
+  },
+
+  button: {
+    width: "100%",
+    textAlign: "right",
+    "@media (max-width: 912px)": {
+      textAlign: "center",
+    },
+  },
+
+  shopInfo: {
+    width: "80%",
+    textAlign: "left",
+    alignSelf: "center",
+    "@media (max-width: 912px)": {
+      textAlign: "center",
+    },
+  },
+
+  bottomInfo: {
+    display: "flex",
+    flexDirection: "row",
+    gap: "32px",
+    flexWrap: "wrap",
+    width: "100%",
+    justifyContent: "space-between",
+    textAlign: "center",
+    alignItems: "center",
+  },
+};
 export default DisplayShopInfo;

@@ -9,7 +9,6 @@ import OperatingHours from "./ShopInfoComponents/OperatingHours";
 import LogoAndHeader from "./ShopInfoComponents/LogoAndHeader";
 import SelectColor from "./ShopInfoComponents/SelectColor";
 import theme from "../../../Theme";
-//import dummy data
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from "../../../hooks/useAuth";
@@ -26,16 +25,6 @@ function ShopInfoContent() {
       axiosPrivate
         .get(`/api/shopInfo?shopID=${auth.shopID}`)
         .then((res) => res.data),
-    { enabled: true }
-  );
-
-  const {
-    data: logoData,
-    isLoading: logoLoading,
-    isError: logoError,
-  } = useCustomQuery(
-    "getShopLogo",
-    () => axiosPrivate.get(data.logo_img_link).then((res) => res.data),
     { enabled: true }
   );
 
@@ -58,7 +47,6 @@ function ShopInfoContent() {
   //destructure shopData
   const {
     shopID,
-    shopOwnerID,
     shop_name,
     type,
     description,
@@ -86,14 +74,11 @@ function ShopInfoContent() {
     logo_img_link,
     header_img_link,
     custom_color_hex,
-    custom_low_stock_lvl,
     sells_raw_mats,
     total_sales,
     no_of_products,
     no_of_followers,
   } = data;
-
-  console.log("DATA", data);
 
   // images
   const logoPath = `${BASE_URL}/${logo_img_link}`;

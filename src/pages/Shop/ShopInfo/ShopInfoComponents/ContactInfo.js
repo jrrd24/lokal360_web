@@ -8,10 +8,7 @@ function ContactInfo({ phoneNum, website }) {
   return (
     <Stack spacing={3} width={"100%"}>
       {/*Section Name */}
-      <Stack
-        direction={"row"}
-        sx={{ alignItems: "baseline", justifyContent: "space-between" }}
-      >
+      <Stack direction={"row"} sx={{ ...classes.main }}>
         <Typography variant="sectionTitleSmall">Contact Information</Typography>
       </Stack>
 
@@ -23,11 +20,7 @@ function ContactInfo({ phoneNum, website }) {
           label="Phone Number"
           value={phoneNum}
           width="48%"
-          sx={{
-            "@media (max-width: 600px)": {
-              width: "100%",
-            },
-          }}
+          sx={{ ...classes.max600 }}
           component={Phone}
         />
 
@@ -38,15 +31,24 @@ function ContactInfo({ phoneNum, website }) {
           defaultValue={website}
           width="48%"
           component={Language}
-          sx={{
-            "@media (max-width: 600px)": {
-              width: "100%",
-            },
-          }}
+          sx={{ ...classes.max600 }}
         />
       </Stack>
     </Stack>
   );
 }
+
+const classes = {
+  main: {
+    alignItems: "baseline",
+    justifyContent: "space-between",
+  },
+
+  max600: {
+    "@media (max-width: 600px)": {
+      width: "100%",
+    },
+  },
+};
 
 export default ContactInfo;
