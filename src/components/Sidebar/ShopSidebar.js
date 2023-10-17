@@ -341,8 +341,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
 
   //For Tabs
   const [value, setValue] = React.useState("one");
-
-  const handleChange = (newValue, setValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
     if (newValue === "one") {
       handleProductsClick();
@@ -350,7 +349,6 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
       handleShopCategoriesClick();
     }
   };
-
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />

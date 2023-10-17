@@ -35,11 +35,12 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
               style={{
                 backgroundColor: "#FFF",
                 borderRadius: 10,
-                height: 100,
-                width: 100,
+                height: 150,
+                width: 150,
                 border: "solid",
                 borderColor: `#44444433`,
                 borderWidth: 2,
+                objectFit: "cover",
               }}
             />
           </Box>
@@ -86,6 +87,7 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
                 border: "solid",
                 borderColor: `#44444433`,
                 borderWidth: 2,
+                objectFit: "cover",
               }}
             />
           </Box>

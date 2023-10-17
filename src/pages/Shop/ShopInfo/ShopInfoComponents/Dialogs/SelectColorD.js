@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Stack, Typography, Button } from "@mui/material";
+import { Box, Stack, Typography, Button, Alert } from "@mui/material";
 import PartnerTag from "../../../../../components/ShopOnly/PartnerTag";
 import {
   DisplayColor,
@@ -16,10 +16,10 @@ function SelectColorD({ control, color, isPartner }) {
       </Stack>
       <Typography variant="seeAll">
         {isPartner ? (
-          <Typography variant="inherit">
+          <Alert severity="info">
             Use the <b>Slider Tool</b> to find a Color. <b>Click the Box</b> to
             Copy the Color Hex, then <b>Paste it to the Text Box</b> Below{" "}
-          </Typography>
+          </Alert>
         ) : (
           <Typography variant="inherit">
             You must be a <b>360 Partner</b> to Access this Feature

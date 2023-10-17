@@ -13,7 +13,7 @@ function SimpleColorPicker({ control, color }) {
   const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
   const defaultColor = `${theme.palette.primary.main}`;
   const { setValue } = useForm();
-  const [background, setBackground] = useState(color || defaultColor);
+  const [background, setBackground] = useState(color);
   const [textFieldValue, setTextFieldValue] = useState(background);
   const [isInvalidHex, setIsInvalidHex] = useState(false);
 

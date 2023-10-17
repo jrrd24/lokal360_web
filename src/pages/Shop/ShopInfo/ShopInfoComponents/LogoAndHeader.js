@@ -21,7 +21,7 @@ function LogoAndHeader({ logo, header }) {
             src={logo || require("../../../../assets/lokal360_Logo.png")}
             alt="Shop logo"
             loading="eager"
-            style={{ ...classes.image, height: 100, width: 100 }}
+            style={{ ...classes.image, height: 150, width: 150 }}
           />
         </Box>
       </Stack>
@@ -48,6 +48,7 @@ const classes = {
     border: "solid",
     borderColor: `#44444433`,
     borderWidth: 2,
+    objectFit: "cover",
   },
 };
 

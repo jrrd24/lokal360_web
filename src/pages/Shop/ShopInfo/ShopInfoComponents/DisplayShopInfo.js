@@ -68,6 +68,7 @@ function DisplayShopInfo({
               borderRadius: 10,
               height: 150,
               width: 150,
+              objectFit: "cover",
             }}
           />
         </Box>

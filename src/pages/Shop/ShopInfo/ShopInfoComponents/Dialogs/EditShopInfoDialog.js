@@ -20,6 +20,11 @@ import OperatingHoursD from "./OperatingHoursD";
 import LogoAndHeaderD from "./LogoAndHeaderD";
 import SelectColorD from "./SelectColorD";
 import { useMediaQuery } from "@mui/material";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../../api/Api";
 
 function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -65,6 +70,10 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
     modifiedAt,
   } = shopData;
 
+  // images
+  const logoPath = `${BASE_URL}/${logo_img_link}`;
+  const headerPath = `${BASE_URL}/${header_img_link}`;
+
   // For React Hook Form
   const {
     control,
@@ -76,9 +85,83 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
     setValue,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
+  // custom hook calls for mutate
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  // mutate data (query key, query function, invalidate query key)
+  const { mutate, onMutate, onError, onSuccess } = useCustomMutate(
+    "updateShopInfo",
+    async (data) => {
+      const response = await axiosPrivate.patch(
+        `/api/shopInfo/update/?shopID=${auth.shopID}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    },
+    "getShopInfo",
+    {
+      onError: (error) => {
+        handleSave("error", error);
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave();
+      },
+    }
+  );
+
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
+
+    const requestData = {
+      addressBarangay: data.addressBarangay,
+      addressLine1: data.addressLine1,
+      addressLine2: data.addressLine2,
+      addressMunicipality: data.addressMunicipality,
+      addressPostalCode: data.addressPostalCode,
+      addressProvince: data.addressProvince,
+      addressRegion: data.addressRegion,
+      closingTime: data.closingTime,
+      openMonday: data.daysOpen.Monday,
+      openTuesday: data.daysOpen.Tuesday,
+      openWednesday: data.daysOpen.Wednesday,
+      openThursday: data.daysOpen.Thursday,
+      openFriday: data.daysOpen.Friday,
+      openSaturday: data.daysOpen.Saturday,
+      openSunday: data.daysOpen.Sunday,
+      delivery: data.delivery,
+      hexColor: data.hexColor,
+      openingTime: data.openingTime,
+      phoneNumber: data.phoneNumber,
+      pickUp: data.pickUp,
+      productsCategory: data.productsCategory,
+      sellsRawMaterials: data.sellsRawMaterials,
+      shopDescription: data.shopDescription,
+      shopName: data.shopName,
+      shopType: data.shopType,
+      shopWebsite: data.shopWebsite,
+    };
+    if (data.shopHeader instanceof File) {
+      requestData.shopHeader = data.shopHeader;
+    }
+    if (data.shopLogo instanceof File) {
+      requestData.shopLogo = data.shopLogo;
+    }
+
+    console.log("react-hook-form-data", requestData);
+
+    // call mutate
+    mutate(requestData);
+    if (onSuccess) handleSave();
     reset();
   };
 
@@ -187,8 +270,8 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
               <Box sx={{ py: 5 }}>
                 <LogoAndHeaderD
                   control={control}
-                  logo={logo_img_link}
-                  header={header_img_link}
+                  logo={logoPath}
+                  header={headerPath}
                   register={register}
                   setValue={setValue}
                 />

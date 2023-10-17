@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Box } from "@mui/material";
+import React from "react";
+import { Box, CircularProgress } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import BasicShopInfo from "./ShopInfoComponents/BasicShopInfo";
 import DisplayShopInfo from "./ShopInfoComponents/DisplayShopInfo";
@@ -10,10 +10,10 @@ import LogoAndHeader from "./ShopInfoComponents/LogoAndHeader";
 import SelectColor from "./ShopInfoComponents/SelectColor";
 import theme from "../../../Theme";
 //import dummy data
-import shopData from "../../../data/shopData";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from "../../../hooks/useAuth";
+import { BASE_URL } from "../../../api/Api";
 
 function ShopInfoContent() {
   const { useCustomQuery } = useRequestProcessor();
@@ -29,16 +29,30 @@ function ShopInfoContent() {
     { enabled: true }
   );
 
-  if (isLoading) {
-    <div>loading</div>;
-  }
+  const {
+    data: logoData,
+    isLoading: logoLoading,
+    isError: logoError,
+  } = useCustomQuery(
+    "getShopLogo",
+    () => axiosPrivate.get(data.logo_img_link).then((res) => res.data),
+    { enabled: true }
+  );
 
+  if (isLoading) {
+    <Box sx={{ ...classes.loader }}>
+      <CircularProgress />
+    </Box>;
+  }
   if (isError) {
     return <p>Error: {isError.message}</p>;
   }
-
   if (!data || data.length === 0) {
-    return <p>No shop data available.</p>;
+    return (
+      <Box sx={{ ...classes.loader }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   //destructure shopData
@@ -79,6 +93,12 @@ function ShopInfoContent() {
     no_of_followers,
   } = data;
 
+  console.log("DATA", data);
+
+  // images
+  const logoPath = `${BASE_URL}/${logo_img_link}`;
+  const headerPath = `${BASE_URL}/${header_img_link}`;
+
   //for days open (operating hours)
   const days = [
     { name: "Mon", value: is_open_mon },
@@ -108,7 +128,7 @@ function ShopInfoContent() {
               totalSales={total_sales}
               noOfProducts={no_of_products}
               noOfFollowers={no_of_followers}
-              logo={logo_img_link}
+              logo={logoPath}
               shopData={data}
               shopID={shopID}
             />
@@ -156,7 +176,7 @@ function ShopInfoContent() {
 
           {/*Logo and Header*/}
           <Box sx={{ ...classes.content }}>
-            <LogoAndHeader logo={logo_img_link} header={header_img_link} />
+            <LogoAndHeader logo={logoPath} header={headerPath} />
           </Box>
 
           {/*Color*/}
@@ -172,11 +192,18 @@ function ShopInfoContent() {
 const classes = {
   main: {
     ...theme.components.box.contentColumn,
-
     alignItems: "center",
     justifyContent: "center",
     minWidth: "100%",
   },
+
+  loader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+  },
+
   displayInfo: {
     minWidth: "600px",
     "@media (max-width: 900px)": {
