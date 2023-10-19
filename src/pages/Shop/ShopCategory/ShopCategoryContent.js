@@ -5,29 +5,59 @@ import MyShopCategories from "./ShopCategoryComponents/MyShopCategories";
 import { Box } from "@mui/material";
 import theme from "../../../Theme";
 import CustomAlert from "../../../components/CustomAlert";
+import useAlert from "../../../hooks/useAlert";
+import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../components/Loading/Loading";
 
 function ShopCategoryContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  // Handle Open Alert
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
 
-  const handleSave = ({ severity, alertMsg }) => {
+  // Handle Alert Click
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
+
+  const handleSave = (severity, alertMsg) => {
     setOpen(false);
     setOpenEdit(false);
-    setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
   };
 
+  // handle mutate
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate, onError, onSuccess, onMutate } = useCustomMutate(
+    "deleteShopCategory",
+    async ({ id }) => {
+      await axiosPrivate.delete(
+        `/api/shop_category/delete/?shopCategoryID=${id}`
+      );
+    },
+    "getShopCategory"
+  );
+
   const handleDelete = ({ id, name }) => {
-    console.log("Deleted: ", id);
-    setSeverity("error");
-    setAlertMsg(name + " is deleted");
-    setOpenAlert(true);
+    showAlert(severity, name + " is deleted");
+
+    mutate({ id });
+
+    if (onError) {
+      handleDelete("error", "Shop Category Delete Failed");
+    }
+    if (onMutate) {
+      <LoadingCircle />;
+    }
+    if (onSuccess) {
+      handleDelete("error", name);
+    }
   };
   return (
     <div>
@@ -67,7 +97,7 @@ function ShopCategoryContent() {
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />

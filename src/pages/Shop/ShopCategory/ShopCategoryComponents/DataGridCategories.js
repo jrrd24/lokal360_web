@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Box, IconButton } from "@mui/material";
+import { Box, CircularProgress, IconButton } from "@mui/material";
 import theme from "../../../../Theme";
 import { Delete, Edit } from "@mui/icons-material";
-import shopCategoryData from "../../../../data/shopCategoryData";
+// import shopCategoryData from "../../../../data/shopCategoryData";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import EditCategoryDialog from "./EditCategoryDialog/EditCategoryDialog";
 import DeleteDialog from "../../../../components/DialogBox/DeleteDialog";
-
-// Define data grid columns
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
 
 export default function DataGridCategories({
   openEdit,
@@ -15,42 +16,77 @@ export default function DataGridCategories({
   handleSave,
   handleDelete,
 }) {
-  //Set Active Edit
+  //Set Currently Editing Category
   const [editingCategory, setEditingCategory] = useState({
     shopCategoryID: null,
-    name: null,
+    shop_category_name: null,
     amt_sold: null,
     number_of_products: null,
   });
-  //Initialize category Info field
-  shopCategoryData.forEach((row) => {
-    row.categoryInfo = [
-      row.shopCategoryID,
-      row.name,
-      row.amt_sold,
-      row.number_of_products,
-    ];
-  });
-
-  const handleOpen = (shopCategoryID, name, amt_sold, number_of_products) => {
-    setOpenEdit(true);
-    setEditingCategory({ shopCategoryID, name, amt_sold, number_of_products });
-  };
-  const handleClose = () => {
-    setOpenEdit(false);
-  };
 
   //handle delete dialog box
   const [openDelete, setOpenDelete] = useState(false);
-  const [deleteData, setDeleteData] = useState({ id: null, name: null });
-  const handleOpenDelete = ({ id, name }) => {
+  const [deleteData, setDeleteData] = useState({
+    id: null,
+    shop_category_name: null,
+  });
+  const handleOpenDelete = ({ id, shop_category_name }) => {
     setOpenDelete(true);
-    setDeleteData({ id, name });
+    setDeleteData({ id, name: shop_category_name });
   };
   const handleCloseDelete = () => {
     setOpenDelete(false);
   };
 
+  // all shop categories (for shop)
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: shopCategoryData, isLoading } = useCustomQuery(
+    "getShopCategory",
+    () =>
+      axiosPrivate
+        .get(`/api/shop_category/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    <Box sx={{ ...classes.loader }}>
+      <CircularProgress />
+    </Box>;
+  }
+
+  //Initialize category Info field
+  shopCategoryData?.forEach((row) => {
+    row.categoryInfo = [
+      row.shopCategoryID,
+      row.shop_category_name,
+      row.amt_sold,
+      row.number_of_products,
+    ];
+  });
+
+  const handleOpen = (
+    shopCategoryID,
+    shop_category_name,
+    amt_sold,
+    number_of_products
+  ) => {
+    setOpenEdit(true);
+    setEditingCategory({
+      shopCategoryID,
+      shop_category_name,
+      amt_sold,
+      number_of_products,
+    });
+  };
+  const handleClose = () => {
+    setOpenEdit(false);
+  };
+
+  // Define data grid columns
   const columns = [
     {
       field: "shopCategoryID",
@@ -59,7 +95,7 @@ export default function DataGridCategories({
       width: 80,
     },
     {
-      field: "name",
+      field: "shop_category_name",
       headerName: "Name",
       width: 200,
     },
@@ -81,19 +117,33 @@ export default function DataGridCategories({
       disableExport: true,
       renderCell: (params) => {
         let statusComponent;
-        const { shopCategoryID, name, amt_sold, number_of_products } =
-          params.row;
+        const {
+          shopCategoryID,
+          shop_category_name,
+          amt_sold,
+          number_of_products,
+        } = params.row;
         statusComponent = (
           <Box>
             <IconButton
-              onClick={() => handleOpenDelete({ id: shopCategoryID, name })}
+              onClick={() =>
+                handleOpenDelete({
+                  id: shopCategoryID,
+                  shop_category_name,
+                })
+              }
             >
               <Delete sx={{ color: `${theme.palette.danger.delete}` }} />
             </IconButton>
 
             <IconButton
               onClick={() =>
-                handleOpen(shopCategoryID, name, amt_sold, number_of_products)
+                handleOpen(
+                  shopCategoryID,
+                  shop_category_name,
+                  amt_sold,
+                  number_of_products
+                )
               }
             >
               <Edit sx={{ color: `${theme.palette.primary.main}` }} />
@@ -130,3 +180,12 @@ export default function DataGridCategories({
     </div>
   );
 }
+
+const classes = {
+  loader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+  },
+};

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Dialog,
   Box,
@@ -14,6 +14,9 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DEditCategoryDetails from "./DEditCategoryDetails";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function EditCategoryDialog({ open, handleClose, handleSave, data }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -22,17 +25,57 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
     register,
     setValue,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
-    reset();
+  // for mutate
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate } = useCustomMutate(
+    "updateShopCategory",
+    async (data) => {
+      await axiosPrivate.patch(
+        `/api/shop_category/update/?shopCategoryID=${data.shopCategoryID}`,
+        data
+      );
+    },
+    "getShopCategory",
+    {
+      onError: (error) => {
+        if (error.response && error.response.status === 409) {
+          handleSave("error", error.response.data.error);
+        } else {
+          handleSave(
+            "error",
+            "Error Updating Shop Category. Please Try Again Later"
+          );
+        }
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "Shop Data Updated Successfully");
+        reset();
+      },
+    }
+  );
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    console.log("DATA", data); // Form data
+
+    const requestData = {
+      shopCategoryID: data.shopCategoryID,
+      shopCategoryName: data.shopCategoryName,
+    };
+
+    console.log("REQ DATA", requestData);
+    mutate(requestData);
   };
 
   return (
@@ -59,7 +102,7 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
                   Edit Shop Category
                 </Typography>
                 <Typography variant="sectionSubTitle">
-                  <b>{data.name}</b>
+                  <b>{data.shop_category_name}</b>
                 </Typography>
               </Stack>
 

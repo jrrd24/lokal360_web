@@ -6,6 +6,10 @@ import { ProductToggleNew } from "../../../../../components/FormComponents/Produ
 import productData from "../../../../../data/productData";
 
 function DEditCategoryDetails({ sx, control, register, setValue, data }) {
+  useEffect(() => {
+    setValue("shopCategoryID", data.shopCategoryID);
+  }, [setValue, data]);
+  
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Shop Category Details */}
@@ -24,7 +28,7 @@ function DEditCategoryDetails({ sx, control, register, setValue, data }) {
             control={control}
             name="shopCategoryName"
             label="Shop Category Name"
-            value={data.name}
+            value={data.shop_category_name}
             width="100%"
             rules={{
               required: "Shop Category Name Is Required",

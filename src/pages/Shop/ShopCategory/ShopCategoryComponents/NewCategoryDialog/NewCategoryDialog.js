@@ -14,6 +14,10 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DCategoryDetails from "./DCategoryDetails";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function NewCategoryDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -21,17 +25,53 @@ function NewCategoryDialog({ open, handleClose, handleSave }) {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
     register,
     setValue,
   } = useForm();
 
+  // for uploading data
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { mutate } = useCustomMutate(
+    "newShopCategory",
+    async (data) => {
+      const response = await axiosPrivate.post(
+        `/api/shop_category/create/?shopID=${auth.shopID}`,
+        data
+      );
+      return response.data;
+    },
+    "getShopCategory",
+    {
+      onError: (error) => {
+        if (error.response && error.response.status === 409) {
+          handleSave("error", error.response.data.error);
+        } else {
+          handleSave("error", "Error Creating New Shop Category");
+        }
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "New Shop Category Created Successfully");
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
     console.log(data); // Form data
-    handleSave();
-    reset();
+    const requestData = {
+      shopCategoryName: data.shopCategoryName,
+    };
+
+    // call mutate
+    mutate(requestData);
   };
 
   return (
