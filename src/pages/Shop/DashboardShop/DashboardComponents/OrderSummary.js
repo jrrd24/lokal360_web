@@ -12,10 +12,7 @@ import Styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 import theme from "../../../../Theme";
-import {
-  OrderCount,
-  OrderStatusContainer,
-} from "../../../../components/ShopOnly/OrderCount";
+import { OrderCount } from "../../../../components/ShopOnly/OrderCount";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {

@@ -83,6 +83,8 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     setAlertMsg(<>Variation {variationName} Successfully Updated</>);
     setOpenAlert(true);
   };
+
+  // delete variation
   const handleDelete = ({ id, name }) => {
     console.log("Deleted: ", id);
     setSeverity("error");

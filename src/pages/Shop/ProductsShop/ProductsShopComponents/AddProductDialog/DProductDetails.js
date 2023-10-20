@@ -3,7 +3,7 @@ import { Divider, Stack, Typography } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import {
   ProductsCategory,
-  shopCategory,
+  ShopCategory,
 } from "../../../../../utils/MapSelectMenuItems";
 import { UploadImage } from "../../../../../components/DialogBox/UploadImageDialog";
 
@@ -38,8 +38,8 @@ function DProductDetails({ sx, control, register, setValue }) {
             {/*Product Category*/}
             <CustomInput
               control={control}
-              name="productsCategory"
-              label="Products Category"
+              name="productCategory"
+              label="Product Category"
               width="48%"
               select
               selectMenuItems={ProductsCategory()}
@@ -54,7 +54,7 @@ function DProductDetails({ sx, control, register, setValue }) {
               label="Shop Category"
               width="48%"
               select
-              selectMenuItems={shopCategory}
+              selectMenuItems={ShopCategory()}
               rules={{ required: "Shop Category Is Required" }}
             />
           </Stack>

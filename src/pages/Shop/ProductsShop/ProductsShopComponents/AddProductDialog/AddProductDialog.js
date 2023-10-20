@@ -14,6 +14,10 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import DProductDetails from "./DProductDetails";
 import { useMediaQuery } from "@mui/material";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function AddProductDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -21,15 +25,64 @@ function AddProductDialog({ open, handleClose, handleSave }) {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
     register,
     setValue,
   } = useForm();
 
+  // for uploading data
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { mutate } = useCustomMutate(
+    "newProduct",
+    async (data) => {
+      const response = await axiosPrivate.post(
+        `/api/product/create/?shopID=${auth.shopID}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    },
+    "getAllProduct",
+    {
+      onError: (error) => {
+        if (error.response && error.response.status === 409) {
+          handleSave("error", error.response.data.error);
+        } else {
+          handleSave("error", "Error Creating New Product");
+        }
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "New Product Created Successfully");
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
     console.log(data); // Form data
+
+    const requestData = {
+      productCategory: data.productCategory,
+      productDescription: data.productDescription,
+      productName: data.productName,
+      shopCategory: data.shopCategory,
+    };
+    if (data.productThumbnail instanceof File) {
+      requestData.productThumbnail = data.productThumbnail;
+    }
+
+    mutate(requestData);
     handleSave();
     reset();
   };

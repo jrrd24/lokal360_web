@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Stack } from "@mui/material";
+import { Box, Typography, Stack, CircularProgress } from "@mui/material";
 import NumberFormat from "../../../../utils/NumberFormat";
 import theme from "../../../../Theme";
 import styles from "../../../../css/Styles.module.css";
@@ -7,11 +7,13 @@ import EditShopInfoDialog from "./Dialogs/EditShopInfoDialog";
 import ButtonEdit from "../../../../components/Buttons/ButtonEdit";
 import CustomAlert from "../../../../components/CustomAlert";
 import useAlert from "../../../../hooks/useAlert";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
 
 function DisplayShopInfo({
   shopName,
   totalSales,
-  noOfProducts,
   noOfFollowers,
   logo,
   shopData,
@@ -39,6 +41,30 @@ function DisplayShopInfo({
     setOpen(false);
     showAlert(severity, alertMsg);
   };
+
+  // api calls
+  // get product count
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: productCount, isLoading } = useCustomQuery(
+    "getProductCount",
+    () =>
+      axiosPrivate
+        .get(`/api/product/products_count/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  console.log("PROD C", productCount);
+  if (isLoading) {
+    return (
+      <Box sx={{ ...classes.loader }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <div>
@@ -86,7 +112,10 @@ function DisplayShopInfo({
               {/*Products*/}
               <Stack>
                 <Typography variant="sectionTitleSmallCenter" color={"primary"}>
-                  <NumberFormat value={noOfProducts || 0} isShortened={true} />
+                  <NumberFormat
+                    value={productCount[0].noOfProducts || 0}
+                    isShortened={true}
+                  />
                   &nbsp;
                 </Typography>
                 <Typography

@@ -3,7 +3,7 @@ import promoTypesData from "../data/promoTypesData";
 import axios from "axios";
 import { useRequestProcessor } from "../hooks/useRequestProcessor";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
-
+import useAuth from "../hooks/useAuth";
 
 // fetch data for address
 async function fetchData(url) {
@@ -22,7 +22,6 @@ const municipalitiesData = await fetchData(
 );
 const districtsData = await fetchData("https://psgc.gitlab.io/api/districts/");
 const barangaysData = await fetchData("https://psgc.gitlab.io/api/barangays/");
-
 
 // const ProductsCategory = categoryData.map((category) => ({
 //   value: category.name,
@@ -61,6 +60,38 @@ const shopCategory = shopCategoryData.map((category) => ({
   value: category.name,
   label: category.name,
 }));
+
+const ShopCategory = () => {
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  let mappedData = [];
+
+  const { data, isLoading, isError } = useCustomQuery(
+    "getShopCategory",
+    () =>
+      axiosPrivate
+        .get(`/api/shop_category/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    <div>loading</div>;
+  } else if (isError) {
+    return <p>Error: {isError.message}</p>;
+  } else if (!data || data.length === 0) {
+    return <p>No shop data available.</p>;
+  } else {
+    mappedData = data?.map((shopCategory) => ({
+      value: shopCategory.shopCategoryID,
+      label: shopCategory.shop_category_name,
+    }));
+  }
+
+  return mappedData;
+};
 
 const promoTypes = promoTypesData.map((category) => ({
   value: category.type,
@@ -105,6 +136,7 @@ const barangays = barangaysData.map((category) => ({
 
 export {
   ProductsCategory,
+  ShopCategory,
   shopCategory,
   promoTypes,
   provinces,
