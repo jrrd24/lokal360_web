@@ -32,7 +32,7 @@ function DProductImage({ thumbnail }) {
               name={"productThumbnail"}
               src={
                 thumbnail ||
-                require("../../../../../../assets/lokal360_Logo.png")
+                require("../../../../../../assets/product_placeholder_big.jpg")
               }
               alt="Product Thumbnail"
               loading="eager"

@@ -53,7 +53,8 @@ function ProductInfo({
         <Box className={`${styles.grow}`} sx={{ ...classes.logo }}>
           <img
             src={
-              productImage || require("../../../../../assets/lokal360_Logo.png")
+              productImage ||
+              require("../../../../../assets/product_placeholder_big.jpg")
             }
             alt="Product"
             style={{ ...classes.image }}
@@ -169,6 +170,8 @@ const classes = {
     borderRadius: 10,
     height: 150,
     width: 150,
+    objectFit: "cover",
+    border: "2px solid #44444433",
   },
 
   infoContainer: {

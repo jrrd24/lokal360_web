@@ -26,7 +26,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
     product_name,
     categoryID,
     description,
-    shopCategory,
+    shopCategoryID,
   } = productData || {};
   // For React Hook Form
   const {
@@ -88,7 +88,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
                   control={control}
                   name={product_name}
                   category={categoryID}
-                  selectedShopCategory={shopCategory}
+                  selectedShopCategory={shopCategoryID}
                   description={description}
                 />
               </Box>

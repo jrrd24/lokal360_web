@@ -1,25 +1,23 @@
-import React, { useState, useEffect, lazy, Suspense } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Tabs, Tab, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import theme from "../../../../Theme";
 import PageInfoComponent from "../../../../components/PageInfoAndTime/PageInfoComponent";
-import productData from "../../../../data/productData";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import CustomAlert from "../../../../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
 import ReviewContainer from "../../../../components/ShopOnly/ReviewContainer";
 import MapData from "../../../../utils/MapData";
 import reviewData from "../../../../data/reviewData";
-
-// Lazy-loaded components
-const ProductInfo = lazy(() => import("./ProductPageComponents/ProductInfo"));
-const Variations = lazy(() => import("./ProductPageComponents/Variations"));
-const Promos = lazy(() => import("./ProductPageComponents/Promos"));
-const Vouchers = lazy(() => import("./ProductPageComponents/Vouchers"));
-const Details = lazy(() => import("./ProductPageComponents/Details"));
-const ProductImages = lazy(() =>
-  import("./ProductPageComponents/ProductImages")
-);
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import ProductInfo from "./ProductPageComponents/ProductInfo";
+import Variations from "./ProductPageComponents/Variations";
+import Promos from "./ProductPageComponents/Promos";
+import Vouchers from "./ProductPageComponents/Vouchers";
+import Details from "./ProductPageComponents/Details";
+import ProductImages from "./ProductPageComponents/ProductImages";
+import { BASE_URL } from "../../../../api/Api";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -104,53 +102,61 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     }, 2000);
   };
 
-  // Use state to store the selectedProduct
-  const [selectedProduct, setSelectedProduct] = useState(null);
-
-  // Use useEffect to fetch selectedProduct based on selectedProductId
-  useEffect(() => {
-    const foundProduct = productData.find(
-      (product) => product.productID === selectedProductID
-    );
-
-    if (foundProduct) {
-      setSelectedProduct(foundProduct);
-      setProductName(foundProduct.product_name);
-    } else {
-      setSelectedProduct(null);
-      setProductName("Product");
-    }
-  }, [selectedProductID, setProductName]);
-
-  const {
-    productID,
-    product_image,
-    product_name,
-    total_sold,
-    status,
-    number_of_variations,
-    promo_type,
-    is_featured,
-    category,
-    description,
-    voucherID,
-    shopCategoryID,
-    shopCategory,
-    promoID,
-    price,
-    orig_price,
-    rating,
-    variations,
-  } = selectedProduct || {};
-
   //for tabs
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleChangeIndex = (index) => {
-    setValue(index);
-  };
+
+  // query shop info
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { data, isLoading, isError } = useCustomQuery(
+    "getProductData",
+    () =>
+      axiosPrivate
+        .get(`/api/product/product_info/?productID=${selectedProductID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  useEffect(() => {
+    if (data && data.product_name) {
+      setProductName(data.product_name);
+    }
+  }, [data, setProductName]);
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+  if (isError) {
+    return <p>Error: {isError.message}</p>;
+  }
+  if (!data || data.length === 0) {
+    setProductName("Product");
+    return <LoadingCircle />;
+  }
+
+  const {
+    productID,
+    product_name,
+    total_sold,
+    number_of_variations,
+    description,
+    promoID,
+    price,
+    rating,
+    variations,
+    Category: { category_name: productCategory },
+    ShopCategory: { shop_category_name: shopCategory },
+    ProductImages: Images,
+    ProductVariations,
+    VoucherAppliedProducts,
+  } = data || {};
+
+  const product_thumbnail =
+    Images.length > 0 ? `${BASE_URL}/${Images[0].prod_image}` : null;
 
   return (
     <div>
@@ -165,21 +171,20 @@ function ProductPageContent({ selectedProductID, setProductName }) {
           <Box sx={{ ...classes.main }}>
             {/*Display Product Info*/}
             <Box sx={{ ...classes.displayInfo }}>
-              <Suspense fallback={<LoadingCircle />}>
-                <ProductInfo
-                  productID={productID}
-                  productImage={product_image}
-                  name={product_name}
-                  totalSales={total_sold * price}
-                  amountSold={total_sold}
-                  noOfVariations={number_of_variations}
-                  productData={selectedProduct}
-                  open={open}
-                  setOpen={setOpen}
-                  handleSave={handleSaveUpdateProduct}
-                  handleDelete={handleDeleteProduct}
-                />
-              </Suspense>
+              <ProductInfo
+                productID={productID}
+                productImage={product_thumbnail}
+                name={product_name}
+                totalSales={total_sold * price}
+                amountSold={total_sold}
+                noOfVariations={number_of_variations}
+                productData={data}
+                open={open}
+                setOpen={setOpen}
+                handleSave={handleSaveUpdateProduct}
+                handleDelete={handleDeleteProduct}
+              />
+
               <Tabs
                 value={value}
                 onChange={handleChange}
@@ -218,54 +223,44 @@ function ProductPageContent({ selectedProductID, setProductName }) {
               <Box sx={{ ...classes.main }}>
                 {/*Product Variations*/}
                 <Box sx={{ ...classes.content }}>
-                  <Suspense fallback={<LoadingCircle />}>
-                    <Variations
-                      variations={variations}
-                      openNewVar={openNewVar}
-                      setOpenNewVar={setOpenNewVar}
-                      openEditVar={openEditVar}
-                      setOpenEditVar={setOpenEditVar}
-                      handleSaveNew={handleSaveNewVariation}
-                      handleSaveEdit={handleSaveEditVariation}
-                      handleDelete={handleDelete}
-                      productID={productID}
-                      name={product_name}
-                    />
-                  </Suspense>
+                  <Variations
+                    variations={variations}
+                    openNewVar={openNewVar}
+                    setOpenNewVar={setOpenNewVar}
+                    openEditVar={openEditVar}
+                    setOpenEditVar={setOpenEditVar}
+                    handleSaveNew={handleSaveNewVariation}
+                    handleSaveEdit={handleSaveEditVariation}
+                    handleDelete={handleDelete}
+                    productID={productID}
+                    name={product_name}
+                  />
                 </Box>
 
                 {/*Appllied Promos*/}
                 <Box sx={{ ...classes.content }}>
-                  <Suspense fallback={<LoadingCircle />}>
-                    <Promos promoID={promoID} />
-                  </Suspense>
+                  <Promos promoID={promoID} />
                 </Box>
 
                 {/*Vouchers*/}
                 <Box sx={{ ...classes.content }}>
-                  <Suspense fallback={<LoadingCircle />}>
-                    <Vouchers productID={productID} />
-                  </Suspense>
+                  <Vouchers productID={productID} />
                 </Box>
 
                 {/*Product Details*/}
                 <Box sx={{ ...classes.content }}>
-                  <Suspense fallback={<LoadingCircle />}>
-                    <Details
-                      name={product_name}
-                      category={category}
-                      shopCategory={shopCategory}
-                      description={description}
-                      rating={rating}
-                    />
-                  </Suspense>
+                  <Details
+                    name={product_name}
+                    category={productCategory}
+                    shopCategory={shopCategory}
+                    description={description}
+                    rating={rating}
+                  />
                 </Box>
 
                 {/*Product Images*/}
                 <Box sx={{ ...classes.content }}>
-                  <Suspense fallback={<LoadingCircle />}>
-                    <ProductImages />
-                  </Suspense>
+                  <ProductImages thumbnail={product_thumbnail} />
                 </Box>
               </Box>
             </CustomTabPanel>
@@ -306,6 +301,14 @@ const classes = {
       width: "100%",
     },
   },
+
+  loader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+  },
+
   displayInfo: {
     "@media (max-width: 900px)": {
       alignItems: "center",

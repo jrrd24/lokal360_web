@@ -18,7 +18,10 @@ function ProductImages({ thumbnail }) {
       <Box sx={{ display: "flex", alignItems: "left" }}>
         <img
           className={`${styles.grow}`}
-          src={thumbnail || require("../../../../../assets/lokal360_Logo.png")}
+          src={
+            thumbnail ||
+            require("../../../../../assets/product_placeholder_big.jpg")
+          }
           alt="Product Thumbnail"
           loading="eager"
           style={{ ...classes.image, height: 100, width: 100 }}
@@ -34,6 +37,7 @@ const classes = {
     borderRadius: 10,
     border: "solid",
     borderColor: `#44444433`,
+    objectFit: "cover",
     borderWidth: 2,
   },
 };

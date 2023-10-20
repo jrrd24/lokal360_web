@@ -3,7 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import { CustomInput } from "../../../../../../components/FormComponents/CustomInput";
 import {
   ProductsCategory,
-  shopCategory,
+  ShopCategory,
 } from "../../../../../../utils/MapSelectMenuItems";
 function DProductInfo({
   sx,
@@ -65,7 +65,7 @@ function DProductInfo({
             value={selectedShopCategory}
             width="48%"
             select
-            selectMenuItems={shopCategory}
+            selectMenuItems={ShopCategory()}
             rules={{
               required: "Shop Category Is Required",
             }}
