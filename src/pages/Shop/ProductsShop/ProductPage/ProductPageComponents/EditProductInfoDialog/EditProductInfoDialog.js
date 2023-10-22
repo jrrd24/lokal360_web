@@ -16,33 +16,91 @@ import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DProductInfo from "./DProductInfo";
 import DProductImage from "./DProductImage";
+import { useRequestProcessor } from "../../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../../../api/Api";
 
 function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   const {
     productID,
-    product_image,
+    ProductImages: Images,
     product_name,
     categoryID,
     description,
     shopCategoryID,
   } = productData || {};
+
+  const product_thumbnail =
+    Images.length > 0 ? `${BASE_URL}/${Images[0].prod_image}` : null;
+
   // For React Hook Form
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
     register,
     setValue,
   } = useForm();
 
+  // custom hook calls for mutate
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  // mutate data (query key, query function, invalidate query key)
+  const { mutate } = useCustomMutate(
+    "updateProductInfo",
+    async (data) => {
+      console.log("data", data);
+      const response = await axiosPrivate.patch(
+        `/api/product/update/?productID=${productID}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    },
+    "getProductData",
+    {
+      onError: (error) => {
+        handleSave("error", "Error Updating Product. Please Try Again Later");
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleClose();
+        handleSave("success", "Product Updated Successfully", product_name);
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave({ productName: product_name });
-    reset();
+    console.log("PROD DATA", data); // Form data
+
+    const requestData = {
+      category: data.category,
+      productDescription: data.productDescription,
+      productName: data.productName,
+      shopCategory: data.shopCategory,
+      shopID: auth.shopID,
+    };
+    if (data.productThumbnail instanceof File) {
+      requestData.productThumbnail = data.productThumbnail;
+    }
+
+    console.log("REQ DATA", requestData);
+
+    mutate(requestData);
   };
 
   return (
@@ -101,7 +159,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
                   control={control}
                   register={register}
                   setValue={setValue}
-                  thumbnail={product_image}
+                  thumbnail={product_thumbnail}
                 />
               </Box>
             </Stack>

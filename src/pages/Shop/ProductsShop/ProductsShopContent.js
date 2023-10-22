@@ -1,36 +1,31 @@
-import React, { useState, lazy, Suspense } from "react";
+import React, { useState } from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import { Box } from "@mui/material";
 import theme from "../../../Theme";
 import CustomAlert from "../../../components/CustomAlert";
 import { LoadingCircle } from "../../../components/Loading/Loading";
-import { LoadingProduct } from "../../../components/Loading/LoadingProducts.js";
-
-// Lazy-Loaded Components
-const FeaturedProducts = lazy(() =>
-  import("./ProductsShopComponents/FeaturedProducts")
-);
-const MyProducts = lazy(() => import("./ProductsShopComponents/MyProducts"));
-const TopProducts = lazy(() =>
-  import("../AnalyticsShop/AnalyticsComponents/TopProducts")
-);
-const ProductStatus = lazy(() =>
-  import("../DashboardShop/DashboardComponents/ProductStatus")
-);
+//import page sections
+import FeaturedProducts from "./ProductsShopComponents/FeaturedProducts";
+import MyProducts from "./ProductsShopComponents/MyProducts";
+import TopProducts from "../AnalyticsShop/AnalyticsComponents/TopProducts";
+import ProductStatus from "../DashboardShop/DashboardComponents/ProductStatus";
+import useAlert from "../../../hooks/useAlert";
 
 function ProductsShopContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
-  // Handle Open Alert
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
+
+  // Handle Alert Click
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const handleSave = (severity, alertMsg) => {
-    setOpen(false);
-    setSeverity("success");
-    setAlertMsg("Successfully Created New Product");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
   };
 
   return (
@@ -47,37 +42,32 @@ function ProductsShopContent() {
           <Box sx={{ ...classes.leftContainer }}>
             {/*Featured Products*/}
             <Box sx={{ ...classes.featuredProductsContainer }}>
-              <Suspense fallback={<LoadingProduct />}>
-                <FeaturedProducts />
-              </Suspense>
+              <FeaturedProducts />
             </Box>
 
             {/*My Products*/}
 
             <Box sx={{ ...classes.myProductsContainer }}>
-              <Suspense fallback={<LoadingProduct />}>
-                <MyProducts
-                  handleSave={handleSave}
-                  open={open}
-                  setOpen={setOpen}
-                />
-              </Suspense>
+              <MyProducts
+                handleSave={handleSave}
+                open={open}
+                setOpen={setOpen}
+              />
             </Box>
           </Box>
 
           {/*Product Info (Right Side)*/}
           <Box sx={{ ...classes.rightContainer }}>
             {/*Products Sold Per Category */}
-            <Suspense fallback={<LoadingCircle />}>
-              <Box sx={{ ...classes.categoryContainer }}>
-                <ProductStatus hideShowAll={true} />
-              </Box>
 
-              {/*Top Products */}
-              <Box sx={{ ...classes.topProductsContainer }}>
-                <TopProducts hideShowAll={true} />
-              </Box>
-            </Suspense>
+            <Box sx={{ ...classes.categoryContainer }}>
+              <ProductStatus hideShowAll={true} />
+            </Box>
+
+            {/*Top Products */}
+            <Box sx={{ ...classes.topProductsContainer }}>
+              <TopProducts hideShowAll={true} />
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -85,7 +75,7 @@ function ProductsShopContent() {
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />

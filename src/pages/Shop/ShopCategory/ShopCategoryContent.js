@@ -25,8 +25,6 @@ function ShopCategoryContent() {
   } = useAlert();
 
   const handleSave = (severity, alertMsg) => {
-    setOpen(false);
-    setOpenEdit(false);
     showAlert(severity, alertMsg);
   };
 
@@ -34,6 +32,7 @@ function ShopCategoryContent() {
   const { useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
 
+  // DELETE API CALL
   const { mutate, onError, onSuccess, onMutate } = useCustomMutate(
     "deleteShopCategory",
     async ({ id }) => {
@@ -45,18 +44,20 @@ function ShopCategoryContent() {
   );
 
   const handleDelete = ({ id, name }) => {
-    showAlert(severity, name + " is deleted");
+    showAlert(
+      "error",
+      <>
+        ...Deleting <b>{name}</b>
+      </>
+    );
 
     mutate({ id });
 
     if (onError) {
-      handleDelete("error", "Shop Category Delete Failed");
+      handleSave("error", "Shop Category Delete Failed");
     }
     if (onMutate) {
       <LoadingCircle />;
-    }
-    if (onSuccess) {
-      handleDelete("error", name);
     }
   };
   return (

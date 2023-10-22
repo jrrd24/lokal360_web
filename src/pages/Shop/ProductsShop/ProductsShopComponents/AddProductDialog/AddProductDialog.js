@@ -63,6 +63,7 @@ function AddProductDialog({ open, handleClose, handleSave }) {
         <LoadingCircle />;
       },
       onSuccess: () => {
+        handleClose();
         handleSave("success", "New Product Created Successfully");
         reset();
       },

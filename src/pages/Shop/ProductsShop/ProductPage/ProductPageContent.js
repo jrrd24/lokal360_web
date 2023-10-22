@@ -18,6 +18,8 @@ import Vouchers from "./ProductPageComponents/Vouchers";
 import Details from "./ProductPageComponents/Details";
 import ProductImages from "./ProductPageComponents/ProductImages";
 import { BASE_URL } from "../../../../api/Api";
+import useAlert from "../../../../hooks/useAlert";
+import Error404 from "../../../../components/Loading/Error404";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,54 +51,84 @@ function a11yProps(index) {
 }
 
 function ProductPageContent({ selectedProductID, setProductName }) {
-  // Handle Alert Click
   const [open, setOpen] = useState(false);
   const [openNewVar, setOpenNewVar] = useState(false);
   const [openEditVar, setOpenEditVar] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
+  // CUSTOM HOOK CALLS
+  const { useCustomQuery, useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  // Handle Alert Click
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const handleSaveUpdateProduct = (severity, alertMsg, productName) => {
-    setOpen(false);
-    setSeverity("success");
-    setAlertMsg(
-      <>
-        Successfully Updated Product: <b>{productName}</b>
-      </>
+    showAlert(
+      severity,
+      severity === "success" ? (
+        <>
+          Successfully Updated Product: <b>{productName}</b>
+        </>
+      ) : (
+        alertMsg
+      )
     );
-    setOpenAlert(true);
   };
 
   const handleSaveNewVariation = (severity, alertMsg) => {
-    setOpenNewVar(false);
-    setSeverity("success");
-    setAlertMsg("New Variation Created Successfully");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
   };
 
   const handleSaveEditVariation = (severity, alertMsg, variationName) => {
-    setOpenEditVar(false);
-    setSeverity("success");
-    setAlertMsg(<>Variation {variationName} Successfully Updated</>);
-    setOpenAlert(true);
+    showAlert(
+      severity,
+      severity === "success" ? (
+        <>
+          Successfully Updated Variation: <b>{variationName}</b>
+        </>
+      ) : (
+        alertMsg
+      )
+    );
   };
 
-  // delete variation
+  // DELETE VARIATION
   const handleDelete = ({ id, name }) => {
     console.log("Deleted: ", id);
-    setSeverity("error");
-    setAlertMsg(name + " is deleted");
-    setOpenAlert(true);
+    showAlert(
+      "error",
+
+      <>
+        ...Deleting <b>{name}</b>
+      </>
+    );
   };
 
   const navigate = useNavigate();
 
+  // DELETE PRODUCT API CALL
+  const { mutate, onError, onSuccess, onMutate } = useCustomMutate(
+    "deleteProduct",
+    async ({ id }) => {
+      await axiosPrivate.delete(`/api/product/delete/?productID=${id}`);
+    },
+    "getProductData"
+  );
+
   const handleDeleteProduct = ({ id, name }) => {
     console.log("Deleted:", id);
-    setSeverity("error");
-    setAlertMsg(name + " is deleted");
-    setOpenAlert(true);
+    showAlert(
+      "error",
+      <>
+        ...Deleting <b>{name}</b>
+      </>
+    );
+    mutate({ id });
     setTimeout(() => {
       navigate("/shop/products");
     }, 2000);
@@ -109,9 +141,6 @@ function ProductPageContent({ selectedProductID, setProductName }) {
   };
 
   // query shop info
-  const { useCustomQuery } = useRequestProcessor();
-  const axiosPrivate = useAxiosPrivate();
-
   const { data, isLoading, isError } = useCustomQuery(
     "getProductData",
     () =>
@@ -131,7 +160,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     return <LoadingCircle />;
   }
   if (isError) {
-    return <p>Error: {isError.message}</p>;
+    return <Error404 />;
   }
   if (!data || data.length === 0) {
     setProductName("Product");
@@ -149,7 +178,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     rating,
     variations,
     Category: { category_name: productCategory },
-    ShopCategory: { shop_category_name: shopCategory },
+    ShopCategory,
     ProductImages: Images,
     ProductVariations,
     VoucherAppliedProducts,
@@ -157,6 +186,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
 
   const product_thumbnail =
     Images.length > 0 ? `${BASE_URL}/${Images[0].prod_image}` : null;
+  const shopCategory = ShopCategory ? ShopCategory.shop_category_name : 0;
 
   return (
     <div>
@@ -283,7 +313,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />

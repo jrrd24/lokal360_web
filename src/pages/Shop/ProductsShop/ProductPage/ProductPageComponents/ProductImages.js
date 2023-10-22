@@ -24,7 +24,7 @@ function ProductImages({ thumbnail }) {
           }
           alt="Product Thumbnail"
           loading="eager"
-          style={{ ...classes.image, height: 100, width: 100 }}
+          style={{ ...classes.image }}
         />
       </Box>
     </Stack>
@@ -39,6 +39,8 @@ const classes = {
     borderColor: `#44444433`,
     objectFit: "cover",
     borderWidth: 2,
+    height: 150,
+    width: 150,
   },
 };
 export default ProductImages;

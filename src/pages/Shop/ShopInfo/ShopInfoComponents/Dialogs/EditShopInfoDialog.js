@@ -92,6 +92,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
   const { mutate } = useCustomMutate(
     "updateShopInfo",
     async (data) => {
+      console.log("data", data);
       const response = await axiosPrivate.patch(
         `/api/shopInfo/update/?shopID=${auth.shopID}`,
         data,

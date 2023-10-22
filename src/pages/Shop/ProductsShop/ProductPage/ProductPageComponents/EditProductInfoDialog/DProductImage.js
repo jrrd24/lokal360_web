@@ -1,9 +1,12 @@
 import { Stack, Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import ButtonEditImage from "../../../../../../components/Buttons/ButtonEditImage";
 import styles from "../../../../../../css/Styles.module.css";
+import { UploadImage } from "../../../../../../components/DialogBox/UploadImageDialog";
 
-function DProductImage({ thumbnail }) {
+function DProductImage({ thumbnail, control, register, setValue }) {
+  const [editThumbnail, setEditThumbnail] = useState(false);
+
   return (
     <div>
       <Stack spacing={3}>
@@ -20,8 +23,8 @@ function DProductImage({ thumbnail }) {
           <Box sx={{ display: "flex", justifyContent: "right" }}>
             <Box className={`${styles.grow}`}>
               <ButtonEditImage
-                name={"productThumbnail"}
-                label={"Update Product Thumbnail"}
+                showEditImage={setEditThumbnail}
+                editImage={editThumbnail}
               />
             </Box>
           </Box>
@@ -36,21 +39,32 @@ function DProductImage({ thumbnail }) {
               }
               alt="Product Thumbnail"
               loading="eager"
-              style={{
-                backgroundColor: "#FFF",
-                borderRadius: 10,
-                height: 100,
-                width: 100,
-                border: "solid",
-                borderColor: `#44444433`,
-                borderWidth: 2,
-              }}
+              style={{ height: 150, width: 150, ...classes.image }}
             />
           </Box>
+
+          <UploadImage
+            name={"productThumbnail"}
+            alt={"Thumbnail"}
+            control={control}
+            register={register}
+            setValue={setValue}
+            sx={{ display: editThumbnail ? "block" : "none" }}
+          />
         </Stack>
       </Stack>
     </div>
   );
 }
 
+const classes = {
+  image: {
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    border: "solid",
+    borderColor: `#44444433`,
+    borderWidth: 2,
+    objectFit: "cover",
+  },
+};
 export default DProductImage;

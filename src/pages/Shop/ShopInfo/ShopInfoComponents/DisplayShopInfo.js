@@ -57,7 +57,6 @@ function DisplayShopInfo({
     { enabled: true }
   );
 
-  console.log("PROD C", productCount);
   if (isLoading) {
     return (
       <Box sx={{ ...classes.loader }}>

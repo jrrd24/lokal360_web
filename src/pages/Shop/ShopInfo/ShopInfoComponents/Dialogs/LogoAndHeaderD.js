@@ -11,10 +11,7 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
     <div>
       <Stack spacing={3}>
         {/*Section Name */}
-        <Stack
-          direction={"row"}
-          sx={{ alignItems: "baseline", justifyContent: "space-between" }}
-        >
+        <Stack direction={"row"} sx={{ ...classes.sectionName }}>
           <Typography variant="sectionTitleSmall">Logo and Header</Typography>
         </Stack>
 
@@ -32,16 +29,7 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
               src={logo || require("../../../../../assets/lokal360_Logo.png")}
               alt="Shop logo"
               loading="eager"
-              style={{
-                backgroundColor: "#FFF",
-                borderRadius: 10,
-                height: 150,
-                width: 150,
-                border: "solid",
-                borderColor: `#44444433`,
-                borderWidth: 2,
-                objectFit: "cover",
-              }}
+              style={{ height: 150, width: 150, ...classes.image }}
             />
           </Box>
 
@@ -79,16 +67,7 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
               name={"ShopHeader"}
               src={header || require("../../../../../assets/placeholder.png")}
               alt="Shop Header"
-              style={{
-                backgroundColor: "#FFF",
-                borderRadius: 10,
-                height: 180,
-                width: 320,
-                border: "solid",
-                borderColor: `#44444433`,
-                borderWidth: 2,
-                objectFit: "cover",
-              }}
+              style={{ height: 180, width: 320, ...classes.image }}
             />
           </Box>
 
@@ -106,4 +85,18 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
   );
 }
 
+const classes = {
+  image: {
+    backgroundColor: "#FFF",
+    borderRadius: 10,
+    border: "solid",
+    borderColor: `#44444433`,
+    borderWidth: 2,
+    objectFit: "cover",
+  },
+  sectionName: {
+    alignItems: "baseline",
+    justifyContent: "space-between",
+  },
+};
 export default LogoAndHeaderD;

@@ -17,9 +17,11 @@ import DEditCategoryDetails from "./DEditCategoryDetails";
 import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../../../components/Loading/Loading";
+import useAuth from "../../../../../hooks/useAuth";
 
 function EditCategoryDialog({ open, handleClose, handleSave, data }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const { auth } = useAuth();
 
   //for react hook form
   const {
@@ -60,6 +62,7 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
       },
       onSuccess: () => {
         handleSave("success", "Shop Data Updated Successfully");
+        handleClose();
         reset();
       },
     }
@@ -72,6 +75,7 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
     const requestData = {
       shopCategoryID: data.shopCategoryID,
       shopCategoryName: data.shopCategoryName,
+      shopID: auth.shopID,
     };
 
     console.log("REQ DATA", requestData);
