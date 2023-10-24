@@ -9,64 +9,105 @@ import {
   Radio,
   FormControlLabel,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import theme from "../../Theme";
 import Styles from "../../css/Styles.module.css";
-import PropTypes from "prop-types";
 import TruncateString from "../../utils/TruncateString";
 import { Controller } from "react-hook-form";
 import { LocalShipping, Percent } from "@mui/icons-material";
 import { FaPesoSign } from "react-icons/fa6";
+import { BASE_URL } from "../../api/Api";
 
-//For Featured Products
-function ProductToggle({ data, control }) {
-  const {
-    product_image = "",
-    product_name = "Unknown Product",
-    is_featured,
-  } = data || {};
+//For displaying products with toggles
+const ProductToggle = ({
+  name,
+  control,
+  data,
+  width,
+  targetField,
+  targetID,
+}) => {
+  const [switchValues, setSwitchValues] = useState(
+    data?.reduce((acc, product) => {
+      acc[product.productID] = product[targetField];
+      return acc;
+    }, {})
+  );
+
+  useMemo(() => {
+    const updatedValues = data.reduce((acc, product) => {
+      acc[product.productID] = product[targetField];
+      return acc;
+    }, {});
+    setSwitchValues(updatedValues);
+  }, [data, targetField]);
 
   return (
     <Controller
-      name={product_name}
+      name={name}
       control={control}
-      defaultValue={is_featured}
+      defaultValue={switchValues}
       render={({ field }) => (
-        <Box className={`${Styles.changeBG}`} sx={{ ...classes.main }}>
-          <Stack
-            spacing={1}
-            direction={"row"}
-            alignItems="center"
-            textAlign={"left"}
-          >
-            {/* Product Image */}
-            <Avatar
-              src={product_image || require("../../assets/lokal360_Logo.png")}
-              alt="P"
-              sx={{}}
-            />
+        <FormGroup style={{ width: width }}>
+          {data.map((product) => {
+            // Check if ProductImages property is defined and is an array
+            const hasProductImages =
+              product.ProductImages && Array.isArray(product.ProductImages);
 
-            {/* Product Name */}
-            <Typography variant="sectionTitleSmall">
-              <TruncateString str={product_name} n={30} />
-            </Typography>
-          </Stack>
+            // Construct image URL with conditional checks
+            const image =
+              hasProductImages && product.ProductImages.length > 0
+                ? `${BASE_URL}/${product.ProductImages[0].prod_image}`
+                : null;
 
-          {/* Toggle */}
-          <Switch name={product_name} checked={field.value} onChange={field.onChange} />
-        </Box>
+            return (
+              <Box
+                className={`${Styles.changeBG}`}
+                sx={{ ...classes.main }}
+                key={product.productID}
+              >
+                <Stack
+                  spacing={2}
+                  direction={"row"}
+                  alignItems={"center"}
+                  textAlign={"left"}
+                >
+                  {/* Product Image */}
+                  <img
+                    src={
+                      image ||
+                      require("../../assets/product_placeholder_big.jpg")
+                    }
+                    style={{ ...classes.image }}
+                    alt="Product"
+                  />
+
+                  {/* Product Name */}
+                  <Typography variant="sectionTitleSmall">
+                    <TruncateString str={product.product_name} n={30} />
+                  </Typography>
+                </Stack>
+
+                {/* Toggle */}
+                <Switch
+                  name={`${name}[${product.productID}]`}
+                  checked={switchValues[product.productID]}
+                  onChange={(e) => {
+                    const updatedData = {
+                      ...switchValues,
+                      [product.productID]: e.target.checked,
+                    };
+                    setSwitchValues(updatedData);
+                    field.onChange(updatedData);
+                  }}
+                />
+              </Box>
+            );
+          })}
+        </FormGroup>
       )}
     />
   );
-}
-
-ProductToggle.propTypes = {
-  data: PropTypes.shape({
-    product_image: PropTypes.string,
-    product_name: PropTypes.string,
-    is_featured: PropTypes.bool,
-  }),
-  control: PropTypes.object.isRequired,
 };
 
 //For Mapping data toggle
@@ -100,7 +141,7 @@ const ProductToggleNew = ({
       return acc;
     }, {});
     setSwitchValues(updatedValues);
-  }, [data, condition, targetField]);
+  }, [filteredData, condition, targetField, targetID]);
 
   return (
     <Controller
@@ -372,11 +413,20 @@ const classes = {
 
   product_image: {
     backgroundColor: `${theme.palette.background.paper}`,
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     border: "solid",
     borderColor: "transparent",
     borderRadius: 2,
+  },
+
+  image: {
+    objectFit: "cover",
+    objectPosition: "center",
+    height: 50,
+    width: 50,
+    borderRadius: 10,
+    backgroundColor: `${theme.palette.background.paper}`,
   },
 };
 

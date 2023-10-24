@@ -112,7 +112,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
   const navigate = useNavigate();
 
   // DELETE PRODUCT API CALL
-  const { mutate, onError, onSuccess, onMutate } = useCustomMutate(
+  const { mutate, onError, onMutate } = useCustomMutate(
     "deleteProduct",
     async ({ id }) => {
       await axiosPrivate.delete(`/api/product/delete/?productID=${id}`);
@@ -128,7 +128,15 @@ function ProductPageContent({ selectedProductID, setProductName }) {
         ...Deleting <b>{name}</b>
       </>
     );
+
     mutate({ id });
+    if (onError) {
+      showAlert("error", "Shop Category Delete Failed");
+    }
+    if (onMutate) {
+      <LoadingCircle />;
+    }
+
     setTimeout(() => {
       navigate("/shop/products");
     }, 2000);

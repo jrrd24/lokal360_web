@@ -5,15 +5,25 @@ import theme from "../../../../Theme";
 import FeaturedProductsDialog from "./FeaturedProductsDialog/FeaturedProductsDialog";
 import ProductPreview from "../../../../components/ShopOnly/ProductPreview";
 import MapData from "../../../../utils/MapData";
-import productData from "../../../../data/productData";
 import CustomAlert from "../../../../components/CustomAlert";
+import useAuth from "../../../../hooks/useAuth";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import useAlert from "../../../../hooks/useAlert";
 
 function FeaturedProducts() {
   // Handle Open Dialog Box (AddProduct)
   const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
+
+  // Handle Alert Click
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const handleOpen = () => {
     setOpen(true);
@@ -22,11 +32,30 @@ function FeaturedProducts() {
     setOpen(false);
   };
   const handleSave = (severity, alertMsg) => {
-    setOpen(false);
-    setSeverity("success");
-    setAlertMsg(" Successfully Updated Featured Products");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
   };
+
+  // API CALL GET ALL FEATURED PROD
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: productData, isLoading } = useCustomQuery(
+    "getFeaturedProducts",
+    () =>
+      axiosPrivate
+        .get(`/api/product/get_all_featured/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    <LoadingCircle />;
+  }
+
+  if (productData === null) {
+    <LoadingCircle />;
+  }
 
   return (
     <div style={{ width: "100%" }}>
@@ -38,12 +67,11 @@ function FeaturedProducts() {
         </Box>
 
         <MapData
-          inputData={productData}
+          inputData={productData?.allFeatured}
           component={ProductPreview}
           idName={"productID"}
           horizontal
           height={330}
-          condition={(data) => data.is_featured === true}
           sortByField={"total_sold"}
         />
       </Stack>
@@ -52,12 +80,13 @@ function FeaturedProducts() {
         open={open}
         handleClose={handleClose}
         handleSave={handleSave}
+        productData={productData}
       />
 
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />

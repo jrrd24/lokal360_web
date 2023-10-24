@@ -6,9 +6,9 @@ import { StarHalf } from "@mui/icons-material";
 import NumberFormat from "../../utils/NumberFormat";
 import { useNavigate } from "react-router-dom";
 import styles from "../../css/Styles.module.css";
+import { BASE_URL } from "../../api/Api";
 function ProductPreview({ data }) {
-  const {
-    image = data ? data.product_image : null,
+  let {
     product_name = data ? data.product_name : null,
     rating = data ? data.rating : null,
     amtSold = data ? data.total_sold : null,
@@ -17,6 +17,10 @@ function ProductPreview({ data }) {
     productID = data.productID,
   } = data || {};
 
+  let image = null;
+  if (data.ProductImages[0]) {
+    image = `${BASE_URL}/${data.ProductImages[0].prod_image}`;
+  }
   const navigate = useNavigate();
   const onClick = () => {
     navigate(`/shop/products/product_page/${productID}`);

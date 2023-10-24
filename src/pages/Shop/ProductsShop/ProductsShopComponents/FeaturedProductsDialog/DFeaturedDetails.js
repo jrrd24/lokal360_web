@@ -1,10 +1,13 @@
 import React from "react";
 import { Divider, Stack, Typography, Alert } from "@mui/material";
 import { ProductToggle } from "../../../../../components/FormComponents/ProductToggle";
-import productData from "../../../../../data/productData";
-import MapData from "../../../../../utils/MapData";
 
-function DFeaturedDetails({ sx, control, register, setValue }) {
+function DFeaturedDetails({
+  sx,
+  control,
+  featuredProdData,
+  notFeaturedProdData,
+}) {
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/* Product Details */}
@@ -23,19 +26,17 @@ function DFeaturedDetails({ sx, control, register, setValue }) {
             Products
           </Alert>
         </Stack>
-
         {/* TextBoxes */}
         <Stack spacing={3}>
           {/* Product Containers */}
           <Stack spacing={1} direction={"column"} sx={{ ...classes.content }}>
             {/* Mapping user data */}
-            <MapData
-              inputData={productData}
-              component={(props) => (
-                <ProductToggle {...props} control={control} /> // Pass control to ProductToggle component
-              )}
-              idName={"productID"}
-              condition={(data) => data.is_featured === true}
+            <ProductToggle
+              name="featured"
+              control={control}
+              label=""
+              data={featuredProdData}
+              targetField={"is_featured"}
             />
           </Stack>
         </Stack>
@@ -61,14 +62,13 @@ function DFeaturedDetails({ sx, control, register, setValue }) {
         <Stack spacing={3}>
           {/* Product Containers */}
           <Stack spacing={1} direction={"column"} sx={{ ...classes.content }}>
-            {/* Mapping user data */}
-            <MapData
-              inputData={productData}
-              component={(props) => (
-                <ProductToggle {...props} control={control} /> // Pass control to ProductToggle component
-              )}
-              idName={"productID"}
-              condition={(data) => data.is_featured === false}
+            {/* Mapping data*/}
+            <ProductToggle
+              name="notFeatured"
+              control={control}
+              label=""
+              data={notFeaturedProdData}
+              targetField={"is_featured"}
             />
           </Stack>
         </Stack>

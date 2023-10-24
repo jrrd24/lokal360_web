@@ -33,7 +33,7 @@ function ShopCategoryContent() {
   const axiosPrivate = useAxiosPrivate();
 
   // DELETE API CALL
-  const { mutate, onError, onSuccess, onMutate } = useCustomMutate(
+  const { mutate, onError, onMutate } = useCustomMutate(
     "deleteShopCategory",
     async ({ id }) => {
       await axiosPrivate.delete(

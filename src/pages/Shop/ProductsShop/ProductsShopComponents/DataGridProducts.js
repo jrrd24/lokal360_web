@@ -31,7 +31,6 @@ export default function DataGridProducts() {
       <CircularProgress />
     </Box>;
   }
-  console.log(productData);
   // Define Datagrid Columns
   const columns = [
     { field: "productID", headerName: "ID", width: 80, hideable: false },

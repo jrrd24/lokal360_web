@@ -36,11 +36,13 @@ function MapData({
   nullImg,
 }) {
   const filteredData = condition ? inputData.filter(condition) : inputData;
-
-  const sortedData = filteredData
-    .slice()
-    .sort((a, b) => b[sortByField] - a[sortByField]);
-  const showLimit = sortedData.slice(0, showUpTo);
+  let showLimit = 1;
+  if (filteredData) {
+    const sortedData = filteredData
+      .slice()
+      .sort((a, b) => b[sortByField] - a[sortByField]);
+    showLimit = sortedData.slice(0, showUpTo);
+  }
   return (
     <div
       className="scrollable-content custom-scrollbar"

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import { Box } from "@mui/material";
 import theme from "../../../Theme";
 import CustomAlert from "../../../components/CustomAlert";
-import { LoadingCircle } from "../../../components/Loading/Loading";
+
 //import page sections
 import FeaturedProducts from "./ProductsShopComponents/FeaturedProducts";
 import MyProducts from "./ProductsShopComponents/MyProducts";

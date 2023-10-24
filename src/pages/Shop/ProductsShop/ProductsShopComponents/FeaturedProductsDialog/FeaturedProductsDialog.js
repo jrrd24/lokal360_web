@@ -14,24 +14,81 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DFeaturedDetails from "./DFeaturedDetails";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
-function FeaturedProductsDialog({ open, handleClose, handleSave }) {
+function FeaturedProductsDialog({
+  open,
+  handleClose,
+  handleSave,
+  productData,
+}) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   //for react hook form
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
     register,
     setValue,
   } = useForm();
 
+  // for mutate
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate } = useCustomMutate(
+    "updateFeaturedProducts",
+    async (data) => {
+      await axiosPrivate.patch(`/api/product/update_featured`, data);
+    },
+    "getFeaturedProducts",
+    {
+      onError: (error) => {
+        handleSave(
+          "error",
+          "Error Updating Featured Products. Please Try Again Later"
+        );
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "Featured Products Updated Successfully");
+        handleClose();
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
-    reset();
+    // filter data
+    const featuredProducts = [];
+    const notFeaturedProducts = [];
+    for (const [productID, isFeatured] of Object.entries(data.featured)) {
+      if (isFeatured) {
+        featuredProducts.push(Number(productID));
+      } else {
+        notFeaturedProducts.push(Number(productID));
+      }
+    }
+
+    for (const [productID, isFeatured] of Object.entries(data.notFeatured)) {
+      if (isFeatured) {
+        featuredProducts.push(Number(productID));
+      } else {
+        notFeaturedProducts.push(Number(productID));
+      }
+    }
+
+    const requestData = {
+      featuredProducts: featuredProducts,
+      notFeaturedProducts: notFeaturedProducts,
+    };
+
+    mutate(requestData);
   };
 
   return (
@@ -78,6 +135,8 @@ function FeaturedProductsDialog({ open, handleClose, handleSave }) {
                   control={control}
                   register={register}
                   setValue={setValue}
+                  featuredProdData={productData?.allFeatured}
+                  notFeaturedProdData={productData?.allNotFeatured}
                 />
               </Box>
             </Stack>
