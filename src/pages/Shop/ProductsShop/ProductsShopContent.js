@@ -58,8 +58,7 @@ function ProductsShopContent() {
 
           {/*Product Info (Right Side)*/}
           <Box sx={{ ...classes.rightContainer }}>
-            {/*Products Sold Per Category */}
-
+            {/*Products Status */}
             <Box sx={{ ...classes.categoryContainer }}>
               <ProductStatus hideShowAll={true} />
             </Box>
@@ -95,6 +94,7 @@ const classes = {
 
   rightContainer: {
     ...theme.components.box.contentColumn,
+    minWidth: "340px",
     "@media (max-width: 1300px)": {
       flexDirection: "row",
       alignItems: "baseline",
@@ -102,9 +102,6 @@ const classes = {
       minWidth: "790px",
     },
     "@media (max-width: 900px)": {
-      flexDirection: "row",
-      alignItems: "baseline",
-      justifyContent: "center",
       minWidth: "100%",
     },
   },
@@ -133,6 +130,7 @@ const classes = {
   topProductsContainer: {
     ...theme.components.box.sectionContainer,
     maxWidth: "340px",
+    minHeight: "436px",
     "@media (max-width: 1300px)": {
       alignItems: "center",
       justifyContent: "center",

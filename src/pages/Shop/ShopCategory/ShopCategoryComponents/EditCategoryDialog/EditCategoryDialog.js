@@ -22,6 +22,9 @@ import useAuth from "../../../../../hooks/useAuth";
 function EditCategoryDialog({ open, handleClose, handleSave, data }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const { auth } = useAuth();
+  const { useCustomMutate, useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const shopCategoryID = data.shopCategoryID;
 
   //for react hook form
   const {
@@ -33,10 +36,23 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
     setValue,
   } = useForm();
 
-  // for mutate
-  const { useCustomMutate } = useRequestProcessor();
-  const axiosPrivate = useAxiosPrivate();
+  // API CALL GET ALL SHOP CATEGORY PRODUCTS
 
+  const { data: shopCategoryProducts, isLoading } = useCustomQuery(
+    "getShopCategoryProducts",
+    () =>
+      axiosPrivate
+        .get(
+          `/api/shop_category/shop_category_products/?shopCategoryID=${shopCategoryID}`
+        )
+        .then((res) => res.data),
+    {
+      enabled: shopCategoryID !== null,
+      queryKey: ["getShopCategoryProducts", shopCategoryID],
+    }
+  );
+
+  // API CALL UPDATE SHOP CATEGORY
   const { mutate } = useCustomMutate(
     "updateShopCategory",
     async (data) => {
@@ -45,7 +61,7 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
         data
       );
     },
-    "getShopCategory",
+    ["getShopCategory", "getShopCategoryProducts"],
     {
       onError: (error) => {
         if (error.response && error.response.status === 409) {
@@ -70,17 +86,45 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
 
   const onSubmit = (data, event) => {
     event.preventDefault();
-    console.log("DATA", data); // Form data
+
+    const inShopCategory = [];
+    const noShopCategory = [];
+
+    for (const [productID, isShopCategoryProduct] of Object.entries(
+      data.inShopCategory
+    )) {
+      if (isShopCategoryProduct) {
+        inShopCategory.push(Number(productID));
+      } else {
+        noShopCategory.push(Number(productID));
+      }
+    }
+
+    for (const [productID, isShopCategoryProduct] of Object.entries(
+      data.noShopCategory
+    )) {
+      if (isShopCategoryProduct) {
+        inShopCategory.push(Number(productID));
+      } else {
+        noShopCategory.push(Number(productID));
+      }
+    }
 
     const requestData = {
       shopCategoryID: data.shopCategoryID,
       shopCategoryName: data.shopCategoryName,
+      shopCategoryProducts: inShopCategory,
+      noShopCategoryProducts: noShopCategory,
       shopID: auth.shopID,
     };
 
     console.log("REQ DATA", requestData);
     mutate(requestData);
   };
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   return (
     <div>
@@ -133,6 +177,7 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
                   register={register}
                   setValue={setValue}
                   data={data}
+                  productData={shopCategoryProducts}
                 />
               </Box>
             </Stack>

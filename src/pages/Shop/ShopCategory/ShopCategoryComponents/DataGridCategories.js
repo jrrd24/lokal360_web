@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, CircularProgress, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import theme from "../../../../Theme";
 import { Delete, Edit } from "@mui/icons-material";
 // import shopCategoryData from "../../../../data/shopCategoryData";
@@ -9,6 +9,7 @@ import DeleteDialog from "../../../../components/DialogBox/DeleteDialog";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 
 export default function DataGridCategories({
   openEdit,
@@ -20,7 +21,6 @@ export default function DataGridCategories({
   const [editingCategory, setEditingCategory] = useState({
     shopCategoryID: null,
     shop_category_name: null,
-    amt_sold: null,
     number_of_products: null,
   });
 
@@ -53,9 +53,7 @@ export default function DataGridCategories({
   );
 
   if (isLoading) {
-    <Box sx={{ ...classes.loader }}>
-      <CircularProgress />
-    </Box>;
+    return <LoadingCircle />;
   }
 
   //Initialize category Info field
@@ -63,7 +61,6 @@ export default function DataGridCategories({
     row.categoryInfo = [
       row.shopCategoryID,
       row.shop_category_name,
-      row.amt_sold,
       row.number_of_products,
     ];
   });
@@ -71,14 +68,12 @@ export default function DataGridCategories({
   const handleOpen = (
     shopCategoryID,
     shop_category_name,
-    amt_sold,
     number_of_products
   ) => {
     setOpenEdit(true);
     setEditingCategory({
       shopCategoryID,
       shop_category_name,
-      amt_sold,
       number_of_products,
     });
   };
@@ -120,7 +115,7 @@ export default function DataGridCategories({
         const {
           shopCategoryID,
           shop_category_name,
-          amt_sold,
+
           number_of_products,
         } = params.row;
         statusComponent = (
@@ -141,7 +136,6 @@ export default function DataGridCategories({
                 handleOpen(
                   shopCategoryID,
                   shop_category_name,
-                  amt_sold,
                   number_of_products
                 )
               }
@@ -180,12 +174,3 @@ export default function DataGridCategories({
     </div>
   );
 }
-
-const classes = {
-  loader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-  },
-};

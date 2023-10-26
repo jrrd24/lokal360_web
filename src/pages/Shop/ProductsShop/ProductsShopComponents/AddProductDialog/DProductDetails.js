@@ -55,7 +55,6 @@ function DProductDetails({ sx, control, register, setValue }) {
               width="48%"
               select
               selectMenuItems={ShopCategory()}
-              rules={{ required: "Shop Category Is Required" }}
             />
           </Stack>
           {/*Product Description */}

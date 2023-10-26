@@ -700,6 +700,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
               </Typography>
             }
           />
+          
           <Tab
             value="two"
             label={

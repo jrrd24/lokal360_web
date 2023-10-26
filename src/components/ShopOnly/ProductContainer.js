@@ -8,16 +8,21 @@ import NumberFormat from "../../utils/NumberFormat";
 import { IconButton } from "@mui/material";
 import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../api/Api";
 
 function ProductContainer({ data }) {
   // Destructuring data prop and adding default values
   // for error handiling in case of undefined params
   const {
     productID = "",
-    product_image = "",
     product_name = "Unknown Product",
     total_sold = 0,
   } = data || {};
+
+  let image = null;
+  if (data.ProductImages[0]) {
+    image = `${BASE_URL}/${data.ProductImages[0].prod_image}`;
+  }
 
   const navigate = useNavigate();
   const onClick = () => {
@@ -34,10 +39,7 @@ function ProductContainer({ data }) {
         >
           {/*Product Image */}
           <Avatar
-            src={
-              product_image ||
-              require("../../assets/product_placeholder_big.jpg")
-            }
+            src={image || require("../../assets/product_placeholder_big.jpg")}
             alt="P"
             sx={{ ...classes.productImage }}
           />

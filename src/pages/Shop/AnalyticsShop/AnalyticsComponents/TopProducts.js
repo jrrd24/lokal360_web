@@ -5,8 +5,31 @@ import CustomLink from "../../../../components/CustomLink";
 import ProductContainer from "../../../../components/ShopOnly/ProductContainer";
 import productData from "../../../../data/productData";
 import MapData from "../../../../utils/MapData";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import Error404 from "../../../../components/Loading/Error404";
 
 function TopProducts({ hideShowAll }) {
+  // API CALL GET TOP 5 PRODUCTS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data, isLoading } = useCustomQuery(
+    "getTopProducts",
+    () =>
+      axiosPrivate
+        .get(`/api/product/top_products/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading || !data || data.length === 0) {
+    <LoadingCircle />;
+  }
+
   return (
     <Stack spacing={2} sx={{ ...classes.main }}>
       {/*Section name */}
@@ -24,7 +47,7 @@ function TopProducts({ hideShowAll }) {
       <Stack spacing={1} direction={"column"} sx={{ ...classes.content }}>
         {/*Mapping user data*/}
         <MapData
-          inputData={productData}
+          inputData={data?.topProducts}
           component={ProductContainer}
           sortByField={"total_sold"}
           showUpTo={5}

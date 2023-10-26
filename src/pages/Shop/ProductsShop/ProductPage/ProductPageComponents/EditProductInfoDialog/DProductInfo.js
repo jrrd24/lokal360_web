@@ -66,9 +66,6 @@ function DProductInfo({
             width="48%"
             select
             selectMenuItems={ShopCategory()}
-            rules={{
-              required: "Shop Category Is Required",
-            }}
           />
         </Stack>
 

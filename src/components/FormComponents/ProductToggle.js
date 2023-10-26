@@ -27,20 +27,41 @@ const ProductToggle = ({
   targetField,
   targetID,
 }) => {
+  // SET INITIAL VALUES FOR TOGGLES
   const [switchValues, setSwitchValues] = useState(
     data?.reduce((acc, product) => {
-      acc[product.productID] = product[targetField];
+      // Convert undefined to false, and keep other values as is
+      targetID
+        ? (acc[product.productID] =
+            product[targetField] !== undefined &&
+            product[targetField] === targetID
+              ? Boolean(product[targetField])
+              : false)
+        : (acc[product.productID] =
+            product[targetField] !== undefined
+              ? Boolean(product[targetField])
+              : false);
+
       return acc;
     }, {})
   );
 
   useMemo(() => {
     const updatedValues = data.reduce((acc, product) => {
-      acc[product.productID] = product[targetField];
+      targetID
+        ? (acc[product.productID] =
+            product[targetField] !== undefined &&
+            product[targetField] === targetID
+              ? Boolean(product[targetField])
+              : false)
+        : (acc[product.productID] =
+            product[targetField] !== undefined
+              ? Boolean(product[targetField])
+              : false);
       return acc;
     }, {});
     setSwitchValues(updatedValues);
-  }, [data, targetField]);
+  }, [data, targetField, targetID]);
 
   return (
     <Controller
@@ -93,12 +114,14 @@ const ProductToggle = ({
                   name={`${name}[${product.productID}]`}
                   checked={switchValues[product.productID]}
                   onChange={(e) => {
-                    const updatedData = {
-                      ...switchValues,
-                      [product.productID]: e.target.checked,
-                    };
-                    setSwitchValues(updatedData);
-                    field.onChange(updatedData);
+                    setSwitchValues((prevState) => {
+                      const updatedData = {
+                        ...prevState,
+                        [product.productID]: e.target.checked,
+                      };
+                      field.onChange(updatedData); // Update the form control's value
+                      return updatedData;
+                    });
                   }}
                 />
               </Box>

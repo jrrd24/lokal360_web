@@ -118,6 +118,7 @@ const classes = {
 
   rightContainer: {
     ...theme.components.box.contentRow,
+
     "@media (max-width: 1516px)": {
       flexDirection: "row",
       alignItems: "center",
@@ -138,14 +139,14 @@ const classes = {
 
   soldPerCategory: {
     ...theme.components.box.sectionContainer,
-    maxWidth: "340px",
+    width: "340px",
     "@media (max-width: 1516px)": {
       alignItems: "center",
       justifyContent: "center",
-      minWidth: 807,
+      width: "640px",
     },
     "@media (max-width: 913px)": {
-      minWidth: "100%",
+      width: "100%",
     },
   },
 };

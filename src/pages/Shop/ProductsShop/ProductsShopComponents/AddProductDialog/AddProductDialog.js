@@ -50,7 +50,7 @@ function AddProductDialog({ open, handleClose, handleSave }) {
       );
       return response.data;
     },
-    "getAllProduct",
+    ["getAllProduct", "getFeaturedProducts", "getTopProducts"],
     {
       onError: (error) => {
         if (error.response && error.response.status === 409) {
@@ -77,12 +77,13 @@ function AddProductDialog({ open, handleClose, handleSave }) {
       productCategory: data.productCategory,
       productDescription: data.productDescription,
       productName: data.productName,
-      shopCategory: data.shopCategory,
+      shopCategory: data.shopCategory === "" ? null : data.shopCategory,
     };
     if (data.productThumbnail instanceof File) {
       requestData.productThumbnail = data.productThumbnail;
     }
 
+    console.log("REQUEST DATA", requestData);
     mutate(requestData);
     handleSave();
     reset();

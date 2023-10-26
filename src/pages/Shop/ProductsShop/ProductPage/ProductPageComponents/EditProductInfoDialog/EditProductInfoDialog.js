@@ -68,7 +68,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
       );
       return response.data;
     },
-    "getProductData",
+    ["getProductData", "getFeaturedProducts", "getTopProducts"],
     {
       onError: (error) => {
         handleSave("error", "Error Updating Product. Please Try Again Later");
@@ -91,7 +91,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
       category: data.category,
       productDescription: data.productDescription,
       productName: data.productName,
-      shopCategory: data.shopCategory,
+      shopCategory: data.shopCategory === "" ? null : data.shopCategory,
       shopID: auth.shopID,
     };
     if (data.productThumbnail instanceof File) {

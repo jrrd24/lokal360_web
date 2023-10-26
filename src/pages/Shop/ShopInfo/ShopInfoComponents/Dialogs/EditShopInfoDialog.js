@@ -104,7 +104,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
       );
       return response.data;
     },
-    "getShopInfo",
+    ["getShopInfo"],
     {
       onError: (error) => {
         handleSave("error", error);

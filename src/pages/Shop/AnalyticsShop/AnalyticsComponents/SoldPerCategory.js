@@ -3,16 +3,38 @@ import { Box, Stack, Typography } from "@mui/material";
 import Styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import CustomBarChart from "../../../../components/CustomBarChart";
-import shopCategoryData from "../../../../data/shopCategoryData";
+
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 
 function SoldPerCategory({ hideShowAll }) {
+  // all shop categories (for shop)
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: shopCategoryData, isLoading } = useCustomQuery(
+    "getShopCategory",
+    () =>
+      axiosPrivate
+        .get(`/api/shop_category/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section header */}
       <Stack spacing={3} direction={"row"} sx={{ ...classes.sectionHeader }}>
         {/*Section Name */}
         <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
-          Products Sold Per Category
+          Top Categories
         </Typography>
 
         {/*See All */}

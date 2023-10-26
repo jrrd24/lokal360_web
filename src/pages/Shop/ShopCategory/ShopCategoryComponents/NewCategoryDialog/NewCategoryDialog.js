@@ -21,20 +21,29 @@ import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function NewCategoryDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const { useCustomMutate, useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
   //for react hook form
   const {
     control,
     handleSubmit,
     formState: { isDirty },
     reset,
-    register,
-    setValue,
   } = useForm();
 
   // for uploading data
-  const { useCustomMutate } = useRequestProcessor();
-  const axiosPrivate = useAxiosPrivate();
-  const { auth } = useAuth();
+
+  // API CALL GET ALL SHOP CATEGORY PRODUCTS
+  const { data: shopCategoryProducts } = useCustomQuery(
+    "getShopCategoryProducts",
+    () =>
+      axiosPrivate
+        .get(`/api/shop_category/shop_category_products/?shopCategoryID=null`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
 
   const { mutate } = useCustomMutate(
     "newShopCategory",
@@ -45,7 +54,7 @@ function NewCategoryDialog({ open, handleClose, handleSave }) {
       );
       return response.data;
     },
-    "getShopCategory",
+    ["getShopCategory", "getShopCategoryProducts"],
     {
       onError: (error) => {
         if (error.response && error.response.status === 409) {
@@ -59,15 +68,27 @@ function NewCategoryDialog({ open, handleClose, handleSave }) {
       },
       onSuccess: () => {
         handleSave("success", "New Shop Category Created Successfully");
+        handleClose();
         reset();
       },
     }
   );
 
-  const onSubmit = (data) => {
-    console.log(data); // Form data
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+
+    const inShopCategory = [];
+    for (const [productID, isShopCategoryProduct] of Object.entries(
+      data.noShopCategory
+    )) {
+      if (isShopCategoryProduct) {
+        inShopCategory.push(Number(productID));
+      }
+    }
+
     const requestData = {
       shopCategoryName: data.shopCategoryName,
+      shopCategoryProducts: inShopCategory,
     };
 
     // call mutate
@@ -117,8 +138,7 @@ function NewCategoryDialog({ open, handleClose, handleSave }) {
               <Box sx={{ py: 5 }}>
                 <DCategoryDetails
                   control={control}
-                  register={register}
-                  setValue={setValue}
+                  productData={shopCategoryProducts}
                 />
               </Box>
             </Stack>

@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import { Stack, Typography, Alert, Divider } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
-import { ProductToggleNew } from "../../../../../components/FormComponents/ProductToggle";
-//dummy data
-import productData from "../../../../../data/productData";
+import { ProductToggle } from "../../../../../components/FormComponents/ProductToggle";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
-function DEditCategoryDetails({ sx, control, register, setValue, data }) {
+function DEditCategoryDetails({ sx, control, setValue, data, productData }) {
   useEffect(() => {
     setValue("shopCategoryID", data.shopCategoryID);
   }, [setValue, data]);
-  
+
+  if (!productData || !productData.inShopCategory) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Shop Category Details */}
@@ -53,7 +56,7 @@ function DEditCategoryDetails({ sx, control, register, setValue, data }) {
             <Typography variant="sectionTitleSmall">Manage Products</Typography>
           </Stack>
           <Alert severity="info">
-            All Products here belong to <b>{data.name}</b>
+            All Products here belong to <b>{data.shop_category_name}</b>
             <br />
             Click the Toggle to <b>Remove</b> a Product from this Category
           </Alert>
@@ -61,16 +64,14 @@ function DEditCategoryDetails({ sx, control, register, setValue, data }) {
 
         {/*Product Containers (MAP) */}
         <Stack spacing={3}>
-          {/* Mapping user data */}
-          <ProductToggleNew
-            name="categoryProducts.manageProducts"
+          {/* Mapping  data */}
+          <ProductToggle
+            name="inShopCategory"
             control={control}
             label=""
-            data={productData}
-            condition={(product) =>
-              product.shopCategoryID === data.shopCategoryID
-            }
+            data={productData.inShopCategory}
             targetField={"shopCategoryID"}
+            targetID={data.shopCategoryID}
           />
         </Stack>
       </Stack>
@@ -89,22 +90,22 @@ function DEditCategoryDetails({ sx, control, register, setValue, data }) {
             </Typography>
           </Stack>
           <Alert severity="info">
-            Click the Toggle to <b>Add</b> or <b>Remove</b> a Product from this
-            Category
+            Click the Toggle to <b>Add</b> a Product to this Category. <br />
+            <b>NOTE:</b> Only Products with <b>No Shop Category</b> are listed
+            here
           </Alert>
         </Stack>
 
         {/*Product Containers (MAP) */}
-        {/*TODO: Add Product Containers Here */}
         <Stack spacing={3}>
-          {/* Mapping user data */}
-          <ProductToggleNew
-            name="categoryProducts.assignProducts"
+          {/* Mapping data */}
+          <ProductToggle
+            name="noShopCategory"
             control={control}
             label=""
-            data={productData}
-            condition={(product) => product.shopCategoryID === null}
+            data={productData.notInShopCategory}
             targetField={"shopCategoryID"}
+            targetID={data.shopCategoryID}
           />
         </Stack>
       </Stack>

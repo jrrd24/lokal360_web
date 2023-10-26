@@ -44,7 +44,7 @@ function FeaturedProductsDialog({
     async (data) => {
       await axiosPrivate.patch(`/api/product/update_featured`, data);
     },
-    "getFeaturedProducts",
+    ["getFeaturedProducts"],
     {
       onError: (error) => {
         handleSave(

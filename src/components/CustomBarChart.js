@@ -26,23 +26,25 @@ const getColorForIndex = (index) => {
 };
 
 const CustomBarChart = ({ data }) => {
-  // Sort the data in descending order based on the 'amt_sold' property
-  const sortedData = data.slice().sort((a, b) => b.amt_sold - a.amt_sold);
+  // Sort the data in descending order based on the 'total_sold' property
+  const sortedData = data.slice().sort((a, b) => b.total_sold - a.total_sold);
   const sumAmtSold = sortedData.reduce(
-    (sum, orderedData) => sum + orderedData.amt_sold,
+    (sum, orderedData) => sum + orderedData.total_sold,
     0
   );
+  const limitedData = sortedData.slice(0, 5);
 
   return (
     <Box sx={{ width: "100%", textAlign: "left" }}>
-      {sortedData.map((orderedData, index) => {
-        const percentage = ((orderedData.amt_sold / sumAmtSold) * 100).toFixed(
-          2
-        );
+      {limitedData.map((orderedData, index) => {
+        const percentage = (
+          (orderedData.total_sold / sumAmtSold) *
+          100
+        ).toFixed(2);
 
         return (
           <Box
-            key={orderedData.name}
+            key={orderedData.shop_category_name}
             className={`${Styles.changeBG}`}
             sx={{ p: 2, width: "100%" }}
           >
@@ -53,21 +55,22 @@ const CustomBarChart = ({ data }) => {
               sx={{ pb: 0.5 }}
             >
               <Typography variant="sectionTitleSmall">
-                <TruncateString str={orderedData.name} n={30} />
+                <TruncateString str={orderedData.shop_category_name} n={30} />
               </Typography>
               <Typography
                 variant="body1"
                 sx={{ color: "#44444499", textAlign: "start" }}
               >
-                Total Sales:{" "}
+                Products Sold:{" "}
                 <Typography component={"span"} sx={{ fontWeight: 700 }}>
-                  <NumberFormat value={orderedData.amt_sold} /> &nbsp; | &nbsp;
+                  <NumberFormat value={orderedData.total_sold} /> &nbsp; |
+                  &nbsp;
                   {percentage}%
                 </Typography>
               </Typography>
             </Stack>
             <BorderLinearProgress
-              key={orderedData.name}
+              key={orderedData.shop_category_name}
               variant="determinate"
               value={parseFloat(percentage)} // Parse the percentage to a float
               sx={{

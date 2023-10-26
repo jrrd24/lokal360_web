@@ -1,11 +1,9 @@
 import React from "react";
 import { Stack, Typography, Alert, Divider } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
-import { ProductToggleNew } from "../../../../../components/FormComponents/ProductToggle";
-//dummy data
-import productData from "../../../../../data/productData";
+import { ProductToggle } from "../../../../../components/FormComponents/ProductToggle";
 
-function DCategoryDetails({ sx, control, register, setValue }) {
+function DCategoryDetails({ sx, control, productData }) {
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Shop Category Details */}
@@ -49,8 +47,7 @@ function DCategoryDetails({ sx, control, register, setValue }) {
             </Typography>
           </Stack>
           <Alert severity="info">
-            Click the Toggle to <b>Add</b> or <b>Remove</b> a Product from this
-            Category
+            Click the Toggle to <b>Add</b> a Product to this Category
           </Alert>
         </Stack>
 
@@ -58,12 +55,11 @@ function DCategoryDetails({ sx, control, register, setValue }) {
         {/*TODO: Add Product Containers Here */}
         <Stack spacing={3}>
           {/* Mapping user data */}
-          <ProductToggleNew
-            name="categoryProducts"
+          <ProductToggle
+            name="noShopCategory"
             control={control}
             label=""
-            data={productData}
-            condition={(product) => product.shopCategoryID === null}
+            data={productData.notInShopCategory}
             targetField={"shopCategoryID"}
           />
         </Stack>
