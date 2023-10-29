@@ -5,13 +5,14 @@ import { ProductInventoryStatus } from "../../../../../components/ShopOnly/Statu
 import { Edit } from "@mui/icons-material";
 import theme from "../../../../../Theme";
 import EditVariationDialog from "./EditVariationDialog/EditVariationDialog";
+import { BASE_URL } from "../../../../../api/Api";
 
 function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
   //Set Active Edit
   const [editingVaritaion, setEditingVariation] = useState({
     prodVariationID: null,
     productID: null,
-    variation_name: null,
+    var_name: null,
     price: null,
     var_image: null,
     amt_sold: null,
@@ -22,11 +23,11 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
   data &&
     data.length > 0 &&
     data.forEach((row) => {
-      // Initialize categoryInfo field for each row
-      row.categoryInfo = [
+      // Initialize varInfo field for each row
+      row.varInfo = [
         row.prodVariationID,
         row.productID,
-        row.variation_name,
+        row.var_name,
         row.price,
         row.var_image,
         row.amt_sold,
@@ -37,7 +38,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
   const handleOpen = ({
     prodVariationID,
     productID,
-    variation_name,
+    var_name,
     price,
     var_image,
     amt_sold,
@@ -47,7 +48,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
     setEditingVariation({
       prodVariationID,
       productID,
-      variation_name,
+      var_name,
       price,
       var_image,
       amt_sold,
@@ -67,11 +68,14 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
       width: 100,
       disableExport: true,
       renderCell: (params) => {
-        const img = params.value;
+        const img = params.value ? `${BASE_URL}/${params.value}` : null;
         let statusComponent;
         statusComponent = (
           <Avatar
-            src={img || require("../../../../../assets/lokal360_Logo.png")}
+            src={
+              img ||
+              require("../../../../../assets/product_placeholder_big.jpg")
+            }
             sx={{
               backgroundColor: "#FFF",
               width: 45,
@@ -79,6 +83,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
               border: "solid",
               borderColor: "transparent",
               borderRadius: 2,
+              objectFit: "cover",
             }}
           />
         );
@@ -87,7 +92,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
       },
     },
 
-    { field: "variation_name", headerName: "Name", width: 160 },
+    { field: "var_name", headerName: "Name", width: 160 },
     {
       field: "amt_on_hand",
       headerName: "Status",
@@ -112,7 +117,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
     },
 
     {
-      field: "categoryInfo",
+      field: "varInfo",
       headerName: "Action",
       width: 60,
       sortable: false,
@@ -124,7 +129,7 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
         const {
           prodVariationID,
           productID,
-          variation_name,
+          var_name,
           price,
           var_image,
           amt_sold,
@@ -137,9 +142,9 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
               handleOpen({
                 prodVariationID,
                 productID,
-                variation_name,
+                var_name,
                 price,
-                var_image,
+                var_image: var_image ? `${BASE_URL}/${var_image}` : null,
                 amt_sold,
                 amt_on_hand,
               })

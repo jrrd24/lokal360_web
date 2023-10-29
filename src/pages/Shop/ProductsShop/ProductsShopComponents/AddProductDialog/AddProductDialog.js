@@ -85,8 +85,6 @@ function AddProductDialog({ open, handleClose, handleSave }) {
 
     console.log("REQUEST DATA", requestData);
     mutate(requestData);
-    handleSave();
-    reset();
   };
 
   return (

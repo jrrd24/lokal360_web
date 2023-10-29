@@ -1,9 +1,11 @@
 import { Stack, Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import ButtonEditImage from "../../../../../../components/Buttons/ButtonEditImage";
 import styles from "../../../../../../css/Styles.module.css";
+import { UploadImage } from "../../../../../../components/DialogBox/UploadImageDialog";
 
-function DVariationImage({ thumbnail }) {
+function DVariationImage({ thumbnail, control, register, setValue }) {
+  const [editThumbnail, setEditThumbnail] = useState(false);
   return (
     <Stack spacing={3}>
       {/*Section Name */}
@@ -11,7 +13,7 @@ function DVariationImage({ thumbnail }) {
         direction={"row"}
         sx={{ alignItems: "baseline", justifyContent: "space-between" }}
       >
-        <Typography variant="sectionTitleSmall">Product Thumbnail</Typography>
+        <Typography variant="sectionTitleSmall">Variation Thumbnail</Typography>
       </Stack>
 
       {/*Shop Logo */}
@@ -19,8 +21,8 @@ function DVariationImage({ thumbnail }) {
         <Box sx={{ display: "flex", justifyContent: "right" }}>
           <Box className={`${styles.grow}`}>
             <ButtonEditImage
-              name={"varImage"}
-              label={"Update Variation Image"}
+              showEditImage={setEditThumbnail}
+              editImage={editThumbnail}
             />
           </Box>
         </Box>
@@ -30,9 +32,10 @@ function DVariationImage({ thumbnail }) {
             className={`${styles.grow}`}
             name={"variationImage"}
             src={
-              thumbnail || require("../../../../../../assets/lokal360_Logo.png")
+              thumbnail ||
+              require("../../../../../../assets/product_placeholder_big.jpg")
             }
-            alt="Variation Image"
+            alt="Variation"
             loading="eager"
             style={{
               backgroundColor: "#FFF",
@@ -42,9 +45,19 @@ function DVariationImage({ thumbnail }) {
               border: "solid",
               borderColor: `#44444433`,
               borderWidth: 2,
+              objectFit: "cover",
             }}
           />
         </Box>
+
+        <UploadImage
+          name={"variationThumbnail"}
+          alt={"Thumbnail"}
+          control={control}
+          register={register}
+          setValue={setValue}
+          sx={{ display: editThumbnail ? "block" : "none" }}
+        />
       </Stack>
     </Stack>
   );

@@ -15,7 +15,8 @@ function Variations({
   handleSaveEdit,
   handleDelete,
   productID,
-  product_name,
+  name,
+  data,
 }) {
   const handleOpen = () => {
     setOpenNewVar(true);
@@ -36,7 +37,7 @@ function Variations({
 
         <Box sx={{ alignSelf: "center", width: "100%" }}>
           <DataGridVariations
-            data={variations}
+            data={data}
             open={openEditVar}
             setOpen={setOpenEditVar}
             handleSave={handleSaveEdit}
@@ -50,7 +51,8 @@ function Variations({
         open={openNewVar}
         handleSave={handleSaveNew}
         handleClose={handleClose}
-        name={product_name}
+        name={name}
+        productID={productID}
       />
     </div>
   );

@@ -14,8 +14,17 @@ import theme from "../../../../../../Theme";
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DVariationInfo from "./DVariationInfo";
+import { useRequestProcessor } from "../../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../../../components/Loading/Loading";
 
-function NewVariationDialog({ open, handleClose, handleSave, name }) {
+function NewVariationDialog({
+  open,
+  handleClose,
+  handleSave,
+  name,
+  productID,
+}) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
   // For React Hook Form
@@ -28,10 +37,57 @@ function NewVariationDialog({ open, handleClose, handleSave, name }) {
     setValue,
   } = useForm();
 
+  // API CALL CREATE NEW PRODUCT VARIATION
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate } = useCustomMutate(
+    "newVariation",
+    async (data) => {
+      const response = await axiosPrivate.post(
+        `/api/product/variation/create/?productID=${productID}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    },
+    ["getProductData"],
+    {
+      onError: (error) => {
+        if (error.response && error.response.status === 409) {
+          handleSave("error", error.response.data.error);
+        } else {
+          handleSave("error", "Error Creating New Product Variation");
+        }
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleClose();
+        handleSave("success", "New Variation Created Successfully");
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
     console.log(data); // Form data
-    handleSave();
-    reset();
+
+    const requestData = {
+      amountOnHand: data.amountOnHand,
+      price: data.price,
+      variationName: data.variationName,
+    };
+    if (data.variationThumbnail instanceof File) {
+      requestData.variationThumbnail = data.variationThumbnail;
+    }
+
+    mutate(requestData);
   };
 
   return (

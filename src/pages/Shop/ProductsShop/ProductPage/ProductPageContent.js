@@ -272,6 +272,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                     handleDelete={handleDelete}
                     productID={productID}
                     name={product_name}
+                    data={ProductVariations}
                   />
                 </Box>
 

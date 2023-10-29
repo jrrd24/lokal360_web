@@ -7,7 +7,7 @@ import {
 } from "../../../../../../components/FormComponents/CustomInput";
 import { UploadImage } from "../../../../../../components/DialogBox/UploadImageDialog";
 
-function DEditVariationInfo({ sx, control, register, setValue, data }) {
+function DEditVariationInfo({ sx, control, data }) {
   //For Currency and Percentage Validation
   const validateMaxAmount = (value, inputName) => {
     const numericValue = parseFloat(value);
@@ -46,7 +46,7 @@ function DEditVariationInfo({ sx, control, register, setValue, data }) {
             name="variationName"
             label="Variation Name"
             width="100%"
-            value={data.variation_name}
+            value={data.var_name}
             rules={{
               required: "Variation Name Is Required",
               maxLength: {
@@ -88,16 +88,16 @@ function DEditVariationInfo({ sx, control, register, setValue, data }) {
         <Stack direction={"row"} spacing={3}>
           {/*Variation Name*/}
           <ReadOnlyCustomInput
-            name="itemsSold"
-            label="Items Sold"
+            name="amountSold"
+            label="Amount Sold"
             width="48%"
             defaultValue={data.amt_sold}
           />
 
           <CustomNumberInput
             control={control}
-            name="itemsOnHand"
-            label="Items On Hand"
+            name="amountOnHand"
+            label="Amount On Hand"
             width="48%"
             value={data.amt_on_hand}
             rules={{

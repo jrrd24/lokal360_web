@@ -18,16 +18,20 @@ import DeleteDialog from "../../../../../../components/DialogBox/DeleteDialog";
 import ButtonDelete from "../../../../../../components/Buttons/ButtonDelete";
 import DEditVariationInfo from "./DEditVariationInfo";
 import DVariationImage from "./DVariationImage";
+import { useRequestProcessor } from "../../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../../../components/Loading/Loading";
 
 function EditVariationDialog({
   handleSave,
   open,
   handleClose,
   handleDelete,
-  data,
+  data: varData,
 }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
+  console.log("VAR DATA", varData);
   // For React Hook Form
   const {
     control,
@@ -38,10 +42,53 @@ function EditVariationDialog({
     setValue,
   } = useForm();
 
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate } = useCustomMutate(
+    "updateVariation",
+    async (data) => {
+      const response = await axiosPrivate.patch(
+        `/api/product/variation/update/?prodVariationID=${varData.prodVariationID}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    },
+    ["getProductData"],
+    {
+      onError: (error) => {
+        handleSave("error", "Error Updating Product Variation");
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleClose();
+        handleSave("success", "Variation Created Successfully");
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
     console.log(data); // Form data
-    handleSave();
-    reset();
+
+    const requestData = {
+      amountOnHand: data.amountOnHand,
+      price: data.price,
+      variationName: data.variationName,
+    };
+    if (data.variationThumbnail instanceof File) {
+      requestData.variationThumbnail = data.variationThumbnail;
+    }
+
+    console.log("REQ DATA", requestData);
+    mutate(requestData);
   };
 
   //handle delete dialog box
@@ -82,7 +129,7 @@ function EditVariationDialog({
               <Stack spacing={0}>
                 <Typography variant="sectionTitle">Edit Variation</Typography>
                 <Typography variant="sectionSubTitle">
-                  <b>{data.variation_name}</b>
+                  <b>{varData.var_name}</b>
                 </Typography>
               </Stack>
 
@@ -92,8 +139,8 @@ function EditVariationDialog({
                   type="button"
                   onClick={() =>
                     handleOpenDelete({
-                      id: data.prodVariationID,
-                      name: data.variation_name,
+                      id: varData.prodVariationID,
+                      name: varData.var_name,
                     })
                   }
                   sx={{ display: { xs: "none", sm: "none", md: "block" } }}
@@ -118,14 +165,19 @@ function EditVariationDialog({
                   control={control}
                   register={register}
                   setValue={setValue}
-                  data={data}
+                  data={varData}
                 />
               </Box>
 
               <Divider />
 
               <Box sx={{ py: 5 }}>
-                <DVariationImage thumbnail={data.var_image} />
+                <DVariationImage
+                  thumbnail={varData.var_image}
+                  control={control}
+                  register={register}
+                  setValue={setValue}
+                />
               </Box>
             </Stack>
           </DialogContent>
@@ -137,8 +189,8 @@ function EditVariationDialog({
                 type="button"
                 onClick={() =>
                   handleOpenDelete({
-                    id: data.promoID,
-                    name: `Promo ID: ${data.promoID}, Type: ${data.promo_type}`,
+                    id: varData.promoID,
+                    name: `Promo ID: ${varData.promoID}, Type: ${varData.promo_type}`,
                   })
                 }
               />

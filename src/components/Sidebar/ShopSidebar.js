@@ -386,7 +386,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
 
           {/*Branding Logo */}
           <IconButton
-            sx={{ width: 45, height: 45, marginRight: 10 }}
+            sx={{ ...classes.brandingLogo }}
             onClick={() => {
               navigate("/");
             }}
@@ -402,9 +402,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
             <InputBase
               name="searchBar"
               sx={{
-                ml: 1,
-                flex: 1,
-                width: 300,
+                ...classes.searchInput,
                 "& input": {
                   color:
                     selectedMenuItem === "360 Partner"
@@ -700,7 +698,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
               </Typography>
             }
           />
-          
+
           <Tab
             value="two"
             label={
@@ -742,6 +740,27 @@ const classes = {
     borderRadius: 2,
     alignSelf: "center",
     display: { xs: "none", sm: "block" },
+    "@media (max-width: 900px)": {
+      width: 300,
+    },
+  },
+
+  searchInput: {
+    ml: 1,
+    flex: 1,
+    width: 300,
+    "@media (max-width: 900px)": {
+      width: 220,
+    },
+  },
+
+  brandingLogo: {
+    width: 45,
+    height: 45,
+    marginRight: 10,
+    "@media (max-width: 900px)": {
+      marginRight: 2,
+    },
   },
 
   menuItems: {
