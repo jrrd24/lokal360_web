@@ -1,12 +1,12 @@
 import React from "react";
-import { Stack, Typography, Box } from "@mui/material";
+import { Stack, Typography, Box, Alert } from "@mui/material";
 import ButtonAdd from "../../../../../components/Buttons/ButtonAdd";
 import theme from "../../../../../Theme";
 import DataGridVariations from "./DataGridVariations";
 import NewVariationDialog from "./NewVariationDialog/NewVariationDialog";
+import { Inventory } from "@mui/icons-material";
 
 function Variations({
-  variations,
   openNewVar,
   setOpenNewVar,
   openEditVar,
@@ -29,11 +29,17 @@ function Variations({
     <div>
       <Stack spacing={3} width={"100%"}>
         {/*Section Name */}
-        <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
-          <Typography variant="sectionTitle">Variations</Typography>
-          <ButtonAdd label={"New Variation"} onClickAction={handleOpen} />
-          {/*TODO: Add onClick for Button */}
-        </Box>
+        <Stack spacing={1}>
+          <Box direction={"row"} sx={{ ...theme.components.box.sectionName }}>
+            <Typography variant="sectionTitle">Variations</Typography>
+            <ButtonAdd label={"New Variation"} onClickAction={handleOpen} />
+            {/*TODO: Add onClick for Button */}
+          </Box>
+          <Alert severity="info">
+            To Add <b>Product Price</b> and <b>Inventory</b>, Create at least{" "}
+            <b>One Variation</b>
+          </Alert>
+        </Stack>
 
         <Box sx={{ alignSelf: "center", width: "100%" }}>
           <DataGridVariations

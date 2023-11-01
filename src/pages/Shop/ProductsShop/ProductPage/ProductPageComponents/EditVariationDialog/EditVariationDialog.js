@@ -69,7 +69,11 @@ function EditVariationDialog({
       },
       onSuccess: () => {
         handleClose();
-        handleSave("success", "Variation Created Successfully");
+        handleSave(
+          "success",
+          "Variation Created Successfully",
+          varData.var_name
+        );
         reset();
       },
     }
@@ -189,8 +193,8 @@ function EditVariationDialog({
                 type="button"
                 onClick={() =>
                   handleOpenDelete({
-                    id: varData.promoID,
-                    name: `Promo ID: ${varData.promoID}, Type: ${varData.promo_type}`,
+                    id: varData.prodVariationID,
+                    name: varData.var_name,
                   })
                 }
               />

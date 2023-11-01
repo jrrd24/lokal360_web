@@ -68,7 +68,12 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
       );
       return response.data;
     },
-    ["getProductData", "getFeaturedProducts", "getTopProducts"],
+    [
+      "getProductData",
+      "getFeaturedProducts",
+      "getTopProducts",
+      "getShopCategory",
+    ],
     {
       onError: (error) => {
         handleSave("error", "Error Updating Product. Please Try Again Later");

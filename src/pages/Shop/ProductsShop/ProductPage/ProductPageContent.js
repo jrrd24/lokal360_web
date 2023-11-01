@@ -97,16 +97,38 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     );
   };
 
+  // DELETE VARIATION API CALL
+  const {
+    mutate: varMutate,
+    onError: varOnError,
+    onMutate: varOnMutate,
+  } = useCustomMutate(
+    "deleteVariation",
+    async ({ id }) => {
+      await axiosPrivate.delete(
+        `/api/product/variation/delete/?prodVariationID=${id}`
+      );
+    },
+    ["getProductData"]
+  );
   // DELETE VARIATION
   const handleDelete = ({ id, name }) => {
     console.log("Deleted: ", id);
     showAlert(
       "error",
-
       <>
         ...Deleting <b>{name}</b>
       </>
     );
+
+    varMutate({ id });
+    if (varOnError) {
+      showAlert("error", "Variation Delete Failed");
+    }
+    if (varOnMutate) {
+      <LoadingCircle />;
+    }
+    setOpenEditVar(false);
   };
 
   const navigate = useNavigate();
@@ -117,7 +139,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     async ({ id }) => {
       await axiosPrivate.delete(`/api/product/delete/?productID=${id}`);
     },
-    "getProductData"
+    ["getProductData"]
   );
 
   const handleDeleteProduct = ({ id, name }) => {
@@ -131,7 +153,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
 
     mutate({ id });
     if (onError) {
-      showAlert("error", "Shop Category Delete Failed");
+      showAlert("error", "Product Delete Failed");
     }
     if (onMutate) {
       <LoadingCircle />;
@@ -191,6 +213,8 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     ProductVariations,
     VoucherAppliedProducts,
   } = data || {};
+
+  console.log();
 
   const product_thumbnail =
     Images.length > 0 ? `${BASE_URL}/${Images[0].prod_image}` : null;

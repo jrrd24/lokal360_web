@@ -30,7 +30,7 @@ export function ProductInventoryStatus({ status }) {
       }}
     >
       <Typography variant="status" color={color}>
-        {status}
+        {status === "Discontinued" ? "N/A" : status}
       </Typography>
     </Box>
   );

@@ -63,8 +63,10 @@ const CustomBarChart = ({ data }) => {
               >
                 Products Sold:{" "}
                 <Typography component={"span"} sx={{ fontWeight: 700 }}>
-                  <NumberFormat value={orderedData.total_sold} /> &nbsp; |
-                  &nbsp;
+                  <NumberFormat
+                    value={orderedData.total_sold ? orderedData.total_sold : 0}
+                  />{" "}
+                  &nbsp; | &nbsp;
                   {percentage}%
                 </Typography>
               </Typography>
