@@ -9,10 +9,6 @@ function DEditCategoryDetails({ sx, control, setValue, data, productData }) {
     setValue("shopCategoryID", data.shopCategoryID);
   }, [setValue, data]);
 
-  if (!productData || !productData.inShopCategory) {
-    return <LoadingCircle />;
-  }
-
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Shop Category Details */}

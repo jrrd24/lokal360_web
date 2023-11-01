@@ -40,7 +40,7 @@ function ShopCategoryContent() {
         `/api/shop_category/delete/?shopCategoryID=${id}`
       );
     },
-    "getShopCategory"
+    ["getShopCategory"]
   );
 
   const handleDelete = ({ id, name }) => {

@@ -4,11 +4,10 @@ import {
   CustomInput,
   CustomNumberInput,
 } from "../../../../../components/FormComponents/CustomInput";
-import { promoTypes } from "../../../../../utils/MapSelectMenuItems";
-import productData from "../../../../../data/productData";
-import { ProductToggleNew } from "../../../../../components/FormComponents/ProductToggle";
+import { PromoTypes } from "../../../../../utils/MapSelectMenuItems";
+import { ProductToggle } from "../../../../../components/FormComponents/ProductToggle";
 
-function DEditPromoDetails({ sx, control, register, setValue, data }) {
+function DEditPromoDetails({ sx, control, data, productData }) {
   const [promoType, setPromoType] = useState("");
   const [disableInput, setDisableInput] = useState(true);
 
@@ -25,25 +24,16 @@ function DEditPromoDetails({ sx, control, register, setValue, data }) {
     const numericValue = parseFloat(value);
     if (
       numericValue > 999999.99 &&
-      (promoType === "Free Shipping" ||
-        promoType === "Peso Discount" ||
-        inputName === "minSpend")
+      (promoType === 3 || promoType === 1 || inputName === "minSpend")
     ) {
       return "Maximum amount is ₱999,999.99";
     } else if (
-      numericValue < 1.0 &&
-      (promoType === "Free Shipping" ||
-        promoType === "Peso Discount" ||
-        inputName === "minSpend")
-    ) {
-      return "Minimum Amount is ₱1.00";
-    } else if (
       numericValue > 100 &&
-      promoType === "Percent Discount" &&
+      promoType === 2 &&
       inputName !== "minSpend"
     ) {
       return "Maximum Percentage must be between or equal to 1 and 100";
-    } else if (inputName === "minSpend" && promoType === "Percent Discount") {
+    } else if (inputName === "minSpend" && promoType === 2) {
       return true;
     }
     return true;
@@ -66,9 +56,9 @@ function DEditPromoDetails({ sx, control, register, setValue, data }) {
             name="promoType"
             label="Promo Type"
             width="100%"
-            value={data.promo_type}
+            value={data.promoTypeID}
             select
-            selectMenuItems={promoTypes}
+            selectMenuItems={PromoTypes()}
             rules={{ required: "Promo Type Is Required" }}
             setPromoType={handlePromoChange}
           />
@@ -86,12 +76,9 @@ function DEditPromoDetails({ sx, control, register, setValue, data }) {
               rules={{
                 required: "Discount Value Is Required",
                 pattern: {
-                  value:
-                    promoType === "Percent Discount"
-                      ? /^\d+$/
-                      : /^\d+(\.\d{0,2})?$/,
+                  value: promoType === 2 ? /^\d+$/ : /^\d+(\.\d{0,2})?$/,
                   message:
-                    promoType === "Percent Discount"
+                    promoType === 2
                       ? "Invalid Number Format. Decimals are not allowed. Sample: 20%"
                       : "Invalid Currency Format. Sample: ₱123.00",
                 },
@@ -100,7 +87,7 @@ function DEditPromoDetails({ sx, control, register, setValue, data }) {
             />
 
             <Alert severity="info">
-              {promoType === "Percent Discount" ? (
+              {promoType === 2 ? (
                 <>
                   Please enter a <b>Percentage</b>
                   <br />
@@ -126,6 +113,7 @@ function DEditPromoDetails({ sx, control, register, setValue, data }) {
               value={data.min_spend}
               type={"Peso Discount"}
               disabled={disableInput}
+              pesoInput
               rules={{
                 required: "Minimum Spent Is Required",
                 pattern: {
@@ -164,13 +152,13 @@ function DEditPromoDetails({ sx, control, register, setValue, data }) {
         {/*TODO: Add Product Containers Here */}
         <Stack spacing={3}>
           {/* Mapping user data */}
-          <ProductToggleNew
-            name="promoProducts.applied"
+          <ProductToggle
+            name="inPromo"
             control={control}
             label=""
-            data={productData}
-            condition={(product) => product.promoID === data.promoID}
+            data={productData.inPromo}
             targetField={"promoID"}
+            targetID={data.promoID}
           />
         </Stack>
       </Stack>
@@ -195,13 +183,13 @@ function DEditPromoDetails({ sx, control, register, setValue, data }) {
         {/*TODO: Add Product Containers Here */}
         <Stack spacing={3}>
           {/* Mapping user data */}
-          <ProductToggleNew
-            name="promoProducts.applyTo"
+          <ProductToggle
+            name="noPromo"
             control={control}
             label=""
-            data={productData}
-            condition={(product) => product.promoID === null}
+            data={productData.notInPromo}
             targetField={"promoID"}
+            targetID={data.promoID}
           />
         </Stack>
       </Stack>

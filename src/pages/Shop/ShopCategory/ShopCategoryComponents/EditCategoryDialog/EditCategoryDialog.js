@@ -172,13 +172,16 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Category Details*/}{" "}
               <Box sx={{ py: 5 }}>
-                <DEditCategoryDetails
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                  data={data}
-                  productData={shopCategoryProducts}
-                />
+                {shopCategoryProducts && (
+                  <DEditCategoryDetails
+                    control={control}
+                    register={register}
+                    setValue={setValue}
+                    data={data}
+                    productData={shopCategoryProducts}
+                  />
+                )}
+                {!shopCategoryProducts && <LoadingCircle />}
               </Box>
             </Stack>
           </DialogContent>

@@ -336,86 +336,85 @@ const PromoToggle = ({
 };
 
 //For Mapping Promo toggles
-const ReadOnlyPromoToggle = ({ data, condition, value }) => {
+const ReadOnlyPromoToggle = ({ data, value }) => {
   const labelStyle = {
     display: "flex",
     justifyContent: "space-between", // Add space between radio and label
   };
 
-  const [selectedValue, setSelectedValue] = useState("");
+  let promo = data;
 
-  useEffect(() => {
-    setSelectedValue(value); // Set the initial value from the prop when it changes
-  }, [value]);
+  console.log("PD", promo);
 
   return (
-    <RadioGroup sx={{ width: "100%" }} value={selectedValue}>
-      {data.filter(condition).map((promo) => (
-        <FormControlLabel
-          key={promo.promoID}
-          value={promo.promoID.toString()}
-          control={<Radio />}
-          labelPlacement="start"
-          className={`${Styles.changeBG}`}
-          sx={{ ...classes.main }}
-          label={
-            <div style={labelStyle}>
-              <Box>
-                <Stack
-                  spacing={2}
-                  direction={"row"}
-                  alignItems="center"
-                  textAlign={"left"}
-                  sx={{ display: "flex", alignContent: "center" }}
+    <RadioGroup sx={{ width: "100%" }} value={value}>
+      <FormControlLabel
+        key={promo.promoID}
+        value={promo.promoID.toString()}
+        control={<Radio />}
+        labelPlacement="start"
+        className={`${Styles.changeBG}`}
+        sx={{ ...classes.main }}
+        label={
+          <div style={labelStyle}>
+            <Box>
+              <Stack
+                spacing={2}
+                direction={"row"}
+                alignItems="center"
+                textAlign={"left"}
+                sx={{ display: "flex", alignContent: "center" }}
+              >
+                <Box
+                  sx={{
+                    backgroundColor:
+                      promo.promoID === 1
+                        ? theme.palette.promo.peso
+                        : promo.promoID === 2
+                        ? theme.palette.promo.percent
+                        : theme.palette.promo.freeShipping,
+                    ...theme.components.box.iconContainer,
+                  }}
                 >
-                  <Box
-                    sx={{
-                      backgroundColor:
-                        promo.promo_type === "Peso Discount"
-                          ? theme.palette.promo.peso
-                          : promo.promo_type === "Percent Discount"
-                          ? theme.palette.promo.percent
-                          : theme.palette.promo.freeShipping,
-                      ...theme.components.box.iconContainer,
-                    }}
-                  >
-                    {" "}
-                    {promo.promo_type === "Peso Discount" ? (
-                      <FaPesoSign style={{ ...classes.icon }} />
-                    ) : promo.promo_type === "Percent Discount" ? (
-                      <Percent sx={{ ...classes.icon }} />
-                    ) : (
-                      <LocalShipping sx={{ ...classes.icon }} />
-                    )}
-                  </Box>
-                  {/* promo Image */}
+                  {" "}
+                  {promo.promoID === 1 ? (
+                    <FaPesoSign style={{ ...classes.icon }} />
+                  ) : promo.promoID === 2 ? (
+                    <Percent sx={{ ...classes.icon }} />
+                  ) : (
+                    <LocalShipping sx={{ ...classes.icon }} />
+                  )}
+                </Box>
+                {/* promo Image */}
 
-                  <Stack>
-                    {/* promo Name */}
-                    <Typography variant="sectionTitleSmall">
-                      <TruncateString str={promo.promo_type} n={30} />
-                    </Typography>
+                <Stack>
+                  {/* promo Name */}
+                  <Typography variant="sectionTitleSmall">
+                    <TruncateString
+                      str={promo.PromoType.promo_type_name}
+                      n={30}
+                    />
+                  </Typography>
 
-                    {/* discount amt */}
-                    <Typography>
-                      {promo.promo_type === "Percent Discount"
-                        ? `${promo.discount_amount * 100}% off`
-                        : promo.promo_type === "Peso Discount"
-                        ? `₱${promo.discount_amount} off`
-                        : `Up to ₱${promo.discount_amount} off`}
-                    </Typography>
+                  {/* discount amt */}
+                  <Typography>
+                    {promo.promoID === 2
+                      ? `${promo.discount_amount * 100}% off`
+                      : promo.promoID === 1
+                      ? `₱${promo.discount_amount} off`
+                      : `Up to ₱${promo.discount_amount} off`}
+                  </Typography>
 
-                    {/* min spend */}
-                    <Typography>{`Minimum Spend: ₱${promo.min_spend}`}</Typography>
-                  </Stack>
+                  {/* min spend */}
+                  <Typography>{`Minimum Spend: ₱${promo.min_spend}`}</Typography>
                 </Stack>
-              </Box>
-              {/* Add some space */}
-              <div style={{ marginLeft: "16px" }}></div>
-            </div>
-          }
-        />
-      ))}
+              </Stack>
+            </Box>
+            {/* Add some space */}
+            <div style={{ marginLeft: "16px" }}></div>
+          </div>
+        }
+      />
     </RadioGroup>
   );
 };

@@ -193,12 +193,11 @@ const CustomNumberInput = ({
   width,
   type,
   disabled,
+  pesoInput,
 }) => {
   const [fieldValue, setFieldValue] = useState(0);
   useEffect(() => {
-    type === "Percent Discount"
-      ? setFieldValue(propValue * 100)
-      : setFieldValue(propValue || 0);
+    type === 2 ? setFieldValue(propValue * 100) : setFieldValue(propValue || 0);
   }, [propValue, type]);
   return (
     <Controller
@@ -230,13 +229,13 @@ const CustomNumberInput = ({
           allowNegative={false} // Optional: Prevent negative values
           InputProps={{
             startAdornment:
-              type === "Peso Discount" || type === "Free Shipping" ? (
+              type === 1 || type === 3 || pesoInput ? (
                 <InputAdornment position="start">₱</InputAdornment>
               ) : (
                 ""
               ),
             endAdornment:
-              type === "Percent Discount" ? (
+              type === 2 ? (
                 <InputAdornment position="start">%</InputAdornment>
               ) : (
                 ""

@@ -14,32 +14,88 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DPromoDetails from "./DPromoDetails";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function NewPromoDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const { useCustomMutate, useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
   //for react hook form
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
-    register,
-    setValue,
   } = useForm();
 
-  const onSubmit = (data) => {
+  //API CALL GET ALL PROMO PRODUCTS
+  const { data: promoProducts } = useCustomQuery(
+    "getPromoProducts",
+    () =>
+      axiosPrivate
+        .get(`/api/promo/get_promo_products/?promoID=null`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  //API CALL CREATE NEW PROMO
+  const { mutate } = useCustomMutate(
+    "newPromo",
+    async (data) => {
+      const response = await axiosPrivate.post(
+        `/api/promo/create_promo/?shopID=${auth.shopID}`,
+        data
+      );
+      return response.data;
+    },
+    ["getShopPromo", "getPromoProducts", "getProduct"],
+    {
+      onError: (error) => {
+        handleSave("error", error.response.data.error);
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "New Promo Created Successfully");
+        handleClose();
+        reset();
+      },
+    }
+  );
+  const onSubmit = (data, event) => {
+    event.preventDefault();
     //Parse number data
     //Parse Discount Value then /100 if percent discount
-    if (data.promoType === "Percent Discount") {
+    if (data.promoType === 2) {
       data.discountValue = Number(data.discountValue) / 100;
     } else {
       data.discountValue = Number(data.discountValue);
     }
-    data.minSpend = Number(data.minSpend);
-    console.log(data); // Form data
-    handleSave();
-    reset();
+
+    data.minSpend = data.minSpend ? Number(data.minSpend) : 0;
+
+    // FOR PROMO DATA
+    const inPromo = [];
+    for (const [productID, isPromoProduct] of Object.entries(data.noPromo)) {
+      if (isPromoProduct) {
+        inPromo.push(Number(productID));
+      }
+    }
+
+    const requestData = {
+      discountValue: data.discountValue,
+      minSpend: data.minSpend,
+      promoType: data.promoType,
+      promoProducts: inPromo,
+    };
+
+    mutate(requestData);
   };
 
   return (
@@ -81,11 +137,7 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Promo Details*/}
               <Box sx={{ py: 5 }}>
-                <DPromoDetails
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                />
+                <DPromoDetails control={control} productData={promoProducts} />
               </Box>
             </Stack>
           </DialogContent>

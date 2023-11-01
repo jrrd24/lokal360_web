@@ -210,6 +210,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     Category: { category_name: productCategory },
     ShopCategory,
     ProductImages: Images,
+    Promo: promoData,
     ProductVariations,
     VoucherAppliedProducts,
   } = data || {};
@@ -302,7 +303,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
 
                 {/*Appllied Promos*/}
                 <Box sx={{ ...classes.content }}>
-                  <Promos promoID={promoID} />
+                  <Promos promoID={promoID} promoData={promoData} />
                 </Box>
 
                 {/*Vouchers*/}

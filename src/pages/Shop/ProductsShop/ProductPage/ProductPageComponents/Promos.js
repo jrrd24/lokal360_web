@@ -4,8 +4,8 @@ import theme from "../../../../../Theme";
 import { ReadOnlyPromoToggle } from "../../../../../components/FormComponents/ProductToggle";
 import promoData from "../../../../../data/promoData";
 
-function Promos({ promoID }) {
-  const hasAppliedPromo = promoData.some((promo) => promo.promoID === promoID);
+function Promos({ promoID, promoData }) {
+  const hasAppliedPromo = promoID ? promoData.promoID === promoID : false;
 
   return (
     <Stack spacing={3} width={"100%"}>
@@ -22,11 +22,7 @@ function Promos({ promoID }) {
       <Box sx={{ alignSelf: "center", width: "100%" }}>
         <Stack spacing={3}>
           {hasAppliedPromo ? (
-            <ReadOnlyPromoToggle
-              data={promoData}
-              value={promoID}
-              condition={(promo) => promo.promoID === promoID}
-            />
+            <ReadOnlyPromoToggle data={promoData} value={promoID} />
           ) : (
             <Stack alignItems="center">
               <div>

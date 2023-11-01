@@ -16,6 +16,10 @@ import { useMediaQuery } from "@mui/material";
 import DEditPromoDetails from "./DEditPromoDetails";
 import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
 import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
+import useAuth from "../../../../../hooks/useAuth";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function EditPromoDialog({
   open,
@@ -25,21 +29,98 @@ function EditPromoDialog({
   data,
 }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const { auth } = useAuth();
+  const { useCustomMutate, useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const promoID = data.promoID;
   //for react hook form
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
     register,
     setValue,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
-    reset();
+  //API CALL GET ALL PROMO PRODUCTS
+  const { data: promoProducts } = useCustomQuery(
+    "getPromoProducts",
+    () =>
+      axiosPrivate
+        .get(`/api/promo/get_promo_products/?promoID=${data.promoID}`)
+        .then((res) => res.data),
+    { enabled: promoID !== null, queryKey: ["getPromoProducts", promoID] }
+  );
+
+  //API CALL UPDATE PROMO
+  const { mutate } = useCustomMutate(
+    "updatePromo",
+    async (data) => {
+      await axiosPrivate.patch(
+        `/api/promo/update_promo/?promoID=${data.promoID}`,
+        data
+      );
+    },
+    ["getShopPromo", "getPromoProducts"],
+    {
+      onError: (error) => {
+        handleSave("error", "Error Updating Promo. Please Try Again Later");
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "Promo Updated Successfully");
+        handleClose();
+        reset();
+      },
+    }
+  );
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+
+    //Parse number data
+    //Parse Discount Value then /100 if percent discount
+    if (data.promoType === 2) {
+      data.discountValue = Number(data.discountValue) / 100;
+    } else {
+      data.discountValue = Number(data.discountValue);
+    }
+
+    data.minSpend = data.minSpend ? Number(data.minSpend) : 0;
+
+    const inPromo = [];
+    const noPromo = [];
+
+    for (const [productID, isPromoProduct] of Object.entries(data.inPromo)) {
+      if (isPromoProduct) {
+        inPromo.push(Number(productID));
+      } else {
+        noPromo.push(Number(productID));
+      }
+    }
+
+    for (const [productID, isPromoProduct] of Object.entries(data.noPromo)) {
+      if (isPromoProduct) {
+        inPromo.push(Number(productID));
+      } else {
+        noPromo.push(Number(productID));
+      }
+    }
+
+    const requestData = {
+      promoID: promoID,
+      discountValue: data.discountValue,
+      minSpend: data.minSpend,
+      promoType: data.promoType,
+      promoProducts: inPromo,
+      noPromoProducts: noPromo,
+      shopID: auth.shopID,
+    };
+
+    mutate(requestData);
   };
 
   //handle delete dialog box
@@ -83,7 +164,7 @@ function EditPromoDialog({
                 <Typography variant="sectionTitle">Edit Promo</Typography>
                 <Typography variant="sectionSubTitle">
                   Promo ID: <b>{data.promoID}</b> &nbsp; Type:{" "}
-                  <b>{data.promo_type}</b>
+                  <b>{data.promo_type_name}</b>
                 </Typography>
               </Stack>
 
@@ -94,7 +175,7 @@ function EditPromoDialog({
                   onClick={() =>
                     handleOpenDelete({
                       id: data.promoID,
-                      name: `Promo ID: ${data.promoID}, Type: ${data.promo_type}`,
+                      name: `Promo ID: ${data.promoID}, Type: ${data.promo_type_name}`,
                     })
                   }
                   sx={{ display: { xs: "none", sm: "none", md: "block" } }}
@@ -115,12 +196,16 @@ function EditPromoDialog({
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Category Details*/}{" "}
               <Box sx={{ py: 5 }}>
-                <DEditPromoDetails
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                  data={data}
-                />
+                {promoProducts && (
+                  <DEditPromoDetails
+                    control={control}
+                    register={register}
+                    setValue={setValue}
+                    data={data}
+                    productData={promoProducts}
+                  />
+                )}
+                {!promoProducts && <LoadingCircle />}
               </Box>
             </Stack>
           </DialogContent>
@@ -133,7 +218,7 @@ function EditPromoDialog({
                 onClick={() =>
                   handleOpenDelete({
                     id: data.promoID,
-                    name: `Promo ID: ${data.promoID}, Type: ${data.promo_type}`,
+                    name: `Promo ID: ${data.promoID}, Type: ${data.promo_type_name}`,
                   })
                 }
               />

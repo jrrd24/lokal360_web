@@ -1,47 +1,72 @@
 import React, { useState } from "react";
 import { IconButton, Typography, Box, Stack } from "@mui/material";
-import promoData from "../../../../data/promoData";
 import theme from "../../../../Theme";
 import { Edit, LocalShipping, Percent } from "@mui/icons-material";
 import { FaPesoSign } from "react-icons/fa6";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import EditPromoDialog from "./EditPromoDialog/EditPromoDialog";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 
 function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
   const [editingPromo, setEditingPromo] = useState({
     promoID: null,
     shopID: null,
-    promo_type: null,
+    promoTypeID: null,
     discount_amount: null,
     min_spend: null,
+    promo_type_name: null,
   });
 
+  // API CALL GET ALL SHOP PROMOS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: promoData, isLoading } = useCustomQuery(
+    "getShopPromo",
+    () =>
+      axiosPrivate
+        .get(`/api/promo/get_all_shop_promo/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   //Initialize category Info field
-  promoData.forEach((row) => {
+  promoData?.forEach((row) => {
     row.categoryInfo = [
       row.promoID,
       row.shopID,
-      row.promo_type,
+      row.promoTypeID,
       row.discount_amount,
       row.min_spend,
+      row.promo_type_name,
     ];
   });
 
   const handleOpen = ({
     promoID,
     shopID,
-    promo_type,
+    promoTypeID,
     discount_amount,
     min_spend,
+    promo_type_name,
   }) => {
     setOpenEdit(true);
     setEditingPromo({
       promoID,
       shopID,
-      promo_type,
+      promoTypeID,
       discount_amount,
       min_spend,
+      promo_type_name,
     });
   };
   const handleClose = () => {
@@ -51,12 +76,12 @@ function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   // Precompute values for each row
   const computedPromoData = promoData.map((row) => {
     let discountValue = null;
-    if (row.promo_type === "Peso Discount") {
-      discountValue = `${row.discount_amount.toFixed(2)}`;
-    } else if (row.promo_type === "Percent Discount") {
+    if (row.promoTypeID === 1) {
+      discountValue = `${row.discount_amount}`;
+    } else if (row.promoTypeID === 2) {
       discountValue = `${row.discount_amount * 100}%`;
-    } else if (row.promo_type === "Free Shipping") {
-      discountValue = `${row.discount_amount.toFixed(2)}`;
+    } else if (row.promoTypeID === 3) {
+      discountValue = `${row.discount_amount}`;
     }
 
     return {
@@ -75,14 +100,14 @@ function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
     },
 
     {
-      field: "promo_type",
+      field: "promo_type_name",
       headerName: "Promo Type",
       width: 240,
       renderCell: (params) => {
         const promoType = params.value;
         let statusComponent;
-        let iconColor = ""; // Define iconColor here
-        let iconComponent = null; // Define iconComponent here
+        let iconColor = "";
+        let iconComponent = null;
 
         if (promoType === "Peso Discount") {
           iconColor = theme.palette.promo.peso;
@@ -145,9 +170,9 @@ function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
       width: 200,
       renderCell: (params) => (
         <Typography>
-          {params.row.promo_type === "Percent Discount"
+          {params.row.promoTypeID === 2
             ? `${params.value} off`
-            : params.row.promo_type === "Peso Discount"
+            : params.row.promoTypeID === 1
             ? `₱${params.value} off`
             : `Up to ₱${params.value} off`}
         </Typography>
@@ -157,9 +182,7 @@ function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
       field: "min_spend",
       headerName: "Min Spend",
       width: 160,
-      renderCell: (params) => (
-        <Typography>₱ {params.value.toFixed(2)}</Typography>
-      ),
+      renderCell: (params) => <Typography>₱ {params.value}</Typography>,
     },
     {
       field: "categoryInfo",
@@ -171,8 +194,14 @@ function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
       disableExport: true,
       renderCell: (params) => {
         let statusComponent;
-        const { promoID, shopID, promo_type, discount_amount, min_spend } =
-          params.row;
+        const {
+          promoID,
+          shopID,
+          promoTypeID,
+          discount_amount,
+          min_spend,
+          promo_type_name,
+        } = params.row;
 
         statusComponent = (
           <IconButton
@@ -180,9 +209,10 @@ function DataGridPromos({ openEdit, setOpenEdit, handleSave, handleDelete }) {
               handleOpen({
                 promoID,
                 shopID,
-                promo_type,
+                promoTypeID,
                 discount_amount,
                 min_spend,
+                promo_type_name,
               })
             }
           >
