@@ -71,6 +71,7 @@ function VoucherContainer({ data }) {
               width: 70,
               height: 70,
               backgroundColor: `${theme.palette.background.paper}`,
+              objectFit: "cover",
             }}
           />
         </Grid>

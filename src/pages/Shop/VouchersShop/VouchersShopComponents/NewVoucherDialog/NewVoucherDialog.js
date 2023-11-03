@@ -14,24 +14,110 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DVoucherDetails from "./DVoucherDetails";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
+import moment from "moment/moment";
 
-function NewVoucherDialog({ open, handleClose, handleSave }) {
+function NewVoucherDialog({ open, handleClose, handleSave, handlePromoError }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const { useCustomMutate, useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
 
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
-    register,
-    setValue,
+    watch,
   } = useForm();
 
-  const onSubmit = (data) => {
+  //API CALL GET ALL VOUCHER PRODUCTS
+  const { data: voucherProducts } = useCustomQuery(
+    "getVoucherProducts",
+    () =>
+      axiosPrivate
+        .get(
+          `/api/voucher/get_all_products/?voucherID=null&shopID=${auth.shopID}`
+        )
+        .then((res) => res.data),
+    { enabled: open }
+  );
+
+  //API CALL GET ALL VOUCHER PROMOS
+  const { data: voucherPromos } = useCustomQuery(
+    "getVoucherPromos",
+    () =>
+      axiosPrivate
+        .get(
+          `/api/voucher/get_all_promos/?voucherID=null&shopID=${auth.shopID}`
+        )
+        .then((res) => res.data),
+    { enabled: open }
+  );
+
+  //API CALL CREATE NEW VOUCHER
+  const { mutate } = useCustomMutate(
+    "newVoucher",
+    async (data) => {
+      const response = await axiosPrivate.post(
+        `/api/voucher/create/?shopID=${auth.shopID}`,
+        data
+      );
+      return response.data;
+    },
+    ["getShopVoucher", "getVoucherProducts", "getProduct"],
+    {
+      onError: (error) => {
+        handleSave("error", error.response.data.error);
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "New Promo Created Successfully");
+        handleClose();
+        reset();
+      },
+    }
+  );
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+
+    let inVoucher = [];
+    for (const [productID, isVoucherProduct] of Object.entries(
+      data.noVoucher
+    )) {
+      if (isVoucherProduct) {
+        inVoucher.push(Number(productID));
+      }
+    }
+
+    //FORMAT DATE
+    const startDate = new Date(
+      data.startDate.$y,
+      data.startDate.$M,
+      data.startDate.$D
+    );
+    const endDate = new Date(data.endDate.$y, data.endDate.$M, data.endDate.$D);
+
+    const formattedStartDate = moment(startDate).format("YYYY-MM-DD");
+    const formattedEndDate = moment(endDate).format("YYYY-MM-DD");
+
+    const requestData = {
+      endDate: formattedEndDate,
+      startDate: formattedStartDate,
+      promoID: data.voucherPromo,
+      voucherProducts: inVoucher,
+    };
+
     console.log(data); // Form data
-    handleSave();
-    reset();
+    console.log("REQ DATA", requestData);
+
+    mutate(requestData);
   };
 
   return (
@@ -70,11 +156,16 @@ function NewVoucherDialog({ open, handleClose, handleSave }) {
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Promo Details*/}
               <Box sx={{ py: 5 }}>
-                <DVoucherDetails
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                />
+                {voucherProducts && voucherPromos && (
+                  <DVoucherDetails
+                    control={control}
+                    watch={watch}
+                    productData={voucherProducts.allProducts}
+                    promoData={voucherPromos.allPromos}
+                    handlePromoError={handlePromoError}
+                  />
+                )}
+                {!voucherProducts && !voucherPromos && <LoadingCircle />}
               </Box>
             </Stack>
           </DialogContent>

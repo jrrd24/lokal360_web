@@ -1,21 +1,31 @@
 import React from "react";
 import { Stack, Typography, Alert, Divider } from "@mui/material";
 import {
-  ProductToggleNew,
-  PromoToggle,
+  ProductToggle,
+  ReadOnlyPromoToggle,
 } from "../../../../../components/FormComponents/ProductToggle";
-import productData from "../../../../../data/productData";
-import promoData from "../../../../../data/promoData";
-import { ReadOnlyCustomInput } from "../../../../../components/FormComponents/CustomInput";
 
-function DEditVoucherDetails({ sx, control, register, setValue, data }) {
+import { ReadOnlyCustomInput } from "../../../../../components/FormComponents/CustomInput";
+import moment from "moment";
+
+function DEditVoucherDetails({ sx, control, data, productData }) {
+  const startDate = moment(data.start_date).format("MM/DD/YYYY");
+  const endDate = moment(data.end_date).format("MM/DD/YYYY");
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Voucher Details */}
       <Stack spacing={3}>
         {/*Section Name */}
-        <Stack sx={{ alignItems: "baseline", justifyContent: "space-between" }}>
-          <Typography variant="sectionTitleSmall">Voucher Details</Typography>
+        <Stack spacing={1}>
+          <Stack
+            sx={{ alignItems: "baseline", justifyContent: "space-between" }}
+          >
+            <Typography variant="sectionTitleSmall">Voucher Details</Typography>
+          </Stack>
+
+          <Alert severity="warning">
+            Voucher Start Date, End Date and Promo <b>Cannot be Edited</b>
+          </Alert>
         </Stack>
 
         {/*TextBoxes */}
@@ -26,7 +36,7 @@ function DEditVoucherDetails({ sx, control, register, setValue, data }) {
             <ReadOnlyCustomInput
               name="startDate"
               label="Start Date"
-              defaultValue={data.start_date}
+              defaultValue={startDate}
               width={"48%"}
             />
 
@@ -34,7 +44,7 @@ function DEditVoucherDetails({ sx, control, register, setValue, data }) {
             <ReadOnlyCustomInput
               name="endDate"
               label="End Date"
-              defaultValue={data.end_date}
+              defaultValue={endDate}
               width={"48%"}
             />
           </Stack>
@@ -57,16 +67,7 @@ function DEditVoucherDetails({ sx, control, register, setValue, data }) {
         {/*Product Containers (MAP) */}
         {/*TODO: Add Promo Containers Here */}
         <Stack spacing={3}>
-          {" "}
-          <PromoToggle
-            name="voucherPromo"
-            control={control}
-            label=""
-            data={promoData}
-            targetField={`promoID`}
-            value={data.promoID}
-            condition={(promo) => promo.promoID === data.promoID}
-          />
+          <ReadOnlyPromoToggle data={data} value={data.promoID} />
         </Stack>
       </Stack>
 
@@ -85,8 +86,7 @@ function DEditVoucherDetails({ sx, control, register, setValue, data }) {
           </Stack>
 
           <Alert severity="info">
-            Click the Toggle to <b>Apply</b> or <b>Remove</b> this Voucher from
-            a Product
+            Click the Toggle to <b>Remove</b> this Voucher from a Product
           </Alert>
         </Stack>
 
@@ -94,13 +94,13 @@ function DEditVoucherDetails({ sx, control, register, setValue, data }) {
         {/*TODO: Fix This when connected to backend */}
 
         <Stack spacing={3}>
-          <ProductToggleNew
-            name="voucherProducts.applied"
+          <ProductToggle
+            name="inVoucher"
             control={control}
             label=""
-            data={productData}
-            targetField={`voucherID`}
-            condition={(product) => product.voucherID === data.voucherID}
+            data={productData.inVoucher}
+            targetField={"voucherID"}
+            targetID={data.voucherID}
           />
         </Stack>
       </Stack>
@@ -113,7 +113,7 @@ function DEditVoucherDetails({ sx, control, register, setValue, data }) {
             sx={{ alignItems: "baseline", justifyContent: "space-between" }}
           >
             <Typography variant="sectionTitleSmall">
-              Products Applied To
+              Apply To Product
             </Typography>
           </Stack>
 
@@ -126,14 +126,13 @@ function DEditVoucherDetails({ sx, control, register, setValue, data }) {
         {/*TODO: Fix This when connected to backend */}
 
         <Stack spacing={3}>
-          <ProductToggleNew
-            name="voucherProducts.applyTo"
+          <ProductToggle
+            name="notInVoucher"
             control={control}
             label=""
-            data={productData}
-            targetField={`voucherID`}
+            data={productData.notInVoucher}
+            targetField={"voucherID"}
             targetID={data.voucherID}
-            condition={(product) => product.voucherID !== data.voucherID}
           />
         </Stack>
       </Stack>

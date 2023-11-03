@@ -7,7 +7,11 @@ import { Cancel, CheckCircle, Edit } from "@mui/icons-material";
 import theme from "../../../../Theme";
 import EditVoucherDialog from "./EditVoucherDialog/EditVoucherDialog";
 import voucherData from "../../../../data/voucherData";
-
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../api/Api";
 
 function DataGridVouchers({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
@@ -23,6 +27,23 @@ function DataGridVouchers({ openEdit, setOpenEdit, handleSave, handleDelete }) {
     discount_amount: null,
     min_spend: null,
   });
+
+  // API CALL GET ALL SHOP VOUCHERS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const { data: voucherData, isLoading } = useCustomQuery(
+    "getShopVoucher",
+    () =>
+      axiosPrivate
+        .get(`/api/voucher/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   //Initialize category Info field
   voucherData.forEach((row) => {
@@ -77,8 +98,8 @@ function DataGridVouchers({ openEdit, setOpenEdit, handleSave, handleDelete }) {
         <VoucherContainer
           data={{
             type: row.promo_type,
-            logo: row.logo_img_link,
-            shopName: row.name,
+            logo: `${BASE_URL}/${row.logo_img_link}`,
+            shopName: row.shop_name,
             value: row.discount_amount,
             minSpend: row.min_spend,
             validUntil: row.end_date,

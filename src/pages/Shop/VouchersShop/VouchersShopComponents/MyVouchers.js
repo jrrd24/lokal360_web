@@ -8,6 +8,7 @@ import NewVoucherDialog from "./NewVoucherDialog/NewVoucherDialog";
 function MyVouchers({
   handleSave,
   handleDelete,
+  handlePromoError,
   open,
   setOpen,
   openEdit,
@@ -43,6 +44,7 @@ function MyVouchers({
         open={open}
         handleClose={handleClose}
         handleSave={handleSave}
+        handlePromoError={handlePromoError}
       />
     </div>
   );

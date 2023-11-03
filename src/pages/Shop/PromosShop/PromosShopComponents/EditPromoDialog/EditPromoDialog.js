@@ -39,8 +39,6 @@ function EditPromoDialog({
     handleSubmit,
     formState: { isDirty },
     reset,
-    register,
-    setValue,
   } = useForm();
 
   //API CALL GET ALL PROMO PRODUCTS
@@ -199,8 +197,6 @@ function EditPromoDialog({
                 {promoProducts && (
                   <DEditPromoDetails
                     control={control}
-                    register={register}
-                    setValue={setValue}
                     data={data}
                     productData={promoProducts}
                   />

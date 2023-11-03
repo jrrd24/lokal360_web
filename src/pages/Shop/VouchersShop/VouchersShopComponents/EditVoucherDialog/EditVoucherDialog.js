@@ -16,7 +16,10 @@ import { useMediaQuery } from "@mui/material";
 import DEditVoucherDetails from "./DEditVoucherDetails";
 import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
 import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
-
+import useAuth from "../../../../../hooks/useAuth";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function EditVoucherDialog({
   open,
@@ -26,21 +29,90 @@ function EditVoucherDialog({
   data,
 }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const { auth } = useAuth();
+  const { useCustomMutate, useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const voucherID = data.voucherID;
+
   //for react hook form
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
-    register,
-    setValue,
   } = useForm();
 
-  const onSubmit = (data) => {
+  //API CALL GET ALL VOUCHER PRODUCTS
+  const { data: voucherProducts } = useCustomQuery(
+    "getVoucherProducts",
+    () =>
+      axiosPrivate
+        .get(
+          `/api/voucher/get_all_products/?voucherID=${data.voucherID}&shopID=${auth.shopID}`
+        )
+        .then((res) => res.data),
+    { enabled: open }
+  );
+
+  //API CALL UPDATE VOUCHER
+  const { mutate } = useCustomMutate(
+    "updateVoucher",
+    async (data) => {
+      await axiosPrivate.patch(
+        `/api/voucher/update/?voucherID=${voucherID}`,
+        data
+      );
+    },
+    ["getVoucher", "getVoucherProducts"],
+    {
+      onError: (error) => {
+        handleSave("error", "Error Updating Promo. Please Try Again Later");
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleSave("success", "Promo Updated Successfully");
+        handleClose();
+        reset();
+      },
+    }
+  );
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+
+    const inVoucher = [];
+    const noVoucher = [];
+
+    for (const [productID, isVoucherProduct] of Object.entries(
+      data.inVoucher
+    )) {
+      if (isVoucherProduct) {
+        inVoucher.push(Number(productID));
+      } else {
+        noVoucher.push(Number(productID));
+      }
+    }
+
+    for (const [productID, isVoucherProduct] of Object.entries(
+      data.notInVoucher
+    )) {
+      if (isVoucherProduct) {
+        inVoucher.push(Number(productID));
+      } else {
+        noVoucher.push(Number(productID));
+      }
+    }
+
+    const requestData = {
+      voucherProducts: inVoucher,
+      notVoucherProducts: noVoucher,
+    };
     console.log(data); // Form data
-    handleSave();
-    reset();
+    console.log("REQ DATA", requestData);
+
+    mutate(requestData);
   };
 
   //handle delete dialog box
@@ -116,12 +188,13 @@ function EditVoucherDialog({
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Category Details*/}{" "}
               <Box sx={{ py: 5 }}>
-                <DEditVoucherDetails
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                  data={data}
-                />
+                {data && voucherProducts && (
+                  <DEditVoucherDetails
+                    control={control}
+                    data={data}
+                    productData={voucherProducts}
+                  />
+                )}
               </Box>
             </Stack>
           </DialogContent>

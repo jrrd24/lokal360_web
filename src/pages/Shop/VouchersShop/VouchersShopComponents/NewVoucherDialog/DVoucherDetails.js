@@ -2,13 +2,20 @@ import React from "react";
 import { Stack, Typography, Alert, Divider } from "@mui/material";
 import CustomDatePicker from "../../../../../components/FormComponents/CustomDatePicker";
 import {
-  ProductToggleNew,
+  ProductToggle,
   PromoToggle,
 } from "../../../../../components/FormComponents/ProductToggle";
-import productData from "../../../../../data/productData";
-import promoData from "../../../../../data/promoData";
 
-function DVoucherDetails({ sx, control, register, setValue }) {
+function DVoucherDetails({
+  sx,
+  control,
+  watch,
+  productData,
+  promoData,
+  handlePromoError,
+}) {
+  const startDate = watch("startDate");
+
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Voucher Details */}
@@ -37,7 +44,8 @@ function DVoucherDetails({ sx, control, register, setValue }) {
               name="endDate"
               label="End Date"
               width={"48%"}
-              rules={{ required: "Start Date Is Required" }}
+              rules={{ required: "End Date Is Required" }}
+              startDateValue={startDate}
             />
           </Stack>
         </Stack>
@@ -69,10 +77,9 @@ function DVoucherDetails({ sx, control, register, setValue }) {
           <PromoToggle
             name="voucherPromo"
             control={control}
-            label=""
             data={promoData}
             targetField={`promoID`}
-            condition={(data) => data.promoID !== null}
+            handlePromoError={handlePromoError}
           />
         </Stack>
       </Stack>
@@ -100,13 +107,12 @@ function DVoucherDetails({ sx, control, register, setValue }) {
         {/*Product Containers (MAP) */}
         {/*TODO: Add Product Containers Here */}
         <Stack spacing={3}>
-          <ProductToggleNew
-            name="voucherProducts"
+          <ProductToggle
+            name="noVoucher"
             control={control}
             label=""
             data={productData}
-            targetField={`voucherID`}
-            condition={(data) => data.voucherID === null}
+            setNull
           />
         </Stack>
       </Stack>

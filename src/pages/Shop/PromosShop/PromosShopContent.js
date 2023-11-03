@@ -23,7 +23,6 @@ function PromosShopContent() {
   } = useAlert();
 
   const handleSave = (severity, alertMsg) => {
-    setOpen(false);
     showAlert(severity, alertMsg);
   };
 

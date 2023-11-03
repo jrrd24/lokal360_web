@@ -23,8 +23,8 @@ const LoginForm = () => {
   const LOGIN_URL = `/api/auth/login`;
   // React Hook Form / auth context / react-router declarations
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  // const location = useLocation();
+  // const from = location.state?.from?.pathname || "/";
 
   const { setAuth, persist, setPersist } = useContext(AuthContext);
   const { control, handleSubmit } = useForm();

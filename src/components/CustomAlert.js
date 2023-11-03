@@ -31,7 +31,7 @@ import { Snackbar, Alert } from "@mui/material";
 
 const CustomAlert = ({ open, setOpen, severity, alertMsg }) => {
   const handleClose = () => {
-    setOpen(false);
+    setOpen();
   };
 
   const smallScreenStyle = {

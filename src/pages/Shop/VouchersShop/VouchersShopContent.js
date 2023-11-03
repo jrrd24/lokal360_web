@@ -4,28 +4,33 @@ import { Box } from "@mui/material";
 import theme from "../../../Theme";
 import MyVouchers from "./VouchersShopComponents/MyVouchers";
 import CustomAlert from "../../../components/CustomAlert";
+import useAlert from "../../../hooks/useAlert";
 
 function VouchersShopContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   // Handle Open Alert
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
+
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const handleSave = (severity, alertMsg) => {
-    setOpen(false);
-    setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
+  };
+
+  const handlePromoError = (severity, alertMsg) => {
+    showAlert(severity, alertMsg);
   };
 
   const handleDelete = ({ id, name }) => {
     console.log("Deleted: ", id);
-    setSeverity("error");
-    setAlertMsg(name + " is deleted");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
   };
   return (
     <div>
@@ -44,6 +49,7 @@ function VouchersShopContent() {
               <MyVouchers
                 handleSave={handleSave}
                 handleDelete={handleDelete}
+                handlePromoError={handlePromoError}
                 open={open}
                 setOpen={setOpen}
                 openEdit={openEdit}
@@ -57,7 +63,7 @@ function VouchersShopContent() {
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />
