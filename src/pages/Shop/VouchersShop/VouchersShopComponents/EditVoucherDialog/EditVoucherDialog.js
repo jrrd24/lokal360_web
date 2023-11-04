@@ -63,7 +63,7 @@ function EditVoucherDialog({
         data
       );
     },
-    ["getVoucher", "getVoucherProducts"],
+    ["getShopVoucher", "getVoucherProducts"],
     {
       onError: (error) => {
         handleSave("error", "Error Updating Promo. Please Try Again Later");

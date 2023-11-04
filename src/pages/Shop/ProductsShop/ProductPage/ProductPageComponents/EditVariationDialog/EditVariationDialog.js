@@ -31,7 +31,6 @@ function EditVariationDialog({
 }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
 
-  console.log("VAR DATA", varData);
   // For React Hook Form
   const {
     control,
@@ -80,8 +79,6 @@ function EditVariationDialog({
   );
 
   const onSubmit = (data) => {
-    console.log(data); // Form data
-
     const requestData = {
       amountOnHand: data.amountOnHand,
       price: data.price,
@@ -91,7 +88,6 @@ function EditVariationDialog({
       requestData.variationThumbnail = data.variationThumbnail;
     }
 
-    console.log("REQ DATA", requestData);
     mutate(requestData);
   };
 

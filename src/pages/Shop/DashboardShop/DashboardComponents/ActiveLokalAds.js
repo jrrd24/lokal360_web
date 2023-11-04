@@ -45,7 +45,7 @@ const classes = {
     flexWrap: "wrap",
 
     maxWidth: "100%",
-    height: 171,
+    height: 180,
     overflow: "auto",
   },
 };

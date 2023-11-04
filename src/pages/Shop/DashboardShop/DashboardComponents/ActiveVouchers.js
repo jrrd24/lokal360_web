@@ -5,8 +5,50 @@ import CustomLink from "../../../../components/CustomLink";
 import VoucherContainer from "../../../../components/ShopOnly/VoucherContainer";
 import MapData from "../../../../utils/MapData";
 import voucherData from "../../../../data/voucherData";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../api/Api";
 
 function ActiveVouchers() {
+  // API CALL GET ALL ACTIVE SHOP VOUCHERS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const { data: voucherData, isLoading } = useCustomQuery(
+    "getActiveShopVoucher",
+    () =>
+      axiosPrivate
+        .get(`/api/voucher/get_all_active/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
+  const processedVouchers = voucherData.map((voucher) => {
+    const startDate = new Date(voucher.start_date);
+    const endDate = new Date(voucher.end_date);
+    const currentDate = new Date();
+
+    const isActive = currentDate >= startDate && currentDate <= endDate;
+
+    return {
+      shopName: voucher.shop_name,
+      logo: `${BASE_URL}/${voucher.logo_img_link}`,
+      value: voucher.discount_amount,
+      minSpend: voucher.min_spend,
+      validUntil: endDate,
+      is_active: isActive,
+      type: voucher.promo_type,
+    };
+  });
+
+  console.log("VD", voucherData);
+  console.log("P-VD", processedVouchers);
   return (
     <Stack spacing={1} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Name */}
@@ -20,13 +62,12 @@ function ActiveVouchers() {
       {/*TODO: Add vouchers here */}
       <Box>
         <MapData
-          inputData={voucherData}
+          inputData={processedVouchers}
           component={VoucherContainer}
           sortByField={"start_date"}
           idName={"voucherID"}
           horizontal
-          height={180}
-          condition={(voucher) => voucher.is_active === true}
+          height={190}
         />
       </Box>
     </Stack>

@@ -103,6 +103,7 @@ function DataGridVouchers({ openEdit, setOpenEdit, handleSave, handleDelete }) {
             value: row.discount_amount,
             minSpend: row.min_spend,
             validUntil: row.end_date,
+            isActive: row.is_active,
           }}
         />
       </Box>

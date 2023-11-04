@@ -308,7 +308,13 @@ function ProductPageContent({ selectedProductID, setProductName }) {
 
                 {/*Vouchers*/}
                 <Box sx={{ ...classes.content }}>
-                  <Vouchers productID={productID} />
+                  {VoucherAppliedProducts && (
+                    <Vouchers
+                      productID={productID}
+                      voucherData={VoucherAppliedProducts}
+                    />
+                  )}
+                  {!VoucherAppliedProducts && <LoadingCircle />}
                 </Box>
 
                 {/*Product Details*/}

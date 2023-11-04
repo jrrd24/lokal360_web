@@ -22,10 +22,15 @@ function DEditVoucherDetails({ sx, control, data, productData }) {
           >
             <Typography variant="sectionTitleSmall">Voucher Details</Typography>
           </Stack>
-
-          <Alert severity="warning">
-            Voucher Start Date, End Date and Promo <b>Cannot be Edited</b>
-          </Alert>
+          {data.is_active ? (
+            <Alert severity="warning">
+              Voucher Start Date, End Date and Promo <b>Cannot be Edited</b>
+            </Alert>
+          ) : (
+            <Alert severity="error">
+              <b>Inactive</b> Voucher
+            </Alert>
+          )}
         </Stack>
 
         {/*TextBoxes */}

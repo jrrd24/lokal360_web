@@ -5,6 +5,9 @@ import theme from "../../../Theme";
 import MyVouchers from "./VouchersShopComponents/MyVouchers";
 import CustomAlert from "../../../components/CustomAlert";
 import useAlert from "../../../hooks/useAlert";
+import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../components/Loading/Loading";
 
 function VouchersShopContent() {
   // Handle Open Dialog Box
@@ -28,9 +31,35 @@ function VouchersShopContent() {
     showAlert(severity, alertMsg);
   };
 
+  //DELETE API CALL
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate, onError, onMutate } = useCustomMutate(
+    "deleteVoucher",
+    async ({ id }) => {
+      await axiosPrivate.delete(`/api/voucher/delete/?voucherID=${id}`);
+    },
+    ["getShopVoucher", "getVoucherProducts"]
+  );
+
   const handleDelete = ({ id, name }) => {
     console.log("Deleted: ", id);
-    showAlert(severity, alertMsg);
+    showAlert(
+      "error",
+      <>
+        ...Deleting <b>{name}</b>
+      </>
+    );
+
+    mutate({ id });
+
+    if (onError) {
+      handleSave("error", "Shop Category Delete Failed");
+    }
+    if (onMutate) {
+      <LoadingCircle />;
+    }
   };
   return (
     <div>

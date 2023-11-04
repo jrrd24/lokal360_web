@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 function VoucherContainer({ data }) {
+
   const {
     type = data.promo_type,
     logo = data.logo_img_link,
@@ -14,6 +15,7 @@ function VoucherContainer({ data }) {
     value = data.discount_amount,
     minSpend = data.min_spend,
     validUntil = data.end_date,
+    isActive = data.is_active,
   } = data;
 
   const [color, setColor] = useState(`${theme.palette.status.delivery}`);
@@ -30,12 +32,17 @@ function VoucherContainer({ data }) {
       setColor(`${theme.palette.status.pending}`);
       setFormattedValue(value * 100);
     }
+
+    if (!isActive) {
+      setColor(`${theme.palette.text.forty}`);
+    }
   }, [type, value]);
 
   const navigate = useNavigate();
   const onClick = () => {
     navigate(`/shop/vouchers`);
   };
+
   return (
     <ButtonBase
       onClick={onClick}
@@ -63,7 +70,11 @@ function VoucherContainer({ data }) {
         {/*Shop Logo Container */}
         <Grid item xs={4} sx={{ p: 1.5 }}>
           <img
-            src={logo || require("../.././assets/lokal360_Logo.png")}
+            src={
+              !isActive
+                ? require("../../assets/voucher_expired.jpg")
+                : logo || require("../.././assets/lokal360_Logo.png")
+            }
             alt="logo"
             style={{
               border: `3px solid ${color}`,

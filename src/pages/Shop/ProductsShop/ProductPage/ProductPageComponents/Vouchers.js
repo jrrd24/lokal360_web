@@ -3,9 +3,32 @@ import { Stack, Box, Typography, Alert } from "@mui/material";
 import theme from "../../../../../Theme";
 import MapData from "../../../../../utils/MapData";
 import VoucherContainer from "../../../../../components/ShopOnly/VoucherContainer";
-import voucherData from "../../../../../data/voucherData";
+import { BASE_URL } from "../../../../../api/Api";
 
-function Vouchers({ productID }) {
+function Vouchers({ voucherData }) {
+  const processedVouchers = voucherData.map((voucher) => {
+    const startDate = new Date(voucher.Voucher.start_date);
+    const endDate = new Date(voucher.Voucher.end_date);
+    const currentDate = new Date();
+
+    const isActive = currentDate >= startDate && currentDate <= endDate;
+
+    return {
+      shopName: voucher.Voucher.Shop.shop_name,
+      logo: `${BASE_URL}/${voucher.Voucher.Shop.logo_img_link}`,
+      value: voucher.Voucher.Promo.discount_amount,
+      minSpend: voucher.Voucher.Promo.min_spend,
+      validUntil: endDate,
+      is_active: isActive,
+      type: voucher.Voucher.Promo.PromoType.promo_type_name,
+    };
+  });
+
+  //SORT BY IS ACTIVE
+  processedVouchers.sort((a, b) =>
+    a.is_active === b.is_active ? 0 : a.is_active ? -1 : 1
+  );
+
   return (
     <Stack spacing={3} width={"100%"}>
       {/*Section Name */}
@@ -20,17 +43,12 @@ function Vouchers({ productID }) {
 
       <Box>
         <MapData
-          inputData={voucherData}
+          inputData={processedVouchers}
           component={VoucherContainer}
           sortByField={"start_date"}
           idName={"voucherID"}
           horizontal
-          height={170}
-          condition={(voucher) =>
-            voucher.voucherAppliedProduct.some(
-              (product) => product.productID === productID
-            )
-          }
+          height={190}
         />
       </Box>
     </Stack>
