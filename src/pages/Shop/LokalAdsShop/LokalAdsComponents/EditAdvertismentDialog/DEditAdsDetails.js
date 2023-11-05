@@ -1,26 +1,11 @@
 import React from "react";
-import { Alert, Box, Divider, Stack, Typography } from "@mui/material";
-import {
-  CustomInput,
-  ReadOnlyCustomInput,
-} from "../../../../../components/FormComponents/CustomInput";
-import { UploadImage } from "../../../../../components/DialogBox/UploadImageDialog";
-import CustomDatePicker from "../../../../../components/FormComponents/CustomDatePicker";
-import { format } from "date-fns";
+import { Alert, Divider, Stack, Typography } from "@mui/material";
+import { ReadOnlyCustomInput } from "../../../../../components/FormComponents/CustomInput";
 import { ReadOnlyCustomImage } from "../../../../../components/FormComponents/CustomImage";
 import AdsStatus from "../../../../../components/ShopOnly/StatusAndTags/AdsStatus";
-function DEditAdsDetails({ sx, control, register, setValue, data }) {
-  const adTypes = [
-    {
-      value: "Shop Page",
-      label: "Shop Page",
-    },
-    {
-      value: "Sitewide",
-      label: "Sitewide",
-    },
-  ];
+import { BASE_URL } from "../../../../../api/Api";
 
+function DEditAdsDetails({ sx, data }) {
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Ad Status */}
@@ -63,7 +48,7 @@ function DEditAdsDetails({ sx, control, register, setValue, data }) {
             name="adName"
             label="Ad Name"
             width="100%"
-            defaultValue={data.name}
+            defaultValue={data.ad_name}
           />
           {/*Start and End Date Pickers*/}
           <Stack direction={"row"} spacing={3} sx={{ minWidth: "100%" }}>
@@ -101,7 +86,10 @@ function DEditAdsDetails({ sx, control, register, setValue, data }) {
       {/*Ad Image Preview*/}
       <Stack spacing={3}>
         <Typography variant="sectionTitleSmall">Ad Image</Typography>
-        <ReadOnlyCustomImage selectedImage={data.ad_image} alt={"ad"} />
+        <ReadOnlyCustomImage
+          selectedImage={`${BASE_URL}/${data.ad_image}`}
+          alt={"ad"}
+        />
       </Stack>
     </Stack>
   );

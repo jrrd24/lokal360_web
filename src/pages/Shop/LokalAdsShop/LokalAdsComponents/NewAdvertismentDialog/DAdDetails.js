@@ -4,17 +4,19 @@ import { CustomInput } from "../../../../../components/FormComponents/CustomInpu
 import { UploadImage } from "../../../../../components/DialogBox/UploadImageDialog";
 import CustomDatePicker from "../../../../../components/FormComponents/CustomDatePicker";
 
-function DAdDetails({ sx, control, register, setValue }) {
+function DAdDetails({ sx, control, register, setValue, watch }) {
   const adTypes = [
     {
-      value: "Shop Page",
+      value: 1,
       label: "Shop Page",
     },
     {
-      value: "Sitewide",
+      value: 2,
       label: "Sitewide",
     },
   ];
+
+  const startDate = watch("startDate");
 
   return (
     <Stack spacing={3} sx={{ sx }}>
@@ -58,7 +60,8 @@ function DAdDetails({ sx, control, register, setValue }) {
             name="endDate"
             label="End Date"
             width={"48%"}
-            rules={{ required: "Start Date Is Required" }}
+            rules={{ required: "End Date Is Required" }}
+            startDateValue={startDate}
           />
         </Stack>
 
@@ -76,12 +79,11 @@ function DAdDetails({ sx, control, register, setValue }) {
           <Alert severity="info">
             Ad Type will determine where your Ad will be shown.
             <br /> <br />
-            <b>Shop Page: </b> &ensp;Ads will be shown only in your{" "}
-            <b>Shop Page</b>
-            <br />
-            <b>Sitewide: </b> &ensp;Ads will be shown in both your{" "}
-            <b>Shop Page</b> and the <b>Homepage</b>. This method will require{" "}
-            <b>Admin Approval</b> before the Ad is displayed
+            <b>Shop Page: </b> &ensp;Ads will be shown only in your Shop Page
+            <br /> <br />
+            <b>Sitewide: </b> &ensp;Ads will be shown in both your Shop Page and
+            the Homepage. This method will require <b>Admin Approval</b> before
+            the Ad is displayed
           </Alert>
           <Alert severity="warning">
             Ads <b>Cannot Be Edited</b> once it is Saved

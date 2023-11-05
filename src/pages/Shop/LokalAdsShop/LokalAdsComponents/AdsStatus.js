@@ -2,8 +2,29 @@ import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import theme from "../../../../Theme";
 import AdStatusContainer from "../../../../components/ShopOnly/AdStatusContainer";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
 
 function AdsStatus() {
+  // API CALL GET ALL SHOP VOUCHERS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const { data: statusCount, isLoading } = useCustomQuery(
+    "getAdStatusCount",
+    () =>
+      axiosPrivate
+        .get(`/api/ad/status_count/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Stack spacing={3} sx={{ width: "100%" }}>
       {/*Section Name */}
@@ -14,27 +35,27 @@ function AdsStatus() {
       <Box sx={{ ...classes.mainContent }}>
         <AdStatusContainer
           color={`${theme.palette.status.delivery}`}
-          count={2}
+          count={statusCount.active}
           status={"Active"}
         />
         <AdStatusContainer
-          color={`${theme.palette.status.preparing}`}
-          count={1}
-          status={"Pending Approval"}
-        />
-        <AdStatusContainer
           color={`${theme.palette.status.complete}`}
-          count={3}
+          count={statusCount.approved}
           status={"Approved"}
         />
         <AdStatusContainer
+          color={`${theme.palette.status.preparing}`}
+          count={statusCount.pendingApproval}
+          status={"Pending Approval"}
+        />
+        <AdStatusContainer
           color={`${theme.palette.status.cancel}`}
-          count={1}
+          count={statusCount.rejected}
           status={"Rejected"}
         />
         <AdStatusContainer
           color={`${theme.palette.status.refund}`}
-          count={7}
+          count={statusCount.expired}
           status={"Expired"}
         />
       </Box>
@@ -58,7 +79,7 @@ const classes = {
     flexWrap: "wrap",
     "@media (max-width: 1200px)": {
       px: 2,
-      height: "120px",
+      height: "130px",
       overflow: "auto",
       flexDirection: "column",
       width: "100%",

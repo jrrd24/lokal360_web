@@ -4,7 +4,6 @@ import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import VoucherContainer from "../../../../components/ShopOnly/VoucherContainer";
 import MapData from "../../../../utils/MapData";
-import voucherData from "../../../../data/voucherData";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";
@@ -47,8 +46,6 @@ function ActiveVouchers() {
     };
   });
 
-  console.log("VD", voucherData);
-  console.log("P-VD", processedVouchers);
   return (
     <Stack spacing={1} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Name */}
@@ -59,7 +56,6 @@ function ActiveVouchers() {
         </Box>
       </Stack>
 
-      {/*TODO: Add vouchers here */}
       <Box>
         <MapData
           inputData={processedVouchers}

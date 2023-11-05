@@ -6,7 +6,6 @@ import { IconButton, Box } from "@mui/material";
 import { Cancel, CheckCircle, Edit } from "@mui/icons-material";
 import theme from "../../../../Theme";
 import EditVoucherDialog from "./EditVoucherDialog/EditVoucherDialog";
-import voucherData from "../../../../data/voucherData";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";

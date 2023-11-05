@@ -2,22 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   Typography,
   Box,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Button,
   Stack,
   Alert,
   AlertTitle,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
-import ButtonCloseDialog from "../Buttons/ButtonCloseDialog";
-import theme from "../../Theme";
 import { Image } from "@mui/icons-material";
-import ButtonSave from "../Buttons/ButtonSave";
 import { CustomImage } from "../FormComponents/CustomImage";
-import { useMediaQuery } from "@mui/material";
 
 function UploadImage({ alt, name, control, register, setValue, sx }) {
   const [uploadError, setUploadError] = useState(false);

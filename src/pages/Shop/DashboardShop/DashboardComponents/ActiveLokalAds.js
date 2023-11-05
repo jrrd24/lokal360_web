@@ -2,10 +2,43 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../api/Api";
+import MapData from "../../../../utils/MapData";
+import LokalAdContainer from "../../../../components/ShopOnly/LokalAdContainer";
 
 function ActiveLokalAds() {
+  // API CALL GET ALL ACTIVE LOKAL ADS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const { data: adData, isLoading } = useCustomQuery(
+    "getActiveShopAds",
+    () =>
+      axiosPrivate
+        .get(`/api/ad/get_active_shop_ads/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
+  const processedAds = adData.map((ad) => {
+    return {
+      lokalAdsID: ad.lokalAdsID,
+      ad_name: ad.ad_name,
+      ad_image: `${BASE_URL}/${ad.ad_image}`,
+      start_date: ad.start_date,
+    };
+  });
+
   return (
-    <Stack spacing={2} direction={"column"} sx={{ ...classes.main }}>
+    <Stack spacing={1.5} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Name */}
       <Stack direction={"row"} sx={{ ...classes.sectionName }}>
         <Typography variant="sectionTitle">Active Lokal Ads</Typography>
@@ -15,14 +48,15 @@ function ActiveLokalAds() {
         </Box>
       </Stack>
 
-      {/*TODO: Add lokal ads here */}
-      <Box
-        className="scrollable-content custom-scrollbar"
-        sx={{ ...classes.adsContainer }}
-      >
-        <Box sx={{ height: 145, width: 330, backgroundColor: "#ffbb03" }} />
-        <Box sx={{ height: 145, width: 330, backgroundColor: "#ffd14d" }} />
-        <Box sx={{ height: 145, width: 330, backgroundColor: "#6ef" }} />
+      <Box>
+        <MapData
+          inputData={processedAds}
+          component={LokalAdContainer}
+          sortByField={"start_date"}
+          idName={"lokalAdsID"}
+          horizontal
+          height={187}
+        />
       </Box>
     </Stack>
   );
@@ -37,16 +71,5 @@ const classes = {
   },
 
   sectionName: { alignItems: "baseline", justifyContent: "space-between" },
-
-  adsContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px",
-    flexWrap: "wrap",
-
-    maxWidth: "100%",
-    height: 180,
-    overflow: "auto",
-  },
 };
 export default ActiveLokalAds;

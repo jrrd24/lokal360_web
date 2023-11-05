@@ -14,6 +14,11 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import DAdDetails from "./DAdDetails";
 import { useMediaQuery } from "@mui/material";
+import moment from "moment";
+import useAuth from "../../../../../hooks/useAuth";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function NewAdvertismentDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -21,17 +26,77 @@ function NewAdvertismentDialog({ open, handleClose, handleSave }) {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
-    reset,
+    formState: { isDirty },
+    watch,
     register,
     setValue,
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
-    reset();
+  // API CALL CREATE NEW LOKAL AD
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { mutate } = useCustomMutate(
+    "newAd",
+    async (data) => {
+      console.log("M-DATA", data);
+      const response = await axiosPrivate.post(
+        `/api/ad/create/?shopID=${auth.shopID}`,
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    },
+    ["getShopAds"],
+    {
+      onError: (error) => {
+        if (error.response && error.response.status === 409) {
+          handleSave("error", error.response.data.error);
+        } else {
+          handleSave("error", "Error Creating New Lokal Ad");
+        }
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleClose();
+        handleSave("success", "Lokal Ad Created Successfully");
+        reset();
+      },
+    }
+  );
+
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    //FORMAT DATE
+    const startDate = new Date(
+      data.startDate.$y,
+      data.startDate.$M,
+      data.startDate.$D
+    );
+    const endDate = new Date(data.endDate.$y, data.endDate.$M, data.endDate.$D);
+
+    const formattedStartDate = moment(startDate).format("YYYY-MM-DD");
+    const formattedEndDate = moment(endDate).format("YYYY-MM-DD");
+
+    const requestData = {
+      adName: data.adName,
+      adType: data.adType,
+      endDate: formattedEndDate,
+      startDate: formattedStartDate,
+    };
+    if (data.adImage instanceof File) {
+      requestData.adImage = data.adImage;
+    }
+
+    mutate(requestData);
   };
 
   return (
@@ -78,6 +143,7 @@ function NewAdvertismentDialog({ open, handleClose, handleSave }) {
                   control={control}
                   register={register}
                   setValue={setValue}
+                  watch={watch}
                 />
               </Box>
             </Stack>

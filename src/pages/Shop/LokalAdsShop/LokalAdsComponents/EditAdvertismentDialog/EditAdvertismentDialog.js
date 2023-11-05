@@ -9,38 +9,15 @@ import {
   Stack,
 } from "@mui/material";
 import theme from "../../../../../Theme";
-import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
-import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DEditAdsDetails from "./DEditAdsDetails";
 import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
 import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
-function EditAdvertismentDialog({
-  open,
-  handleClose,
-  handleSave,
-  handleDelete,
-  data,
-}) {
+function EditAdvertismentDialog({ open, handleClose, handleDelete, data }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  //for react hook form
-  const {
-    control,
-    handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
-    reset,
-    register,
-    setValue,
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
-    reset();
-  };
 
   //handle delete dialog box
   const [openDelete, setOpenDelete] = useState(false);
@@ -72,69 +49,63 @@ function EditAdvertismentDialog({
         sx={{ ...theme.components.dialog.dialogBox }}
         PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle
-            minHeight={70}
-            sx={{ ...theme.components.dialog.dialogTitle }}
-          >
-            <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
-              {/* Dialog Title*/}
-              <Stack spacing={0}>
-                <Typography variant="sectionTitle">Lokal Ad Details</Typography>
-                <Typography variant="sectionSubTitle">
-                  <b>{data.name}</b>
-                </Typography>
-              </Stack>
-
-              {/*  Buttons */}
-              <DialogActions sx={{ ...theme.components.dialog.dialogActions }}>
-                <ButtonDelete
-                  type="button"
-                  onClick={() =>
-                    handleOpenDelete({
-                      id: data.lokalAdsID,
-                      name: data.name,
-                    })
-                  }
-                  sx={{ display: { xs: "none", sm: "none", md: "block" } }}
-                />
-
-                <ButtonCloseDialog handleClose={handleClose} />
-              </DialogActions>
-            </Box>
-          </DialogTitle>
-
-          {/* Dialog Content */}
-          <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
-            {/*Main*/}
-            <Stack spacing={2} sx={{ width: "600px" }}>
-              {/*Advertisment Details*/}{" "}
-              <Box sx={{ py: 5 }}>
-                <DEditAdsDetails
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                  data={data}
-                />
-              </Box>
+        <DialogTitle
+          minHeight={70}
+          sx={{ ...theme.components.dialog.dialogTitle }}
+        >
+          <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
+            {/* Dialog Title*/}
+            <Stack spacing={0}>
+              <Typography variant="sectionTitle">Lokal Ad Details</Typography>
+              <Typography variant="sectionSubTitle">
+                <b>{data.ad_name}</b>
+              </Typography>
             </Stack>
-          </DialogContent>
 
-          {/* Show Save Button at Bottom for small screens */}
-          <Box sx={{ ...theme.components.dialog.saveButtonSmall }}>
-            <DialogActions sx={{ py: 2, display: "flex" }}>
+            {/*  Buttons */}
+            <DialogActions sx={{ ...theme.components.dialog.dialogActions }}>
               <ButtonDelete
                 type="button"
                 onClick={() =>
                   handleOpenDelete({
                     id: data.lokalAdsID,
-                    name: data.name,
+                    name: data.ad_name,
                   })
                 }
+                sx={{ display: { xs: "none", sm: "none", md: "block" } }}
               />
+
+              <ButtonCloseDialog handleClose={handleClose} />
             </DialogActions>
           </Box>
-        </form>
+        </DialogTitle>
+
+        {/* Dialog Content */}
+        <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
+          {/*Main*/}
+          <Stack spacing={2} sx={{ width: "600px" }}>
+            {/*Advertisment Details*/}{" "}
+            <Box sx={{ py: 5 }}>
+              {data && <DEditAdsDetails data={data} />}
+              {!data && <LoadingCircle />}
+            </Box>
+          </Stack>
+        </DialogContent>
+
+        {/* Show Save Button at Bottom for small screens */}
+        <Box sx={{ ...theme.components.dialog.saveButtonSmall }}>
+          <DialogActions sx={{ py: 2, display: "flex" }}>
+            <ButtonDelete
+              type="button"
+              onClick={() =>
+                handleOpenDelete({
+                  id: data.lokalAdsID,
+                  name: data.ad_name,
+                })
+              }
+            />
+          </DialogActions>
+        </Box>
       </Dialog>
 
       {/*Delete Dialog */}

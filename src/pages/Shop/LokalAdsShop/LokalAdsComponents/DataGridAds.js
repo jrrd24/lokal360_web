@@ -4,16 +4,20 @@ import theme from "../../../../Theme";
 import { Info } from "@mui/icons-material";
 import AdsStatus from "../../../../components/ShopOnly/StatusAndTags/AdsStatus";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
-//import dummy data
-import lokalAdsData from "../../../../data/lokalAdsData";
 import EditAdvertismentDialog from "./EditAdvertismentDialog/EditAdvertismentDialog";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../api/Api";
+import moment from "moment";
 
 function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
   const [editingAd, setEditingAd] = useState({
     lokalAdsID: null,
     shopID: null,
-    name: null,
+    ad_name: null,
     start_date: null,
     end_date: null,
     approved_at: null,
@@ -23,16 +27,35 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
     ad_image: null,
   });
 
+  //API CALL GET ALL SHOP ADS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const { data: lokalAdsData, isLoading } = useCustomQuery(
+    "getShopAds",
+    () =>
+      axiosPrivate
+        .get(`/api/ad/get_all/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   //Initialize category Info field
   lokalAdsData.forEach((row) => {
+    const startDate = moment(row.start_date).format("MM/DD/YYYY");
+    const endDate = moment(row.end_date).format("MM/DD/YYYY");
     row.categoryInfo = [
       row.lokalAdsID,
       row.shopID,
-      row.name,
-      row.start_date,
-      row.end_date,
+      row.ad_name,
+      (row.start_date = startDate),
+      (row.end_date = endDate),
       row.approved_at,
-      row.type,
+      (row.type = row.type === 1 ? "Shop Page" : "Sitewide"),
       row.status,
       row.message,
       row.ad_image,
@@ -42,7 +65,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   const handleOpen = ({
     lokalAdsID,
     shopID,
-    name,
+    ad_name,
     start_date,
     end_date,
     approved_at,
@@ -55,7 +78,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
     setEditingAd({
       lokalAdsID,
       shopID,
-      name,
+      ad_name,
       start_date,
       end_date,
       approved_at,
@@ -84,7 +107,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
       width: 120,
       disableExport: true,
       renderCell: (params) => {
-        const img = params.value;
+        const img = `${BASE_URL}/${params.value}`;
         let statusComponent;
         statusComponent = (
           <Avatar
@@ -105,7 +128,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
       },
     },
     {
-      field: "name",
+      field: "ad_name",
       headerName: "Ad Name",
       width: 160,
       filterable: true,
@@ -162,7 +185,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
         const {
           lokalAdsID,
           shopID,
-          name,
+          ad_name,
           start_date,
           end_date,
           approved_at,
@@ -177,7 +200,7 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
               handleOpen({
                 lokalAdsID,
                 shopID,
-                name,
+                ad_name,
                 start_date,
                 end_date,
                 approved_at,
