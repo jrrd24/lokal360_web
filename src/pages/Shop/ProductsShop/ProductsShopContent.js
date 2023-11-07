@@ -10,6 +10,8 @@ import MyProducts from "./ProductsShopComponents/MyProducts";
 import TopProducts from "../AnalyticsShop/AnalyticsComponents/TopProducts";
 import ProductStatus from "../DashboardShop/DashboardComponents/ProductStatus";
 import useAlert from "../../../hooks/useAlert";
+import useAuth from "../../../hooks/useAuth";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
 
 function ProductsShopContent() {
   // Handle Open Dialog Box
@@ -28,6 +30,8 @@ function ProductsShopContent() {
     showAlert(severity, alertMsg);
   };
 
+  const { auth } = useAuth();
+
   return (
     <div>
       <Box sx={{ ...theme.components.box.pageContainer }}>
@@ -37,38 +41,43 @@ function ProductsShopContent() {
         />
 
         {/*Main Content*/}
-        <Box sx={{ ...theme.components.box.mainContent }}>
-          {/*Featured Products/ My Products (Left Side)*/}
-          <Box sx={{ ...classes.leftContainer }}>
-            {/*Featured Products*/}
-            <Box sx={{ ...classes.featuredProductsContainer }}>
-              <FeaturedProducts />
+        {auth?.employeePriviledges?.accessProducts ||
+        auth?.roles?.includes("shop owner") ? (
+          <Box sx={{ ...theme.components.box.mainContent }}>
+            {/*Featured Products/ My Products (Left Side)*/}
+            <Box sx={{ ...classes.leftContainer }}>
+              {/*Featured Products*/}
+              <Box sx={{ ...classes.featuredProductsContainer }}>
+                <FeaturedProducts />
+              </Box>
+
+              {/*My Products*/}
+
+              <Box sx={{ ...classes.myProductsContainer }}>
+                <MyProducts
+                  handleSave={handleSave}
+                  open={open}
+                  setOpen={setOpen}
+                />
+              </Box>
             </Box>
 
-            {/*My Products*/}
+            {/*Product Info (Right Side)*/}
+            <Box sx={{ ...classes.rightContainer }}>
+              {/*Products Status */}
+              <Box sx={{ ...classes.categoryContainer }}>
+                <ProductStatus hideShowAll={true} />
+              </Box>
 
-            <Box sx={{ ...classes.myProductsContainer }}>
-              <MyProducts
-                handleSave={handleSave}
-                open={open}
-                setOpen={setOpen}
-              />
+              {/*Top Products */}
+              <Box sx={{ ...classes.topProductsContainer }}>
+                <TopProducts hideShowAll={true} />
+              </Box>
             </Box>
           </Box>
-
-          {/*Product Info (Right Side)*/}
-          <Box sx={{ ...classes.rightContainer }}>
-            {/*Products Status */}
-            <Box sx={{ ...classes.categoryContainer }}>
-              <ProductStatus hideShowAll={true} />
-            </Box>
-
-            {/*Top Products */}
-            <Box sx={{ ...classes.topProductsContainer }}>
-              <TopProducts hideShowAll={true} />
-            </Box>
-          </Box>
-        </Box>
+        ) : (
+          <EmployeeUnauthorized />
+        )}
       </Box>
 
       {/*Display Alert */}

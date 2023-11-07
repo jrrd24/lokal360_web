@@ -8,6 +8,8 @@ import useAlert from "../../../hooks/useAlert";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../components/Loading/Loading";
+import useAuth from "../../../hooks/useAuth";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
 
 function VouchersShopContent() {
   // Handle Open Dialog Box
@@ -34,6 +36,7 @@ function VouchersShopContent() {
   //DELETE API CALL
   const { useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
 
   const { mutate, onError, onMutate } = useCustomMutate(
     "deleteVoucher",
@@ -70,23 +73,28 @@ function VouchersShopContent() {
           isPartner={true}
         />
         {/*Main Content*/}
-        <Box sx={{ ...theme.components.box.mainContent }}>
-          {/*(Left Side)*/}
-          <Box sx={{ ...classes.leftContainer }}>
-            {/*My Vouchers*/}
-            <Box sx={{ ...classes.content }}>
-              <MyVouchers
-                handleSave={handleSave}
-                handleDelete={handleDelete}
-                handlePromoError={handlePromoError}
-                open={open}
-                setOpen={setOpen}
-                openEdit={openEdit}
-                setOpenEdit={setOpenEdit}
-              />
+        {auth?.employeePriviledges?.accessVouchers ||
+        auth?.roles?.includes("shop owner") ? (
+          <Box sx={{ ...theme.components.box.mainContent }}>
+            {/*(Left Side)*/}
+            <Box sx={{ ...classes.leftContainer }}>
+              {/*My Vouchers*/}
+              <Box sx={{ ...classes.content }}>
+                <MyVouchers
+                  handleSave={handleSave}
+                  handleDelete={handleDelete}
+                  handlePromoError={handlePromoError}
+                  open={open}
+                  setOpen={setOpen}
+                  openEdit={openEdit}
+                  setOpenEdit={setOpenEdit}
+                />
+              </Box>
             </Box>
           </Box>
-        </Box>
+        ) : (
+          <EmployeeUnauthorized />
+        )}
       </Box>
 
       {/*Display Alert */}

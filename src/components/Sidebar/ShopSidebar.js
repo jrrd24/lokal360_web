@@ -47,6 +47,7 @@ import {
 } from "@mui/icons-material";
 import BadgeIcon from "@mui/icons-material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
+import useAuth from "../../hooks/useAuth";
 
 const drawerWidth = 260;
 
@@ -124,6 +125,8 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const { auth } = useAuth();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -517,7 +520,6 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
             {theme.direction === "rtl" ? <ChevronRight /> : <ChevronLeft />}
           </IconButton>
         </DrawerHeader>
-
         <Divider />
         {/*sidebar menu items  */}
         <List>
@@ -605,59 +607,71 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
         </List>
         <Divider />
 
-        {/*setting menu items  */}
+
+        {/*setting menu items
+        - 360 Partner and Employee Management is only shown if logged in user is a shop owner
+          */}
         <List sx={{ ...classes.menuItems }}>
           {[
             {
               text: "360 Partner",
               icon: <Handshake />,
               onClick: handlePartnerClick,
+              role: "shop owner",
             },
             {
               text: "Employee Management",
               icon: <BadgeIcon />,
               onClick: handleEmployeeClick,
+              role: "shop owner",
             },
             {
               text: "Settings",
               icon: <Settings />,
               onClick: handleSettingsClick,
             },
-          ].map((item) => (
-            <ListItem key={item.text} disablePadding sx={{ display: "block" }}>
-              {/*Side Bar Buttons */}
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-                onClick={() => {
-                  item.onClick();
-                  setSelectedMenuItem(item.text);
-                }}
-              >
-                {/*Side Bar Icons */}
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                    color:
-                      selectedMenuItem === item.text
-                        ? `${theme.palette.primary.main}`
-                        : `${theme.palette.buttonHover}`,
-                  }}
+          ].map(
+            (item) =>
+              (auth.roles.includes(item.role) || !item.role) && (
+                <ListItem
+                  key={item.text}
+                  disablePadding
+                  sx={{ display: "block" }}
                 >
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={item.text}
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  {/*Side Bar Buttons */}
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                    onClick={() => {
+                      item.onClick();
+                      setSelectedMenuItem(item.text);
+                    }}
+                  >
+                    {/*Side Bar Icons */}
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                        color:
+                          selectedMenuItem === item.text
+                            ? `${theme.palette.primary.main}`
+                            : `${theme.palette.buttonHover}`,
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              )
+          )}
         </List>
       </Drawer>
 

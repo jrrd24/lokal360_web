@@ -73,21 +73,25 @@ function Router() {
           <Route path="/shop/promos" element={<PromosShop />} />
           <Route path="/shop/lokal_ads" element={<LokalAdsShop />} />
           <Route path="/shop/vouchers" element={<VouchersShop />} />
-          <Route path="/shop/360_partner" element={<PartnerShop />} />
           <Route path="/shop/settings" element={<SettingsShop />} />
-          <Route
-            path="/shop/employee_management"
-            element={<EmployeeManagement />}
-          />
           <Route
             path="/shop/products/product_page/:productID"
             element={<ProductPage />}
           />
+
           <Route
             path="/shop/orders/order_page/:orderID"
             element={<OrderPage />}
           />
           <Route path="/profile/" element={<Profile />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={["shop owner"]} />}>
+          <Route
+            path="/shop/employee_management"
+            element={<EmployeeManagement />}
+          />
+          <Route path="/shop/360_partner" element={<PartnerShop />} />
         </Route>
       </Route>
 

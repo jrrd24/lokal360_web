@@ -9,6 +9,8 @@ import useAlert from "../../../hooks/useAlert";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../components/Loading/Loading";
+import useAuth from "../../../hooks/useAuth";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
 
 function ShopCategoryContent() {
   // Handle Open Dialog Box
@@ -31,6 +33,7 @@ function ShopCategoryContent() {
   // handle mutate
   const { useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
 
   // DELETE API CALL
   const { mutate, onError, onMutate } = useCustomMutate(
@@ -69,30 +72,35 @@ function ShopCategoryContent() {
         />
 
         {/*Main Content*/}
-        <Box sx={{ ...theme.components.box.mainContent }}>
-          {/*(Left Side)*/}
-          <Box sx={{ ...classes.leftContainer }}>
-            {/*My Categories*/}
-            <Box sx={{ ...classes.categories }}>
-              <MyShopCategories
-                handleSave={handleSave}
-                handleDelete={handleDelete}
-                open={open}
-                setOpen={setOpen}
-                openEdit={openEdit}
-                setOpenEdit={setOpenEdit}
-              />
+        {auth?.employeePriviledges?.accessProducts ||
+        auth?.roles?.includes("shop owner") ? (
+          <Box sx={{ ...theme.components.box.mainContent }}>
+            {/*(Left Side)*/}
+            <Box sx={{ ...classes.leftContainer }}>
+              {/*My Categories*/}
+              <Box sx={{ ...classes.categories }}>
+                <MyShopCategories
+                  handleSave={handleSave}
+                  handleDelete={handleDelete}
+                  open={open}
+                  setOpen={setOpen}
+                  openEdit={openEdit}
+                  setOpenEdit={setOpenEdit}
+                />
+              </Box>
             </Box>
-          </Box>
 
-          {/*(Right Side)*/}
-          <Box sx={{ ...classes.rightContainer }}>
-            {/*Products Sold Per Category */}
-            <Box sx={{ ...classes.soldPerCategory }}>
-              <SoldPerCategory hideShowAll={true} />
+            {/*(Right Side)*/}
+            <Box sx={{ ...classes.rightContainer }}>
+              {/*Products Sold Per Category */}
+              <Box sx={{ ...classes.soldPerCategory }}>
+                <SoldPerCategory hideShowAll={true} />
+              </Box>
             </Box>
           </Box>
-        </Box>
+        ) : (
+          <EmployeeUnauthorized />
+        )}
       </Box>
 
       {/*Display Alert */}

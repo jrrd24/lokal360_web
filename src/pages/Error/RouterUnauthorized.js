@@ -11,8 +11,8 @@ function RouterUnauthorized() {
   useEffect(() => {
     // Redirect to the login page after 2 seconds
     const redirectTimeout = setTimeout(() => {
-      navigate("/login", { state: { from: location }, replace: true });
-    }, 5000);
+      navigate("/", { state: { from: location }, replace: true });
+    }, 2500);
 
     // Clear the timeout if the component is unmounted
     return () => {
@@ -40,7 +40,7 @@ function RouterUnauthorized() {
             <Stack spacing={2} direction={"row"}>
               <CircularProgress size={20} />
               <Typography variant="subtitle">
-                Redirecting to the Login Page
+                Redirecting to Homepage
               </Typography>
             </Stack>
           </Stack>

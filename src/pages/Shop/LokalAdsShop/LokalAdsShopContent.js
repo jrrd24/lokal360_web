@@ -9,12 +9,14 @@ import useAlert from "../../../hooks/useAlert";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../components/Loading/Loading";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
+import useAuth from "../../../hooks/useAuth";
 
 function LokalAdsShopContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = useState(false);
-  
+
   // Handle Open Alert
   const {
     open: openAlert,
@@ -31,6 +33,7 @@ function LokalAdsShopContent() {
   //DELETE API CALL
   const { useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
 
   const { mutate, onError, onMutate } = useCustomMutate(
     "deleteAd",
@@ -67,27 +70,32 @@ function LokalAdsShopContent() {
           isPartner={true}
         />
         {/*Main Content*/}
-        <Box sx={{ ...theme.components.box.mainContent }}>
-          {/*Ads Status / My Lokal Ads*/}
-          <Box sx={{ ...classes.leftContainer }}>
-            {/*Ads Status*/}
-            <Box sx={{ ...classes.contentContainer }}>
-              <AdsStatus />
-            </Box>
+        {auth?.employeePriviledges?.accessLokalAds ||
+        auth?.roles?.includes("shop owner") ? (
+          <Box sx={{ ...theme.components.box.mainContent }}>
+            {/*Ads Status / My Lokal Ads*/}
+            <Box sx={{ ...classes.leftContainer }}>
+              {/*Ads Status*/}
+              <Box sx={{ ...classes.contentContainer }}>
+                <AdsStatus />
+              </Box>
 
-            {/*My Lokal Ads*/}
-            <Box sx={{ ...classes.contentContainer }}>
-              <MyLokalAds
-                handleSave={handleSave}
-                handleDelete={handleDelete}
-                open={open}
-                setOpen={setOpen}
-                openEdit={openEdit}
-                setOpenEdit={setOpenEdit}
-              />
+              {/*My Lokal Ads*/}
+              <Box sx={{ ...classes.contentContainer }}>
+                <MyLokalAds
+                  handleSave={handleSave}
+                  handleDelete={handleDelete}
+                  open={open}
+                  setOpen={setOpen}
+                  openEdit={openEdit}
+                  setOpenEdit={setOpenEdit}
+                />
+              </Box>
             </Box>
           </Box>
-        </Box>
+        ) : (
+          <EmployeeUnauthorized />
+        )}
       </Box>
 
       {/*Display Alert */}

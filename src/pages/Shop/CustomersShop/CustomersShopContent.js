@@ -3,8 +3,11 @@ import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoCompo
 import { Box } from "@mui/material";
 import MyCustomers from "./CustomersShopComponents/MyCustomers";
 import theme from "../../../Theme";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
+import useAuth from "../../../hooks/useAuth";
 
 function CustomersShopContent() {
+  const { auth } = useAuth();
   return (
     <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
@@ -13,15 +16,20 @@ function CustomersShopContent() {
       />
 
       {/*Main Content*/}
-      <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*(Left Side)*/}
-        <Box sx={{ ...classes.leftContainer }}>
-          {/*My Customers*/}
-          <Box sx={{ ...classes.customersContainer }}>
-            <MyCustomers />
+      {auth?.employeePriviledges?.accessCustomers ||
+      auth?.roles?.includes("shop owner") ? (
+        <Box sx={{ ...theme.components.box.mainContent }}>
+          {/*(Left Side)*/}
+          <Box sx={{ ...classes.leftContainer }}>
+            {/*My Customers*/}
+            <Box sx={{ ...classes.customersContainer }}>
+              <MyCustomers />
+            </Box>
           </Box>
         </Box>
-      </Box>
+      ) : (
+        <EmployeeUnauthorized />
+      )}
     </Box>
   );
 }

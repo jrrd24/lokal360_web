@@ -8,6 +8,8 @@ import useAlert from "../../../hooks/useAlert";
 import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../components/Loading/Loading";
+import useAuth from "../../../hooks/useAuth";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
 
 function PromosShopContent() {
   // Handle Open Dialog Box
@@ -29,6 +31,7 @@ function PromosShopContent() {
   //DELETE API CALL
   const { useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
 
   const { mutate, onError, onMutate } = useCustomMutate(
     "deletePromo",
@@ -68,22 +71,27 @@ function PromosShopContent() {
         />
 
         {/*Main Content*/}
-        <Box sx={{ ...theme.components.box.mainContent }}>
-          {/*(Left Side)*/}
-          <Box sx={{ ...classes.leftContainer }}>
-            {/*My Promos*/}
-            <Box sx={{ ...classes.customerContainer }}>
-              <MyPromos
-                handleSave={handleSave}
-                handleDelete={handleDelete}
-                open={open}
-                setOpen={setOpen}
-                openEdit={openEdit}
-                setOpenEdit={setOpenEdit}
-              />
+        {auth?.employeePriviledges?.accessPromos ||
+        auth?.roles?.includes("shop owner") ? (
+          <Box sx={{ ...theme.components.box.mainContent }}>
+            {/*(Left Side)*/}
+            <Box sx={{ ...classes.leftContainer }}>
+              {/*My Promos*/}
+              <Box sx={{ ...classes.customerContainer }}>
+                <MyPromos
+                  handleSave={handleSave}
+                  handleDelete={handleDelete}
+                  open={open}
+                  setOpen={setOpen}
+                  openEdit={openEdit}
+                  setOpenEdit={setOpenEdit}
+                />
+              </Box>
             </Box>
           </Box>
-        </Box>
+        ) : (
+          <EmployeeUnauthorized />
+        )}
       </Box>
 
       {/*Display Alert */}

@@ -13,6 +13,7 @@ import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from "../../../hooks/useAuth";
 import { BASE_URL } from "../../../api/Api";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
 
 function ShopInfoContent() {
   const { useCustomQuery } = useRequestProcessor();
@@ -103,73 +104,78 @@ function ShopInfoContent() {
       />
 
       {/*Page Content */}
-      <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*Main Content*/}
-        <Box sx={{ ...classes.main }}>
-          {/*Display Shop Info*/}
-          <Box sx={{ ...classes.displayInfo }}>
-            <DisplayShopInfo
-              shopName={shop_name}
-              totalSales={total_sales}
-              noOfProducts={no_of_products}
-              noOfFollowers={no_of_followers}
-              logo={logoPath}
-              shopData={data}
-              shopID={shopID}
-            />
-          </Box>
+      {auth?.employeePriviledges?.accessShopInformation ||
+      auth?.roles?.includes("shop owner") ? (
+        <Box sx={{ ...theme.components.box.mainContent }}>
+          {/*Main Content*/}
+          <Box sx={{ ...classes.main }}>
+            {/*Display Shop Info*/}
+            <Box sx={{ ...classes.displayInfo }}>
+              <DisplayShopInfo
+                shopName={shop_name}
+                totalSales={total_sales}
+                noOfProducts={no_of_products}
+                noOfFollowers={no_of_followers}
+                logo={logoPath}
+                shopData={data}
+                shopID={shopID}
+              />
+            </Box>
 
-          {/*Basic Shop Info*/}
-          <Box sx={{ ...classes.content }}>
-            <BasicShopInfo
-              shopName={shop_name}
-              category={category_name}
-              type={type}
-              description={description}
-              deliver={shipping_deliver_enabled}
-              pickup={shipping_pickup_enabled}
-              sellsRawMaterials={sells_raw_mats}
-            />
-          </Box>
+            {/*Basic Shop Info*/}
+            <Box sx={{ ...classes.content }}>
+              <BasicShopInfo
+                shopName={shop_name}
+                category={category_name}
+                type={type}
+                description={description}
+                deliver={shipping_deliver_enabled}
+                pickup={shipping_pickup_enabled}
+                sellsRawMaterials={sells_raw_mats}
+              />
+            </Box>
 
-          {/*Address Info*/}
-          <Box sx={{ ...classes.content }}>
-            <ShopAddress
-              addressLine1={address_line_1}
-              addressLine2={address_line_2}
-              barangay={address_barangay}
-              municipality={address_municipality}
-              region={address_region}
-              postalCode={address_postal_code}
-              province={address_province}
-            />
-          </Box>
+            {/*Address Info*/}
+            <Box sx={{ ...classes.content }}>
+              <ShopAddress
+                addressLine1={address_line_1}
+                addressLine2={address_line_2}
+                barangay={address_barangay}
+                municipality={address_municipality}
+                region={address_region}
+                postalCode={address_postal_code}
+                province={address_province}
+              />
+            </Box>
 
-          {/*Contact Info*/}
-          <Box sx={{ ...classes.content }}>
-            <ContactInfo phoneNum={phone_number} website={website_link} />
-          </Box>
+            {/*Contact Info*/}
+            <Box sx={{ ...classes.content }}>
+              <ContactInfo phoneNum={phone_number} website={website_link} />
+            </Box>
 
-          {/*Operating hours*/}
-          <Box sx={{ ...classes.content }}>
-            <OperatingHours
-              days={days}
-              timeOpen={time_open}
-              timeClose={time_close}
-            />
-          </Box>
+            {/*Operating hours*/}
+            <Box sx={{ ...classes.content }}>
+              <OperatingHours
+                days={days}
+                timeOpen={time_open}
+                timeClose={time_close}
+              />
+            </Box>
 
-          {/*Logo and Header*/}
-          <Box sx={{ ...classes.content }}>
-            <LogoAndHeader logo={logoPath} header={headerPath} />
-          </Box>
+            {/*Logo and Header*/}
+            <Box sx={{ ...classes.content }}>
+              <LogoAndHeader logo={logoPath} header={headerPath} />
+            </Box>
 
-          {/*Color*/}
-          <Box sx={{ ...classes.content }}>
-            <SelectColor color={custom_color_hex} />
+            {/*Color*/}
+            <Box sx={{ ...classes.content }}>
+              <SelectColor color={custom_color_hex} />
+            </Box>
           </Box>
         </Box>
-      </Box>
+      ) : (
+        <EmployeeUnauthorized />
+      )}
     </Box>
   );
 }

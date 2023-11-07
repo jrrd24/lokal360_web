@@ -4,8 +4,11 @@ import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoCompo
 import OrderSummary from "../DashboardShop/DashboardComponents/OrderSummary";
 import MyOrders from "./OrdersShopComponents/MyOrders";
 import theme from "../../../Theme";
+import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
+import useAuth from "../../../hooks/useAuth";
 
 function OrdersShopContent() {
+  const { auth } = useAuth();
   return (
     <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
@@ -14,20 +17,25 @@ function OrdersShopContent() {
       />
 
       {/*Main Content*/}
-      <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*Orders Overview / Shop Orders*/}
-        <Box sx={{ ...classes.leftContainer }}>
-          {/*Orders Overview*/}
-          <Box sx={{ ...classes.contentContainer }}>
-            <OrderSummary hideShowAll={true} />
-          </Box>
+      {auth?.employeePriviledges?.accessOrders ||
+      auth?.roles?.includes("shop owner") ? (
+        <Box sx={{ ...theme.components.box.mainContent }}>
+          {/*Orders Overview / Shop Orders*/}
+          <Box sx={{ ...classes.leftContainer }}>
+            {/*Orders Overview*/}
+            <Box sx={{ ...classes.contentContainer }}>
+              <OrderSummary hideShowAll={true} />
+            </Box>
 
-          {/*Shop Orders*/}
-          <Box sx={{ ...classes.contentContainer }}>
-            <MyOrders />
+            {/*Shop Orders*/}
+            <Box sx={{ ...classes.contentContainer }}>
+              <MyOrders />
+            </Box>
           </Box>
         </Box>
-      </Box>
+      ) : (
+        <EmployeeUnauthorized />
+      )}
     </Box>
   );
 }

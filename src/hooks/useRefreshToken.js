@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { api } from "../api/Api";
 import useAuth from "./useAuth";
 
@@ -23,10 +22,10 @@ const useRefreshToken = () => {
           accessToken: response.data.accessToken,
           userID: response.data.userID,
           shopID: response.data.shopID,
+          employeePriviledges: response.data.employeePriviledges,
         };
       });
     } catch (error) {
-      // Handle errors here
       console.error(error);
       throw error;
     }
