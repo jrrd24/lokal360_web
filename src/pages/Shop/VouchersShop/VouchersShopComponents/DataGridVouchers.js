@@ -14,6 +14,7 @@ import { BASE_URL } from "../../../../api/Api";
 
 function DataGridVouchers({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
+
   const [editingVoucher, setEditingVoucher] = useState({
     voucherID: null,
     promoID: null,

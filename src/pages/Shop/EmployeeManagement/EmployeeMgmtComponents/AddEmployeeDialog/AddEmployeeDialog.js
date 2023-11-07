@@ -14,6 +14,10 @@ import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDial
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
 import DEmployeeInfo from "./DEmployeeInfo";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function AddEmployeeDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -21,17 +25,58 @@ function AddEmployeeDialog({ open, handleClose, handleSave }) {
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
-    register,
     setValue,
   } = useForm();
 
+  // API CALL CREATE REGISTER NEW EMPLOYEE
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { mutate } = useCustomMutate(
+    "newEmployee",
+    async (data) => {
+      const response = await axiosPrivate.post(
+        `/api/employee/create/?shopID=${auth.shopID}`,
+        data
+      );
+      return response.data;
+    },
+    ["getShopEmployee"],
+    {
+      onError: (error) => {
+        if (error.response) {
+          handleSave("error", error.response.data.error);
+        }
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleClose();
+        handleSave("success", "Employee Successfully Registered");
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
-    reset();
+    const requestData = {
+      employeeEmail: data.employeeEmail,
+      jobTitle: data.jobTitle,
+      access_analytics: data.employeePriviledges.Analytics,
+      access_customers: data.employeePriviledges.Customers,
+      access_lokal_ads: data.employeePriviledges["Lokal Ads"],
+      access_orders: data.employeePriviledges.Orders,
+      access_products: data.employeePriviledges.Products,
+      access_promos: data.employeePriviledges.Promos,
+      access_shop_information: data.employeePriviledges["Shop Information"],
+      access_vouchers: data.employeePriviledges.Vouchers,
+    };
+
+    mutate(requestData);
   };
 
   return (
@@ -70,11 +115,7 @@ function AddEmployeeDialog({ open, handleClose, handleSave }) {
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Employee Information */}
               <Box sx={{ py: 5 }}>
-                <DEmployeeInfo
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                />
+                <DEmployeeInfo control={control} setValue={setValue} />
               </Box>
             </Stack>
           </DialogContent>

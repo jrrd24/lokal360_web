@@ -24,7 +24,7 @@ function DEditEmployeeDetails({ sx, control, setValue, data }) {
           <Avatar src={data.profile_pic} sx={{ ...classes.avatar }} />
         </Badge>
         <Stack spacing={-0.5}>
-          <Typography variant="sectionTitle">{data.name}</Typography>
+          <Typography variant="sectionTitle">{data.username}</Typography>
           <Typography variant="seeAll">{data.email}</Typography>
         </Stack>
       </Box>
@@ -72,7 +72,7 @@ function DEditEmployeeDetails({ sx, control, setValue, data }) {
             Products: data.access_products,
             Customers: data.access_customers,
             Orders: data.access_orders,
-            "Shop Information": data.access_shopInformation,
+            "Shop Information": data.access_shop_information,
             Promos: data.access_promos,
             "Lokal Ads": data.access_lokal_ads,
             Vouchers: data.access_vouchers,

@@ -16,6 +16,9 @@ import { useMediaQuery } from "@mui/material";
 import DEditEmployeeDetails from "./DEditEmployeeDetails";
 import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
 import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
+import { useRequestProcessor } from "../../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../../components/Loading/Loading";
 
 function EditEmployeeDialog({
   open,
@@ -25,21 +28,59 @@ function EditEmployeeDialog({
   data,
 }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const shopEmployeeID = data.shopEmployeeID;
   //for react hook form
   const {
     control,
     handleSubmit,
-    formState: { errors, isDirty },
-    trigger,
+    formState: { isDirty },
     reset,
-    register,
     setValue,
   } = useForm();
 
+  //API CALL UPDATE SHOP EMPLOYEE
+  const { mutate } = useCustomMutate(
+    "updateShopEmployee",
+    async (data) => {
+      await axiosPrivate.patch(
+        `/api/employee/update/?shopEmployeeID=${shopEmployeeID}`,
+        data
+      );
+    },
+    ["getShopEmployees"],
+    {
+      onError: (error) => {
+        if (error.response) {
+          handleSave("error", error.response.data.error);
+        }
+      },
+      onMutate: () => {
+        <LoadingCircle />;
+      },
+      onSuccess: () => {
+        handleClose();
+        handleSave("success", "Employee Updated Successfully");
+        reset();
+      },
+    }
+  );
+
   const onSubmit = (data) => {
-    console.log(data); // Form data
-    handleSave();
-    reset();
+    const requestData = {
+      jobTitle: data.jobTitle,
+      access_analytics: data.employeePriviledges.Analytics,
+      access_customers: data.employeePriviledges.Customers,
+      access_lokal_ads: data.employeePriviledges["Lokal Ads"],
+      access_orders: data.employeePriviledges.Orders,
+      access_products: data.employeePriviledges.Products,
+      access_promos: data.employeePriviledges.Promos,
+      access_shop_information: data.employeePriviledges["Shop Information"],
+      access_vouchers: data.employeePriviledges.Vouchers,
+    };
+
+    mutate(requestData);
   };
 
   //handle delete dialog box
@@ -82,7 +123,7 @@ function EditEmployeeDialog({
               <Stack spacing={0}>
                 <Typography variant="sectionTitle">Edit Employee</Typography>
                 <Typography variant="sectionSubTitle">
-                  <b>{data.name}</b>
+                  <b>{data.username}</b>
                 </Typography>
               </Stack>
 
@@ -92,8 +133,8 @@ function EditEmployeeDialog({
                   type="button"
                   onClick={() =>
                     handleOpenDelete({
-                      id: data.employeeID,
-                      name: data.name,
+                      id: data.shopEmployeeID,
+                      name: data.username,
                     })
                   }
                   sx={{ display: { xs: "none", sm: "none", md: "block" } }}
@@ -114,12 +155,14 @@ function EditEmployeeDialog({
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Category Details*/}{" "}
               <Box sx={{ py: 5 }}>
-                <DEditEmployeeDetails
-                  control={control}
-                  register={register}
-                  setValue={setValue}
-                  data={data}
-                />
+                {data && (
+                  <DEditEmployeeDetails
+                    control={control}
+                    setValue={setValue}
+                    data={data}
+                  />
+                )}
+                {!data && <LoadingCircle />}
               </Box>
             </Stack>
           </DialogContent>
@@ -131,8 +174,8 @@ function EditEmployeeDialog({
                 type="button"
                 onClick={() =>
                   handleOpenDelete({
-                    id: data.employeeID,
-                    name: data.name,
+                    id: data.shopEmployeeID,
+                    name: data.username,
                   })
                 }
               />

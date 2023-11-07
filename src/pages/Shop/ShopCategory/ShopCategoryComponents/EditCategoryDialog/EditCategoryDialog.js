@@ -37,7 +37,6 @@ function EditCategoryDialog({ open, handleClose, handleSave, data }) {
   } = useForm();
 
   // API CALL GET ALL SHOP CATEGORY PRODUCTS
-
   const { data: shopCategoryProducts, isLoading } = useCustomQuery(
     "getShopCategoryProducts",
     () =>

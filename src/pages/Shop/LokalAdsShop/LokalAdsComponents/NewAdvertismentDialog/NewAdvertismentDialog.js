@@ -41,7 +41,6 @@ function NewAdvertismentDialog({ open, handleClose, handleSave }) {
   const { mutate } = useCustomMutate(
     "newAd",
     async (data) => {
-      console.log("M-DATA", data);
       const response = await axiosPrivate.post(
         `/api/ad/create/?shopID=${auth.shopID}`,
         data,
@@ -56,10 +55,8 @@ function NewAdvertismentDialog({ open, handleClose, handleSave }) {
     ["getShopAds"],
     {
       onError: (error) => {
-        if (error.response && error.response.status === 409) {
+        if (error.response) {
           handleSave("error", error.response.data.error);
-        } else {
-          handleSave("error", "Error Creating New Lokal Ad");
         }
       },
       onMutate: () => {

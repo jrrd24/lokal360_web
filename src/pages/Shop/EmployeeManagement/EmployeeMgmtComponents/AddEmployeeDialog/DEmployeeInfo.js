@@ -3,7 +3,7 @@ import { Stack, Typography, Alert, Divider } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import CheckBoxGroup from "../../../../../components/FormComponents/CheckBoxGroup";
 
-function DEmployeeInfo({ sx, control, register, setValue }) {
+function DEmployeeInfo({ sx, control, setValue }) {
   return (
     <Stack spacing={5} sx={{ sx }}>
       {/*Section Name */}

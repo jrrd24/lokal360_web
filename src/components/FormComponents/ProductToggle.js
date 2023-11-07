@@ -369,18 +369,18 @@ const ReadOnlyPromoToggle = ({ data, value }) => {
                 <Box
                   sx={{
                     backgroundColor:
-                      promo.promoID === 1
+                      promo.promo_type === "Peso Discount"
                         ? theme.palette.promo.peso
-                        : promo.promoID === 2
+                        : promo.promo_type === "Percent Discount"
                         ? theme.palette.promo.percent
                         : theme.palette.promo.freeShipping,
                     ...theme.components.box.iconContainer,
                   }}
                 >
                   {" "}
-                  {promo.promoID === 1 ? (
+                  {promo.promo_type === "Peso Discount" ? (
                     <FaPesoSign style={{ ...classes.icon }} />
-                  ) : promo.promoID === 2 ? (
+                  ) : promo.promo_type === "Percent Discount" ? (
                     <Percent sx={{ ...classes.icon }} />
                   ) : (
                     <LocalShipping sx={{ ...classes.icon }} />
@@ -399,9 +399,9 @@ const ReadOnlyPromoToggle = ({ data, value }) => {
 
                   {/* discount amt */}
                   <Typography>
-                    {promo.promoID === 2
+                    {promo.promo_type === "Percent Discount"
                       ? `${promo.discount_amount * 100}% off`
-                      : promo.promoID === 1
+                      : promo.promo_type === "Peso Discount"
                       ? `₱${promo.discount_amount} off`
                       : `Up to ₱${promo.discount_amount} off`}
                   </Typography>

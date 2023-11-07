@@ -3,9 +3,11 @@ import CustomDataGrid from "../../../../components/CustomDataGrid";
 import { IconButton, Box, Typography, Avatar } from "@mui/material";
 import { Cancel, CheckCircle, Edit } from "@mui/icons-material";
 import theme from "../../../../Theme";
-// import dummy data
-import employeeData from "../../../../data/employeeData";
 import EditEmployeeDialog from "./EditEmployeeDialog/EditEmployeeDialog";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 
 function DataGridEmployees({
   openEdit,
@@ -23,19 +25,37 @@ function DataGridEmployees({
     access_products: null,
     access_customers: null,
     access_orders: null,
-    access_shopInformation: null,
+    access_shop_information: null,
     access_promos: null,
     access_lokal_ads: null,
     access_vouchers: null,
     email: null,
     profile_pic: null,
     is_active: null,
-    name: null,
+    username: null,
   });
 
-  //Initialize category Info field
+  //API CALL GET ALL SHOP EMPLOYEE
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: employeeData, isLoading } = useCustomQuery(
+    "getShopEmployees",
+    () =>
+      axiosPrivate
+        .get(`/api/employee/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
+  //Initialize Employee Info field
   employeeData.forEach((row) => {
-    row.categoryInfo = [
+    row.employeeInfo = [
       row.shopEmployeeID,
       row.userID,
       row.shopID,
@@ -44,14 +64,17 @@ function DataGridEmployees({
       row.access_products,
       row.access_customers,
       row.access_orders,
-      row.access_shopInformation,
+      row.access_shop_information,
       row.access_promos,
       row.access_lokal_ads,
       row.access_vouchers,
       row.email,
       row.profile_pic,
       row.is_active,
-      row.name,
+      (row.username =
+        row.first_name === null || row.last_name === null
+          ? row.username
+          : `${row.first_name} ${row.last_name}`),
     ];
   });
 
@@ -64,14 +87,14 @@ function DataGridEmployees({
     access_products,
     access_customers,
     access_orders,
-    access_shopInformation,
+    access_shop_information,
     access_promos,
     access_lokal_ads,
     access_vouchers,
     email,
     profile_pic,
     is_active,
-    name,
+    username,
   }) => {
     setOpenEdit(true);
     setEditingEmployee({
@@ -83,14 +106,14 @@ function DataGridEmployees({
       access_products,
       access_customers,
       access_orders,
-      access_shopInformation,
+      access_shop_information,
       access_promos,
       access_lokal_ads,
       access_vouchers,
       email,
       profile_pic,
       is_active,
-      name,
+      username,
     });
   };
   const handleClose = () => {
@@ -126,7 +149,7 @@ function DataGridEmployees({
     },
 
     {
-      field: "name",
+      field: "username",
       headerName: "Name",
       width: 200,
     },
@@ -160,7 +183,7 @@ function DataGridEmployees({
       },
     },
     {
-      field: "categoryInfo",
+      field: "employeeInfo",
       headerName: "Action",
       width: 80,
       align: "center",
@@ -180,14 +203,14 @@ function DataGridEmployees({
           access_products,
           access_customers,
           access_orders,
-          access_shopInformation,
+          access_shop_information,
           access_promos,
           access_lokal_ads,
           access_vouchers,
           email,
           profile_pic,
           is_active,
-          name,
+          username,
         } = params.row;
         statusComponent = (
           <Box>
@@ -202,14 +225,14 @@ function DataGridEmployees({
                   access_products,
                   access_customers,
                   access_orders,
-                  access_shopInformation,
+                  access_shop_information,
                   access_promos,
                   access_lokal_ads,
                   access_vouchers,
                   email,
                   profile_pic,
                   is_active,
-                  name,
+                  username,
                 })
               }
             >

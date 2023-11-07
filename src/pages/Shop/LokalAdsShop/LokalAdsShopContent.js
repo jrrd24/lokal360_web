@@ -14,8 +14,8 @@ function LokalAdsShopContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+  
   // Handle Open Alert
-
   const {
     open: openAlert,
     severity,

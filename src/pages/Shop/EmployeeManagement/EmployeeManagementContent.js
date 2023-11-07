@@ -4,28 +4,57 @@ import { Box } from "@mui/material";
 import theme from "../../../Theme";
 import MyEmployees from "./EmployeeMgmtComponents/MyEmployees";
 import CustomAlert from "../../../components/CustomAlert";
+import useAlert from "../../../hooks/useAlert";
+import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../components/Loading/Loading";
 
 function EmployeeManagementContent() {
   // Handle Open Dialog Box
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = useState(false);
+
   // Handle Open Alert
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const handleSave = (severity, alertMsg) => {
-    setOpen(false);
-    setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
-    setOpenAlert(true);
+    showAlert(severity, alertMsg);
   };
 
+  // DELETE API CALL
+  const { useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate, onError, onMutate } = useCustomMutate(
+    "deleteEmployee",
+    async ({ id }) => {
+      await axiosPrivate.delete(`/api/employee/delete/?shopEmployeeID=${id}`);
+    },
+    ["getShopEmployees"]
+  );
+
   const handleDelete = ({ id, name }) => {
-    console.log("Deleted: ", id);
-    setSeverity("error");
-    setAlertMsg(name + " is deleted");
-    setOpenAlert(true);
+    showAlert(
+      "error",
+      <>
+        ...Deleting <b>{name}</b>
+      </>
+    );
+
+    mutate({ id });
+
+    if (onError) {
+      handleSave("error", "Shop Category Delete Failed");
+    }
+    if (onMutate) {
+      <LoadingCircle />;
+    }
   };
 
   return (
@@ -58,7 +87,7 @@ function EmployeeManagementContent() {
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />
