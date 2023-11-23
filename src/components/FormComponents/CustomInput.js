@@ -144,12 +144,14 @@ const ReadOnlyCustomInput = ({
   width,
   multiline,
   sx,
+  disabled,
   component: Icon,
 }) => {
   return (
     <TextField
       key={name}
       name={name}
+      disabled={disabled}
       label={label}
       variant="outlined"
       value={defaultValue || "- -"}

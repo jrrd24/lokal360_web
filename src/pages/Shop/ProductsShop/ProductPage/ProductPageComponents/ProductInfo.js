@@ -101,7 +101,7 @@ function ProductInfo({
                   &nbsp;
                 </Typography>
                 <Typography variant="subtitle1" color="text" component={"span"}>
-                  Amount Sold
+                  Total Sold
                 </Typography>
               </Stack>
 
