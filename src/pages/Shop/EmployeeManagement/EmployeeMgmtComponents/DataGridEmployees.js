@@ -8,6 +8,7 @@ import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../api/Api";
 
 function DataGridEmployees({
   openEdit,
@@ -128,7 +129,7 @@ function DataGridEmployees({
       width: 80,
       disableExport: true,
       renderCell: (params) => {
-        const img = params.value;
+        const img = `${BASE_URL}/${params.value}`;
         let statusComponent;
         statusComponent = (
           <Avatar
@@ -139,7 +140,6 @@ function DataGridEmployees({
               height: 45,
               border: "solid",
               borderColor: "transparent",
-              borderRadius: 2,
             }}
           />
         );

@@ -4,7 +4,6 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import { TextField } from "@mui/material";
 
 const CustomDatePicker = ({
   name,
@@ -13,7 +12,12 @@ const CustomDatePicker = ({
   width,
   rules,
   value: propValue,
-  startDateValue, // Start date value passed as a prop
+  startDateValue,
+  disableFutureDates,
+  disablePastDates,
+  customValidation,
+  customErrorMessage,
+  allowNull,
 }) => {
   const [error, setError] = React.useState(null);
   const today = dayjs();
@@ -21,16 +25,36 @@ const CustomDatePicker = ({
 
   const [fieldValue, setFieldValue] = useState(null);
   useEffect(() => {
-    setFieldValue(dayjs(propValue));
+    if (propValue === null || propValue === undefined) {
+      setFieldValue(null);
+    } else {
+      setFieldValue(dayjs(propValue));
+    }
   }, [propValue]);
 
-  //DATE VALIDATION
+  // DATE VALIDATION
   useEffect(() => {
-    const isValidDate = fieldValue && fieldValue.isValid();
-    if (!isValidDate) {
-      setError("Invalid Date");
-    } else if (fieldValue && fieldValue.isBefore(today, "day")) {
-      setError(`Date must be on or after ${todayFormat}`);
+    const isValidDate = fieldValue ? fieldValue.isValid() : allowNull;
+    const isValidCustomRule = customValidation
+      ? customValidation(fieldValue)
+      : true;
+
+    if (!allowNull && fieldValue === null) {
+      setError("Date is required");
+    } else if (!isValidDate || !isValidCustomRule) {
+      setError(customErrorMessage || "Invalid Date");
+    } else if (
+      disablePastDates &&
+      fieldValue &&
+      fieldValue.isBefore(today, "day")
+    ) {
+      setError("Date must be today or in the future");
+    } else if (
+      disableFutureDates &&
+      fieldValue &&
+      fieldValue.isAfter(today, "day")
+    ) {
+      setError("Date must be today or in the past");
     } else if (
       startDateValue &&
       fieldValue &&
@@ -40,7 +64,14 @@ const CustomDatePicker = ({
     } else {
       setError(null);
     }
-  }, [startDateValue, fieldValue]);
+  }, [
+    startDateValue,
+    fieldValue,
+    disablePastDates,
+    disableFutureDates,
+    customValidation,
+    allowNull,
+  ]);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -63,7 +94,8 @@ const CustomDatePicker = ({
                 field.onChange(date);
               }}
               sx={{ width: width }}
-              minDate={today}
+              minDate={disablePastDates ? today : null} // Set minDate based on disableFutureDates prop
+              maxDate={disableFutureDates ? today : null} // Set maxDate based on disablePastDates prop
               onError={handleError}
               slotProps={{
                 textField: {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../../hooks/useLogout";
@@ -17,8 +17,29 @@ import { ReadOnlyCustomInput } from "../../components/FormComponents/CustomInput
 import { useRequestProcessor } from "../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { Logout, Settings } from "@mui/icons-material";
+import ButtonEdit from "../../components/Buttons/ButtonEdit";
+import EditProfileDialog from "./ProfileComponents/EditProfileDialog";
+import useAlert from "../../hooks/useAlert";
+import CustomAlert from "../../components/CustomAlert";
+import { BASE_URL } from "../../api/Api";
 
 const ProfileContent = React.memo(() => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Handle Alert Click
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const logout = useLogout();
   const navigate = useNavigate();
@@ -91,12 +112,16 @@ const ProfileContent = React.memo(() => {
   }
 
   if (isError) {
-    return <p>Error: {isError.message}</p>;
+    return <p>Server Error</p>;
   }
 
   if (!data || data.length === 0) {
     return <p>No shop data available.</p>;
   }
+
+  const handleSave = (severity, alertMsg) => {
+    showAlert(severity, alertMsg);
+  };
 
   return (
     <div>
@@ -110,7 +135,7 @@ const ProfileContent = React.memo(() => {
                 <Avatar
                   className={`${styles.avatar}`}
                   sx={{ ...classes.avatar }}
-                  src={maleAvatar}
+                  src={`${BASE_URL}/${data.profile_pic}`}
                 />
 
                 <Box sx={{ ...classes.backgroundCircle }} />
@@ -119,17 +144,17 @@ const ProfileContent = React.memo(() => {
               <Stack spacing={0}>
                 {/*User Name */}
                 <Typography variant="sectionTitle">
-                  {data[0].first_name === null && data[0].last_name === null
-                    ? data[0].Shopper.username
-                    : `${data[0].first_name} ${data[0].last_name}`}
+                  {data.first_name === null && data.last_name === null
+                    ? data.Shopper.username
+                    : `${data.first_name} ${data.last_name}`}
                 </Typography>
                 {/*User Type */}
                 <Typography variant="subtitle2">
-                  {data[0].is_shop_owner === true
+                  {data.is_shop_owner === true
                     ? "Shop Owner"
-                    : data[0].is_shop_employee
+                    : data.is_shop_employee
                     ? "Shop Employee"
-                    : data[0].is_admin
+                    : data.is_admin
                     ? "Admin"
                     : "Shopper"}
                 </Typography>
@@ -143,11 +168,16 @@ const ProfileContent = React.memo(() => {
                 {/*Section Name */}
                 <Box
                   direction={"row"}
-                  sx={{ ...theme.components.box.sectionName }}
+                  sx={{
+                    ...classes.userInfoTop,
+                  }}
                 >
-                  <Typography variant="sectionTitle">
-                    User Information
-                  </Typography>
+                  <Box>
+                    <Typography variant="sectionTitle">
+                      User Information
+                    </Typography>
+                  </Box>
+                  <ButtonEdit handleOpen={handleOpen} />
                 </Box>
 
                 {/*User info */}
@@ -155,7 +185,7 @@ const ProfileContent = React.memo(() => {
                   {/*Username */}
                   <ReadOnlyCustomInput
                     label="Username"
-                    defaultValue={data[0].Shopper.username}
+                    defaultValue={data.Shopper.username}
                     width="100%"
                   />
 
@@ -164,14 +194,14 @@ const ProfileContent = React.memo(() => {
                     {/*Fname*/}
                     <ReadOnlyCustomInput
                       label="First Name"
-                      defaultValue={data[0].first_name}
+                      defaultValue={data.first_name}
                       width="48%"
                     />
 
                     {/*Lname */}
                     <ReadOnlyCustomInput
                       label="Last Name"
-                      defaultValue={data[0].last_name}
+                      defaultValue={data.last_name}
                       width="48%"
                     />
                   </Stack>
@@ -181,14 +211,14 @@ const ProfileContent = React.memo(() => {
                     {/*Birthday*/}
                     <ReadOnlyCustomInput
                       label="Birthday"
-                      defaultValue={data[0].birthday}
+                      defaultValue={data.birthday}
                       width="48%"
                     />
 
                     {/*Gender */}
                     <ReadOnlyCustomInput
                       label="Gender"
-                      defaultValue={data[0].gender}
+                      defaultValue={data.gender}
                       width="48%"
                     />
                   </Stack>
@@ -196,14 +226,14 @@ const ProfileContent = React.memo(() => {
                   {/*Email*/}
                   <ReadOnlyCustomInput
                     label="Email"
-                    defaultValue={data[0].email}
+                    defaultValue={data.email}
                     width="100%"
                   />
 
                   {/*Mobile */}
                   <ReadOnlyCustomInput
                     label="Mobile Number"
-                    defaultValue={data[0].mobile_num}
+                    defaultValue={data.mobile_num}
                     width="100%"
                   />
                 </Stack>
@@ -229,7 +259,7 @@ const ProfileContent = React.memo(() => {
                   {/*Created At*/}
                   <ReadOnlyCustomInput
                     label="Created At"
-                    defaultValue={new Date(data[0].createdAt).toLocaleString()}
+                    defaultValue={new Date(data.createdAt).toLocaleString()}
                     width="100%"
                   />
                 </Stack>
@@ -272,6 +302,22 @@ const ProfileContent = React.memo(() => {
               </Box>
             </Stack>
           </Box>
+
+          {/*Display Edit Profile*/}
+          <EditProfileDialog
+            open={open}
+            handleClose={handleClose}
+            userData={data}
+            handleSave={handleSave}
+          />
+
+          {/*Display Alert */}
+          <CustomAlert
+            open={openAlert}
+            setOpen={hideAlert}
+            severity={severity}
+            alertMsg={alertMsg}
+          />
         </div>
       )}
     </div>
@@ -326,6 +372,13 @@ const classes = {
     borderRadius: "50%",
     border: `5px solid ${theme.palette.primary.main}33`,
     zIndex: 1,
+  },
+
+  userInfoTop: {
+    ...theme.components.box.sectionName,
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 
   infoContainer: {

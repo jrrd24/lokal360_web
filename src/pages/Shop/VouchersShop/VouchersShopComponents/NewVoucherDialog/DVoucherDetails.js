@@ -35,6 +35,7 @@ function DVoucherDetails({
               name="startDate"
               label="Start Date"
               width={"48%"}
+              disablePastDates
               rules={{ required: "Start Date Is Required" }}
             />
 
@@ -44,6 +45,7 @@ function DVoucherDetails({
               name="endDate"
               label="End Date"
               width={"48%"}
+              disablePastDates
               rules={{ required: "End Date Is Required" }}
               startDateValue={startDate}
             />

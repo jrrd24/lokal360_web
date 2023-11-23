@@ -21,6 +21,7 @@ function CustomPhoneNumberPicker({
       render={({ field, fieldState }) => (
         <div style={{ width: width }}>
           <MuiTelInput
+            fullWidth
             label={label}
             value={field.value}
             onChange={(value) => {
