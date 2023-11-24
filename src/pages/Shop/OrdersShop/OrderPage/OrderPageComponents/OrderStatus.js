@@ -26,28 +26,24 @@ function OrderStatus({ status }) {
           <OrderStatusContainer
             component={VerifiedIcon}
             color={`${theme.palette.status.pending}`}
-            count={1}
             status="Pending Approval"
             isSelected={status === "Pending Approval"}
           />
           <OrderStatusContainer
             component={BsBoxSeam}
             color={`${theme.palette.status.preparing}`}
-            count={3}
             status="Preparing"
             isSelected={status === "Preparing"}
           />
           <OrderStatusContainer
             component={BiShoppingBag}
             color={`${theme.palette.status.pickUp}`}
-            count={1}
             status="Ready For Pick-Up"
             isSelected={status === "Ready For Pick-Up"}
           />
           <OrderStatusContainer
             component={MopedIcon}
             color={`${theme.palette.status.delivery}`}
-            count={3}
             status="On Delivery"
             isSelected={status === "On Delivery"}
           />
@@ -55,7 +51,6 @@ function OrderStatus({ status }) {
           <OrderStatusContainer
             component={HourglassEmptyIcon}
             color={`${theme.palette.status.complete}`}
-            count={1523}
             status="Complete"
             isSelected={status === "Complete"}
           />
@@ -63,7 +58,6 @@ function OrderStatus({ status }) {
           <OrderStatusContainer
             component={CancelIcon}
             color={`${theme.palette.status.cancel}`}
-            count={3}
             status="Cancelled"
             isSelected={status === "Cancelled"}
           />
@@ -71,7 +65,6 @@ function OrderStatus({ status }) {
           <OrderStatusContainer
             component={HiOutlineReceiptRefund}
             color={`${theme.palette.status.refund}`}
-            count={0}
             status="For Refund"
             isSelected={status === "For Refund"}
           />

@@ -15,10 +15,9 @@ import NumberFormat from "../../../../../utils/NumberFormat";
 
 function PriceSummary({
   orderItems,
-  voucherID,
-  promoType,
-  discountAmount,
+  appliedVoucher,
   shippingFee,
+  productTotalPrice,
 }) {
   //row styles
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -38,44 +37,23 @@ function PriceSummary({
   }));
 
   // calculations
-  const [finalDiscount, setFinalDiscount] = useState(discountAmount);
-  const [productTotalPrice, setProductTotalPrice] = useState(0.0);
-  const [totalPrice, setTotalPrice] = useState(0.0);
-  // Calculate total price if orderItems is defined
-  useEffect(() => {
-    if (orderItems && orderItems.length > 0) {
-      setProductTotalPrice(
-        orderItems.reduce((total, item) => total + item.price, 0)
-      );
-    } else {
-      // If orderItems is not defined or empty, set the total price to 0
-      setProductTotalPrice(0);
-    }
-  }, [orderItems]);
+  let finalDiscount = null;
+  let finalDiscountAmt = null;
+  let totalPrice = null;
 
-  //TODO: ERRORS ON TOTAL PRICE WHEN PERCENT DISCOUNT
   // get discount amt
-  useEffect(() => {
-    if (promoType === "Percent Discount") {
-      setFinalDiscount(productTotalPrice * discountAmount);
-    } else {
-      setFinalDiscount(discountAmount);
-    }
-    setTotalPrice(productTotalPrice + shippingFee - finalDiscount);
-  }, [
-    promoType,
-    discountAmount,
-    productTotalPrice,
-    shippingFee,
-    finalDiscount,
-  ]);
+  if (appliedVoucher.promo_type_name === "Percent Discount") {
+    finalDiscount = productTotalPrice * appliedVoucher.discount_amount;
+  } else {
+    finalDiscount = appliedVoucher.discount_amount;
+  }
 
-  const [finalDiscountAmt, setFinalDiscountAmt] = useState("");
-  useEffect(() => {
-    if (promoType === "Percent Discount") {
-      setFinalDiscountAmt(`${discountAmount * 100}%`);
-    }
-  }, [discountAmount]);
+  if (appliedVoucher.promo_type_name === "Percent Discount") {
+    finalDiscountAmt = `${appliedVoucher.discount_amount * 100}%`;
+  }
+
+  const finalPrice = Number(productTotalPrice) + Number(shippingFee);
+  totalPrice = finalPrice - Number(appliedVoucher.discount_amount);
 
   //display data into rows
   function createData(name, value) {
@@ -85,8 +63,21 @@ function PriceSummary({
   const rows = [
     ...(orderItems
       ? orderItems.map((item) => ({
-          name: item.product_name || "- -",
-          value: <NumberFormat value={item.price} isPeso /> || "₱0.00",
+          name: item.product_name ? (
+            <div style={{ whiteSpace: "pre-line" }}>
+              <b>{item.quantity}x</b> {item.product_name}
+              <br />
+              <div style={{ color: theme.palette.primary.main }}>
+                Variation: &nbsp;
+                {item.var_name}
+              </div>
+            </div>
+          ) : (
+            "- -"
+          ),
+          value:
+            <NumberFormat value={item.price * item.quantity} isPeso /> ||
+            "₱0.00",
         }))
       : []),
     createData(
@@ -99,9 +90,11 @@ function PriceSummary({
         -<NumberFormat value={finalDiscount} isPeso />
         <br />
         <span fontWeight="regular">
-          {voucherID
-            ? `${promoType} ${
-                promoType === "Percent Discount" ? `, ${finalDiscountAmt}` : ""
+          {appliedVoucher.voucherID
+            ? `${appliedVoucher.promo_type_name} ${
+                appliedVoucher.promo_type_name === "Percent Discount"
+                  ? `, ${finalDiscountAmt}`
+                  : ""
               }`
             : ""}
         </span>

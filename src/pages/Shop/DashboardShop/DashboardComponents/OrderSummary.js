@@ -13,6 +13,10 @@ import CustomLink from "../../../../components/CustomLink";
 import DisplayDateSelection from "../../../../components/DisplayDateSelection";
 import theme from "../../../../Theme";
 import { OrderCount } from "../../../../components/ShopOnly/OrderCount";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -22,6 +26,24 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 function OrderSummary({ hideShowAll }) {
+  //API CALL GET ORDER STATUS COUNT
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data, isLoading } = useCustomQuery(
+    "getOrderStatusCount",
+    () =>
+      axiosPrivate
+        .get(`/api/buy_product/get_status/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Stack spacing={3} sx={{ width: "100%" }}>
       {/*Section Header */}
@@ -39,7 +61,12 @@ function OrderSummary({ hideShowAll }) {
             </Typography>
 
             {/*Active Orders Count */}
-            <StyledBadge badgeContent={11} color="primary" max={99} showZero />
+            <StyledBadge
+              badgeContent={data.preparing + data.pickUp + data.onDelivery}
+              color="primary"
+              max={99}
+              showZero
+            />
           </Stack>
         </Stack>
 
@@ -62,46 +89,46 @@ function OrderSummary({ hideShowAll }) {
         <OrderCount
           component={VerifiedIcon}
           color={`${theme.palette.status.pending}`}
-          count={1}
+          count={data.pendingApproval}
           status="Pending Approval"
         />
         <OrderCount
           component={BsBoxSeam}
           color={`${theme.palette.status.preparing}`}
-          count={3}
+          count={data.preparing}
           status="Preparing"
         />
         <OrderCount
           component={BiShoppingBag}
           color={`${theme.palette.status.pickUp}`}
-          count={1}
+          count={data.pickUp}
           status="Ready For Pick-Up"
         />
         <OrderCount
           component={MopedIcon}
           color={`${theme.palette.status.delivery}`}
-          count={3}
+          count={data.onDelivery}
           status="On Delivery"
         />
 
         <OrderCount
           component={HourglassEmptyIcon}
           color={`${theme.palette.status.complete}`}
-          count={1523}
+          count={data.complete}
           status="Complete"
         />
 
         <OrderCount
           component={CancelIcon}
           color={`${theme.palette.status.cancel}`}
-          count={3}
+          count={data.cancelled}
           status="Cancelled"
         />
 
         <OrderCount
           component={HiOutlineReceiptRefund}
           color={`${theme.palette.status.refund}`}
-          count={0}
+          count={data.refund}
           status="For Refund"
         />
       </Box>

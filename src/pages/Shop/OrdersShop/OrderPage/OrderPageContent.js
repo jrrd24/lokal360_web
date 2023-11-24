@@ -13,6 +13,8 @@ import CustomerDetails from "./OrderPageComponents/CustomerDetails";
 import ProductsBought from "./OrderPageComponents/ProductsBought";
 import PriceSummary from "./OrderPageComponents/PriceSummary";
 import useAlert from "../../../../hooks/useAlert";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 
 function OrderPageContent({ selectedOrderID }) {
   // Handle Alert Click
@@ -39,51 +41,75 @@ function OrderPageContent({ selectedOrderID }) {
     }, 2000);
   };
 
-  const handleUpdateOrderStatus = ({ status, orderID }) => {
-    if (status === "For Refund") {
-      console.log("Redirect to Chat");
-    } else {
-      console.log("Updated Order", orderID, " Status to:", status);
-      showAlert(severity, `Updated Order ${orderID}, Status to ${status}`);
+  //API CALL UPDATE ORDER STATUS
+  const { useCustomQuery, useCustomMutate } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+
+  const { mutate } = useCustomMutate(
+    "updateOrderStatus",
+    async (data) => {
+      await axiosPrivate.patch(
+        `/api/buy_product/update_status/?orderID=${data.orderID}&updatedStatus=${data.status}`,
+        data
+      );
+    },
+    ["getShopOrder", "getOrderDetails"],
+    {
+      onError: (error) => {
+        showAlert("error", error.response.data.error);
+      },
+      onMutate: () => {
+        return <LoadingCircle />;
+      },
+      onSuccess: () => {
+        if (status === "For Refund") {
+          console.log("Redirect to Chat");
+        } else {
+          console.log("Updated Order", orderID, " Status to:", status);
+          showAlert("success", `Updated Order Status `);
+        }
+      },
     }
+  );
+
+  const handleUpdateOrderStatus = ({ status, orderID }) => {
+    const requestData = {
+      orderID: orderID,
+      status: status,
+    };
+
+    mutate(requestData);
   };
 
-  // Use state to store the selectedOrder
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  //API CALL GET ORDER DETAILS
+  const { data, isLoading } = useCustomQuery(
+    "getOrderDetails",
+    () =>
+      axiosPrivate
+        .get(
+          `/api/buy_product/get_shop_order_details?orderID=${selectedOrderID}`
+        )
+        .then((res) => res.data),
+    { enabled: selectedOrderID !== null }
+  );
 
-  // Use useEffect to fetch selectedOrder based on selectedProductId
-  useEffect(() => {
-    const foundOrder = orderData.find(
-      (order) => order.orderID === selectedOrderID
-    );
-
-    foundOrder ? setSelectedOrder(foundOrder) : setSelectedOrder(null);
-  }, [selectedOrderID]);
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
 
   const {
     orderID,
-    shopperID,
     status,
     shipping_method,
-    created_at,
+    createdAt,
     approved_at,
     completed_at,
     shipping_fee,
-    orderItem,
-    username,
-    userID,
-    contact_number,
-    municipality,
-    postal_code,
-    region,
-    province,
-    addressLine1,
-    addressLine2,
-    barangay,
-    voucherID,
-    promo_type,
-    discount_amount,
-  } = selectedOrder || {};
+    OrderItems,
+    Shopper,
+    AppliedVoucher,
+    sum_order_price,
+  } = data || {};
 
   return (
     <div>
@@ -117,7 +143,7 @@ function OrderPageContent({ selectedOrderID }) {
               <Box sx={{ ...classes.content }}>
                 <OrderDetails
                   orderID={orderID}
-                  createdAt={created_at}
+                  createdAt={createdAt}
                   approvedAt={approved_at}
                   completedAt={completed_at}
                   shippingMethod={shipping_method}
@@ -127,31 +153,34 @@ function OrderPageContent({ selectedOrderID }) {
               {/*Vouchers*/}
               <Box sx={{ ...classes.content }}>
                 <CustomerDetails
-                  name={username}
-                  municipality={municipality}
-                  addressLine1={addressLine1}
-                  addressLine2={addressLine2}
-                  barangay={barangay}
-                  province={province}
-                  region={region}
-                  postalCode={postal_code}
-                  contactNumber={contact_number}
+                  name={
+                    Shopper.first_name && Shopper.last_name
+                      ? `${Shopper.first_name} ${Shopper.last_name}`
+                      : Shopper.username
+                  }
+                  municipality={Shopper.DeliveryAddress[0].municipality}
+                  addressLine1={Shopper.DeliveryAddress[0].address_line_1}
+                  addressLine2={Shopper.DeliveryAddress[0].address_line_2}
+                  barangay={Shopper.DeliveryAddress[0].barangay}
+                  province={Shopper.DeliveryAddress[0].province}
+                  region={Shopper.DeliveryAddress[0].region}
+                  postalCode={Shopper.DeliveryAddress[0].postal_code}
+                  contactNumber={Shopper.mobile_num}
                 />
               </Box>
 
               {/*Product Details*/}
               <Box sx={{ ...classes.content }}>
-                <ProductsBought orderItems={orderItem} />
+                <ProductsBought orderItems={OrderItems} />
               </Box>
 
               {/*Product Images*/}
               <Box sx={{ ...classes.content }}>
                 <PriceSummary
-                  orderItems={orderItem}
-                  voucherID={voucherID}
-                  promoType={promo_type}
-                  discountAmount={discount_amount}
+                  orderItems={OrderItems}
+                  appliedVoucher={AppliedVoucher}
                   shippingFee={shipping_fee}
+                  productTotalPrice={sum_order_price}
                 />
               </Box>
             </Box>

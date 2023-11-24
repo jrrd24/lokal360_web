@@ -43,19 +43,19 @@ function DataGridOrders() {
       field: "orderID",
       headerName: "ID",
       hideable: false,
-      width: 80,
+      width: 110,
       filterable: true,
     },
     {
       field: "username",
       headerName: "Customer Name",
-      width: 160,
+      width: 180,
       filterable: true,
     },
     {
       field: "orderItem",
       headerName: "Order Items",
-      width: 200,
+      width: 280,
       renderCell: (params) => {
         const productNames = params.value
           .split(", ")
@@ -75,13 +75,14 @@ function DataGridOrders() {
                   >
                     {productName}
                   </Typography>{" "}
+                  <br />
                   {varName && (
                     <Typography
                       variant="body"
                       fontWeight="regular"
                       color="primary"
                     >
-                      (var: {varName})
+                      (variation: {varName})
                     </Typography>
                   )}
                   <br /> <br />
@@ -98,20 +99,20 @@ function DataGridOrders() {
         return <div>{productNames}</div>;
       },
     },
-    {
-      field: "total_price",
-      headerName: "Total Price",
-      type: "number",
-      width: 140,
-      filterable: false,
-      renderCell: (params) => {
-        const totalPrice = Number(params.value);
-        const formattedPrice = totalPrice.toFixed(2);
-        let statusComponent;
-        statusComponent = <Typography>₱ {formattedPrice}</Typography>;
-        return statusComponent;
-      },
-    },
+    // {
+    //   field: "sum_order_price",
+    //   headerName: "Total Price",
+    //   type: "number",
+    //   width: 140,
+    //   filterable: false,
+    //   renderCell: (params) => {
+    //     const totalPrice = Number(params.value);
+    //     const formattedPrice = totalPrice.toFixed(2);
+    //     let statusComponent;
+    //     statusComponent = <Typography>₱ {formattedPrice}</Typography>;
+    //     return statusComponent;
+    //   },
+    // },
     {
       field: "status",
       headerName: "Status",

@@ -189,14 +189,15 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
         <p>Search</p>
       </MenuItem>
 
-      <MenuItem>
+      {/*FOR CHAT FEATURE TEMPORARY REMOVE */}
+      {/* <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
             <Mail />
           </Badge>
         </IconButton>
         <p>Messages</p>
-      </MenuItem>
+      </MenuItem> */}
 
       <MenuItem>
         <IconButton
@@ -444,7 +445,9 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
                 <Notifications />
               </Badge>
             </IconButton>
-            <IconButton
+
+            {/*TEMPORARY REMOVE CHAT FEATURE */}
+            {/* <IconButton
               size="large"
               aria-label="show 4 new mails"
               color="#BBBBBB"
@@ -459,7 +462,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
                   }}
                 />
               </Badge>
-            </IconButton>
+            </IconButton> */}
 
             <IconButton
               size="large"
@@ -606,7 +609,6 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
           ))}
         </List>
         <Divider />
-
 
         {/*setting menu items
         - 360 Partner and Employee Management is only shown if logged in user is a shop owner

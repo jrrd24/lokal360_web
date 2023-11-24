@@ -1,20 +1,24 @@
 import React from "react";
 import { Typography, Stack, Avatar } from "@mui/material";
 import CustomDataGrid from "../../../../../components/CustomDataGrid";
+import { BASE_URL } from "../../../../../api/Api";
 
 function ProductsBought({ orderItems }) {
   const columns = [
     {
-      field: "product_image",
+      field: "var_image",
       headerName: "Image",
       width: 70,
       disableExport: true,
       renderCell: (params) => {
-        const img = params.value;
+        const img = params.value ? `${BASE_URL}/${params.value}` : null;
         let statusComponent;
         statusComponent = (
           <Avatar
-            src={img || require("../../../../../assets/lokal360_Logo.png")}
+            src={
+              img ||
+              require("../../../../../assets/product_placeholder_big.jpg")
+            }
             sx={{
               backgroundColor: "#FFF",
               width: 45,
@@ -38,7 +42,7 @@ function ProductsBought({ orderItems }) {
     },
 
     {
-      field: "variation_name",
+      field: "var_name",
       headerName: "Variation",
       width: 125,
     },
@@ -48,7 +52,7 @@ function ProductsBought({ orderItems }) {
       width: 100,
       filterable: false,
       renderCell: (params) => {
-        const totalPrice = params.value;
+        const totalPrice = Number(params.value);
         const formattedPrice = totalPrice.toFixed(2);
         let statusComponent;
         statusComponent = <p>₱ {formattedPrice}</p>;
