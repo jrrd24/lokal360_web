@@ -1,5 +1,7 @@
 import React from "react";
 import { Controller } from "react-hook-form";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function CustomImage({
   control,
@@ -27,11 +29,13 @@ function CustomImage({
 
 function ReadOnlyCustomImage({ selectedImage, alt }) {
   return (
-    <img
-      src={selectedImage}
-      alt={alt}
-      style={{ maxHeight: 250, width: "100%", objectFit: "cover" }}
-    />
+    <Zoom>
+      <img
+        src={selectedImage}
+        alt={alt}
+        style={{ maxHeight: 250, width: "100%", objectFit: "cover" }}
+      />
+    </Zoom>
   );
 }
 

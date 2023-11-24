@@ -10,6 +10,8 @@ import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";
 import { BASE_URL } from "../../../../api/Api";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 export default function DataGridProducts() {
   // get productData
@@ -46,20 +48,22 @@ export default function DataGridProducts() {
         const imgPath = img ? `${BASE_URL}/${img}` : null;
         let statusComponent;
         statusComponent = (
-          <Avatar
-            src={
-              imgPath ||
-              require("../../../../assets/product_placeholder_big.jpg")
-            }
-            sx={{
-              backgroundColor: "#FFF",
-              width: 45,
-              height: 45,
-              border: "solid",
-              borderColor: "transparent",
-              borderRadius: 2,
-            }}
-          />
+          <Zoom>
+            <Avatar
+              src={
+                imgPath ||
+                require("../../../../assets/product_placeholder_big.jpg")
+              }
+              sx={{
+                backgroundColor: "#FFF",
+                width: 45,
+                height: 45,
+                border: "solid",
+                borderColor: "transparent",
+                borderRadius: 2,
+              }}
+            />
+          </Zoom>
         );
 
         return statusComponent;

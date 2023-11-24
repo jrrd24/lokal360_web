@@ -10,6 +10,8 @@ import useAlert from "../../../../hooks/useAlert";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import useAuth from "../../../../hooks/useAuth";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function DisplayShopInfo({
   shopName,
@@ -71,11 +73,15 @@ function DisplayShopInfo({
       <Box sx={{ ...classes.main }}>
         {/*Shop Logo */}
         <Box className={`${styles.grow}`} sx={{ ...classes.logoContainer }}>
-          <img
-            src={logo || require("../../../../assets/lokal360_logo_filled.png")}
-            alt="Shop logo"
-            style={{ ...classes.logo }}
-          />
+          <Zoom>
+            <img
+              src={
+                logo || require("../../../../assets/lokal360_logo_filled.png")
+              }
+              alt="Shop logo"
+              style={{ ...classes.logo }}
+            />
+          </Zoom>
         </Box>
 
         {/*Shop Info and Button */}

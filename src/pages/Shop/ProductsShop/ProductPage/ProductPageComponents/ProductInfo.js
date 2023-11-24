@@ -6,6 +6,8 @@ import ButtonEdit from "../../../../../components/Buttons/ButtonEdit";
 import ButtonDelete from "../../../../../components/Buttons/ButtonDelete";
 import DeleteDialog from "../../../../../components/DialogBox/DeleteDialog";
 import EditProductInfoDialog from "./EditProductInfoDialog/EditProductInfoDialog";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function ProductInfo({
   productID,
@@ -51,14 +53,16 @@ function ProductInfo({
       <Box sx={{ ...classes.main }}>
         {/*Shop Logo */}
         <Box className={`${styles.grow}`} sx={{ ...classes.logo }}>
-          <img
-            src={
-              productImage ||
-              require("../../../../../assets/product_placeholder_big.jpg")
-            }
-            alt="Product"
-            style={{ ...classes.image }}
-          />
+          <Zoom>
+            <img
+              src={
+                productImage ||
+                require("../../../../../assets/product_placeholder_big.jpg")
+              }
+              alt="Product"
+              style={{ ...classes.image }}
+            />
+          </Zoom>
         </Box>
 
         {/*Shop Info and Button */}

@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import ButtonEditImage from "../../../../../../components/Buttons/ButtonEditImage";
 import styles from "../../../../../../css/Styles.module.css";
 import { UploadImage } from "../../../../../../components/DialogBox/UploadImageDialog";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function DProductImage({ thumbnail, control, register, setValue }) {
   const [editThumbnail, setEditThumbnail] = useState(false);
@@ -30,17 +32,19 @@ function DProductImage({ thumbnail, control, register, setValue }) {
           </Box>
 
           <Box>
-            <img
-              className={`${styles.grow}`}
-              name={"productThumbnail"}
-              src={
-                thumbnail ||
-                require("../../../../../../assets/product_placeholder_big.jpg")
-              }
-              alt="Product Thumbnail"
-              loading="eager"
-              style={{ height: 150, width: 150, ...classes.image }}
-            />
+            <Zoom>
+              <img
+                className={`${styles.grow}`}
+                name={"productThumbnail"}
+                src={
+                  thumbnail ||
+                  require("../../../../../../assets/product_placeholder_big.jpg")
+                }
+                alt="Product Thumbnail"
+                loading="eager"
+                style={{ height: 150, width: 150, ...classes.image }}
+              />
+            </Zoom>
           </Box>
 
           <UploadImage

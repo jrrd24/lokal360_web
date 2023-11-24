@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import theme from "../Theme";
 function CustomDataGrid({
   data,
   columns,
@@ -21,6 +22,9 @@ function CustomDataGrid({
         gridTemplateRows: "auto 1f auto",
         ".MuiDataGrid-main": {
           minHeight: 200,
+        },
+        "& .MuiDataGrid-row:hover": {
+          backgroundColor: theme.palette.primary.light,
         },
       }}
       localeText={{

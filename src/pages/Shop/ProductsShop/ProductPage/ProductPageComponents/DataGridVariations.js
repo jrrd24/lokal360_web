@@ -6,6 +6,8 @@ import { Edit } from "@mui/icons-material";
 import theme from "../../../../../Theme";
 import EditVariationDialog from "./EditVariationDialog/EditVariationDialog";
 import { BASE_URL } from "../../../../../api/Api";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
   //Set Active Edit
@@ -71,21 +73,23 @@ function DataGridVariations({ data, open, setOpen, handleSave, handleDelete }) {
         const img = params.value ? `${BASE_URL}/${params.value}` : null;
         let statusComponent;
         statusComponent = (
-          <Avatar
-            src={
-              img ||
-              require("../../../../../assets/product_placeholder_big.jpg")
-            }
-            sx={{
-              backgroundColor: "#FFF",
-              width: 45,
-              height: 45,
-              border: "solid",
-              borderColor: "transparent",
-              borderRadius: 2,
-              objectFit: "cover",
-            }}
-          />
+          <Zoom>
+            <Avatar
+              src={
+                img ||
+                require("../../../../../assets/product_placeholder_big.jpg")
+              }
+              sx={{
+                backgroundColor: "#FFF",
+                width: 45,
+                height: 45,
+                border: "solid",
+                borderColor: "transparent",
+                borderRadius: 2,
+                objectFit: "cover",
+              }}
+            />
+          </Zoom>
         );
 
         return statusComponent;

@@ -3,6 +3,8 @@ import { Stack, Typography, Box } from "@mui/material";
 import styles from "../../../../../css/Styles.module.css";
 import ButtonEditImage from "../../../../../components/Buttons/ButtonEditImage";
 import { UploadImage } from "../../../../../components/DialogBox/UploadImageDialog";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function LogoAndHeaderD({ control, logo, header, register, setValue }) {
   const [editLogo, setEditLogo] = useState(false);
@@ -23,14 +25,16 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
           </Box>
 
           <Box>
-            <img
-              className={`${styles.grow}`}
-              name={"ShopLogo"}
-              src={logo || require("../../../../../assets/lokal360_Logo.png")}
-              alt="Shop logo"
-              loading="eager"
-              style={{ height: 150, width: 150, ...classes.image }}
-            />
+            <Zoom>
+              <img
+                className={`${styles.grow}`}
+                name={"ShopLogo"}
+                src={logo || require("../../../../../assets/lokal360_Logo.png")}
+                alt="Shop logo"
+                loading="eager"
+                style={{ height: 150, width: 150, ...classes.image }}
+              />
+            </Zoom>
           </Box>
 
           <UploadImage
@@ -62,13 +66,15 @@ function LogoAndHeaderD({ control, logo, header, register, setValue }) {
           </Box>
 
           <Box>
-            <img
-              className={`${styles.grow}`}
-              name={"ShopHeader"}
-              src={header || require("../../../../../assets/placeholder.png")}
-              alt="Shop Header"
-              style={{ height: 180, width: 320, ...classes.image }}
-            />
+            <Zoom>
+              <img
+                className={`${styles.grow}`}
+                name={"ShopHeader"}
+                src={header || require("../../../../../assets/placeholder.png")}
+                alt="Shop Header"
+                style={{ height: 180, width: 320, ...classes.image }}
+              />
+            </Zoom>
           </Box>
 
           <UploadImage

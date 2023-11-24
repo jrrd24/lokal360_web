@@ -12,28 +12,28 @@ import OrderDetails from "./OrderPageComponents/OrderDetails";
 import CustomerDetails from "./OrderPageComponents/CustomerDetails";
 import ProductsBought from "./OrderPageComponents/ProductsBought";
 import PriceSummary from "./OrderPageComponents/PriceSummary";
+import useAlert from "../../../../hooks/useAlert";
 
 function OrderPageContent({ selectedOrderID }) {
   // Handle Alert Click
-  const [open, setOpen] = useState(false);
-  const [openAlert, setOpenAlert] = useState(false);
-  const [severity, setSeverity] = useState("error");
-  const [alertMsg, setAlertMsg] = useState("");
-
-  const handleSave = (severity, alertMsg) => {
-    setOpen(false);
-    setSeverity("success");
-    setAlertMsg("Shop Information Successfully Updated!");
-    setOpenAlert(true);
-  };
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
 
   const navigate = useNavigate();
 
   const handleDelete = ({ id }) => {
-    console.log("Deleted Order", id);
-    setSeverity("error");
-    setAlertMsg("Order " + id + " is deleted");
-    setOpenAlert(true);
+    console.log("Deleted:", id);
+    showAlert(
+      "error",
+      <>
+        ...Deleting <b>Order {id}</b>
+      </>
+    );
     setTimeout(() => {
       navigate("/shop/orders");
     }, 2000);
@@ -44,9 +44,7 @@ function OrderPageContent({ selectedOrderID }) {
       console.log("Redirect to Chat");
     } else {
       console.log("Updated Order", orderID, " Status to:", status);
-      setSeverity("success");
-      setAlertMsg(`Updated Order ${orderID}, Status to ${status}`);
-      setOpenAlert(true);
+      showAlert(severity, `Updated Order ${orderID}, Status to ${status}`);
     }
   };
 
@@ -164,7 +162,7 @@ function OrderPageContent({ selectedOrderID }) {
       {/*Display Alert */}
       <CustomAlert
         open={openAlert}
-        setOpen={setOpenAlert}
+        setOpen={hideAlert}
         severity={severity}
         alertMsg={alertMsg}
       />

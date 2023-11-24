@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import ButtonEditImage from "../../../../../../components/Buttons/ButtonEditImage";
 import styles from "../../../../../../css/Styles.module.css";
 import { UploadImage } from "../../../../../../components/DialogBox/UploadImageDialog";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function DVariationImage({ thumbnail, control, register, setValue }) {
   const [editThumbnail, setEditThumbnail] = useState(false);
@@ -28,26 +30,28 @@ function DVariationImage({ thumbnail, control, register, setValue }) {
         </Box>
 
         <Box>
-          <img
-            className={`${styles.grow}`}
-            name={"variationImage"}
-            src={
-              thumbnail ||
-              require("../../../../../../assets/product_placeholder_big.jpg")
-            }
-            alt="Variation"
-            loading="eager"
-            style={{
-              backgroundColor: "#FFF",
-              borderRadius: 10,
-              height: 100,
-              width: 100,
-              border: "solid",
-              borderColor: `#44444433`,
-              borderWidth: 2,
-              objectFit: "cover",
-            }}
-          />
+          <Zoom>
+            <img
+              className={`${styles.grow}`}
+              name={"variationImage"}
+              src={
+                thumbnail ||
+                require("../../../../../../assets/product_placeholder_big.jpg")
+              }
+              alt="Variation"
+              loading="eager"
+              style={{
+                backgroundColor: "#FFF",
+                borderRadius: 10,
+                height: 100,
+                width: 100,
+                border: "solid",
+                borderColor: `#44444433`,
+                borderWidth: 2,
+                objectFit: "cover",
+              }}
+            />
+          </Zoom>
         </Box>
 
         <UploadImage

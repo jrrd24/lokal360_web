@@ -5,7 +5,6 @@ import {
   CustomNumberInput,
   ReadOnlyCustomInput,
 } from "../../../../../../components/FormComponents/CustomInput";
-import { UploadImage } from "../../../../../../components/DialogBox/UploadImageDialog";
 
 function DEditVariationInfo({ sx, control, data }) {
   //For Currency and Percentage Validation

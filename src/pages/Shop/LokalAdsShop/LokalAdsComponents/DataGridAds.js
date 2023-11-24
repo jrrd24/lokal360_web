@@ -11,6 +11,8 @@ import useAuth from "../../../../hooks/useAuth";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import { BASE_URL } from "../../../../api/Api";
 import moment from "moment";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
   //Set Active Edit
@@ -110,18 +112,20 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
         const img = `${BASE_URL}/${params.value}`;
         let statusComponent;
         statusComponent = (
-          <Avatar
-            src={img}
-            sx={{
-              backgroundColor: "#FFF",
-              width: 100,
-              height: 45,
-              border: "solid",
-              borderColor: "transparent",
-              borderRadius: 2,
-              objectFit: "cover",
-            }}
-          />
+          <Zoom>
+            <Avatar
+              src={img}
+              sx={{
+                backgroundColor: "#FFF",
+                width: 100,
+                height: 45,
+                border: "solid",
+                borderColor: "transparent",
+                borderRadius: 2,
+                objectFit: "cover",
+              }}
+            />
+          </Zoom>
         );
 
         return statusComponent;
