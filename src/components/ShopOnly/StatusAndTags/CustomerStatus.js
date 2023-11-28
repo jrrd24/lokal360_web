@@ -12,6 +12,8 @@ function CustomerStatus({ status }) {
       setColorType("warning");
     } else if (status === "Banned") {
       setColorType("danger");
+    } else if (status === "Regular") {
+      setColorType("orange");
     } else {
       setColorType("text");
     }

@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { ChatBubble, ReportProblem } from "@mui/icons-material";
 import NumberFormat from "../../utils/NumberFormat";
+import { BASE_URL } from "../../api/Api";
 
 // Styling for the custom menu
 const StyledMenu = styled((props) => (
@@ -60,9 +61,9 @@ function CustomerContainer({ data }) {
   // Destructuring data prop and adding default values
   // for error handiling in case of undefined params
   const {
-    img = "",
+    profile_pic = "",
     username = "Unknown Customer",
-    orders = 0,
+    orderCount = 0,
     total = 0.0,
   } = data || {};
 
@@ -80,7 +81,7 @@ function CustomerContainer({ data }) {
     <Box sx={{ ...classes.main }} className={`${Styles.changeBG}`}>
       <Stack spacing={1} direction={"row"} alignItems="center">
         {/*User Image */}
-        <Avatar src={img} />
+        <Avatar src={`${BASE_URL}/${profile_pic}`} />
 
         {/*Content */}
         <Stack
@@ -102,8 +103,9 @@ function CustomerContainer({ data }) {
               textAlign: "start",
             }}
           >
-            {orders} Orders &nbsp;•&nbsp;{" "}
-            <NumberFormat value={total} isPeso={true} />
+            {orderCount} Orders
+            {/* &nbsp;•&nbsp;{" "}
+            <NumberFormat value={total} isPeso={true} /> */}
           </Typography>
         </Stack>
       </Stack>
@@ -155,9 +157,9 @@ const classes = {
 };
 
 CustomerContainer.propTypes = {
-  img: PropTypes.string,
+  profile_pic: PropTypes.string,
   username: PropTypes.string,
-  orders: PropTypes.number,
+  orderCount: PropTypes.number,
   total: PropTypes.number,
 };
 

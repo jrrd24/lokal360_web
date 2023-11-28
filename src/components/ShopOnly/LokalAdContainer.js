@@ -41,6 +41,7 @@ function LokalAdContainer({ data }) {
           backgroundColor: theme.palette.background.paper,
           objectFit: "cover",
         }}
+        loading="lazy"
       />
       <div style={adNameStyles}>{ad_name}</div>
     </div>

@@ -110,7 +110,6 @@ function OrderPageContent({ selectedOrderID }) {
     AppliedVoucher,
     sum_order_price,
   } = data || {};
-
   return (
     <div>
       <Box sx={{ ...theme.components.box.pageContainer }}>
@@ -154,9 +153,9 @@ function OrderPageContent({ selectedOrderID }) {
               <Box sx={{ ...classes.content }}>
                 <CustomerDetails
                   name={
-                    Shopper.first_name && Shopper.last_name
-                      ? `${Shopper.first_name} ${Shopper.last_name}`
-                      : Shopper.username
+                    // Shopper?.first_name && Shopper?.last_name
+                    //   ? `${Shopper.first_name} ${Shopper.last_name}`
+                    Shopper.username
                   }
                   municipality={Shopper.DeliveryAddress[0].municipality}
                   addressLine1={Shopper.DeliveryAddress[0].address_line_1}

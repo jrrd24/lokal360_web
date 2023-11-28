@@ -96,17 +96,17 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
 
   // Define data grid columns
   const columns = [
-    {
-      field: "lokalAdsID",
-      headerName: "ID",
-      hideable: false,
-      width: 80,
-      filterable: true,
-    },
+    // {
+    //   field: "lokalAdsID",
+    //   headerName: "ID",
+    //   hideable: false,
+    //   width: 80,
+    //   filterable: true,
+    // },
     {
       field: "ad_image",
       headerName: "Image",
-      width: 120,
+      width: 140,
       disableExport: true,
       renderCell: (params) => {
         const img = `${BASE_URL}/${params.value}`;
@@ -134,13 +134,13 @@ function DataGridAds({ openEdit, setOpenEdit, handleSave, handleDelete }) {
     {
       field: "ad_name",
       headerName: "Ad Name",
-      width: 160,
+      width: 190,
       filterable: true,
     },
     {
       field: "status",
       headerName: "Status",
-      width: 120,
+      width: 150,
       filterable: true,
       renderCell: (params) => {
         const status = params.value;

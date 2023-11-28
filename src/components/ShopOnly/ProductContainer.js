@@ -5,8 +5,6 @@ import Styles from "../../css/Styles.module.css";
 import PropTypes from "prop-types";
 import TruncateString from "../../utils/TruncateString";
 import NumberFormat from "../../utils/NumberFormat";
-import { IconButton } from "@mui/material";
-import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../api/Api";
 
@@ -38,10 +36,11 @@ function ProductContainer({ data }) {
           textAlign={"left"}
         >
           {/*Product Image */}
-          <Avatar
+          <img
             src={image || require("../../assets/product_placeholder_big.jpg")}
             alt="P"
-            sx={{ ...classes.productImage }}
+            style={{ ...classes.productImage }}
+            loading="lazy"
           />
 
           {/*Content */}
@@ -92,13 +91,13 @@ const classes = {
   },
 
   productImage: {
-    objectFit: "contain",
+    objectFit: "cover",
     backgroundColor: "#FFF",
     width: 50,
     height: 50,
     border: "solid",
     borderColor: "transparent",
-    borderRadius: 2,
+    borderRadius: 5,
   },
 };
 

@@ -8,6 +8,11 @@ import MenuItem from "@mui/material/MenuItem";
 import { styled, alpha } from "@mui/material/styles";
 import { ChatBubble, ReportProblem } from "@mui/icons-material";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
+import { BASE_URL } from "../../../../api/Api";
 
 // Styling for the custom menu
 const StyledMenu = styled((props) => (
@@ -53,7 +58,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-function  DataGridCustomers() {
+function DataGridCustomers() {
   // State and event handlers for the menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -64,21 +69,42 @@ function  DataGridCustomers() {
     setAnchorEl(null);
   };
 
+  //API CALL GET ALL CUSTOMERS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: userData, isLoading } = useCustomQuery(
+    "getShopCustomer",
+    () =>
+      axiosPrivate
+        .get(`/api/customer/?shopID=${auth.shopID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
+
   // Define data grid columns
   const columns = [
+    // {
+    //   field: "shopperID",
+    //   headerName: "ID",
+    //   hideable: false,
+    //   width: 80,
+    // },
     {
-      field: "shopperID",
-      headerName: "ID",
-      hideable: false,
-      width: 80,
-    },
-    {
-      field: "img",
+      field: "profile_pic",
       headerName: "Image",
-      width: 80,
+      width: 110,
+      align: "center",
       disableExport: true,
       renderCell: (params) => {
-        const img = params.value;
+        const img = `${BASE_URL}/${params.value}`;
+
         let statusComponent;
         statusComponent = (
           <Avatar
@@ -89,7 +115,7 @@ function  DataGridCustomers() {
               height: 45,
               border: "solid",
               borderColor: "transparent",
-              borderRadius: 2,
+              borderRadius: 10,
             }}
           />
         );
@@ -100,38 +126,41 @@ function  DataGridCustomers() {
     {
       field: "username",
       headerName: "Name",
-      width: 160,
+      width: 220,
     },
     {
-      field: "orders",
+      field: "orderCount",
       headerName: "No. of Purchases",
       type: "number",
-      width: 120,
+      width: 150,
     },
-    {
-      field: "total",
-      headerName: "Total Spent",
-      type: "number",
-      width: 120,
-      renderCell: (params) => {
-        const totalSpent = params.value;
-        const formattedPrice = totalSpent.toFixed(2);
-        let statusComponent;
-        statusComponent = <Typography>₱ {formattedPrice}</Typography>;
-        return statusComponent;
-      },
-    },
+    // {
+    //   field: "total",
+    //   headerName: "Total Spent",
+    //   type: "number",
+    //   width: 120,
+    //   renderCell: (params) => {
+    //     const totalSpent = params.value;
+    //     const formattedPrice = totalSpent.toFixed(2);
+    //     let statusComponent;
+    //     statusComponent = <Typography>₱ {formattedPrice}</Typography>;
+    //     return statusComponent;
+    //   },
+    // },
     {
       field: "status",
       headerName: "Status",
-      width: 120,
+      align: "center",
+      width: 200,
       renderCell: (params) => {
         const status = params.value;
+        console.log("STATUS", status);
         let statusComponent;
         if (
           status === "Follower" ||
           status === "Reported" ||
-          status === "Banned"
+          status === "Banned" ||
+          status === "Regular"
         ) {
           statusComponent = <CustomerStatus status={status} />;
         } else {

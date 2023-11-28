@@ -10,13 +10,53 @@ import ProductStatus from "./DashboardComponents/ProductStatus";
 import GraphSalesAnalytics from "../AnalyticsShop/AnalyticsComponents/GraphSalesAnalytics";
 import theme from "../../../Theme";
 import DateRangePicker from "../../../components/Pickers/DateRangePicker";
+import TopProducts from "../AnalyticsShop/AnalyticsComponents/TopProducts";
+import SoldPerCategory from "../AnalyticsShop/AnalyticsComponents/SoldPerCategory";
+import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
+import useAuth from "../../../hooks/useAuth";
+import { LoadingCircle } from "../../../components/Loading/Loading";
 
 function DashboardShopContent() {
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+
+    if (currentHour >= 5 && currentHour < 12) {
+      return "Good Morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return "Good Afternoon";
+    } else {
+      return "Good Evening";
+    }
+  };
+
+  //API CALL GET ALL SHOP ORDERS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data, isLoading } = useCustomQuery(
+    "getUserNameInfo",
+    () =>
+      axiosPrivate
+        .get(`/api/profile/dashboard/?userID=${auth.userID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
         PageName={"Shop Dashboard"}
-        Subtitle={"Good Morning {Shop Owner Name}"}
+        Subtitle={` ${getGreeting()} ${
+          data.first_name && data.last_name
+            ? `${data.first_name} ${data.last_name}`
+            : data.Shopper.username
+        }`}
       />
 
       {/*Page Content */}
@@ -40,8 +80,21 @@ function DashboardShopContent() {
             </Box>
           </Box>
 
-          <Box sx={{ ...theme.components.box.graphContainer }}>
+          {/* <Box sx={{ ...theme.components.box.graphContainer }}>
             <GraphSalesAnalytics />
+          </Box> */}
+
+          {/*Top Products And Categories*/}
+          <Box sx={{ ...classes.voucherAdsContainer }}>
+            {/*Active Lokal Ads*/}
+            <Box sx={{ ...classes.adsContainer }}>
+              <TopProducts />
+            </Box>
+
+            {/*Active Vouchers*/}
+            <Box sx={{ ...classes.voucherContainer }}>
+              <SoldPerCategory />
+            </Box>
           </Box>
         </Box>
 
@@ -64,9 +117,9 @@ function DashboardShopContent() {
         </Box>
 
         {/*User and Shop Info */}
-        <Box sx={{ ...classes.infoContainer }}>
+        {/* <Box sx={{ ...classes.infoContainer }}>
           <UserShopInfo />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

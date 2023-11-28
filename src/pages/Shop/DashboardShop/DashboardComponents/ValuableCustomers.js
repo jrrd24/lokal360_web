@@ -5,8 +5,30 @@ import Styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import MapData from "../../../../utils/MapData";
 import userData from "../../../../data/userData";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import useAuth from "../../../../hooks/useAuth";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 
 function ValuableCustomers() {
+  //API CALL GET ALL CUSTOMERS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+
+  const { data: userData, isLoading } = useCustomQuery(
+    "getShopCustomer",
+    () =>
+      axiosPrivate
+        .get(`/api/customer/?shopID=${auth.shopID}&limit=${5}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
       {/*Section name */}

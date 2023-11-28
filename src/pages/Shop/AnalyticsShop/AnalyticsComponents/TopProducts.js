@@ -3,13 +3,11 @@ import { Box, Stack, Typography } from "@mui/material";
 import Styles from "../../../../css/Styles.module.css";
 import CustomLink from "../../../../components/CustomLink";
 import ProductContainer from "../../../../components/ShopOnly/ProductContainer";
-import productData from "../../../../data/productData";
 import MapData from "../../../../utils/MapData";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAuth from "../../../../hooks/useAuth";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
-import Error404 from "../../../../components/Loading/Error404";
 
 function TopProducts({ hideShowAll }) {
   // API CALL GET TOP 5 PRODUCTS

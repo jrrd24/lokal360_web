@@ -11,6 +11,7 @@ import theme from "../../../Theme";
 import DateRangePicker from "../../../components/Pickers/DateRangePicker";
 import useAuth from "../../../hooks/useAuth";
 import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
+import UnderContruction from "../../../components/Loading/UnderContruction";
 
 function AnalyticsShopContent() {
   const { auth } = useAuth();
@@ -24,51 +25,52 @@ function AnalyticsShopContent() {
       {/*Page Content */}
       {auth?.employeePriviledges?.accessAnalytics ||
       auth?.roles?.includes("shop owner") ? (
-        <Box sx={{ ...theme.components.box.mainContent }}>
-          {/*Statistics Boxes Section*/}
-          <Box sx={{ ...classes.statisticsBoxContainer }}>
-            <StatisticsBoxes />
-          </Box>
-
-          {/*Main Content*/}
-          <Box sx={{ ...theme.components.box.mainContent, order: 2 }}>
-            {/*Graphs (Left Side)*/}
-            <Box sx={{ ...classes.leftContainer }}>
-              {/*Product Sales Graph*/}
-              <Box sx={{ ...theme.components.box.graphContainer }}>
-                <GraphSalesAnalytics />
-              </Box>
-
-              {/*Product Sales Graph*/}
-              <Box sx={{ ...theme.components.box.graphContainer }}>
-                <GraphProductStatus />
-              </Box>
-
-              {/*Product Sales Graph*/}
-              <Box sx={{ ...theme.components.box.graphContainer }}>
-                <GraphShopTraffic />
-              </Box>
-            </Box>
-
-            {/*Product Info (Right Side)*/}
-            <Box sx={{ ...classes.rightContainer }}>
-              {/*Date time */}
-              <Box sx={{ ...classes.dateTimeContainer }}>
-                <DateRangePicker />
-              </Box>
-              {/*Top Products */}
-              <Box sx={{ ...classes.topProducts }}>
-                <TopProducts />
-              </Box>
-
-              {/*Products Sold Per Category */}
-              <Box sx={{ ...classes.soldPerCategory }}>
-                <SoldPerCategory />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+        <UnderContruction />
       ) : (
+        // <Box sx={{ ...theme.components.box.mainContent }}>
+        //   {/*Statistics Boxes Section*/}
+        //   <Box sx={{ ...classes.statisticsBoxContainer }}>
+        //     <StatisticsBoxes />
+        //   </Box>
+
+        //   {/*Main Content*/}
+        //   <Box sx={{ ...theme.components.box.mainContent, order: 2 }}>
+        //     {/*Graphs (Left Side)*/}
+        //     <Box sx={{ ...classes.leftContainer }}>
+        //       {/*Product Sales Graph*/}
+        //       <Box sx={{ ...theme.components.box.graphContainer }}>
+        //         <GraphSalesAnalytics />
+        //       </Box>
+
+        //       {/*Product Sales Graph*/}
+        //       <Box sx={{ ...theme.components.box.graphContainer }}>
+        //         <GraphProductStatus />
+        //       </Box>
+
+        //       {/*Product Sales Graph*/}
+        //       <Box sx={{ ...theme.components.box.graphContainer }}>
+        //         <GraphShopTraffic />
+        //       </Box>
+        //     </Box>
+
+        //     {/*Product Info (Right Side)*/}
+        //     <Box sx={{ ...classes.rightContainer }}>
+        //       {/*Date time */}
+        //       <Box sx={{ ...classes.dateTimeContainer }}>
+        //         <DateRangePicker />
+        //       </Box>
+        //       {/*Top Products */}
+        //       <Box sx={{ ...classes.topProducts }}>
+        //         <TopProducts />
+        //       </Box>
+
+        //       {/*Products Sold Per Category */}
+        //       <Box sx={{ ...classes.soldPerCategory }}>
+        //         <SoldPerCategory />
+        //       </Box>
+        //     </Box>
+        //   </Box>
+        // </Box>
         <EmployeeUnauthorized />
       )}
     </Box>

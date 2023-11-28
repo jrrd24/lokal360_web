@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 function VoucherContainer({ data }) {
-
   const {
     type = data.promo_type,
     logo = data.logo_img_link,
@@ -84,6 +83,7 @@ function VoucherContainer({ data }) {
               backgroundColor: `${theme.palette.background.paper}`,
               objectFit: "cover",
             }}
+            loading="lazy"
           />
         </Grid>
 

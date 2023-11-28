@@ -19,7 +19,7 @@ function SoldPerCategory({ hideShowAll }) {
     "getShopCategory",
     () =>
       axiosPrivate
-        .get(`/api/shop_category/?shopID=${auth.shopID}`)
+        .get(`/api/shop_category/?shopID=${auth.shopID}&limit=${3}`)
         .then((res) => res.data),
     { enabled: true }
   );
