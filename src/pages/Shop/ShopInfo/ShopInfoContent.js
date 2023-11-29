@@ -76,10 +76,7 @@ function ShopInfoContent() {
     header_img_link,
     custom_color_hex,
     sells_raw_mats,
-    total_sales,
-    no_of_products,
-    no_of_followers,
-  } = data;
+  } = data.shopInfo;
 
   // images
   const logoPath = `${BASE_URL}/${logo_img_link}`;
@@ -113,11 +110,11 @@ function ShopInfoContent() {
             <Box sx={{ ...classes.displayInfo }}>
               <DisplayShopInfo
                 shopName={shop_name}
-                totalSales={total_sales}
-                noOfProducts={no_of_products}
-                noOfFollowers={no_of_followers}
+                totalSales={data.totalSales}
+                noOfProducts={data.productCount}
+                noOfFollowers={data.followerCount}
                 logo={logoPath}
-                shopData={data}
+                shopData={data.shopInfo}
                 shopID={shopID}
               />
             </Box>

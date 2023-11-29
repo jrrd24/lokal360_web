@@ -79,7 +79,7 @@ function CustomerContainer({ data }) {
 
   return (
     <Box sx={{ ...classes.main }} className={`${Styles.changeBG}`}>
-      <Stack spacing={1} direction={"row"} alignItems="center">
+      <Stack spacing={2} direction={"row"} alignItems="center">
         {/*User Image */}
         <Avatar src={`${BASE_URL}/${profile_pic}`} />
 

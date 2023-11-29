@@ -32,7 +32,7 @@ import OrderPage from "./pages/Shop/OrdersShop/OrderPage/OrderPage.js";
 import RouterUnauthorized from "./pages/Error/RouterUnauthorized.js";
 import PersistLogin from "./components/ForRoute/PersistLogin.js";
 import Profile from "./pages/Profile/Profile.js";
-import UserRegistration from "./pages/Test/UserRegistration.js";
+import SearchResult from "./pages/Shop/SearchResult/SearchResult.js";
 
 function Router() {
   return (
@@ -78,12 +78,12 @@ function Router() {
             path="/shop/products/product_page/:productID"
             element={<ProductPage />}
           />
-
           <Route
             path="/shop/orders/order_page/:orderID"
             element={<OrderPage />}
           />
           <Route path="/profile/" element={<Profile />} />
+          <Route path="/search/:query" exact element={<SearchResult />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["shop owner"]} />}>
@@ -94,9 +94,6 @@ function Router() {
           <Route path="/shop/360_partner" element={<PartnerShop />} />
         </Route>
       </Route>
-
-      {/*Test Routes (Remove Later) */}
-      <Route path="test/user_registration" element={<UserRegistration />} />
 
       {/*Display Unauthorized page  */}
       <Route path="/unauthorized" element={<RouterUnauthorized />} />

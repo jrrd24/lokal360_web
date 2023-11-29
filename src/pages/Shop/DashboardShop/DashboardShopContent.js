@@ -57,6 +57,7 @@ function DashboardShopContent() {
             ? `${data.first_name} ${data.last_name}`
             : data.Shopper.username
         }`}
+        isDashboard
       />
 
       {/*Page Content */}

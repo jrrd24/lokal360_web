@@ -53,7 +53,7 @@ function OrderPageContent({ selectedOrderID }) {
         data
       );
     },
-    ["getShopOrder", "getOrderDetails"],
+    ["getShopOrder", "getOrderDetails", "getShopInfo"],
     {
       onError: (error) => {
         showAlert("error", error.response.data.error);

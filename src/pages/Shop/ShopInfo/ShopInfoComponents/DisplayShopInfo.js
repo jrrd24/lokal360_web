@@ -16,6 +16,7 @@ import "react-medium-image-zoom/dist/styles.css";
 function DisplayShopInfo({
   shopName,
   totalSales,
+  noOfProducts,
   noOfFollowers,
   logo,
   shopData,
@@ -43,29 +44,6 @@ function DisplayShopInfo({
     setOpen(false);
     showAlert(severity, alertMsg);
   };
-
-  // api calls
-  // get product count
-  const { useCustomQuery } = useRequestProcessor();
-  const axiosPrivate = useAxiosPrivate();
-  const { auth } = useAuth();
-
-  const { data: productCount, isLoading } = useCustomQuery(
-    "getProductCount",
-    () =>
-      axiosPrivate
-        .get(`/api/product/products_count/?shopID=${auth.shopID}`)
-        .then((res) => res.data),
-    { enabled: true }
-  );
-
-  if (isLoading) {
-    return (
-      <Box sx={{ ...classes.loader }}>
-        <CircularProgress />
-      </Box>
-    );
-  }
 
   return (
     <div>
@@ -117,10 +95,7 @@ function DisplayShopInfo({
               {/*Products*/}
               <Stack>
                 <Typography variant="sectionTitleSmallCenter" color={"primary"}>
-                  <NumberFormat
-                    value={productCount[0].noOfProducts || 0}
-                    isShortened={true}
-                  />
+                  <NumberFormat value={noOfProducts || 0} isShortened={true} />
                   &nbsp;
                 </Typography>
                 <Typography

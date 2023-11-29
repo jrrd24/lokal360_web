@@ -48,6 +48,7 @@ import {
 import BadgeIcon from "@mui/icons-material/Badge";
 import MenuIcon from "@mui/icons-material/Menu";
 import useAuth from "../../hooks/useAuth";
+import Searchbar from "./Searchbar";
 
 const drawerWidth = 260;
 
@@ -120,57 +121,22 @@ const Drawer = styled(MuiDrawer, {
 
 const ShopSidebar = React.memo(({ component: MainComponent }) => {
   // Handle Menu Open and Close
-  const [anchorEl, setAnchorEl] = React.useState(null);
+
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const { auth } = useAuth();
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  // decalare menus
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ horizontal: "right", vertical: "top" }}
-      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem
-        onClick={() => {
-          navigate(`/profile/`);
-        }}
-      >
-        <IconButton size="large" color="inherit">
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
+  // decalare mobile menus
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -311,7 +277,10 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
       setSelectedMenuItem("Products");
     } else if (currentPathname.includes("/shop/orders/order_page/")) {
       setSelectedMenuItem("Orders");
-    } else if (currentPathname.includes("/profile")) {
+    } else if (
+      currentPathname.includes("/profile") ||
+      currentPathname.includes("/search")
+    ) {
       setSelectedMenuItem("");
     } else {
       // Handle other menu items based on the pathname
@@ -402,33 +371,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
             />
           </IconButton>
           {/*Search */}
-          <Box sx={{ ...classes.searchBar }}>
-            <InputBase
-              name="searchBar"
-              sx={{
-                ...classes.searchInput,
-                "& input": {
-                  color:
-                    selectedMenuItem === "360 Partner"
-                      ? theme.palette.text.main
-                      : "",
-                },
-              }}
-              placeholder="Find Your Products"
-            />
-            <IconButton
-              type="button"
-              sx={{
-                p: "10px",
-                color:
-                  selectedMenuItem === "360 Partner"
-                    ? theme.palette.primary.main
-                    : "",
-              }}
-            >
-              <Search />
-            </IconButton>
-          </Box>
+          <Searchbar selectedMenuItem={selectedMenuItem} />
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -467,7 +410,9 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
             <IconButton
               size="large"
               edge="end"
-              onClick={handleProfileMenuOpen}
+              onClick={() => {
+                navigate(`/profile/`);
+              }}
               sx={{
                 color:
                   selectedMenuItem === "360 Partner"
@@ -494,9 +439,6 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
           </Box>
         </Toolbar>
       </AppBar>
-
-      {/* Render the Menu component */}
-      {renderMenu}
 
       {/* Render the  Mobile Menu component */}
       {renderMobileMenu}
@@ -748,28 +690,6 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
 });
 
 const classes = {
-  searchBar: {
-    width: 380,
-    backgroundColor: "#fafafa",
-    border: 1,
-    borderColor: "#BBBBBB",
-    borderRadius: 2,
-    alignSelf: "center",
-    display: { xs: "none", sm: "block" },
-    "@media (max-width: 900px)": {
-      width: 300,
-    },
-  },
-
-  searchInput: {
-    ml: 1,
-    flex: 1,
-    width: 300,
-    "@media (max-width: 900px)": {
-      width: 220,
-    },
-  },
-
   brandingLogo: {
     width: 45,
     height: 45,
