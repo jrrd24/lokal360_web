@@ -1,11 +1,43 @@
-import { Divider, Stack, Typography, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React from "react";
 import { CustomInput } from "../../../components/FormComponents/CustomInput";
 import { CustomPhoneNumberPicker } from "../../../components/FormComponents/CustomPhoneNumberPicker";
 import { ProductsCategory } from "../../../utils/MapSelectMenuItems";
 
-function OwnerDetailsForm({ control, trigger, data }) {
+function OwnerDetailsForm({
+  control,
+  trigger,
+  getValues,
+  data,
+  onSubmit,
+  handleNext,
+  handleBack,
+  activeStep,
+}) {
   const isMaxWidth = useMediaQuery("(max-width:600px)");
+
+  const handleSubmit = () => {
+    const formData = {
+      firstName: getValues("firstName"),
+      lastName: getValues("lastName"),
+      email: getValues("email"),
+      phoneNumber: getValues("phoneNumber"),
+      shopName: getValues("shopName"),
+      shopType: getValues("shopType"),
+      productsCategory: getValues("productsCategory"),
+    };
+
+    handleNext();
+    onSubmit(formData);
+
+  };
 
   return (
     <Stack spacing={5}>
@@ -141,6 +173,38 @@ function OwnerDetailsForm({ control, trigger, data }) {
           />
         </Stack>
       </Stack>
+
+      {/**Buttons */}
+      <Box
+        sx={{
+          display: "flex",
+          alignSelf: "flex-end",
+          gap: 2,
+          "@media (max-width: 600px)": { alignSelf: "center" },
+        }}
+      >
+        <Button
+          variant="outlined"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+        >
+          <Typography
+            variant="sectionTitleSmall"
+            sx={{ color: "inherit", fontSize: 16 }}
+          >
+            Back
+          </Typography>
+        </Button>
+
+        <Button variant="contained" onClick={handleSubmit}>
+          <Typography
+            variant="sectionTitleSmall"
+            sx={{ color: "inherit", fontSize: 16 }}
+          >
+            Next
+          </Typography>
+        </Button>
+      </Box>
     </Stack>
   );
 }

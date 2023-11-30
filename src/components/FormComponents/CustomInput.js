@@ -44,10 +44,10 @@ const CustomInput = ({
 
   const handleValueChange = (e, field) => {
     const selectedValue = e.target.value;
-    field.onChange(selectedValue); // Call the field's onChange function
-    setFieldValue(selectedValue); // Update the field value
+    field.onChange(selectedValue); 
+    setFieldValue(selectedValue); 
     if (setSelectedValue) {
-      setSelectedValue(selectedValue); // Call the setter function
+      setSelectedValue(selectedValue); 
     }
   };
 
@@ -146,7 +146,50 @@ const ReadOnlyCustomInput = ({
   sx,
   disabled,
   component: Icon,
+  select,
+  selectMenuItems,
 }) => {
+  if (select) {
+    return (
+      <TextField
+        key={name}
+        name={name}
+        disabled={disabled}
+        label={label}
+        variant="outlined"
+        select
+        value={
+          defaultValue ||
+          (selectMenuItems.length > 0 ? selectMenuItems[0]?.id : "")
+        }
+        InputProps={
+          Icon
+            ? {
+                startAdornment: (
+                  <Box>
+                    <InputAdornment position="start">
+                      <Icon sx={{ fontSize: 20 }} />
+                    </InputAdornment>
+                  </Box>
+                ),
+                readOnly: true,
+              }
+            : { readOnly: true }
+        }
+        sx={{
+          width: width,
+          ...sx,
+        }}
+      >
+        {selectMenuItems.map((item) => (
+          <MenuItem key={item.value} value={item.value}>
+            {item.label}
+          </MenuItem>
+        ))}
+      </TextField>
+    );
+  }
+
   return (
     <TextField
       key={name}
@@ -162,8 +205,6 @@ const ReadOnlyCustomInput = ({
           ? {
               startAdornment: (
                 <Box>
-                  {" "}
-                  {/* Add padding to the Box */}
                   <InputAdornment position="start">
                     <Icon sx={{ fontSize: 20 }} />
                   </InputAdornment>
@@ -180,7 +221,6 @@ const ReadOnlyCustomInput = ({
         },
         ...sx,
       }}
-      InputLabelProps={{}}
     />
   );
 };

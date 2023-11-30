@@ -1,9 +1,44 @@
 import React from "react";
-import { Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { UploadImage } from "../../../components/DialogBox/UploadImageDialog";
 
-function DocumentsForm({ control, register, setValue }) {
+function DocumentsForm({
+  control,
+  register,
+  setValue,
+  getValues,
+  onSubmit,
+  handleBack,
+  handleNext,
+  activeStep,
+  showAlert,
+}) {
   const isMaxWidth = useMediaQuery("(max-width:900px)");
+
+  const handleSubmit = () => {
+    const formData = {
+      DTI_COBNR: getValues("DTI_COBNR"),
+      DTI_Other: getValues("DTI_Other"),
+      BIR_COR: getValues("BIR_COR"),
+      gov_id_front: getValues("gov_id_front"),
+      gov_id_back: getValues("gov_id_back"),
+      products_list: getValues("products_list"),
+    };
+
+    // Check if any of the form values is a FileList with length 0
+    const hasEmptyFiles = Object.values(formData).some(
+      (value) => value instanceof FileList && value.length === 0
+    );
+
+    // Proceed to the next step only if there are no empty FileLists
+    if (!hasEmptyFiles) {
+      handleNext();
+      onSubmit(formData);
+    } else {
+      showAlert("error", "All Fields Are Required");
+    }
+  };
+
   return (
     <Stack spacing={3}>
       <Stack spacing={0}>
@@ -96,6 +131,38 @@ function DocumentsForm({ control, register, setValue }) {
           small
         />
       </Stack>
+
+      {/**Buttons */}
+      <Box
+        sx={{
+          display: "flex",
+          alignSelf: "flex-end",
+          gap: 2,
+          "@media (max-width: 600px)": { alignSelf: "center" },
+        }}
+      >
+        <Button
+          variant="outlined"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+        >
+          <Typography
+            variant="sectionTitleSmall"
+            sx={{ color: "inherit", fontSize: 16 }}
+          >
+            Back
+          </Typography>
+        </Button>
+
+        <Button variant="contained" onClick={handleSubmit}>
+          <Typography
+            variant="sectionTitleSmall"
+            sx={{ color: "inherit", fontSize: 16 }}
+          >
+            Next
+          </Typography>
+        </Button>
+      </Box>
     </Stack>
   );
 }
