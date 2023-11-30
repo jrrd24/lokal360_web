@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Container } from "@mui/system";
-import { CircularProgress, Typography } from "@mui/material";
+import { CircularProgress, Typography, useMediaQuery } from "@mui/material";
 import { Stack } from "@mui/system";
 
 function RouterUnauthorized() {
   const location = useLocation();
   const navigate = useNavigate();
+  const isLargeScreen = useMediaQuery("(min-width:600px)");
 
   useEffect(() => {
     // Redirect to the login page after 2 seconds
@@ -27,7 +28,7 @@ function RouterUnauthorized() {
         direction={"row"}
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
-        <Unauthorized />
+        {isLargeScreen && <Unauthorized />}
 
         <Stack spacing={3} sx={{ justifyContent: "right", textAlign: "left" }}>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>

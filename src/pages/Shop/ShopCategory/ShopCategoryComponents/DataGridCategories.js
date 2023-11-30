@@ -84,15 +84,9 @@ export default function DataGridCategories({
   // Define data grid columns
   const columns = [
     {
-      field: "shopCategoryID",
-      headerName: "ID",
-      hideable: false,
-      width: 80,
-    },
-    {
       field: "shop_category_name",
       headerName: "Name",
-      width: 200,
+      width: 260,
     },
     {
       field: "number_of_products",
@@ -103,7 +97,7 @@ export default function DataGridCategories({
     {
       field: "categoryInfo",
       headerName: "Action",
-      width: 155,
+      width: 175,
       align: "center",
       headerAlign: "center",
       sortable: false,

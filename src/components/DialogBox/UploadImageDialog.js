@@ -6,11 +6,21 @@ import {
   Stack,
   Alert,
   AlertTitle,
+  Link,
 } from "@mui/material";
 import { Image } from "@mui/icons-material";
 import { CustomImage } from "../FormComponents/CustomImage";
 
-function UploadImage({ alt, name, control, register, setValue, sx }) {
+function UploadImage({
+  alt,
+  name,
+  control,
+  register,
+  setValue,
+  sx,
+  small,
+  buttonSizeSmall,
+}) {
   const [uploadError, setUploadError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   let selectedFile = null;
@@ -37,11 +47,14 @@ function UploadImage({ alt, name, control, register, setValue, sx }) {
   }, [selectedFile, setValue]);
 
   return (
-    <Box sx={{ py: 5, width: "100%", ...sx }}>
+    <Box sx={{ py: 2, width: "100%", ...sx }}>
       <Button
         variant="outlined"
         component="label"
-        sx={{ ...classes.uploadImageButton }}
+        sx={{
+          ...classes.uploadImageButton,
+          width: small && !buttonSizeSmall ? "48%" : "100%",
+        }}
       >
         <input
           type="file"
@@ -67,26 +80,36 @@ function UploadImage({ alt, name, control, register, setValue, sx }) {
         </Alert>
       )}
       {/*Display Uploaded Image */}
-      <Stack spacing={1} sx={{ ...classes.displayUploadedImage }}>
-        <Typography
-          variant="sectionTitleSmall"
-          color="inherit"
-          sx={{ ...classes.selectedImageTypography }}
-        >
-          {uploadError || selectedImage === null ? "" : "    Image Preview"}
-        </Typography>
+      {!small && (
+        <Stack spacing={1} sx={{ ...classes.displayUploadedImage }}>
+          <Typography
+            variant="sectionTitleSmall"
+            color="inherit"
+            sx={{ ...classes.selectedImageTypography }}
+          >
+            {uploadError || selectedImage === null ? "" : "    Image Preview"}
+          </Typography>
 
-        {selectedImage && (
-          <Box sx={{ ...classes.customImageContainer }}>
-            <CustomImage
-              control={control}
-              name={name}
-              selectedImage={selectedImage}
-              alt={alt}
-            />
-          </Box>
-        )}
-      </Stack>
+          {selectedImage && (
+            <Box sx={{ ...classes.customImageContainer }}>
+              <CustomImage
+                control={control}
+                name={name}
+                selectedImage={selectedImage}
+                alt={alt}
+              />
+            </Box>
+          )}
+        </Stack>
+      )}
+
+      {small && (
+        <Box sx={{ display: "flex", justifyContent: "left" }}>
+          <Link href={selectedImage} target="_blank">
+            {selectedImage}
+          </Link>
+        </Box>
+      )}
     </Box>
   );
 }
@@ -96,7 +119,6 @@ const classes = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
     height: "100px",
     marginBottom: "10px",
     cursor: "pointer",
@@ -109,7 +131,7 @@ const classes = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    py: 5,
+    py: 2,
   },
   selectedImageTypography: {
     display: "flex",

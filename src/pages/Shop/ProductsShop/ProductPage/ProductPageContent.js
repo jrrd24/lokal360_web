@@ -200,11 +200,11 @@ function ProductPageContent({ selectedProductID, setProductName }) {
   const {
     productID,
     product_name,
-    total_sold,
+    total_sales,
+    amountSold,
     number_of_variations,
     description,
     promoID,
-    price,
     rating,
     variations,
     Category: { category_name: productCategory },
@@ -238,8 +238,8 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                 productID={productID}
                 productImage={product_thumbnail}
                 name={product_name}
-                totalSales={total_sold * price}
-                amountSold={total_sold}
+                totalSales={total_sales}
+                amountSold={amountSold}
                 noOfVariations={number_of_variations}
                 productData={data}
                 open={open}

@@ -33,6 +33,8 @@ import RouterUnauthorized from "./pages/Error/RouterUnauthorized.js";
 import PersistLogin from "./components/ForRoute/PersistLogin.js";
 import Profile from "./pages/Profile/Profile.js";
 import SearchResult from "./pages/Shop/SearchResult/SearchResult.js";
+import RequireLogin from "./pages/ShopRegister/RequireLogin.js";
+import ShopRegistration from "./pages/ShopRegister/ShopRegistration.js";
 
 function Router() {
   return (
@@ -40,8 +42,20 @@ function Router() {
       {/*Login */}
       <Route path="/login" element={<Login />} />
 
+      {/*Register Shop */}
+      <Route path="shop/register/login" element={<RequireLogin />} />
+
       {/*Secured Routes */}
       <Route element={<PersistLogin />}>
+        {/*Register Shop */}
+        <Route
+          element={
+            <RequireAuth allowedRoles={["shopper", "shopEmployee", "admin"]} />
+          }
+        >
+          <Route path="shop/register" element={<ShopRegistration />} />
+        </Route>
+
         <Route element={<RequireAuth allowedRoles={"admin"} />}>
           {/*Admin */}
           <Route path="/admin/dashboard" element={<Dashboard />} />
