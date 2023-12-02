@@ -32,7 +32,7 @@ const theme = createTheme({
     active: { main: "#00FF00" },
     warning: { main: "#ffc107" },
     danger: { main: "#dc3545", delete: "#AB3130" },
-    orange:{main: "#F18701"},
+    orange: { main: "#F18701" },
 
     //? Colors for promo type
     promo: { peso: "#F7B801", percent: "#F18701", freeShipping: "#6E5FDE" },
@@ -340,6 +340,13 @@ const theme = createTheme({
 
     buttonBase: {
       main: {
+        padding: 0,
+        borderRadius: "10px",
+        overflow: "hidden",
+        width: 160,
+      },
+
+      large: {
         padding: 0,
         borderRadius: "10px",
         overflow: "hidden",

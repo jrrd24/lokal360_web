@@ -165,7 +165,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
         <p>Messages</p>
       </MenuItem> */}
 
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
@@ -176,7 +176,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
           </Badge>
         </IconButton>
         <p>Notifications</p>
-      </MenuItem>
+      </MenuItem> */}
 
       <MenuItem
         onClick={() => {
@@ -329,7 +329,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
       <AppBar
         position="fixed"
         open={open}
-        sx={{ backgroundColor: theme.palette.primary.main }}
+        sx={{ backgroundColor: theme.palette.background.paper }}
       >
         <Toolbar
           sx={{
@@ -375,7 +375,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
 
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               sx={{
                 color:
@@ -387,7 +387,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
               <Badge badgeContent={100} color="error" max={99}>
                 <Notifications />
               </Badge>
-            </IconButton>
+            </IconButton> */}
 
             {/*TEMPORARY REMOVE CHAT FEATURE */}
             {/* <IconButton

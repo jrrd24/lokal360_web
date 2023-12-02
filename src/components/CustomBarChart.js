@@ -26,6 +26,10 @@ const getColorForIndex = (index) => {
 };
 
 const CustomBarChart = ({ data }) => {
+  if (!Array.isArray(data) || data.length === 0) {
+    // Handle the case when data is undefined or not an array
+    return <div>No data available</div>;
+  }
   // Sort the data in descending order based on the 'total_sold' property
   const sortedData = data.slice().sort((a, b) => b.total_sold - a.total_sold);
   const sumAmtSold = sortedData.reduce(

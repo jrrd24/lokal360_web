@@ -170,12 +170,25 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     setValue(newValue);
   };
 
-  // query shop info
+  // API CALL GET PRODUCT DATA
   const { data, isLoading, isError } = useCustomQuery(
     "getProductData",
     () =>
       axiosPrivate
         .get(`/api/product/product_info/?productID=${selectedProductID}`)
+        .then((res) => res.data),
+    { enabled: true }
+  );
+
+  const {
+    data: reviewData,
+    isLoadingReview,
+    isErrorReview,
+  } = useCustomQuery(
+    "getReviewData",
+    () =>
+      axiosPrivate
+        .get(`/api/review/reviews/product/?productID=${selectedProductID}`)
         .then((res) => res.data),
     { enabled: true }
   );
@@ -186,10 +199,10 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     }
   }, [data, setProductName]);
 
-  if (isLoading) {
+  if (isLoading || isLoadingReview) {
     return <LoadingCircle />;
   }
-  if (isError) {
+  if (isError || isErrorReview) {
     return <Error404 />;
   }
   if (!data || data.length === 0) {
@@ -273,7 +286,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                       variant="sectionTitleSmall"
                       sx={{ ...classes.tab }}
                     >
-                      Comments
+                      Reviews
                     </Typography>
                   }
                   {...a11yProps(1)}
@@ -335,14 +348,13 @@ function ProductPageContent({ selectedProductID, setProductName }) {
               </Box>
             </CustomTabPanel>
 
-            {/*Comments*/}
+            {/*Reviews*/}
             <CustomTabPanel value={value} index={1}>
               <MapData
                 inputData={reviewData}
                 component={ReviewContainer}
                 idName={"reviewID"}
-                condition={(review) => review.productID === productID}
-                nullMessage={"No Comments Found"}
+                nullMessage={"No Reviews Found"}
                 nullImg
               />
             </CustomTabPanel>

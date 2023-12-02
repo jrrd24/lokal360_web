@@ -61,7 +61,7 @@ function ProductPreview({ data }) {
               <StarHalf sx={{ ...classes.star }} />
               <Typography sx={{ fontSize: "inherit" }}>
                 <span style={{ ...classes.prodDetailBig }}>
-                  {rating || "N/A"}
+                  {rating !== 0 ? rating.toFixed(2) : "N/A"}
                 </span>
                 /5 | <b>{amtSold || 0}</b> Sold
               </Typography>
@@ -90,10 +90,8 @@ function ProductPreview({ data }) {
 
 const classes = {
   main: {
-    height: 280,
-    width: 180,
+    width: 160,
     backgroundColor: `${theme.palette.background.paper}`,
-    boxShadow: "1px 2px 5px 1px rgba(110, 95, 222, 0.25)",
     borderRadius: "10px",
     border: `solid 1px ${theme.palette.text.ten}`,
     textAlign: "left",
@@ -109,7 +107,7 @@ const classes = {
     objectFit: "cover",
     objectPosition: "center",
     height: 180,
-    width: 178,
+    width: 160,
     borderTopLeftRadius: "10px",
     borderTopRightRadius: "10px",
     backgroundColor: `${theme.palette.background.paper}`,
@@ -120,7 +118,7 @@ const classes = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height: 100,
+    minHeight: 90,
   },
 
   prodName: {

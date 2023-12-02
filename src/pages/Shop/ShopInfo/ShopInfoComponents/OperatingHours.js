@@ -41,20 +41,42 @@ function OperatingHours({ days = [], timeOpen, timeClose }) {
         {/*Open and Closing Time */}
         <Stack direction={"row"} spacing={3}>
           {/*Opening Time*/}
-          <ReadOnlyTimePicker
-            name="openingTime"
-            label="Opening Time"
-            value={dayjs(timeOpen)}
-            width="48%"
-          />
+          {timeOpen && (
+            <ReadOnlyTimePicker
+              name="openingTime"
+              label="Opening Time"
+              value={dayjs(timeOpen) || "00:00:00"}
+              width="48%"
+            />
+          )}
+
+          {!timeOpen && (
+            <ReadOnlyCustomInput
+              name="openingTime"
+              label="Opening Time"
+              defaultValue={"--"}
+              width="48%"
+            />
+          )}
 
           {/*Closing Time*/}
-          <ReadOnlyTimePicker
-            name="closingTime"
-            label="Closing Time"
-            value={dayjs(timeClose)}
-            width="48%"
-          />
+          {timeClose && (
+            <ReadOnlyTimePicker
+              name="closingTime"
+              label="Closing Time"
+              value={dayjs(timeOpen)}
+              width="48%"
+            />
+          )}
+
+          {!timeClose && (
+            <ReadOnlyCustomInput
+              name="closingTime"
+              label="Closing Time"
+              defaultValue={"--"}
+              width="48%"
+            />
+          )}
         </Stack>
       </Stack>
     </Stack>

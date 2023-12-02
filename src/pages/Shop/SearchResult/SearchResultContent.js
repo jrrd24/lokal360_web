@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Grid, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import theme from "../../../Theme";
@@ -28,7 +28,7 @@ function SearchResultContent() {
           `/api/product/shop_mgmt/search/?shopID=${auth.shopID}&query=${query}`
         )
         .then((res) => res.data);
-      setSearchResults(data.rows);
+      setSearchResults(data);
       setIsLoading(false);
     };
 
@@ -56,16 +56,32 @@ function SearchResultContent() {
             </div>
 
             {/* RESULT */}
-            <div>
-              <MapData
-                inputData={searchResults}
-                component={ProductPreview}
-                idName={"productID"}
-                horizontal
-                height={330}
-                sortByField={"total_sold"}
-              />
-            </div>
+            <Grid
+              container
+              spacing={0}
+              sx={{ display: "flex", flexWrap: "wrap" }}
+            >
+              {searchResults.map((product, index) => (
+                <Grid
+                  item
+                  xs={6}
+                  sm={4}
+                  md={3}
+                  key={index}
+                  sx={{
+                    my: 2,
+                    display: "flex",
+                    "@media (max-width: 900px)": {
+                      justifyContent: "center",
+
+                      my: 2,
+                    },
+                  }}
+                >
+                  <ProductPreview data={product} />
+                </Grid>
+              ))}
+            </Grid>
           </Stack>
         </Box>
       </Box>
@@ -76,10 +92,11 @@ function SearchResultContent() {
 const classes = {
   resultsContainer: {
     pt: 2,
-    width: "600px",
+    px: 2,
+    width: "800px",
     textAlign: "left",
+    display: "flex",
     "@media (max-width: 900px)": {
-      alignItems: "center",
       justifyContent: "center",
       width: "100%",
     },

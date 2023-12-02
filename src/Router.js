@@ -96,7 +96,7 @@ function Router() {
             path="/shop/orders/order_page/:orderID"
             element={<OrderPage />}
           />
-          <Route path="/profile/" element={<Profile />} />
+
           <Route path="/search/:query" exact element={<SearchResult />} />
         </Route>
 
@@ -106,6 +106,7 @@ function Router() {
             element={<EmployeeManagement />}
           />
           <Route path="/shop/360_partner" element={<PartnerShop />} />
+          <Route path="/profile/" element={<Profile />} />
         </Route>
       </Route>
 

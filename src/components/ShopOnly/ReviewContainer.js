@@ -10,12 +10,13 @@ import {
 import React from "react";
 import theme from "../../Theme";
 import { Delete, Star } from "@mui/icons-material";
+import { BASE_URL } from "../../api/Api";
 
 function ReviewContainer({ data }) {
   const {
     username,
     profile_pic,
-    name,
+    var_name,
     review_content,
     rating,
     attachment_image,
@@ -26,7 +27,7 @@ function ReviewContainer({ data }) {
       <Box sx={{ ...classes.reviewContainer }}>
         {/*Review Info */}
         <Box sx={{ ...classes.reviewInfo }}>
-          <Avatar src={profile_pic} />
+          <Avatar src={`${BASE_URL}/${profile_pic}`} />
           <Stack spacing={0} sx={{ textAlign: "left" }}>
             <Rating
               defaultValue={rating}
@@ -54,7 +55,7 @@ function ReviewContainer({ data }) {
         variant="body"
         sx={{ color: `${theme.palette.text.sixty}`, fontSize: "14px" }}
       >
-        Variant: <b>{name}</b>
+        Variant: <b>{var_name}</b>
       </Typography>
 
       <Typography variant="body" sx={{ lineHeight: "18px", fontSize: "14px" }}>

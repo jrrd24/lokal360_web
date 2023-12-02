@@ -27,7 +27,7 @@ function ProductContainer({ data }) {
     navigate(`/shop/products/product_page/${productID}`);
   };
   return (
-    <ButtonBase onClick={onClick} sx={{ ...theme.components.buttonBase.main }}>
+    <ButtonBase onClick={onClick} sx={{ ...theme.components.buttonBase.large }}>
       <Box sx={{ ...classes.main }} className={`${Styles.changeBG}`}>
         <Stack
           spacing={1}

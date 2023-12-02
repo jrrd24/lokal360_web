@@ -71,7 +71,7 @@ function FeaturedProducts() {
           component={ProductPreview}
           idName={"productID"}
           horizontal
-          height={330}
+          height={350}
           sortByField={"total_sold"}
         />
       </Stack>
