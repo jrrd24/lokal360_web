@@ -64,7 +64,7 @@ function OperatingHours({ days = [], timeOpen, timeClose }) {
             <ReadOnlyTimePicker
               name="closingTime"
               label="Closing Time"
-              value={dayjs(timeOpen)}
+              value={dayjs(timeClose)}
               width="48%"
             />
           )}

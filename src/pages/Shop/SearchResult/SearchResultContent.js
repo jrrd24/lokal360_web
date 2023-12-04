@@ -6,7 +6,6 @@ import { useRequestProcessor } from "../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from "../../../hooks/useAuth";
 import { LoadingCircle } from "../../../components/Loading/Loading";
-import MapData from "../../../utils/MapData";
 import ProductPreview from "../../../components/ShopOnly/ProductPreview";
 
 function SearchResultContent() {

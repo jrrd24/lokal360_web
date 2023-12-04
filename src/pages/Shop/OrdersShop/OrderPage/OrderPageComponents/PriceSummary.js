@@ -37,23 +37,27 @@ function PriceSummary({
   }));
 
   // calculations
-  let finalDiscount = null;
-  let finalDiscountAmt = null;
-  let totalPrice = null;
+  let finalDiscount = 0;
+  let finalDiscountAmt = 0;
+  let totalPrice = 0;
 
   // get discount amt
-  if (appliedVoucher.promo_type_name === "Percent Discount") {
-    finalDiscount = productTotalPrice * appliedVoucher.discount_amount;
+  if (appliedVoucher?.promo_type_name === "Percent Discount") {
+    finalDiscount = productTotalPrice * appliedVoucher?.discount_amount;
   } else {
-    finalDiscount = appliedVoucher.discount_amount;
+    finalDiscount = appliedVoucher?.discount_amount;
   }
 
-  if (appliedVoucher.promo_type_name === "Percent Discount") {
-    finalDiscountAmt = `${appliedVoucher.discount_amount * 100}%`;
+  if (appliedVoucher?.promo_type_name === "Percent Discount") {
+    finalDiscountAmt = `${appliedVoucher?.discount_amount * 100}%`;
   }
 
   const finalPrice = Number(productTotalPrice) + Number(shippingFee);
-  totalPrice = finalPrice - Number(appliedVoucher.discount_amount);
+  totalPrice = appliedVoucher
+    ? finalPrice - (Number(appliedVoucher?.discount_amount) || 0)
+    : finalPrice - 0;
+
+  console.log("AV", appliedVoucher);
 
   //display data into rows
   function createData(name, value) {
@@ -87,16 +91,16 @@ function PriceSummary({
     createData(
       "Voucher Discount",
       <Typography fontWeight={600}>
-        -<NumberFormat value={finalDiscount} isPeso />
+        -<NumberFormat value={finalDiscount || 0} isPeso />
         <br />
         <span fontWeight="regular">
-          {appliedVoucher.voucherID
+          {appliedVoucher?.voucherID
             ? `${appliedVoucher.promo_type_name} ${
                 appliedVoucher.promo_type_name === "Percent Discount"
                   ? `, ${finalDiscountAmt}`
                   : ""
               }`
-            : ""}
+            : "N/A"}
         </span>
       </Typography>
     ),

@@ -8,7 +8,6 @@ import CustomAlert from "../../../../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
 import ReviewContainer from "../../../../components/ShopOnly/ReviewContainer";
 import MapData from "../../../../utils/MapData";
-import reviewData from "../../../../data/reviewData";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import ProductInfo from "./ProductPageComponents/ProductInfo";
