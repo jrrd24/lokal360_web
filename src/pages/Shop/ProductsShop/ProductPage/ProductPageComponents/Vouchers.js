@@ -41,7 +41,7 @@ function Vouchers({ voucherData }) {
         </Alert>
       </Stack>
 
-      <Box>
+      <Box sx={{ maxWidth: 600 }}>
         <MapData
           inputData={processedVouchers}
           component={VoucherContainer}

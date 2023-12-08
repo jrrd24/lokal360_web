@@ -98,6 +98,7 @@ function Router() {
           />
 
           <Route path="/search/:query" exact element={<SearchResult />} />
+          <Route path="/profile/" element={<Profile />} />
         </Route>
 
         <Route element={<RequireAuth allowedRoles={["shop owner"]} />}>
@@ -106,7 +107,6 @@ function Router() {
             element={<EmployeeManagement />}
           />
           <Route path="/shop/360_partner" element={<PartnerShop />} />
-          <Route path="/profile/" element={<Profile />} />
         </Route>
       </Route>
 

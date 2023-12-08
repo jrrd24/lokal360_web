@@ -53,11 +53,7 @@ function AddProductDialog({ open, handleClose, handleSave }) {
     ["getAllProduct", "getFeaturedProducts", "getTopProducts"],
     {
       onError: (error) => {
-        if (error.response && error.response.status === 409) {
-          handleSave("error", error.response.data.error);
-        } else {
-          handleSave("error", "Error Creating New Product");
-        }
+        handleSave("error", error.response.data.error);
       },
       onMutate: () => {
         <LoadingCircle />;
@@ -78,6 +74,7 @@ function AddProductDialog({ open, handleClose, handleSave }) {
       productDescription: data.productDescription,
       productName: data.productName,
       shopCategory: data.shopCategory === "" ? null : data.shopCategory,
+      isRawMat: data.isRawMaterial,
     };
     if (data.productThumbnail instanceof File) {
       requestData.productThumbnail = data.productThumbnail;

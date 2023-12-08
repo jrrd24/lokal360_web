@@ -1,11 +1,12 @@
 import React from "react";
-import { Divider, Stack, Typography } from "@mui/material";
+import { Divider, FormGroup, Stack, Typography } from "@mui/material";
 import { CustomInput } from "../../../../../components/FormComponents/CustomInput";
 import {
   ProductsCategory,
   ShopCategory,
 } from "../../../../../utils/MapSelectMenuItems";
 import { UploadImage } from "../../../../../components/DialogBox/UploadImageDialog";
+import CustomSwitch from "../../../../../components/FormComponents/CustomSwitch";
 
 function DProductDetails({ sx, control, register, setValue }) {
   return (
@@ -72,6 +73,22 @@ function DProductDetails({ sx, control, register, setValue }) {
               },
             }}
           />
+
+          <FormGroup
+            sx={{
+              pl: 2,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            {" "}
+            <CustomSwitch
+              name="isRawMaterial"
+              control={control}
+              label="Is Raw Material"
+            />
+          </FormGroup>
         </Stack>
       </Stack>
 

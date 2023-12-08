@@ -3,7 +3,14 @@ import { Stack, Box, Typography } from "@mui/material";
 import { ReadOnlyCustomInput } from "../../../../../components/FormComponents/CustomInput";
 import { Star } from "@mui/icons-material";
 
-function Details({ name, category, shopCategory, description, rating }) {
+function Details({
+  name,
+  category,
+  shopCategory,
+  description,
+  rating,
+  isRawMat,
+}) {
   return (
     <Stack spacing={3} width={"100%"}>
       {/*Section Name */}
@@ -52,14 +59,22 @@ function Details({ name, category, shopCategory, description, rating }) {
           width="100%"
           multiline
         />
+        <Stack direction={"row"} spacing={3}>
+          <ReadOnlyCustomInput
+            name="rating"
+            label="Product Rating"
+            defaultValue={rating ? `${rating}/5` : "N/A"}
+            width="48%"
+            component={Star}
+          />
 
-        <ReadOnlyCustomInput
-          name="rating"
-          label="Product Rating"
-          defaultValue={rating}
-          width="100%"
-          component={Star}
-        />
+          <ReadOnlyCustomInput
+            name="isRawMat"
+            label="Product Type"
+            defaultValue={isRawMat ? "Raw Material" : "Finished Product"}
+            width="48%"
+          />
+        </Stack>
       </Stack>
     </Stack>
   );

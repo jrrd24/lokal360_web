@@ -32,6 +32,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
     categoryID,
     description,
     shopCategoryID,
+    is_raw_mat,
   } = productData || {};
 
   const product_thumbnail =
@@ -98,6 +99,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
       productName: data.productName,
       shopCategory: data.shopCategory === "" ? null : data.shopCategory,
       shopID: auth.shopID,
+      isRawMaterial: data.isRawMaterial,
     };
     if (data.productThumbnail instanceof File) {
       requestData.productThumbnail = data.productThumbnail;
@@ -153,6 +155,7 @@ function EditProductInfoDialog({ open, handleClose, handleSave, productData }) {
                   category={categoryID}
                   selectedShopCategory={shopCategoryID}
                   description={description}
+                  isRawMat={is_raw_mat}
                 />
               </Box>
 

@@ -219,6 +219,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
     promoID,
     rating,
     variations,
+    is_raw_mat,
     Category: { category_name: productCategory },
     ShopCategory,
     ProductImages: Images,
@@ -337,6 +338,7 @@ function ProductPageContent({ selectedProductID, setProductName }) {
                     shopCategory={shopCategory}
                     description={description}
                     rating={rating}
+                    isRawMat={is_raw_mat}
                   />
                 </Box>
 

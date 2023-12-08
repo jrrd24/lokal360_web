@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Box, Typography } from "@mui/material";
+import { Stack, Box, Typography, Alert } from "@mui/material";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import DataGridProducts from "./DataGridProducts";
 import theme from "../../../../Theme";
@@ -31,6 +31,11 @@ function MyProducts({ handleSave, open, setOpen }) {
             <ButtonAdd label={"New Product"} onClickAction={handleOpen} />
             {/*TODO: Add onClick for Button */}
           </Box>
+
+          <Alert severity="warning">
+            All Products With <b>N/A Status</b> (Products Without{" "}
+            <b>Variation</b>) Will not be Visible for Customers
+          </Alert>
 
           <Box sx={{ alignSelf: "center", width: "100%" }}>
             <DataGridProducts />

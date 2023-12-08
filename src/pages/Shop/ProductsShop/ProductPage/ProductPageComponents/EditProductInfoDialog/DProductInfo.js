@@ -1,10 +1,11 @@
 import React from "react";
-import { Stack, Typography } from "@mui/material";
+import { FormGroup, Stack, Typography } from "@mui/material";
 import { CustomInput } from "../../../../../../components/FormComponents/CustomInput";
 import {
   ProductsCategory,
   ShopCategory,
 } from "../../../../../../utils/MapSelectMenuItems";
+import CustomSwitch from "../../../../../../components/FormComponents/CustomSwitch";
 function DProductInfo({
   sx,
   control,
@@ -12,6 +13,7 @@ function DProductInfo({
   category,
   selectedShopCategory,
   description,
+  isRawMat,
 }) {
   return (
     <Stack spacing={3} sx={{ sx }}>
@@ -85,6 +87,23 @@ function DProductInfo({
             },
           }}
         />
+
+        <FormGroup
+          sx={{
+            pl: 2,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          {" "}
+          <CustomSwitch
+            name="isRawMaterial"
+            control={control}
+            label="Is Raw Material"
+            defaultValue={isRawMat}
+          />
+        </FormGroup>
       </Stack>
     </Stack>
   );
