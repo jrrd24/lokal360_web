@@ -17,6 +17,10 @@ function DAdDetails({ sx, control, register, setValue, watch }) {
   ];
 
   const startDate = watch("startDate");
+  const today = new Date();
+  const formattedToday = `${today.getFullYear()}-${(today.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
 
   return (
     <Stack spacing={3} sx={{ sx }}>
@@ -51,6 +55,8 @@ function DAdDetails({ sx, control, register, setValue, watch }) {
             name="startDate"
             label="Start Date"
             width={"48%"}
+            value={formattedToday}
+            disablePastDates
             rules={{ required: "Start Date Is Required" }}
           />
 
@@ -61,6 +67,8 @@ function DAdDetails({ sx, control, register, setValue, watch }) {
             label="End Date"
             width={"48%"}
             rules={{ required: "End Date Is Required" }}
+            value={formattedToday}
+            disablePastDates
             startDateValue={startDate}
           />
         </Stack>

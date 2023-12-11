@@ -335,7 +335,7 @@ const ShopSidebar = React.memo(({ component: MainComponent }) => {
           sx={{
             backgroundColor:
               selectedMenuItem === "360 Partner"
-                ? "transparent"
+                ? theme.palette.primary.main
                 : theme.palette.background.paper,
             transition: "background-color 0.3s ease",
           }}

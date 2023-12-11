@@ -87,7 +87,6 @@ function DataGridCustomers() {
     return <LoadingCircle />;
   }
 
-
   // Define data grid columns
   const columns = [
     // {
@@ -154,7 +153,6 @@ function DataGridCustomers() {
       width: 200,
       renderCell: (params) => {
         const status = params.value;
-        console.log("STATUS", status);
         let statusComponent;
         if (
           status === "Follower" ||

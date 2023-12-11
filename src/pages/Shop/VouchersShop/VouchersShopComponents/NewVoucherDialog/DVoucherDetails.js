@@ -15,6 +15,10 @@ function DVoucherDetails({
   handlePromoError,
 }) {
   const startDate = watch("startDate");
+  const today = new Date();
+  const formattedToday = `${today.getFullYear()}-${(today.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
 
   return (
     <Stack spacing={5} sx={{ sx }}>
@@ -35,6 +39,7 @@ function DVoucherDetails({
               name="startDate"
               label="Start Date"
               width={"48%"}
+              value={formattedToday}
               disablePastDates
               rules={{ required: "Start Date Is Required" }}
             />
@@ -45,6 +50,7 @@ function DVoucherDetails({
               name="endDate"
               label="End Date"
               width={"48%"}
+              value={formattedToday}
               disablePastDates
               rules={{ required: "End Date Is Required" }}
               startDateValue={startDate}

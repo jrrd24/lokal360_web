@@ -7,7 +7,7 @@ import {
 import { PromoTypes } from "../../../../../utils/MapSelectMenuItems";
 import { ProductToggle } from "../../../../../components/FormComponents/ProductToggle";
 
-function DPromoDetails({ sx, control, productData }) {
+function DPromoDetails({ sx, control, productData, watch }) {
   const [promoType, setPromoType] = useState("");
   const [disableInput, setDisableInput] = useState(true);
 
@@ -20,8 +20,20 @@ function DPromoDetails({ sx, control, productData }) {
   }, [promoType]);
 
   //For Currency and Percentage Validation
+  const minSpend = React.useRef({});
+  minSpend.current = watch("minSpend", "");
+
   const validateMaxAmount = (value, inputName) => {
     const numericValue = parseFloat(value);
+    if (
+      (promoType === 1 && inputName !== "minSpend") ||
+      (promoType === 3 && inputName !== "minSpend")
+    ) {
+      if (minSpend.current >= numericValue) {
+        return "Discount Value must be Higher than Minimum Spend";
+      }
+    }
+
     if (
       numericValue > 999999.99 &&
       (promoType === 3 || promoType === 1 || inputName === "minSpend")

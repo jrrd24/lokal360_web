@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogContent,
   Stack,
+  Zoom,
 } from "@mui/material";
 import theme from "../../../../../Theme";
 import ButtonSave from "../../../../../components/Buttons/ButtonSave";
@@ -39,6 +40,7 @@ function EditPromoDialog({
     handleSubmit,
     formState: { isDirty },
     reset,
+    watch,
   } = useForm();
 
   //API CALL GET ALL PROMO PRODUCTS
@@ -148,6 +150,7 @@ function EditPromoDialog({
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
+        TransitionComponent={Zoom}
         sx={{ ...theme.components.dialog.dialogBox }}
         PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >
@@ -199,6 +202,7 @@ function EditPromoDialog({
                     control={control}
                     data={data}
                     productData={promoProducts}
+                    watch={watch}
                   />
                 )}
                 {!promoProducts && <LoadingCircle />}

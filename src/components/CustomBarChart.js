@@ -25,17 +25,13 @@ const getColorForIndex = (index) => {
   return "#7678ED";
 };
 
-const CustomBarChart = ({ data }) => {
+const CustomBarChart = ({ data, sumAmtSold }) => {
   if (!Array.isArray(data) || data.length === 0) {
     // Handle the case when data is undefined or not an array
     return <div>No data available</div>;
   }
   // Sort the data in descending order based on the 'total_sold' property
   const sortedData = data.slice().sort((a, b) => b.total_sold - a.total_sold);
-  const sumAmtSold = sortedData.reduce(
-    (sum, orderedData) => sum + orderedData.total_sold,
-    0
-  );
   const limitedData = sortedData.slice(0, 5);
 
   return (

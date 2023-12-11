@@ -8,6 +8,7 @@ import {
   DialogTitle,
   Stack,
   Divider,
+  Zoom,
 } from "@mui/material";
 import ButtonSave from "../../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../../components/Buttons/ButtonCloseDialog";
@@ -118,6 +119,7 @@ function EditVariationDialog({
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
+        TransitionComponent={Zoom}
         sx={{ ...theme.components.dialog.dialogBox }}
         PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >

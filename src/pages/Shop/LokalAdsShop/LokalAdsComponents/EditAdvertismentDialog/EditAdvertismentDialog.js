@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogContent,
   Stack,
+  Zoom,
 } from "@mui/material";
 import theme from "../../../../../Theme";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
@@ -46,6 +47,7 @@ function EditAdvertismentDialog({ open, handleClose, handleDelete, data }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
+        TransitionComponent={Zoom}
         sx={{ ...theme.components.dialog.dialogBox }}
         PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >

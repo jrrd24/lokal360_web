@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogContent,
   Stack,
+  Zoom,
 } from "@mui/material";
 import theme from "../../../../../Theme";
 import ButtonSave from "../../../../../components/Buttons/ButtonSave";
@@ -31,6 +32,7 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
     handleSubmit,
     formState: { isDirty },
     reset,
+    watch,
   } = useForm();
 
   //API CALL GET ALL PROMO PRODUCTS
@@ -107,6 +109,7 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
+        TransitionComponent={Zoom}
         sx={{ ...theme.components.dialog.dialogBox }}
         PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >
@@ -137,7 +140,11 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
             <Stack spacing={2} sx={{ width: "600px" }}>
               {/*Promo Details*/}
               <Box sx={{ py: 5 }}>
-                <DPromoDetails control={control} productData={promoProducts} />
+                <DPromoDetails
+                  control={control}
+                  productData={promoProducts}
+                  watch={watch}
+                />
               </Box>
             </Stack>
           </DialogContent>

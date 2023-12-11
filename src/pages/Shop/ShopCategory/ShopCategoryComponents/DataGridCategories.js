@@ -47,7 +47,7 @@ export default function DataGridCategories({
     "getShopCategory",
     () =>
       axiosPrivate
-        .get(`/api/shop_category/?shopID=${auth.shopID}`)
+        .get(`/api/shop_category/?shopID=${auth.shopID}&orderDESC=true`)
         .then((res) => res.data),
     { enabled: true }
   );
@@ -57,7 +57,7 @@ export default function DataGridCategories({
   }
 
   //Initialize category Info field
-  shopCategoryData?.forEach((row) => {
+  shopCategoryData?.shopCategories?.forEach((row) => {
     row.categoryInfo = [
       row.shopCategoryID,
       row.shop_category_name,
@@ -146,7 +146,7 @@ export default function DataGridCategories({
   return (
     <div>
       <CustomDataGrid
-        data={shopCategoryData}
+        data={shopCategoryData?.shopCategories}
         columns={columns}
         rowID={"shopCategoryID"}
       />

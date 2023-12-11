@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogContent,
   Stack,
+  Zoom,
 } from "@mui/material";
 import theme from "../../../../../Theme";
 import ButtonSave from "../../../../../components/Buttons/ButtonSave";
@@ -93,6 +94,7 @@ function AddProductDialog({ open, handleClose, handleSave }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
+        TransitionComponent={Zoom}
         sx={{ ...theme.components.dialog.dialogBox }}
         PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >

@@ -9,6 +9,7 @@ import {
   Stack,
   Divider,
   useMediaQuery,
+  Zoom,
 } from "@mui/material";
 // page sections
 import BasicShopInfoD from "./BasicShopInfoD";
@@ -169,6 +170,7 @@ function EditShopInfoDialog({ open, handleClose, handleSave, shopData }) {
         open={open}
         onClose={handleClose}
         hideBackdrop={true}
+        TransitionComponent={Zoom}
         sx={{ ...theme.components.dialog.dialogBox }}
         PaperProps={{ sx: { ...theme.components.dialog.paperProps } }}
       >

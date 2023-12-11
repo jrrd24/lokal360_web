@@ -48,7 +48,10 @@ function SoldPerCategory({ hideShowAll }) {
 
       {/*Content */}
       <Stack spacing={1} direction={"column"} sx={{ ...classes.content }}>
-        <CustomBarChart data={shopCategoryData} />
+        <CustomBarChart
+          data={shopCategoryData.shopCategories}
+          sumAmtSold={shopCategoryData.totalProductsCount}
+        />
       </Stack>
     </Stack>
   );
