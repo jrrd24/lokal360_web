@@ -14,11 +14,36 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import useAuth from "../../../hooks/useAuth";
 import { BASE_URL } from "../../../api/Api";
 import EmployeeUnauthorized from "../../../components/Loading/EmployeeUnauthorized";
+import useAlert from "../../../hooks/useAlert";
+import MapComponent from "./ShopInfoComponents/SetLocationDialog/MapComponent";
 
 function ShopInfoContent() {
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
   const { auth } = useAuth();
+
+  // Handle Alert Click
+  const {
+    open: openAlert,
+    severity,
+    alertMsg,
+    showAlert,
+    hideAlert,
+  } = useAlert();
+
+  // Handle Open Dialog Box
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleSave = (severity, alertMsg) => {
+    setOpen(false);
+    showAlert(severity, alertMsg);
+  };
 
   const { data, isLoading, isError } = useCustomQuery(
     "getShopInfo",
@@ -61,6 +86,8 @@ function ShopInfoContent() {
     address_line_1,
     address_line_2,
     address_barangay,
+    latitude,
+    longitude,
     phone_number,
     website_link,
     is_open_mon,
@@ -135,6 +162,10 @@ function ShopInfoContent() {
             {/*Address Info*/}
             <Box sx={{ ...classes.content }}>
               <ShopAddress
+                open={open}
+                handleOpen={handleOpen}
+                handleClose={handleClose}
+                handleSave={handleSave}
                 addressLine1={address_line_1}
                 addressLine2={address_line_2}
                 barangay={address_barangay}
@@ -142,6 +173,8 @@ function ShopInfoContent() {
                 region={address_region}
                 postalCode={address_postal_code}
                 province={address_province}
+                latitude={latitude}
+                longitude={longitude}
               />
             </Box>
 

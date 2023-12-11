@@ -7,7 +7,6 @@ import ValuableCustomers from "./DashboardComponents/ValuableCustomers";
 import ActiveLokalAds from "./DashboardComponents/ActiveLokalAds";
 import ActiveVouchers from "./DashboardComponents/ActiveVouchers";
 import ProductStatus from "./DashboardComponents/ProductStatus";
-import GraphSalesAnalytics from "../AnalyticsShop/AnalyticsComponents/GraphSalesAnalytics";
 import theme from "../../../Theme";
 import DateRangePicker from "../../../components/Pickers/DateRangePicker";
 import TopProducts from "../AnalyticsShop/AnalyticsComponents/TopProducts";

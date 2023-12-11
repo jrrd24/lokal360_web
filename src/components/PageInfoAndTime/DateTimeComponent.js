@@ -11,14 +11,14 @@ const DateTimeComponent = () => {
     return i;
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentDateTime(new Date());
-    }, 1000); // Update the date and time every second (1000 milliseconds)
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentDateTime(new Date());
+  //   }, 1000); // Update the date and time every second (1000 milliseconds)
 
-    // Clean up the interval when the component is unmounted
-    return () => clearInterval(interval);
-  }, []);
+  //   // Clean up the interval when the component is unmounted
+  //   return () => clearInterval(interval);
+  // }, []);
 
   // Function to get the formatted time string
   const getFormattedTime = () => {
@@ -70,7 +70,7 @@ const DateTimeComponent = () => {
     return (
       <>
         <Typography variant="subtitle1">
-          <Typography variant="h5" component="span" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
             {dayOfWeek}
             {", "}
           </Typography>
@@ -83,9 +83,9 @@ const DateTimeComponent = () => {
   return (
     <div style={{ textAlign: "right", userSelect: "none" }}>
       {getFormattedDate()}
-      <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+      {/* <Typography variant="h5" sx={{ fontWeight: "bold" }}>
         {getFormattedTime()}
-      </Typography>
+      </Typography> */}
     </div>
   );
 };

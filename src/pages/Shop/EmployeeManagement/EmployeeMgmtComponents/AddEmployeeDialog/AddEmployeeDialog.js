@@ -45,7 +45,7 @@ function AddEmployeeDialog({ open, handleClose, handleSave }) {
       );
       return response.data;
     },
-    ["getShopEmployee"],
+    ["getShopEmployees"],
     {
       onError: (error) => {
         if (error.response) {

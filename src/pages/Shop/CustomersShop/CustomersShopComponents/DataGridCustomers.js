@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Avatar, IconButton, Typography, Box } from "@mui/material";
+import { Avatar, IconButton, Box } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
-import userData from "../../../../data/userData";
 import CustomerStatus from "../../../../components/ShopOnly/StatusAndTags/CustomerStatus";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
